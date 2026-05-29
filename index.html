@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>USYD本科选课规划/课程内容概览</title>
+  <title>USYD 学位规划仪表盘</title>
   <script>
     (function() {
       try {
@@ -451,11 +451,11 @@
 
     #guidelines  { order: 1; }
     #checklist   { order: 2; }
-    #route       { order: 3; }
-    #plans       { order: 4; }
-    #scenarios   { order: 5; }
+    #plans       { order: 3; }
+    #courses     { order: 4; }
+    #route       { order: 5; }
     #bottleneck  { order: 6; }
-    #courses     { order: 7; }
+    #scenarios   { order: 7; }
     #reading     { order: 8; }
     #sources     { order: 9; }
 
@@ -485,6 +485,10 @@
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
+    }
+
+    .section-kicker {
+      display: none !important;
     }
 
     h2 {
@@ -925,6 +929,22 @@
       border-color: rgba(0,113,227,.22);
       border-left-color: var(--blue);
       background: var(--blue-soft);
+    }
+
+    .mini-course.is-recommended {
+      opacity: .48;
+      border-style: dashed;
+      background: rgba(251, 251, 253, .58);
+    }
+
+    .mini-course.is-recommended strong,
+    .mini-course.is-recommended small,
+    .mini-course.is-recommended .tiny-chip {
+      color: var(--muted);
+    }
+
+    .mini-course.recommendation-hidden {
+      display: none !important;
     }
 
     .status-prefix {
@@ -3327,10 +3347,15 @@
 	      color: var(--pink) !important;
 	    }
 
-	    :root[data-theme="dark"] .course[data-course-status="locked"] summary,
+    :root[data-theme="dark"] .course[data-course-status="locked"] summary,
 	    :root[data-theme="dark"] .course[data-course-status="candidate"] summary,
 	    :root[data-theme="dark"] .course[data-course-status="completed"] summary {
 	      background: linear-gradient(180deg, rgba(255,255,255,.05), transparent) !important;
+	    }
+
+	    :root[data-theme="dark"] .mini-course.is-recommended {
+	      background: rgba(255,255,255,.035) !important;
+	      border-color: rgba(255,255,255,.16) !important;
 	    }
 
 	    :root[data-theme="dark"] .snapshot {
@@ -3422,6 +3447,416 @@
 	      border-color: var(--blue) !important;
 	    }
 
+    /* ==========================================================
+       Academic dashboard refresh — calmer surfaces, clearer
+       hierarchy, tighter cards, and workflow-first scanning.
+       ========================================================== */
+
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --surface: #ffffff;
+      --surface-muted: #f8fafc;
+      --ink: #15171c;
+      --text: #343a46;
+      --muted: #68707d;
+      --line: rgba(18, 25, 38, 0.10);
+      --line-strong: rgba(18, 25, 38, 0.18);
+      --blue: #1f5fbf;
+      --blue-soft: #edf4ff;
+      --green: #28724a;
+      --green-soft: #edf7f1;
+      --purple: #6752a8;
+      --purple-soft: #f2effa;
+      --orange: #966000;
+      --orange-soft: #fff6e6;
+      --pink: #a83f63;
+      --pink-soft: #fff1f6;
+      --gray-soft: #eef1f5;
+      --soft: #f7f9fb;
+      --shadow: 0 1px 2px rgba(15, 23, 42, .05), 0 10px 24px rgba(15, 23, 42, .06);
+      --shadow-hover: 0 1px 2px rgba(15, 23, 42, .06), 0 14px 30px rgba(15, 23, 42, .08);
+      --radius-xl: 14px;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --max: 1280px;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0f1217;
+      --card: #171b22;
+      --surface: #171b22;
+      --surface-muted: #11151b;
+      --ink: #f3f6fb;
+      --text: #d7dde8;
+      --muted: #98a2b3;
+      --line: rgba(226, 232, 240, .12);
+      --line-strong: rgba(226, 232, 240, .22);
+      --blue: #8bbcff;
+      --blue-soft: rgba(139, 188, 255, .15);
+      --green: #8fe0a8;
+      --green-soft: rgba(143, 224, 168, .14);
+      --orange: #ffc66f;
+      --orange-soft: rgba(255, 198, 111, .14);
+      --soft: #1e242e;
+      --gray-soft: rgba(226, 232, 240, .08);
+      --shadow: 0 1px 2px rgba(0,0,0,.26), 0 14px 34px rgba(0,0,0,.24);
+      --shadow-hover: 0 1px 2px rgba(0,0,0,.32), 0 18px 40px rgba(0,0,0,.30);
+    }
+
+    body {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,0) 280px),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    :root[data-theme="dark"] body {
+      background:
+        linear-gradient(180deg, rgba(139,188,255,.08), rgba(139,188,255,0) 300px),
+        var(--bg) !important;
+    }
+
+    .page {
+      width: min(calc(100% - 32px), var(--max));
+      padding: 22px 0 56px;
+    }
+
+    .hero {
+      gap: 18px;
+      padding: 24px;
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    :root[data-theme="dark"] .hero {
+      background: var(--surface) !important;
+    }
+
+    .eyebrow,
+    .section-kicker {
+      letter-spacing: .05em;
+      text-transform: none;
+    }
+
+    h1 {
+      max-width: 820px;
+      font-size: clamp(2rem, 3vw, 3rem);
+      letter-spacing: -0.02em;
+    }
+
+    h1 small {
+      margin-top: 6px;
+      font-size: .42em;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 840px;
+      margin-top: 12px;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .meta {
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .meta span,
+    .tool-button,
+    .stage-select,
+    .stage-badge,
+    button {
+      border-radius: 8px;
+      box-shadow: none;
+    }
+
+    .structure-grid {
+      gap: 8px;
+      padding: 10px;
+      border-radius: 12px;
+      background: var(--surface-muted);
+      border-color: var(--line);
+      box-shadow: none;
+    }
+
+    .metric,
+    .metric.metric-primary,
+    .metric.metric-wide {
+      min-height: 112px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--surface);
+      box-shadow: none;
+    }
+
+    .metric strong,
+    .metric.metric-primary strong,
+    .metric.metric-wide strong {
+      font-size: clamp(1.35rem, 2vw, 2.1rem);
+      letter-spacing: -0.02em;
+    }
+
+    .metric p {
+      display: none;
+    }
+
+    .metric b {
+      font-size: .9rem;
+    }
+
+    .metric span,
+    .metric .metric-value {
+      font-size: .76rem;
+    }
+
+    .primary-focus {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .focus-card {
+      gap: 6px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: var(--surface-muted);
+      box-shadow: none;
+    }
+
+    .focus-card strong {
+      font-size: 1.08rem;
+    }
+
+    .focus-card p {
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+
+    .nav {
+      top: 10px;
+      margin-top: 12px;
+      padding: 6px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 8px 20px rgba(15,23,42,.06);
+    }
+
+    :root[data-theme="dark"] .nav {
+      background: rgba(23,27,34,.88) !important;
+    }
+
+    .nav a {
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: .88rem;
+    }
+
+    .status-bar {
+      position: sticky;
+      top: 62px;
+      grid-template-columns: 1fr 1.35fr 1fr 1fr 1.5fr;
+      margin: 12px 0 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 8px 20px rgba(15,23,42,.06);
+    }
+
+    :root[data-theme="dark"] .status-bar {
+      background: rgba(23,27,34,.92) !important;
+    }
+
+    .status-bar > div {
+      padding: 0 10px;
+    }
+
+    .status-bar span.label {
+      font-size: .62rem;
+      letter-spacing: .06em;
+    }
+
+    .status-bar strong.value {
+      font-size: .86rem;
+    }
+
+    main {
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .section-card {
+      padding: 0;
+      border-radius: 12px;
+      background: transparent;
+      box-shadow: none;
+      border: 0;
+    }
+
+    .section-card:hover {
+      box-shadow: none;
+    }
+
+    .section-head {
+      margin-bottom: 12px;
+      padding: 0 0 10px;
+      border-bottom-color: var(--line);
+    }
+
+    h2 {
+      font-size: clamp(1.35rem, 2.3vw, 2rem);
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      max-width: 72ch;
+      margin-top: 7px;
+      font-size: .94rem;
+      line-height: 1.58;
+    }
+
+    .mini-card,
+    .plan-card,
+    .flow-card,
+    .option-card,
+    .check-card,
+    .mistake-card,
+    .source-card,
+    .progress-card,
+    .road-semester,
+    .path-card,
+    .elective-cluster,
+    .whatif-card,
+    .route-note,
+    .candidate-slot,
+    .course,
+    .toolbar,
+    .lens-card,
+    .bottleneck-card,
+    .scenario-output,
+    .reading-group,
+    .reference-group,
+    .checklist-details {
+      border-radius: 10px !important;
+      background: var(--surface) !important;
+      box-shadow: none !important;
+    }
+
+    .toolbar,
+    .route-note,
+    .progress-actions,
+    .checklist-details,
+    .guideline-details {
+      background: var(--surface-muted) !important;
+    }
+
+    .roadmap-tabs,
+    .route-toggle,
+    .cluster-tabs,
+    .elective-filters,
+    .reading-tabs,
+    .source-toolbar,
+    .scenario-buttons {
+      gap: 6px;
+    }
+
+    .roadmap-tabs {
+      top: 62px;
+      padding: 6px;
+      border-radius: 10px;
+      background: var(--surface-muted);
+      box-shadow: none;
+    }
+
+    .roadmap-tab,
+    .route-button,
+    .cluster-tab,
+    .elective-filter,
+    .scenario-btn,
+    .reading-tab,
+    .source-filter,
+    .filter-options button {
+      border-radius: 8px;
+    }
+
+    .road-semester {
+      padding: 12px !important;
+    }
+
+    .road-semester header {
+      padding-bottom: 8px;
+    }
+
+    .mini-course {
+      border-radius: 8px;
+      background: var(--surface-muted);
+    }
+
+    .course:hover,
+    .road-semester:hover,
+    .mini-card:hover,
+    .metric:hover,
+    .flow-card:hover,
+    .candidate-card:hover,
+    .bottleneck-card:hover,
+    .risk-card:hover,
+    .reading-card:hover,
+    .mistake-card:hover,
+    .source-card:hover,
+    .progress-card:hover {
+      transform: none;
+      box-shadow: var(--shadow-hover) !important;
+    }
+
+    .course summary {
+      padding: 15px 16px;
+    }
+
+    .course-body {
+      padding: 0 16px 16px;
+    }
+
+    .toolbar {
+      padding: 12px;
+    }
+
+    .search-box {
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .snapshot,
+    .info-block,
+    .term-grid li,
+    .reading-list li,
+    .learning-outcome-list li,
+    .workflow-list li,
+    .compact-reading li,
+    .scenario-output .so-grid > div,
+    .elective-meta span,
+    .placement-row {
+      border-radius: 8px;
+      background: var(--surface-muted) !important;
+    }
+
+    footer {
+      margin-top: 28px;
+      font-size: .82rem;
+    }
+
+    @media (max-width: 980px) {
+      .primary-focus { grid-template-columns: 1fr; }
+      .status-bar { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .page { width: min(calc(100% - 20px), var(--max)); }
+      .hero { padding: 18px; }
+      .status-bar { grid-template-columns: 1fr; }
+      .metric { min-height: 0; }
+    }
+
 	  </style>
 </head>
 <body>
@@ -3430,8 +3865,8 @@
       <div class="hero-topline">
       <div>
         <p class="eyebrow">University of Sydney · Bachelor of Science</p>
-        <h1>USYD 本科选课规划<small>课程内容概览</small></h1>
-        <p class="subtitle">面向 Computer Science Major 与 Discrete Mathematics and Algorithms Minor 的学位规划仪表盘与课程知识地图。重点用于学分结构核对、先修路径判断、课业压力管理、课程内容理解与学习路线规划。</p>
+        <h1>USYD 学位规划仪表盘<small>进度、学期计划与课程决策</small></h1>
+        <p class="subtitle">面向 Computer Science Major 与 Discrete Mathematics and Algorithms Minor。这里优先回答三个问题：当前进度是否稳、下学期该锁定哪些课、每门候选课是否值得进入计划。</p>
         <div class="meta">
           <span>作者：Yulin Ou</span>
           <span>Major：Computer Science</span>
@@ -3464,7 +3899,7 @@
           <b>Bachelor of Science</b>
           <span data-progress-status>尚未记录已完成课程</span>
           <div class="progress-bar" style="--value:0%"><span></span></div>
-          <p>总学分目标与完成进度。只有在课程候选表中标记“已完成”的课程会计入。</p>
+          <p>只有在课程库中标记“已完成”的课程会计入。</p>
         </article>
         <article class="metric" data-progress-card="major">
           <div class="metric-top"><strong>48cp</strong><span class="metric-value" data-progress-value>0 / 48cp</span></div>
@@ -3514,30 +3949,32 @@
         </article>
       </div>
       <div class="primary-focus" aria-label="核心使用入口">
+        <a class="focus-card" href="#checklist">
+          <span>当前进度</span>
+          <strong>毕业结构核对</strong>
+          <p>查看 144cp、Major、Minor、OLE、WAM 与风险状态，正式选课前快速扫一遍结构缺口。</p>
+        </a>
         <a class="focus-card" href="#plans">
-          <span>核心视图</span>
-          <strong>每学期选课参考排布</strong>
-          <p>用于比较高 WAM 与加速完成两种节奏，快速判断每学期 cp、课业压力、intensive 是否值得加入。</p>
+          <span>学期计划</span>
+          <strong>锁定下一阶段课程</strong>
+          <p>围绕接近 2.5 年毕业目标，判断每学期 cp、课业压力和 intensive 是否值得加入。</p>
         </a>
         <a class="focus-card" href="#courses">
-          <span>知识地图</span>
-          <strong>课程候选表 / 知识地图</strong>
-          <p>用于按核心课、数学、系统、数据、音乐、哲学、OLE 等方向筛选课程，并查看每门课学什么、怎么准备。</p>
+          <span>课程库</span>
+          <strong>筛选与标记候选课</strong>
+          <p>用搜索加三组筛选定位课程，查看是否适合选、什么时候选、需要什么准备。</p>
         </a>
       </div>
     </header>
 
     <nav class="nav" aria-label="页面目录">
       <a href="#top">概览</a>
-      <a href="#guidelines">选课注意事项</a>
-      <a href="#checklist">毕业核对表</a>
-      <a href="#route">CS + DMA 路线</a>
-      <a href="#plans">学期排布</a>
+      <a href="#plans">学期计划</a>
+      <a href="#courses">课程库</a>
+      <a href="#bottleneck">先修图</a>
       <a href="#scenarios">路线模拟</a>
-      <a href="#bottleneck">先修路线图</a>
-      <a href="#courses">课程候选表</a>
-      <a href="#reading">阅读推荐</a>
-      <a href="#sources">官方来源</a>
+      <a href="#reading">阅读</a>
+      <a href="#sources">来源</a>
     </nav>
 
     <div class="status-bar" id="persistentStatus" aria-label="当前规划状态">
@@ -3551,7 +3988,7 @@
       </div>
       <div>
         <span class="label">规划目标</span>
-        <strong class="value" data-status-key="goal">高 WAM 优先 / 平衡推进</strong>
+        <strong class="value" data-status-key="goal">快速路线 · 接近 2.5 年毕业</strong>
       </div>
       <div>
         <span class="label">已完成学分</span>
@@ -3564,8 +4001,8 @@
     </div>
 
     <main>
-      <section id="guidelines" class="section-card">
-        <div class="section-head"><span class="section-kicker">选课前置提醒</span><h2>选课总体注意事项</h2><p>本区合并规划原则、常见排课错误和风险组合。正式排课前先看这里，再进入学期时间轴和课程候选表。</p></div>
+      <section id="guidelines" class="section-card overview-support">
+        <div class="section-head"><span class="section-kicker">决策原则</span><h2>决策原则</h2><p>用这些原则过滤掉明显高风险组合，再进入学期计划和课程库做具体选择。</p></div>
         <div class="grid-3">
           <div class="mini-card"><h3>核心课质量优先</h3><p>加速毕业不能牺牲 INFO1110、INFO1113、COMP2123、COMP2017、COMP3027 等主线课程质量。</p></div>
           <div class="mini-card"><h3>先修链优先</h3><p>INFO1110 → INFO1113 → COMP2123 / COMP2022 → COMP3027 → Project 是关键路径，延后会影响后续排课。</p></div>
@@ -3585,22 +4022,28 @@
         </details>
       </section>
 
-      <section id="route" class="section-card">
-        <div class="section-head"><span class="section-kicker">知识主线</span><h2>CS + DMA 学习路线</h2><p>课程可以重新排序，但知识路线应保持连续。</p></div>
-        <div class="grid-2">
-          <div class="flow-card"><h3>Computer Science Major 主线</h3><div class="flow"><span class="node">INFO1110</span><span class="arrow">→</span><span class="node">INFO1113</span><span class="arrow">→</span><span class="node">COMP2123</span><span class="arrow">→</span><span class="node">COMP2017</span><span class="arrow">/</span><span class="node">COMP2022</span><span class="arrow">→</span><span class="node">COMP3027</span><span class="arrow">→</span><span class="node">COMP3888 / COMP3988</span></div></div>
-          <div class="flow-card"><h3>Discrete Mathematics and Algorithms Minor 主线</h3><div class="flow"><span class="node">MATH1064</span><span class="arrow">→</span><span class="node">DATA1002 / DATA1902 / INFO1110</span><span class="arrow">→</span><span class="node">COMP2123</span><span class="arrow">→</span><span class="node">2000-level MATH</span><span class="arrow">→</span><span class="node">3000-level MATH</span><span class="arrow">+</span><span class="node">3000-level COMP</span></div></div>
-        </div>
+      <section id="checklist" class="section-card">
+        <div class="section-head"><span class="section-kicker">当前进度</span><h2>结构核对</h2><p>快速确认总学分、Major、Minor、OLE、高阶课、先修和学期压力是否闭合。</p></div>
+        <details class="checklist-details">
+          <summary>最后一年或正式选课前展开核对</summary>
+          <div class="checklist">
+            <div class="check-card"><span class="box"></span><div>是否完成 144cp 总学分？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否完成 Bachelor of Science degree core？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否完成 Computer Science major 48cp？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否完成 Discrete Mathematics and Algorithms minor 36cp？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否完成 6cp OLE？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否满足 3000-level / 高阶课程要求？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否有 prerequisite 被卡住？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否有某学期课业压力过重？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否有 OLE / 选修课可以作为缓冲？</div></div>
+            <div class="check-card"><span class="box"></span><div>是否已经核对 Handbook、unit page、Sydney Student availability？</div></div>
+          </div>
+        </details>
       </section>
 
       <section id="plans" class="section-card">
-        <div class="section-head"><span class="section-kicker">互动式学位路线图</span><h2>每学期选课参考排布</h2><p>这部分不是固定课表，而是用来判断当前路线是否满足 BSc 144cp、Computer Science major、Discrete Mathematics and Algorithms minor、6cp OLE 和选修空间的整体约束。</p></div>
+        <div class="section-head"><span class="section-kicker">学期计划</span><h2>学期计划</h2><p>用这里决定下一阶段锁定课、候选课和缓冲空间；默认推荐只作参考，你的锁定和候选状态会覆盖它。</p></div>
         <div class="roadmap-shell">
-          <div class="roadmap-tabs" role="tablist" aria-label="学位路线图视图">
-            <button class="roadmap-tab active" type="button" data-roadmap-tab="timeline">学期时间轴</button>
-            <button class="roadmap-tab" type="button" data-roadmap-tab="explorer">选修探索池</button>
-          </div>
-
           <div class="roadmap-panel deprecated-progress" data-roadmap-panel="requirements" hidden aria-hidden="true">
             <h3 class="roadmap-panel-title">毕业要求进度仪表盘</h3>
             <p class="roadmap-intro">本仪表盘用来快速判断路线是否“结构上可毕业”。默认不计入任何已完成学分；每完成一个学期或 intensive 后，可在“学期时间轴”中勾选对应阶段，进度会自动更新并保存在本机浏览器。</p>
@@ -3619,13 +4062,8 @@
           </div>
 
           <div class="roadmap-panel" data-roadmap-panel="timeline">
-            <h3 class="roadmap-panel-title">学期时间轴路线</h3>
-            <div class="route-toggle" aria-label="路线版本">
-              <button class="route-button active" type="button" data-route="comfortable">平稳路线 · 高 WAM 优先</button>
-              <button class="route-button" type="button" data-route="accelerated">快速路线 · 接近 2.5 年</button>
-            </div>
-            <div class="route-note active" data-route-note="comfortable"><p><strong>平稳路线：</strong>更稳，每学期约 24cp，WAM 风险较低，保留实习 / 交换 / 项目课空间。Intensive 主要用于 OLE 或轻量选修课。</p></div>
-            <div class="route-note" data-route-note="accelerated"><p><strong>快速路线：</strong>更快，但需要 intensive 或 26–32cp overload。Prerequisite 瓶颈更敏感，WAM 和课业压力风险更高；不能牺牲 INFO1110、INFO1113、COMP2123、COMP2017、COMP3027 的质量。</p></div>
+            <h3 class="roadmap-panel-title">学期时间轴</h3>
+            <div class="route-note"><p><strong>快速路线：</strong>学位规划目标统一为接近 2.5 年毕业，需要 intensive 或 26–32cp overload。Prerequisite 瓶颈更敏感，WAM 和课业压力风险更高；不能牺牲 INFO1110、INFO1113、COMP2123、COMP2017、COMP3027 的质量。</p></div>
             <div class="roadmap-timeline">
               <article class="road-semester" data-stage-id="2026-s1" data-stage-name="2026 S1" data-total-cp="24" data-major-cp="6" data-minor-cp="0" data-ole-cp="0" data-elective-cp="18" data-pressure-comfortable="Medium" data-pressure-accelerated="Medium">
                 <header><h3>2026 S1</h3><span class="cp-note">24cp · 基础阶段</span></header>
@@ -3636,7 +4074,7 @@
               </article>
               <article class="road-semester" data-stage-id="2026-july" data-stage-name="2026 6-7月" data-total-cp="0" data-major-cp="0" data-minor-cp="0" data-ole-cp="0" data-elective-cp="0" data-pressure-comfortable="Buffer" data-pressure-accelerated="Buffer">
                 <header><h3>2026 6-7月</h3><span class="cp-note">Intensive / OLE / 轻量选修</span></header>
-                <div class="mini-course placeholder"><strong>待安排</strong><small>从课程候选表中选择“锁定 / 候选 / 已完成”并指定到 2026 6-7月后自动显示。</small></div>
+                <div class="mini-course placeholder"><strong>待安排</strong><small>从课程库中选择“锁定 / 候选 / 已完成”并指定到 2026 6-7月后自动显示。</small></div>
               </article>
               <article class="road-semester" data-stage-id="2026-s2" data-stage-name="2026 S2" data-total-cp="26" data-major-cp="6" data-minor-cp="6" data-ole-cp="2" data-elective-cp="12" data-pressure-comfortable="High" data-pressure-accelerated="High">
                 <header><h3>2026 S2</h3><span class="cp-note">26cp · 第一个瓶颈学期</span></header>
@@ -3672,46 +4110,10 @@
             </div>
           </div>
 
-          <div class="roadmap-panel" data-roadmap-panel="explorer" hidden>
-            <h3 class="roadmap-panel-title">发散选修池</h3>
-            <p class="roadmap-intro">选修池的作用不是替代主线课表，而是显示在满足 CS major + DMA minor 的前提下，还有哪些兴趣方向可以插入。</p>
-            <div class="cluster-tabs" aria-label="选修领域">
-              <button class="cluster-tab active" type="button" data-cluster-filter="all">全部领域概览</button>
-              <button class="cluster-tab" type="button" data-cluster-filter="csmath">计算机 / 数学 / 数据</button>
-              <button class="cluster-tab" type="button" data-cluster-filter="logic">逻辑 / 哲学</button>
-              <button class="cluster-tab" type="button" data-cluster-filter="scienceculture">科学 / 文化 OLE</button>
-              <button class="cluster-tab" type="button" data-cluster-filter="music">音乐 / 声音</button>
-              <button class="cluster-tab" type="button" data-cluster-filter="ux">UX / 设计</button>
-              <button class="cluster-tab" type="button" data-cluster-filter="psychology">心理学</button>
-              <button class="cluster-tab" type="button" data-cluster-filter="finance">金融</button>
-            </div>
-            <div class="elective-filters" aria-label="选修筛选">
-              <button class="elective-filter active" type="button" data-elective-filter="all">全部</button>
-              <button class="elective-filter" type="button" data-elective-filter="ole2">2cp OLE</button>
-              <button class="elective-filter" type="button" data-elective-filter="cp6">6cp 选修</button>
-              <button class="elective-filter" type="button" data-elective-filter="nopreq">无先修</button>
-              <button class="elective-filter" type="button" data-elective-filter="creative">创作类</button>
-              <button class="elective-filter" type="button" data-elective-filter="finance">金融</button>
-              <button class="elective-filter" type="button" data-elective-filter="ux">UX / 设计</button>
-              <button class="elective-filter" type="button" data-elective-filter="music">音乐</button>
-              <button class="elective-filter" type="button" data-elective-filter="psychology">心理学</button>
-              <button class="elective-filter" type="button" data-elective-filter="logic">逻辑</button>
-            </div>
-            <div class="elective-grid">
-              <article class="elective-cluster" data-cluster="csmath"><h3 data-count="13 门">计算机 / 数学 / 数据 选修</h3><div class="elective-card" data-tags="cp6 csmath"><b>COMP3308</b><p>Introduction to Artificial Intelligence · 6cp</p><div class="elective-meta"><span>用途：AI / ML 入门，3000 级 CS 选修</span><span>硬性先修：INFO1110 / DATA1002 等 1000-level 编程或数据入口；COMP2123 是 assumed knowledge</span><span>写作压力：中等 · 技术压力：中高</span><span>注意：assignment 含搜索、博弈、ML 实现。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>COMP3221</b><p>Distributed Systems · 6cp</p><div class="elective-meta"><span>用途：分布式 / 网络系统方向</span><span>硬性先修：INFO1113 + COMP2123，或官方列出的等价组合</span><span>写作压力：中等 · 技术压力：高</span><span>注意：与 COMP3520 同期需谨慎。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>COMP3520</b><p>Operating Systems Internals · 6cp</p><div class="elective-meta"><span>用途：操作系统 / 内核方向</span><span>硬性先修：COMP2017/COMP2129 + COMP2123/等价组合</span><span>写作压力：中等 · 技术压力：很高</span><span>注意：实验 / 项目 workload 突出。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>COMP3506</b><p>Algorithms and Data Structures · 6cp</p><div class="elective-meta"><span>用途：高阶算法 / 与 COMP3027 互补</span><span>先修：需核对 official unit page</span><span>写作压力：中等 · 技术压力：高</span><span>注意：与 COMP3027 内容部分重叠，需核对 prohibition。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>DATA2001</b><p>Data Science, Big Data &amp; Data Variety · 6cp</p><div class="elective-meta"><span>用途：SQL / 数据系统入口</span><span>硬性先修：DATA1002 / INFO1110 等官方入口之一</span><span>写作压力：中等 · 技术压力：中高</span><span>注意：DATA3404 的自然桥梁。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>DATA2002</b><p>Data Analytics: Learning from Data · 6cp</p><div class="elective-meta"><span>用途：统计建模 / R 语言数据分析</span><span>先修：需核对 official unit page</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：assignment 偏 R / 统计推断。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>DATA3404</b><p>Data Science Platforms · 6cp</p><div class="elective-meta"><span>用途：数据系统 / 大数据工程方向</span><span>硬性先修：DATA2001 / ISYS2120 / INFO2120 等入口之一</span><span>写作压力：中等 · 技术压力：高</span><span>注意：含 SQL 优化 / Hadoop / Spark。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>MATH1062</b><p>Mathematics 1B · 6cp</p><div class="elective-meta"><span>用途：微积分 / 线性代数补强</span><span>先修：需核对 official unit page</span><span>写作压力：低 · 技术压力：中等</span><span>注意：非 core，可不修；后续高阶 MATH 可能要求。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>MATH2022</b><p>Linear and Abstract Algebra · 6cp</p><div class="elective-meta"><span>用途：DMA Minor 高阶数学之一</span><span>硬性先修：MATH1061 / MATH1X02 等官方入口之一</span><span>写作压力：低 · 技术压力：高</span><span>注意：证明密集，需要数学成熟度。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>MATH2069</b><p>Discrete Mathematics and Graph Theory · 6cp</p><div class="elective-meta"><span>用途：图论 / 组合数学，DMA 友好</span><span>先修：需核对 official unit page</span><span>写作压力：低 · 技术压力：中高</span><span>注意：与算法主线衔接顺。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>MATH2088</b><p>Number Theory and Cryptography · 6cp</p><div class="elective-meta"><span>用途：数论 + 密码学应用</span><span>硬性先修：MATH1061 / MATH1064 / MATH1002 等官方入口之一</span><span>写作压力：低 · 技术压力：中高</span><span>注意：与 COMP 安全方向衔接。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>MATH3066</b><p>Algebra and Logic · 6cp</p><div class="elective-meta"><span>用途：数理逻辑 / 形式系统</span><span>硬性先修：6cp MATH2XXX</span><span>写作压力：中等 · 技术压力：高</span><span>注意：理论密度极高，不建议与 COMP3027 同期。</span></div></div><div class="elective-card" data-tags="cp6 csmath"><b>MATH3061</b><p>Geometry and Topology · 6cp</p><div class="elective-meta"><span>用途：几何 / 拓扑兴趣</span><span>硬性先修：12cp MATH2XXX；MATH2022 是 assumed knowledge 示例</span><span>写作压力：低 · 技术压力：高</span><span>注意：开课情况需核对。</span></div></div></article>
-              <article class="elective-cluster" data-cluster="logic"><h3 data-count="4 门">逻辑 / 哲学</h3><div class="elective-card" data-tags="ole2 nopreq logic"><b>OLET2148</b><p>Thinking Critically · 2cp OLE</p><div class="elective-meta"><span>用途：WAM 缓冲 / 推理训练</span><span>先修：无</span><span>写作压力：中等 · 技术压力：低</span><span>注意：不能替代正式逻辑课。</span></div></div><div class="elective-card" data-tags="cp6 nopreq logic"><b>PHIL1012</b><p>Introductory Logic · 6cp</p><div class="elective-meta"><span>用途：支撑 COMP2022 / MATH3066 的逻辑基础</span><span>先修：无</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：需要持续练习符号逻辑。</span></div></div><div class="elective-card" data-tags="cp6 nopreq logic"><b>PHIL1014</b><p>Critical Thinking · 6cp</p><div class="elective-meta"><span>用途：论证分析与写作质量</span><span>先修：无</span><span>写作压力：高 · 技术压力：低</span><span>注意：essay / argument 负担较明显。</span></div></div><div class="elective-card" data-tags="cp6 logic"><b>PHIL3610</b><p>Logic and Computation · 6cp</p><div class="elective-meta"><span>用途：高阶逻辑 / 计算理论兴趣</span><span>先修：PHIL1012</span><span>写作压力：中等 · 技术压力：高</span><span>注意：需核对 availability，可能不是每年开课。</span></div></div></article>
-              <article class="elective-cluster" data-cluster="scienceculture"><h3 data-count="2 门">科学 / 文化 OLE</h3><div class="elective-card" data-tags="ole2 nopreq scienceculture writing"><b>OLET1666</b><p>Writing with LaTeX · 2cp</p><div class="elective-meta"><span>用途：OLE / 数学与算法报告排版工具</span><span>先修：基本电脑操作；basic programming 有帮助但非必需</span><span>写作压力：低 · 技术压力：低</span><span>注意：只是一门 2cp OLE，不是 6cp。</span></div></div><div class="elective-card" data-tags="cp6 nopreq scienceculture science writing teamwork"><b>OLES1602</b><p>The Apocalypse in Science and Culture · 6cp</p><div class="elective-meta"><span>用途：6cp OLE / science-and-society 方向探索</span><span>先修：无；2026 unit information 显示 assumed knowledge 为 None</span><span>写作压力：中等 · 技术压力：低到中等</span><span>注意：含跨学科 case study、video production 和 group project。</span></div></div></article>
-              <article class="elective-cluster" data-cluster="music"><h3 data-count="4 门">音乐 / 声音制作</h3><div class="elective-card" data-tags="ole2 nopreq creative music"><b>OLET1803</b><p>Digital Communication: Sound · 2cp</p><div class="elective-meta"><span>用途：OLE / 声音路线入口</span><span>先修：无</span><span>写作压力：低 · 技术压力：低</span><span>注意：留意项目截止时间。</span></div></div><div class="elective-card" data-tags="ole2 nopreq creative music"><b>OLET1801</b><p>Music Theory and Notation Essentials · 2cp</p><div class="elective-meta"><span>用途：MUSC2653 前的音乐读写基础</span><span>先修：无</span><span>写作压力：低 · 技术压力：低</span><span>注意：偏练习型学习。</span></div></div><div class="elective-card" data-tags="cp6 creative music"><b>MUSC2653</b><p>Introduction to Digital Music Techniques · 6cp</p><div class="elective-meta"><span>用途：作品集 / creative technology</span><span>先修：需核对</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：声音制作项目会占用时间。</span></div></div><div class="elective-card" data-tags="cp6 creative music"><b>CMPN3635</b><p>Writing Music for the Moving Image · 6cp</p><div class="elective-meta"><span>用途：影视 / 游戏 / 音频方向</span><span>先修：需核对 / MUSC2653 路线</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：属于后期更专门化选项。</span></div></div></article>
-              <article class="elective-cluster" data-cluster="ux"><h3 data-count="4 门">UX / 产品 / 设计</h3><div class="elective-card" data-tags="cp6 nopreq ux creative"><b>DECO1006</b><p>Design Process and Methods · 6cp</p><div class="elective-meta"><span>用途：UX / 产品基础</span><span>先修：无</span><span>写作压力：中等 · 技术压力：低</span><span>注意：有项目、展示和 critique 压力。</span></div></div><div class="elective-card" data-tags="cp6 nopreq ux creative"><b>DECO2016</b><p>Design Thinking · 6cp</p><div class="elective-meta"><span>用途：设计流程替代选项</span><span>先修：无；prohibition DECO1006</span><span>写作压力：中等 · 技术压力：低</span><span>注意：不要与 DECO1006 重复规划。</span></div></div><div class="elective-card" data-tags="cp6 nopreq ux creative"><b>DECO2102</b><p>Introduction to Interface Design · 6cp</p><div class="elective-meta"><span>用途：UI / UX 与产品路线</span><span>先修：无</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：包含设计研究和用户测试负担。</span></div></div><div class="elective-card" data-tags="cp6 ux creative"><b>DECO3000</b><p>Designing Intelligent Systems · 6cp</p><div class="elective-meta"><span>用途：AI + 交互设计</span><span>先修：需要 DECO 路线；需核对资格</span><span>写作压力：中等 · 技术压力：高</span><span>注意：可能不适合快速完成 CS + DMA 主线。</span></div></div></article>
-              <article class="elective-cluster" data-cluster="psychology"><h3 data-count="4 门">心理学 / 认知科学</h3><div class="elective-card" data-tags="cp6 nopreq psychology"><b>PSYC1001</b><p>Psychology 1001 · 6cp</p><div class="elective-meta"><span>用途：用户行为 / 社会心理学</span><span>先修：无</span><span>写作压力：中等 · 技术压力：低</span><span>注意：有 APA / report 负担。</span></div></div><div class="elective-card" data-tags="cp6 nopreq psychology"><b>PSYC1002</b><p>Psychology 1002 · 6cp</p><div class="elective-meta"><span>用途：认知、知觉、神经科学</span><span>先修：无</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：会接触研究方法和统计。</span></div></div><div class="elective-card" data-tags="cp6 psychology"><b>PSYC2016</b><p>Perception, Cognition, and Intelligence · 6cp</p><div class="elective-meta"><span>用途：认知科学 / AI 与人类认知交叉兴趣</span><span>先修：PSYC1002</span><span>写作压力：高 · 技术压力：中等</span><span>注意：需核对 availability。</span></div></div><div class="elective-card" data-tags="cp6 psychology"><b>PSYC2017</b><p>Personality and Social Psychology · 6cp</p><div class="elective-meta"><span>用途：社会 / 产品 / 用户行为</span><span>先修：PSYC1001</span><span>写作压力：高 · 技术压力：低到中等</span><span>注意：研究报告负担较明显。</span></div></div></article>
-              <article class="elective-cluster" data-cluster="finance"><h3 data-count="5 门">金融 / 个人理财</h3><div class="elective-card" data-tags="ole2 nopreq finance"><b>OLET1203</b><p>Entrepreneurship: Startup Finance · 2cp</p><div class="elective-meta"><span>用途：OLE / 创业思维</span><span>先修：无</span><span>写作压力：低到中等 · 技术压力：低</span><span>注意：留意小组 pitch 时间。</span></div></div><div class="elective-card" data-tags="cp6 finance"><b>BUSS4920</b><p>Contemporary Issues in Personal Finance · 6cp</p><div class="elective-meta"><span>用途：个人理财兴趣</span><span>先修：advanced coursework + FINC2012；可能较难嵌入</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：必须仔细核对选课资格。</span></div></div><div class="elective-card" data-tags="cp6 finance"><b>FINC3023</b><p>Behavioural Finance · 6cp</p><div class="elective-meta"><span>用途：金融 + 心理学交叉</span><span>先修：FINC2012</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：依赖商科金融路线。</span></div></div><div class="elective-card" data-tags="cp6 finance"><b>FINC3017</b><p>Investments and Portfolio Management · 6cp</p><div class="elective-meta"><span>用途：投资理论兴趣</span><span>先修：FINC2012</span><span>写作压力：中等 · 技术压力：高</span><span>注意：通常默认有统计、微积分和经济学基础。</span></div></div><div class="elective-card" data-tags="cp6 finance"><b>BANK2011</b><p>Banking and the Financial System · 6cp</p><div class="elective-meta"><span>用途：金融系统概览</span><span>先修：DATA1001 加经济 / 商科要求；需核对</span><span>写作压力：中等 · 技术压力：中等</span><span>注意：可能假定 FINC2011 背景。</span></div></div></article>
-            </div>
-          </div>
-
         </div>
         <div class="plans-grid legacy-plan" hidden aria-hidden="true">
           <div class="plan-card">
-            <h3>平稳路线 · 高 WAM 优先</h3>
+            <h3>备用路线 · 标准 3 年</h3>
             <p>目标：优先保护 WAM、打牢 Computer Science + Discrete Mathematics and Algorithms 核心基础，不盲目压缩毕业时间。Intensive 主要作为 OLE / elective buffer，而不是硬性加速工具。</p>
             <div class="timeline">
               <article class="semester">
@@ -3727,7 +4129,7 @@
               <article class="semester">
                 <div class="semester-title"><b>2026 6-7月</b><span>待安排 · cumulative 24cp 起</span></div>
                 <div class="semester-content">
-                  <p><strong>Units:</strong> 待安排；从课程候选表中选择 OLE / light elective 后再显示。</p>
+                  <p><strong>Units:</strong> 待安排；从课程库中选择 OLE / light elective 后再显示。</p>
                   <div class="semester-meta"><span class="tag ole">OLE</span><span class="tag">buffer</span></div>
                   <p><strong>Workload risk:</strong> <span class="risk low">Low</span></p>
                   <p class="semester-note"><strong>Intensive decision point:</strong> 推荐只完成 2cp OLE，用于提前锁定 OLE 进度，不叠加额外压力。</p>
@@ -3777,7 +4179,7 @@
               <article class="semester">
                 <div class="semester-title"><b>2028 S2</b><span>20cp · cumulative 144cp</span></div>
                 <div class="semester-content">
-                  <p><strong>Units:</strong> COMP3888 / COMP3988, DATA3404 或 COMP3221 / COMP3520, 6cp elective, remaining 2cp OLE if needed</p>
+                  <p><strong>Units:</strong> COMP3888 / COMP3988, DATA3404 或 COMP3221、COMP3520 之一, 6cp elective, remaining 2cp OLE if needed</p>
                   <div class="semester-meta"><span class="tag project">project</span><span class="tag systems">systems/data</span><span class="tag ole">OLE</span><span class="tag">final adjustment</span></div>
                   <p><strong>Workload risk:</strong> <span class="risk medium">Medium–High</span></p>
                   <p class="semester-note"><strong>Intensive decision point:</strong> 只用于补结构缺口；不再为了加速加入 heavy core。</p>
@@ -3803,7 +4205,7 @@
               <article class="semester">
                 <div class="semester-title"><b>2026 6-7月</b><span>待安排 · cumulative 24cp 起</span></div>
                 <div class="semester-content">
-                  <p><strong>Units:</strong> 待安排；从课程候选表中选择 OLE / light elective 后再显示。</p>
+                  <p><strong>Units:</strong> 待安排；从课程库中选择 OLE / light elective 后再显示。</p>
                   <div class="semester-meta"><span class="tag ole">OLE</span><span class="tag">acceleration buffer</span></div>
                   <p><strong>Workload risk:</strong> <span class="risk low">Low</span></p>
                   <p class="semester-note"><strong>Intensive decision point:</strong> 推荐执行；它提前完成 6cp OLE 中的 2cp，并降低后续 semester 的碎片学分压力。</p>
@@ -3890,15 +4292,15 @@
       </section>
 
       <section id="courses" class="section-card">
-        <div class="section-head"><span class="section-kicker">课程候选表</span><h2>课程候选表 / 知识地图</h2><p>本区是页面第二核心：用于检索和比较可选课程。每张课程卡回答：是否该选、什么时候选、难在哪里、建议基础是什么，以及课程结束后应能完成哪些可检验任务。</p></div>
+        <div class="section-head"><span class="section-kicker">课程库</span><h2>课程库</h2><p>每张课程卡回答：是否适合选、最好何时选、难点在哪里、需要什么基础，以及完成后应掌握什么。</p></div>
         <div class="course-lens">
-          <div class="lens-card"><span>先筛选</span><strong>按方向筛选</strong><p>用类别、年级层级、课业压力、能力类型和规划功能快速缩小候选池，避免把选修课当作随便填空。</p></div>
-          <div class="lens-card"><span>决策标准</span><strong>看 prerequisite 与课业压力</strong><p>优先判断课程是否卡后续路线、是否能支持当前学期压力、是否服务长期学习方向。</p></div>
+          <div class="lens-card"><span>先筛选</span><strong>只按三件事筛</strong><p>课程库只有 39 门，先用课程类型、压力和年级缩小范围；更细的方向直接搜索关键词即可。</p></div>
+          <div class="lens-card"><span>兴趣方向</span><strong>在课程库里搜索</strong><p>UX、音乐、逻辑、心理学、金融等发散选修不再单独成池，直接在这里搜索、标记和排入学期。</p></div>
         </div>
         <div class="toolbar">
           <div class="search-panel">
             <div class="search-wrap">
-              <input class="search-box" id="search" type="search" placeholder="搜索课程代码 / 名称 / 关键词，例如 COMP3027、proof、systems">
+              <input class="search-box" id="search" type="search" placeholder="搜索课程代码 / 名称 / 方向，例如 COMP3027、UX、music、logic、finance">
             </div>
             <div class="toolbar-meta">
               <span class="result-count" id="resultCount">0 门课程</span>
@@ -3910,10 +4312,9 @@
             <div class="filter-label">课程状态</div>
             <div class="filter-options">
               <button type="button" data-status-filter="all" class="active">全部</button>
-              <button type="button" data-status-filter="locked">🔒 锁定</button>
-              <button type="button" data-status-filter="candidate">⭐ 候选</button>
-              <button type="button" data-status-filter="completed">✅ 已完成</button>
-              <button type="button" data-status-filter="avoid">❌ 不选</button>
+              <button type="button" data-status-filter="planned">已加入计划</button>
+              <button type="button" data-status-filter="completed">已完成</button>
+              <button type="button" data-status-filter="avoid">不选</button>
               <button type="button" id="resetCourseStatuses" class="clear-filters" style="margin-left: 8px;">重置课程状态</button>
             </div>
           </div>
@@ -3921,11 +4322,28 @@
         <div class="course-list" id="courseList"></div>
       </section>
 
+      <section id="route" class="section-card">
+        <div class="section-head"><span class="section-kicker">知识主线</span><h2>CS + DMA 主线</h2><p>作为先修图的阅读前置：课程顺序可以调整，但编程、算法、系统、离散数学和高阶数学的能力链要保持连续。</p></div>
+        <div class="grid-2">
+          <div class="flow-card"><h3>Computer Science Major 主线</h3><div class="flow"><span class="node">INFO1110</span><span class="arrow">→</span><span class="node">INFO1113</span><span class="arrow">→</span><span class="node">COMP2123</span><span class="arrow">→</span><span class="node">COMP2017</span><span class="arrow">/</span><span class="node">COMP2022</span><span class="arrow">→</span><span class="node">COMP3027</span><span class="arrow">→</span><span class="node">COMP3888 / COMP3988</span></div></div>
+          <div class="flow-card"><h3>Discrete Mathematics and Algorithms Minor 主线</h3><div class="flow"><span class="node">MATH1064</span><span class="arrow">→</span><span class="node">DATA1002 / DATA1902 / INFO1110</span><span class="arrow">→</span><span class="node">COMP2123</span><span class="arrow">→</span><span class="node">2000-level MATH</span><span class="arrow">→</span><span class="node">3000-level MATH</span><span class="arrow">+</span><span class="node">3000-level COMP</span></div></div>
+        </div>
+      </section>
+
+      <section id="bottleneck" class="section-card">
+        <div class="section-head">
+          <span class="section-kicker">先修图</span>
+          <h2>先修图</h2>
+	          <p>本图中的箭头只表示 official unit page 里的硬性 prerequisite；如果一门课有多个官方入口，会用“/ 等价入口”压缩显示，不能理解成唯一先修。Corequisite、assumed knowledge、recommended preparation、兴趣准备和 OLE 缓冲不画箭头；这些信息在课程详情里单独备注。课程状态从课程卡片实时同步：<span style="color: var(--green); font-weight: 600;">● 绿色 = 已完成</span>，<span style="color: var(--ink); font-weight: 600;">● 亮色 = 锁定 / 已计划</span>，<span style="color: var(--blue); font-weight: 600;">● 蓝色 = 候选</span>，<span style="color: var(--danger); font-weight: 600;">● 红色 = 不选</span>。</p>
+        </div>
+        <div class="bottleneck-grid" id="bottleneckGrid"></div>
+      </section>
+
       <section id="scenarios" class="section-card">
         <div class="section-head">
           <span class="section-kicker">路线模拟</span>
-          <h2>路线情境模拟</h2>
-          <p>点击不同情境查看推荐节奏、每学期负担、是否需要 intensive、哪些课要提前、不应同修的组合、最大风险与对 WAM 的影响。不替代 Sydney Student 审核。</p>
+          <h2>路线模拟</h2>
+          <p>比较保 WAM、加速、兴趣路线和实习交换空间，重点看 workload、intensive、风险组合和毕业速度。</p>
         </div>
         <div class="scenario-shell">
           <div class="scenario-buttons" id="scenarioButtons"></div>
@@ -3933,20 +4351,11 @@
         </div>
       </section>
 
-      <section id="bottleneck" class="section-card">
-        <div class="section-head">
-          <span class="section-kicker">先修路线图</span>
-          <h2>先修路线图与瓶颈分析</h2>
-	          <p>本图中的箭头只表示 official unit page 里的硬性 prerequisite。Corequisite、assumed knowledge、recommended preparation、兴趣准备和 OLE 缓冲不画箭头；这些信息在课程详情里单独备注。课程状态从课程卡片实时同步：<span style="color: var(--green); font-weight: 600;">● 绿色 = 已完成</span>，<span style="color: var(--ink); font-weight: 600;">● 亮色 = 锁定 / 已计划</span>，<span style="color: var(--blue); font-weight: 600;">● 蓝色 = 候选</span>，<span style="color: var(--danger); font-weight: 600;">● 红色 = 不选</span>。</p>
-        </div>
-        <div class="bottleneck-grid" id="bottleneckGrid"></div>
-      </section>
-
       <section id="reading" class="section-card">
         <div class="section-head">
-          <span class="section-kicker">课程阅读推荐</span>
-          <h2>课程相关阅读书籍推荐</h2>
-          <p>按课程分组整理阅读材料。每个分组默认折叠，优先展示书单结构，按需展开查看具体用途，避免书目增加后影响整体浏览效率。</p>
+          <span class="section-kicker">阅读准备</span>
+          <h2>阅读准备</h2>
+          <p>按核心课、选修方向和扩展主题分组；先看书单结构，需要时再展开具体用途。</p>
         </div>
         <div class="reading-tabs" id="readingTabs">
           <button class="reading-tab active" data-reading-tab="core" type="button">必修核心</button>
@@ -3956,30 +4365,11 @@
         <div class="reading-grid" id="readingGrid"></div>
       </section>
 
-      <section id="checklist" class="section-card">
-        <div class="section-head"><span class="section-kicker">毕业核对</span><h2>毕业结构核对表</h2><p>每次正式选课前使用该表检查结构完整性和风险。</p></div>
-        <details class="checklist-details">
-          <summary>最后一年或正式选课前展开核对</summary>
-          <div class="checklist">
-            <div class="check-card"><span class="box"></span><div>是否完成 144cp 总学分？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 Bachelor of Science degree core？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 Computer Science major 48cp？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 Discrete Mathematics and Algorithms minor 36cp？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 6cp OLE？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否满足 3000-level / 高阶课程要求？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否有 prerequisite 被卡住？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否有某学期课业压力过重？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否有 OLE / 选修课可以作为缓冲？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否已经核对 Handbook、unit page、Sydney Student availability？</div></div>
-          </div>
-        </details>
-      </section>
-
       <section id="sources" class="section-card">
         <div class="section-head">
-          <span class="section-kicker">Reference</span>
-          <h2>Reference Register</h2>
-          <p>本区按“学位结构、课程官方页面、学生系统、学习资源”登记网页使用的主要来源。课程 unit page 从课程数据自动收集；新增课程时只需维护课程对象里的 official link。</p>
+          <span class="section-kicker">来源</span>
+          <h2>来源登记</h2>
+          <p>集中登记学位结构、课程官方页面、学生系统和学习资源；最终选课仍以 Sydney Student 与 Handbook 为准。</p>
         </div>
         <div class="source-toolbar" id="sourceToolbar" aria-label="来源筛选">
           <button class="source-filter active" type="button" data-source-filter="all">全部</button>
@@ -3996,7 +4386,7 @@
       </section>
     </main>
 
-    <footer>USYD本科选课规划/课程内容概览 · Bachelor of Science · Computer Science Major · Discrete Mathematics and Algorithms Minor</footer>
+    <footer>USYD 学位规划仪表盘 · Bachelor of Science · Computer Science Major · Discrete Mathematics and Algorithms Minor</footer>
   </div>
 
   <script>
@@ -4092,7 +4482,7 @@
           notFor: "INFO1110 还吃力 / 同学期已有两门重课的人。",
           bestSemester: "2026 S2（加速）或 2027 S1（稳）。",
           avoidWith: "不建议与 INFO1113 + MATH1064 同学期（课业压力会爆发）。",
-	          bottleneck: "✅ 是强先修 — 直接卡 COMP3027，并与 INFO1113 共同卡 COMP3221 / COMP3520 等系统选修。",
+	          bottleneck: "✅ 是强先修 — 直接卡 COMP3027，并与 INFO1113 共同影响 COMP3221、COMP3520 等系统选修。",
           wamBuffer: "❌ 不适合作为缓冲课；理论密度高。",
           career: "技术面试算法部分的核心。",
           major: "Major 算法主线必修。",
@@ -4430,12 +4820,12 @@
         workload: "Medium-High",
         skills: ["coding", "data", "math"],
         functionTags: ["direction exploration", "graduation requirement"],
-        best: "COMP2123 后；作为 3000-level COMP 候选",
+        best: "满足一门官方编程 / 数据入口后；COMP2123 作为 assumed knowledge 最好提前补足",
         later: "AI route, project, data/ML electives",
         summary: "介绍构建 intelligent systems 的 representation、search、learning 和 reasoning 方法。",
         teaches: ["state space、heuristic search、game playing", "minimax、alpha-beta pruning", "machine learning、neural networks", "probabilistic reasoning、knowledge representation"],
         matters: "它是 AI 方向入口，适合测试自己是否想把 CS 路线延伸到 intelligent systems、search、ML 和 decision making。",
-        before: ["COMP2123 的 graph/search 基础", "基本 Python 和 probability", "能分析 algorithm behaviour"],
+        before: ["硬性入口可由 INFO1110、DATA1002 / DATA1902、ENGG1810 等官方等价编程 / 数据课满足", "COMP2123 的 graph/search 基础属于 assumed knowledge，不是硬性 prerequisite", "基本 Python 和 probability", "能分析 algorithm behaviour"],
         mastery: ["能建模 state space 并选择 search algorithm", "能解释 heuristic 和 minimax", "能区分 learning / reasoning 方法", "能实现和评价简单 AI algorithm"],
         how: ["每个算法记录 representation、objective、assumption、failure mode、evaluation metric", "search 题画 state graph", "learning 部分重点理解 overfitting 和 evaluation"],
         terms: ["artificial intelligence — 人工智能", "state space — 状态空间", "heuristic — 启发式", "minimax — 极小化极大算法", "alpha-beta pruning — α-β 剪枝", "machine learning — 机器学习", "neural network — 神经网络", "knowledge representation — 知识表示"],
@@ -4464,25 +4854,46 @@
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/DATA3404"]]
       },
       {
-        code: "COMP3221 / COMP3520",
-        name: "Distributed Systems / Operating Systems Internals",
-        cp: "6cp each",
+        code: "COMP3221",
+        name: "Distributed Systems",
+        cp: "6cp",
         category: ["systems"],
         level: "3000",
         workload: "High",
         skills: ["systems", "coding"],
-        functionTags: ["direction exploration"],
-        best: "COMP2017 后；systems route",
-        later: "systems project, distributed data systems, infrastructure",
-        summary: "systems 方向的高级选择：分布式系统设计与操作系统内部机制。",
-        teaches: ["COMP3221: message passing、logical time、routing、distributed algorithms", "COMP3520: process scheduling、IPC、memory management、file systems", "sockets、protocol implementation、performance impact", "failure、concurrency、scalability"],
-        matters: "如果 COMP2017 让你对底层系统感兴趣，这组课能把路线延伸到 OS、distributed protocols 和 infrastructure。",
-        before: ["COMP2017、C/Unix、process/thread basics", "network basics 和 debugging 耐心", "能读系统图和 API 文档"],
-        mastery: ["能解释 distributed protocol 的基本设计", "能分析 process / memory / filesystem 的性能影响", "能说明 race condition、deadlock、fault tolerance", "能把系统问题画成状态和资源图"],
-        how: ["每个系统概念画 state/resource diagram", "从 failure mode 学 distributed systems", "通过小实现验证 socket、process、thread 行为"],
-        terms: ["distributed system — 分布式系统", "logical time — 逻辑时间", "message passing — 消息传递", "socket — 套接字", "process scheduling — 进程调度", "inter-process communication — 进程间通信", "deadlock — 死锁", "fault tolerance — 容错"],
-        readings: ["Distributed Systems — 暂无稳定通行中文译名：Tanenbaum & van Steen，分布式系统教材。", "Operating Systems: Three Easy Pieces — 《操作系统导论 / 操作系统：三件简单的事》：OS 基础。", "Designing Data-Intensive Applications — 《数据密集型应用系统设计》：分布式数据系统。"],
-        links: [["COMP3221 Unit Page", "https://www.sydney.edu.au/units/COMP3221"], ["COMP3520 Unit Page", "https://www.sydney.edu.au/units/COMP3520"]]
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "INFO1113 + COMP2123 后；systems / infrastructure route",
+        later: "distributed data systems, backend infrastructure, systems project",
+        summary: "systems 方向高级选修，聚焦分布式系统通信、同步、一致性、容错和可扩展性。",
+        teaches: ["message passing、logical time、distributed coordination", "replication、consistency、fault tolerance", "routing、distributed algorithms、protocol design", "scalability、availability、failure mode analysis"],
+        matters: "COMP3221 适合把 CS 路线延伸到 backend infrastructure、distributed protocols 和 data-intensive systems。它和 DATA3404 有自然交叉，但不是 COMP3520 的同一门课。",
+        before: ["官方入口通常需要 INFO1113 + COMP2123 或等价组合", "network basics 和 debugging 耐心", "能把系统问题画成节点、消息、状态和故障模式"],
+        mastery: ["能解释 distributed protocol 的基本设计", "能分析 consistency、availability、fault tolerance 的 trade-off", "能识别 message ordering、replication 和 failure 相关问题", "能把分布式系统问题建模成节点和消息流"],
+        how: ["每个协议画 node / message / state diagram", "从 failure mode 学 distributed systems", "用小实验理解 timeout、retry、replication 和 consistency"],
+        terms: ["distributed system — 分布式系统", "logical time — 逻辑时间", "message passing — 消息传递", "replication — 复制", "consistency — 一致性", "availability — 可用性", "fault tolerance — 容错", "scalability — 可扩展性"],
+        readings: ["Distributed Systems — 暂无稳定通行中文译名：Tanenbaum & van Steen，分布式系统教材。", "Designing Data-Intensive Applications — 《数据密集型应用系统设计》：分布式数据系统。", "MIT 6.824 materials — 暂无通行中文译名：适合分布式系统案例。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/COMP3221"]]
+      },
+      {
+        code: "COMP3520",
+        name: "Operating Systems Internals",
+        cp: "6cp",
+        category: ["systems"],
+        level: "3000",
+        workload: "High",
+        skills: ["systems", "coding"],
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "COMP2017 + COMP2123 后；systems route",
+        later: "operating systems, performance engineering, infrastructure projects",
+        summary: "systems 方向高级选修，聚焦操作系统内部机制、进程、内存、文件系统和系统性能。",
+        teaches: ["process scheduling、threads、synchronisation", "IPC、system calls、kernel/user boundary", "memory management、virtual memory、paging", "file systems、I/O、performance impact"],
+        matters: "COMP3520 更偏操作系统内部机制，适合 COMP2017 后继续深入 C / Unix / OS 的学生。它和 COMP3221 同属 systems 方向，但关注点不同，不能合成一张课程卡。",
+        before: ["官方入口通常需要 COMP2017 / COMP2129 + COMP2123 / 等价组合", "C、Unix、process/thread basics", "能读系统 API 文档并耐心调试底层 bug"],
+        mastery: ["能分析 process / memory / filesystem 的性能影响", "能解释 scheduling、IPC、virtual memory 和 file system 的核心机制", "能识别 race condition、deadlock 和 resource contention", "能把系统问题画成状态、资源和执行顺序图"],
+        how: ["每个 OS 概念画 state/resource diagram", "用小实现验证 process、thread、memory 和 file system 行为", "每个 bug 记录 trigger、system state、tool output、fix 和 regression test"],
+        terms: ["operating system — 操作系统", "process scheduling — 进程调度", "thread — 线程", "inter-process communication — 进程间通信", "system call — 系统调用", "virtual memory — 虚拟内存", "file system — 文件系统", "deadlock — 死锁"],
+        readings: ["Operating Systems: Three Easy Pieces — 《操作系统导论 / 操作系统：三件简单的事》：OS 基础。", "Modern Operating Systems — 《现代操作系统》：传统教材式补充。", "Computer Systems: A Programmer's Perspective — 《深入理解计算机系统》：系统编程背景。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/COMP3520"]]
       },
       {
         code: "MATH3061",
@@ -5161,11 +5572,9 @@
     };
 
     const filterGroups = [
-      { label: "类别", key: "category", values: ["all", "core", "math", "data", "science", "ai", "systems", "project", "ole", "music", "philosophy", "design", "business", "psychology", "elective"] },
-      { label: "年级层级", key: "level", values: ["all", "1000", "2000", "3000"] },
-      { label: "课业压力", key: "workload", values: ["all", "Low", "Medium", "Medium-High", "High", "Very High"] },
-      { label: "能力类型", key: "skills", values: ["all", "coding", "proof", "math", "systems", "data", "science", "writing", "teamwork", "project", "audio", "music", "creative", "logic", "critical thinking", "design", "research", "ux", "finance", "career", "psychology", "prototyping"] },
-      { label: "规划功能", key: "functionTags", values: ["all", "core", "degree core", "prerequisite", "WAM buffer", "direction exploration", "graduation requirement"] }
+      { label: "课程类型", key: "category", values: ["all", "core", "math", "data", "systems", "ai", "project", "ole", "elective"] },
+      { label: "压力", key: "workload", values: ["all", "Low", "Medium", "Medium-High", "High", "Very High"] },
+      { label: "年级", key: "level", values: ["all", "1000", "2000", "3000"] }
     ];
 
     const filterValueLabels = {
@@ -5212,7 +5621,7 @@
       "graduation requirement": "毕业要求"
     };
 
-    const activeFilters = { category: "all", level: "all", workload: "all", skills: "all", functionTags: "all" };
+    const activeFilters = { category: "all", workload: "all", level: "all" };
     const filterRoot = document.querySelector("#filters");
     const courseList = document.querySelector("#courseList");
     const search = document.querySelector("#search");
@@ -5471,7 +5880,7 @@
       { codes: ["DATA1002 / DATA1902", "DATA1002"], tab: "core", group: "DATA1002 — 数据科学基础" },
       { codes: ["COMP3888 / COMP3988", "COMP3888", "COMP3988"], tab: "core", group: "COMP3888 · COMP3988 — 项目课与软件工程" },
       { codes: ["DATA2001", "DATA3404"], tab: "elective", group: "DATA2001 · DATA3404 — 数据库与数据系统" },
-      { codes: ["COMP3221 / COMP3520", "COMP3221"], tab: "elective", group: "COMP3221 — 分布式系统" },
+      { codes: ["COMP3221"], tab: "elective", group: "COMP3221 — 分布式系统" },
       { codes: ["COMP3520"], tab: "elective", group: "COMP3520 — 操作系统" },
       { codes: ["COMP3308"], tab: "elective", group: "COMP3308 — 人工智能 / 机器学习" },
       { codes: ["MATH2022", "MATH2088"], tab: "elective", group: "MATH2022 · MATH2088 — 线性代数 / 数论 / 密码学" },
@@ -5815,39 +6224,20 @@
       });
     });
 
-    document.querySelectorAll(".roadmap-tab").forEach(button => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.roadmapTab;
-        document.querySelectorAll(".roadmap-tab").forEach(item => item.classList.toggle("active", item === button));
-        document.querySelectorAll(".roadmap-panel").forEach(panel => {
-          panel.hidden = panel.dataset.roadmapPanel !== target;
-        });
-      });
-    });
-
     document.querySelectorAll(".road-semester").forEach(card => {
       const note = card.querySelector(".cp-note");
       if (note) note.dataset.baseText = note.textContent;
     });
 
-    function setRoadmapRoute(route) {
-      document.querySelectorAll(".route-button").forEach(item => {
-        item.classList.toggle("active", item.dataset.route === route);
-      });
-      document.querySelectorAll(".route-note").forEach(note => {
-        note.classList.toggle("active", note.dataset.routeNote === route);
-      });
+    function applyAcceleratedRoutePressure() {
       document.querySelectorAll(".road-semester").forEach(card => {
         const note = card.querySelector(".cp-note");
-        const pressure = route === "accelerated" ? card.dataset.pressureAccelerated : card.dataset.pressureComfortable;
+        const pressure = card.dataset.pressureAccelerated;
         if (note && pressure) note.textContent = `${note.dataset.baseText} · 压力：${filterValueLabels[pressure] || pressure}`;
       });
     }
 
-    document.querySelectorAll(".route-button").forEach(button => {
-      button.addEventListener("click", () => setRoadmapRoute(button.dataset.route));
-    });
-    setRoadmapRoute("comfortable");
+    applyAcceleratedRoutePressure();
 
     const progressTargets = { total: 144, major: 48, minor: 36, ole: 6, elective: 54 };
     const progressStorageKey = "usyd-degree-roadmap-completed-stages";
@@ -5961,92 +6351,6 @@
       writeCompletedStages(new Set());
       updateDegreeProgress();
     });
-    function prepareElectiveExplorer() {
-      const oldCluster = document.querySelector('.elective-cluster[data-cluster="csmath"]');
-      if (oldCluster && !oldCluster.dataset.split) {
-        const definitions = [
-          { key: "cs", title: "Computer Science electives", match: code => /^COMP/.test(code) && code !== "COMP3308" },
-          { key: "math", title: "Mathematics electives", match: code => /^MATH/.test(code) },
-          { key: "dataai", title: "Data / AI electives", match: code => /^DATA/.test(code) || code === "COMP3308" }
-        ];
-        const cards = Array.from(oldCluster.querySelectorAll(".elective-card"));
-        const fragments = definitions.map(def => {
-          const article = document.createElement("article");
-          article.className = "elective-cluster";
-          article.dataset.cluster = def.key;
-          const selected = cards.filter(card => def.match((card.querySelector("b")?.textContent || "").trim()));
-          article.innerHTML = `<h3 data-count="${selected.length} 门">${def.title}</h3>`;
-          selected.forEach(card => {
-            const clone = card.cloneNode(true);
-            clone.dataset.tags = `${clone.dataset.tags || ""} ${def.key}`.trim();
-            article.appendChild(clone);
-          });
-          return article;
-        });
-        oldCluster.replaceWith(...fragments);
-      }
-
-      const csmathButton = document.querySelector('.cluster-tab[data-cluster-filter="csmath"]');
-      if (csmathButton) {
-        csmathButton.dataset.clusterFilter = "cs";
-        csmathButton.textContent = "Computer Science";
-        const mathButton = csmathButton.cloneNode(true);
-        mathButton.dataset.clusterFilter = "math";
-        mathButton.textContent = "Mathematics";
-        mathButton.classList.remove("active");
-        const dataButton = csmathButton.cloneNode(true);
-        dataButton.dataset.clusterFilter = "dataai";
-        dataButton.textContent = "Data / AI";
-        dataButton.classList.remove("active");
-        csmathButton.after(mathButton, dataButton);
-      }
-    }
-
-    prepareElectiveExplorer();
-
-    let activeClusterFilter = "all";
-    let activeElectiveFilter = "all";
-
-    function updateElectiveExplorer() {
-      const grid = document.querySelector(".elective-grid");
-      if (grid) {
-        grid.classList.toggle("focused", activeClusterFilter !== "all");
-      }
-
-      document.querySelectorAll(".elective-cluster").forEach(cluster => {
-        const clusterMatch = activeClusterFilter === "all" || cluster.dataset.cluster === activeClusterFilter;
-        let visibleCards = 0;
-
-        cluster.querySelectorAll(".elective-card").forEach(card => {
-          const tags = (card.dataset.tags || "").split(/\s+/);
-          const tagMatch = activeElectiveFilter === "all" || tags.includes(activeElectiveFilter);
-          const shouldShow = clusterMatch && tagMatch;
-          card.hidden = !shouldShow;
-          if (shouldShow) visibleCards += 1;
-        });
-
-        cluster.hidden = !clusterMatch || visibleCards === 0;
-      });
-    }
-
-    document.querySelectorAll(".cluster-tab").forEach(button => {
-      button.addEventListener("click", () => {
-        activeClusterFilter = button.dataset.clusterFilter || "all";
-        document.querySelectorAll(".cluster-tab").forEach(item => item.classList.toggle("active", item === button));
-        updateElectiveExplorer();
-      });
-    });
-
-    document.querySelectorAll(".elective-filter").forEach(button => {
-      button.addEventListener("click", () => {
-        activeElectiveFilter = button.dataset.electiveFilter || "all";
-        document.querySelectorAll(".elective-filter").forEach(item => item.classList.toggle("active", item === button));
-        updateElectiveExplorer();
-      });
-    });
-
-    updateElectiveExplorer();
-
     document.querySelectorAll(".whatif-button").forEach(button => {
       button.addEventListener("click", () => {
         const target = button.dataset.whatif;
@@ -6088,8 +6392,8 @@
     const SEM_LABELS = { s1: "S1", july: "6-7月", winter: "6-7月", s2: "S2", summer: "12-2月" };
     const STATUS_EMOJI = { locked: "🔒", candidate: "⭐", completed: "✅", avoid: "❌" };
     const STATUS_LABEL = { locked: "锁定", candidate: "候选", completed: "已完成", avoid: "不选" };
-    const majorCreditCodes = new Set(["INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027", "COMP3888 / COMP3988", "COMP3308", "DATA3404", "COMP3221 / COMP3520"]);
-    const minorCreditCodes = new Set(["MATH1064", "DATA1002 / DATA1902", "INFO1110", "COMP2123", "MATH2022", "MATH2088", "MATH3066", "MATH3061", "COMP3308", "DATA3404", "COMP3221 / COMP3520"]);
+    const majorCreditCodes = new Set(["INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027", "COMP3888 / COMP3988", "COMP3308", "DATA3404", "COMP3221", "COMP3520"]);
+    const minorCreditCodes = new Set(["MATH1064", "DATA1002 / DATA1902", "INFO1110", "COMP2123", "MATH2022", "MATH2088", "MATH3066", "MATH3061", "COMP3308", "DATA3404", "COMP3221", "COMP3520"]);
 
     function creditPoints(course) {
       const match = String(course.cp || "").match(/\d+(?:\.\d+)?/);
@@ -6278,7 +6582,10 @@
         const course = courses[Number(card.dataset.index)];
         const entry = statuses[course.code];
         const status = (entry && entry.status) || "neutral";
-        const statusOk = activeCourseStatusFilter === "all" || status === activeCourseStatusFilter;
+        const statusOk =
+          activeCourseStatusFilter === "all" ||
+          (activeCourseStatusFilter === "planned" && (status === "locked" || status === "candidate")) ||
+          status === activeCourseStatusFilter;
         const ok = statusOk && courseMatches(course, query) && Object.entries(activeFilters).every(([key, value]) => filterMatches(course, key, value));
         card.hidden = !ok;
         if (ok) visible += 1;
@@ -6446,7 +6753,7 @@
           card.dataset.electiveCp = "0";
           card.dataset.pressureComfortable = "Buffer";
           card.dataset.pressureAccelerated = "Buffer";
-          card.innerHTML = `<header><h3>${year} ${term.label}</h3><span class="cp-note">${term.note}</span></header><div class="mini-course placeholder"><strong>待安排</strong><small>从课程候选表中选择“锁定 / 候选 / 已完成”并指定学期后自动显示。</small></div>`;
+          card.innerHTML = `<header><h3>${year} ${term.label}</h3><span class="cp-note">${term.note}</span></header><div class="mini-course placeholder"><strong>待安排</strong><small>从课程库中选择“锁定 / 候选 / 已完成”并指定学期后自动显示。</small></div>`;
           timeline.appendChild(card);
           existing.add(id);
         });
@@ -6458,12 +6765,27 @@
       return courseCode === timelineCode || courseParts.includes(timelineCode) || timelineCode.includes(courseParts[0]);
     }
 
+    function courseCpForCode(code) {
+      const target = courses.find(course => codeMatchesTimelineCode(course.code, code));
+      return target ? creditPoints(target) : 6;
+    }
+
+    function staticTimelineCode(item) {
+      const codeNode = item.querySelector("strong");
+      const raw = codeNode?.dataset.originalCode || codeNode?.textContent || "";
+      return raw.replace(/^(锁定|候选|已完成|不选)\s+/, "").trim();
+    }
+
     function updateTimelineFromCourseStatuses() {
       const statuses = readCourseStatuses();
       document.querySelectorAll(".mini-course").forEach(item => {
-        item.classList.remove("is-locked", "is-candidate", "is-completed");
+        item.classList.remove("is-locked", "is-candidate", "is-completed", "is-recommended", "is-user-selected-static", "recommendation-hidden");
+        item.removeAttribute("hidden");
         if (item.classList.contains("user-added-course")) item.remove();
-        else item.querySelector(".status-prefix")?.remove();
+        else {
+          item.querySelector(".status-prefix")?.remove();
+          if (!item.classList.contains("placeholder")) item.classList.add("is-recommended");
+        }
       });
 
       document.querySelectorAll(".road-semester").forEach(card => {
@@ -6481,8 +6803,7 @@
 
         let target = null;
         stage.querySelectorAll(".mini-course:not(.user-added-course)").forEach(item => {
-          const codeNode = item.querySelector("strong");
-          const timelineCode = (codeNode?.dataset.originalCode || codeNode?.textContent || "").trim();
+          const timelineCode = staticTimelineCode(item);
           if (codeMatchesTimelineCode(course.code, timelineCode)) target = item;
         });
 
@@ -6494,7 +6815,8 @@
           if (strong && !strong.querySelector(".status-prefix")) {
             strong.insertAdjacentHTML("afterbegin", `<span class="status-prefix">${label}</span>`);
           }
-          target.classList.add(statusClass);
+          target.classList.remove("is-recommended", "recommendation-hidden");
+          target.classList.add(statusClass, "is-user-selected-static");
         } else {
           const card = document.createElement("div");
           card.className = `mini-course user-added-course ${statusClass}`;
@@ -6502,6 +6824,28 @@
           card.innerHTML = `<strong><span class="status-prefix">${label}</span>${course.code}</strong><small>${course.name} · ${course.cp}</small>`;
           stage.appendChild(card);
         }
+      });
+
+      document.querySelectorAll(".road-semester").forEach(stage => {
+        const stageEntries = Object.entries(statuses).filter(([, entry]) => {
+          if (!entry || !["locked", "candidate", "completed"].includes(entry.status) || !entry.year || !entry.semester) return false;
+          return stageIdFor(entry.year, entry.semester) === stage.dataset.stageId;
+        });
+        const hasCandidate = stageEntries.some(([, entry]) => entry.status === "candidate");
+        const lockedEntries = stageEntries.filter(([, entry]) => entry.status !== "candidate");
+        const lockedCp = lockedEntries.reduce((sum, [code, entry]) => {
+          if (entry.status === "candidate") return sum;
+          return sum + courseCpForCode(code);
+        }, 0);
+        const targetCp = Number(stage.dataset.totalCp || 0);
+        const mainSemester = /-(s1|s2)$/.test(stage.dataset.stageId || "");
+        const lockedByCount = lockedEntries.length >= (mainSemester ? 4 : 1);
+        const lockedByCp = targetCp > 0 && lockedCp >= targetCp;
+        const fullLocked = !hasCandidate && (lockedByCp || lockedByCount);
+
+        stage.querySelectorAll(".mini-course.is-recommended:not(.is-user-selected-static)").forEach(item => {
+          item.classList.toggle("recommendation-hidden", fullLocked);
+        });
       });
     }
 
@@ -6547,11 +6891,10 @@
           const bTerm = (b.dataset.stageId || "").split("-")[1] || "";
           return (order[aTerm] ?? 9) - (order[bTerm] ?? 9);
         });
-        const semCount = years[year].length;
         const totalCp = years[year].reduce((s, sem) => s + Number(sem.dataset.totalCp || 0), 0);
         const header = document.createElement("div");
         header.className = "year-header";
-        header.innerHTML = `<h4>${year} 年</h4><span>${semCount} 学期 · 计划 ${totalCp}cp</span>`;
+        header.innerHTML = `<h4>${year} 年</h4><span>计划 ${totalCp}cp</span>`;
         col.appendChild(header);
         years[year].forEach(sem => col.appendChild(sem));
         timeline.appendChild(col);
@@ -6590,40 +6933,14 @@
     })();
 
     /* ==========================================================
-       Decorate elective cards with level / cp / 无先修 pills
-       ========================================================== */
-
-    (function decorateElectives() {
-      document.querySelectorAll(".elective-card").forEach(card => {
-        if (card.querySelector(".ec-pills")) return;
-        const code = (card.querySelector("b")?.textContent || "").trim();
-        const tags = (card.dataset.tags || "").split(/\s+/);
-        const levelMatch = code.match(/(\d)/);
-        const level = levelMatch ? levelMatch[1] : "";
-        const isOle = tags.includes("ole2") || /^OLET/.test(code);
-        const is6cp = tags.includes("cp6");
-        const free  = tags.includes("nopreq");
-        const pillsRow = document.createElement("div");
-        pillsRow.className = "ec-pills";
-        const pills = [];
-        if (level) pills.push(`<span class="ec-pill lvl-${level}">${level}000 级</span>`);
-        if (isOle) pills.push(`<span class="ec-pill ole">OLE · 2cp</span>`);
-        else if (is6cp) pills.push(`<span class="ec-pill cp">6cp</span>`);
-        if (free) pills.push(`<span class="ec-pill free">无先修</span>`);
-        pillsRow.innerHTML = pills.join("");
-        card.appendChild(pillsRow);
-      });
-    })();
-
-    /* ==========================================================
        路线情境模拟
        ========================================================== */
 
     const scenarios = [
       {
-        id: "comfort", label: "3 年舒适毕业",
-        title: "3 年舒适路线 · 高 WAM 优先",
-        summary: "标准每学期 24cp，保留实习 / 交换空间，核心课不堆叠。",
+        id: "comfort", label: "备用：3 年标准毕业",
+        title: "3 年标准备用路线",
+        summary: "作为快速路线不可行时的备用对照：标准每学期 24cp，保留实习 / 交换空间，核心课不堆叠。",
         pace: "每学期 24cp，约 6 学期 + 2 个 intensive 完成 144cp。",
         load: "每学期最多 1 门高强度核心 + 1 门中等技术 + 1-2 门轻量。",
         intensive: "intensive 主要用于 OLE / 轻量选修。",
@@ -6738,10 +7055,11 @@
       const btnRoot = document.querySelector("#scenarioButtons");
       const out = document.querySelector("#scenarioOutput");
       if (!btnRoot || !out) return;
-      btnRoot.innerHTML = scenarios.map((s, i) => `<button type="button" class="scenario-btn ${i===0?"active":""}" data-scenario="${s.id}">${s.label}</button>`).join("");
+      const defaultScenarioId = "accel";
+      btnRoot.innerHTML = scenarios.map(s => `<button type="button" class="scenario-btn ${s.id === defaultScenarioId ? "active" : ""}" data-scenario="${s.id}">${s.label}</button>`).join("");
 
       function showScenario(id) {
-        const s = scenarios.find(x => x.id === id) || scenarios[0];
+        const s = scenarios.find(x => x.id === id) || scenarios.find(x => x.id === defaultScenarioId) || scenarios[0];
         out.innerHTML = `
           <h4>${s.title}</h4>
           <p class="so-summary">${s.summary}</p>
@@ -6763,7 +7081,7 @@
           showScenario(btn.dataset.scenario);
         });
       });
-      showScenario(scenarios[0].id);
+      showScenario(defaultScenarioId);
     })();
 
     /* ==========================================================
@@ -6771,20 +7089,20 @@
        ========================================================== */
 
 		    const bottleneckChains = [
-		      { title: "INFO1113 官方先修", before: ["INFO1110"], target: "INFO1113", note: "本规划用 INFO1110 作为入口；官方也可能接受 INFO1910 / ENGG1810 等等价入口。" },
-		      { title: "COMP2123 官方先修", before: ["INFO1110"], target: "COMP2123", note: "本规划用 INFO1110 满足 1000-level programming 入口；MATH1064 是 assumed knowledge，不画箭头。" },
+		      { title: "INFO1113 官方多入口", before: ["INFO1110 / INFO1910 / ENGG1810"], target: "INFO1113", note: "INFO1110 是本规划入口之一；官方也可能接受 INFO1910 / ENGG1810 等等价入口。" },
+		      { title: "COMP2123 官方多入口", before: ["INFO1110 / 等价 1000-level programming"], target: "COMP2123", note: "本规划用 INFO1110 满足 1000-level programming 入口；MATH1064 是 assumed knowledge，不画箭头。" },
 		      { title: "COMP3027 官方先修", before: ["COMP2123"], target: "COMP3027", note: "本规划走 COMP2123 → COMP3027；官方也接受 COMP2823。" },
-		      { title: "COMP2017 官方先修", before: ["INFO1113"], target: "COMP2017", note: "COMP2017 的 COMP2123 要求属于 corequisite 组合，可同学期满足；不在这里画成“先修完成”箭头。" },
-		      { title: "COMP2022 官方先修", before: ["INFO1113"], target: "COMP2022", note: "本规划用 INFO1113 作为最清晰入口；官方也可能接受 INFO1110 / DATA1002 等入口。COMP2123 是 corequisite，MATH1064 是 assumed knowledge。" },
+		      { title: "COMP2017 官方多入口", before: ["INFO1113 / INFO1105 / INFO1905 / INFO1103"], target: "COMP2017", note: "COMP2017 的 COMP2123 要求属于 corequisite 组合，可同学期满足；不在这里画成“先修完成”箭头。" },
+		      { title: "COMP2022 官方多入口", before: ["INFO1113 / INFO1110 / ENGG1810"], target: "COMP2022", note: "本规划用 INFO1113 作为最清晰入口之一；官方也可能接受 INFO1110 / INFO1910 / ENGG1810 等入口。COMP2123 是 corequisite，MATH1064 是 assumed knowledge。" },
 		      { title: "COMP3221 官方先修组合", before: ["INFO1113", "COMP2123"], joiner: "+", target: "COMP3221", note: "对本规划而言，INFO1113 与 COMP2123 都满足后再进入分布式系统最稳。" },
 		      { title: "COMP3520 官方先修组合", before: ["COMP2017", "COMP2123"], joiner: "+", target: "COMP3520", note: "Operating Systems Internals 需要 systems programming 与 data structures 背景。" },
-		      { title: "DATA2001 官方入口", before: ["DATA1002"], target: "DATA2001", note: "本规划用 DATA1002 作为入口；官方也接受 INFO1110 等编程入口。" },
-		      { title: "DATA3404 官方先修", before: ["DATA2001"], target: "DATA3404", note: "本规划用 DATA2001 → DATA3404；官方也接受 ISYS2120、INFO2120、INFO2820 等入口。" },
-		      { title: "COMP3308 官方入口", before: ["DATA1002"], target: "COMP3308", note: "本规划用 DATA1002 作为可联动入口；COMP2123 是 assumed knowledge，不是硬性 prerequisite。" },
-		      { title: "MATH2022 官方先修", before: ["MATH1061"], target: "MATH2022", note: "本规划用 MATH1061 作为一阶数学/线代入口；官方也可能接受其他 MATH1XXX 入口。" },
-		      { title: "MATH2088 官方先修", before: ["MATH1064"], target: "MATH2088", note: "本规划用 MATH1064 作为离散数学入口；官方也接受其他 1000-level MATH 入口。" },
-		      { title: "MATH3066 官方先修", before: ["MATH2022"], target: "MATH3066", note: "MATH3066 官方要求 6cp MATH2XXX；本规划用 MATH2022 作为可联动示例。" },
-		      { title: "MATH3061 官方先修", before: ["MATH2022", "MATH2088"], joiner: "+", target: "MATH3061", note: "MATH3061 官方要求 12cp MATH2XXX；本规划用 MATH2022 + MATH2088 表示一条可满足的路径。" },
+		      { title: "DATA2001 官方多入口", before: ["DATA1002 / INFO1110 / 等价编程入口"], target: "DATA2001", note: "DATA1002 只是本规划的数据路线入口之一；官方也接受 INFO1110 / INFO1910 / INFO1903 / INFO1103 / ENGG1810 等入口。" },
+		      { title: "DATA3404 官方多入口", before: ["DATA2001 / ISYS2120 / INFO2120 / INFO2820"], target: "DATA3404", note: "本规划用 DATA2001 → DATA3404；官方也接受 DATA2901、ISYS2120、INFO2120、INFO2820 等入口。" },
+		      { title: "COMP3308 官方多入口", before: ["INFO1110 / DATA1002 / ENGG1810 / 等价入口"], target: "COMP3308", note: "DATA1002 只是可用入口之一；INFO1110、INFO1910、ENGG1801、ENGG1810、DATA1902 等也可满足官方 prerequisite。COMP2123 是 assumed knowledge，不是硬性 prerequisite。" },
+		      { title: "MATH2022 官方多入口", before: ["MATH1061 / MATH1X02 / 等价一阶数学"], target: "MATH2022", note: "本规划用 MATH1061 作为一阶数学/线代入口；官方也可能接受其他 MATH1XXX 入口。" },
+		      { title: "MATH2088 官方多入口", before: ["MATH1064 / MATH1061 / 其他 1000-level MATH"], target: "MATH2088", note: "本规划用 MATH1064 作为离散数学入口之一；官方也接受 MATH1061、MATH1961、MATH1971、MATH1002、MATH1902、MATH1004、MATH1904、MATH1014 65+ 等入口。" },
+		      { title: "MATH3066 官方先修类型", before: ["任意 6cp MATH2XXX"], target: "MATH3066", note: "MATH3066 官方要求 6cp 2000-level MATH；MATH2022 只是本规划里一条自然示例，不是唯一入口。" },
+		      { title: "MATH3061 官方先修类型", before: ["任意 12cp MATH2XXX"], target: "MATH3061", note: "MATH3061 官方要求 12cp 2000-level MATH；MATH2022 + MATH2088 只是本规划里一条可满足路径。" },
 		      { title: "PHIL3610 官方先修", before: ["PHIL1012"], target: "PHIL3610", note: "OLET2148 不是 PHIL3610 的先修，只能作为批判性思维训练。" },
 		      { title: "MUSC3603 官方先修", before: ["MUSC2653"], target: "MUSC3603", note: "本规划用 MUSC2653 作为音乐技术进阶入口；OLET1801 / OLET1803 不作为硬性先修。" },
 		      { title: "CMPN2632 官方先修", before: ["MUSC2653"], target: "CMPN2632", note: "MUSC2653 是 Computer Music Fundamentals 的官方入口之一。" },
