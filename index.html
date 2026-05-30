@@ -320,6 +320,73 @@
       margin-top: 2px;
     }
 
+    .metric-progress {
+      display: grid;
+      gap: 7px;
+    }
+
+    .progress-bar.stacked {
+      display: flex;
+      gap: 0;
+      height: 10px;
+      background: #ececf0;
+    }
+
+    .progress-bar.stacked span {
+      width: var(--segment, 0%);
+      min-width: 0;
+      border-radius: 0;
+      transition: width .2s ease;
+    }
+
+    .progress-bar.stacked span:first-child {
+      border-radius: 999px 0 0 999px;
+    }
+
+    .progress-bar.stacked span:last-child {
+      border-radius: 0 999px 999px 0;
+    }
+
+    .progress-bar.stacked span:only-child {
+      border-radius: 999px;
+    }
+
+    .segment-completed { background: var(--green) !important; }
+    .segment-locked { background: #1d1d1f !important; }
+    .segment-candidate { background: var(--blue) !important; }
+
+    .progress-breakdown {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      min-width: 0;
+    }
+
+    .progress-breakdown span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      min-width: 74px;
+      color: var(--muted);
+      font-size: .74rem;
+      font-weight: 760;
+      line-height: 1.2;
+      white-space: normal;
+    }
+
+    .progress-breakdown span::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--dot);
+      flex: 0 0 auto;
+    }
+
+    .progress-breakdown [data-progress-part="completed"] { --dot: var(--green); }
+    .progress-breakdown [data-progress-part="locked"] { --dot: #1d1d1f; }
+    .progress-breakdown [data-progress-part="candidate"] { --dot: var(--blue); }
+
     .metric-actions {
       display: flex;
       flex-wrap: wrap;
@@ -376,7 +443,7 @@
 
     .focus-card {
       display: grid;
-      gap: 8px;
+      gap: 10px;
       padding: 18px;
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -392,16 +459,8 @@
       box-shadow: 0 16px 34px rgba(0,0,0,.06);
     }
 
-    .focus-card span {
-      color: var(--muted);
-      font-size: .78rem;
-      font-weight: 750;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
     .focus-card strong {
-      font-size: 1.28rem;
+      font-size: 1.34rem;
       letter-spacing: -.025em;
     }
 
@@ -455,9 +514,8 @@
     #courses     { order: 4; }
     #route       { order: 5; }
     #bottleneck  { order: 6; }
-    #scenarios   { order: 7; }
-    #reading     { order: 8; }
-    #sources     { order: 9; }
+    #reading     { order: 7; }
+    #sources     { order: 8; }
 
     section {
       scroll-margin-top: 92px;
@@ -524,8 +582,7 @@
     .flow-card,
     .option-card,
     .check-card,
-    .mistake-card,
-    .source-card {
+    .mistake-card {
       padding: 16px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -675,7 +732,7 @@
 
     .roadmap-panel {
       display: grid;
-      gap: 18px;
+      gap: 12px;
     }
 
     .roadmap-intro {
@@ -688,6 +745,26 @@
       margin: 0;
       font-size: clamp(1.2rem, 2vw, 1.55rem);
       letter-spacing: -0.02em;
+    }
+
+    .plan-brief {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-muted);
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.45;
+    }
+
+    .plan-brief strong {
+      color: var(--ink);
+      font-size: .88rem;
     }
 
     .progress-grid {
@@ -1537,19 +1614,35 @@
 
     .course-body {
       display: grid;
-      gap: 16px;
-      padding: 0 18px 18px;
+      gap: 10px;
+      padding: 0 16px 16px;
+    }
+
+    .course-detail-panel {
+      display: grid;
+      gap: 10px;
+      padding-top: 2px;
     }
 
     .snapshot {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      padding: 14px;
+      gap: 0;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fafafa;
+      border-radius: 10px;
+      background: var(--surface);
+      overflow: hidden;
     }
+
+    .snap-item {
+      min-width: 0;
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .snap-item:nth-child(4n) { border-right: none; }
+    .snap-item:nth-last-child(-n + 4) { border-bottom: none; }
 
     .snap-item span {
       display: block;
@@ -1563,37 +1656,73 @@
     .snap-item b {
       display: block;
       margin-top: 3px;
-      font-size: .93rem;
+      font-size: .9rem;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
     }
 
-    .course-sections {
+    .course-detail-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 10px;
       align-items: start;
     }
 
+    .course-detail-grid .wide { grid-column: 1 / -1; }
+
     .info-block {
-      padding: 14px;
+      padding: 12px;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #fff;
+      border-radius: 10px;
+      background: var(--surface);
       height: fit-content;
     }
 
     .info-block.full { grid-column: 1 / -1; }
 
     .info-block h4 {
-      margin: 0 0 8px;
-      font-size: .96rem;
+      margin: 0 0 7px;
+      font-size: .86rem;
+      letter-spacing: .02em;
       color: var(--ink);
     }
 
+    .info-block p {
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    .compact-list {
+      display: grid;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .compact-list li {
+      position: relative;
+      padding-left: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .compact-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .68em;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--line-strong);
+    }
+
     .prereq-note {
-      margin-top: 12px;
-      padding: 11px 12px;
+      margin-top: 8px;
+      padding: 9px 10px;
       border: 1px solid rgba(0,113,227,.16);
-      border-radius: 14px;
+      border-radius: 8px;
       background: var(--blue-soft);
     }
 
@@ -1613,12 +1742,12 @@
 
     .prereq-jump {
       appearance: none;
-      margin-top: 9px;
+      margin-top: 8px;
       border: 1px solid rgba(0,113,227,.22);
       border-radius: 999px;
       background: var(--card);
       color: var(--blue);
-      padding: 7px 11px;
+      padding: 6px 10px;
       font-family: var(--font);
       font-size: .84rem;
       font-weight: 760;
@@ -1628,7 +1757,7 @@
     .term-grid,
     .reading-list {
       display: grid;
-      gap: 7px;
+      gap: 6px;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -1640,17 +1769,18 @@
 
     .term-grid li,
     .reading-list li {
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: #f8f8fa;
+      padding: 7px 9px;
+      border-radius: 8px;
+      background: var(--surface-muted);
       color: var(--text);
+      line-height: 1.4;
     }
 
     .learning-outcome-list,
     .workflow-list,
     .compact-reading {
       display: grid;
-      gap: 10px;
+      gap: 0;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -1659,40 +1789,48 @@
     .learning-outcome-list li,
     .workflow-list li,
     .compact-reading li {
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255,255,255,.72);
+      padding: 8px 0;
+      border-top: 1px solid var(--line);
+      background: transparent;
       color: var(--text);
     }
 
+    .learning-outcome-list li:first-child,
+    .workflow-list li:first-child,
+    .compact-reading li:first-child { border-top: none; padding-top: 0; }
+
+    .learning-outcome-list li:last-child,
+    .workflow-list li:last-child,
+    .compact-reading li:last-child { padding-bottom: 0; }
+
     .learning-outcome-list strong {
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       color: var(--ink);
-      font-size: .95rem;
+      font-size: .9rem;
     }
 
     .workflow-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 16px;
     }
 
     .workflow-list li {
       display: grid;
-      grid-template-columns: 28px minmax(0, 1fr);
-      gap: 10px;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px;
       align-items: start;
     }
 
     .workflow-list span {
       display: grid;
       place-items: center;
-      width: 28px;
-      height: 28px;
+      width: 22px;
+      height: 22px;
       border-radius: 999px;
       background: var(--blue-soft);
       color: var(--blue);
-      font-size: .78rem;
+      font-size: .72rem;
       font-weight: 850;
     }
 
@@ -1700,19 +1838,73 @@
     .compact-reading p {
       margin: 0;
       color: var(--text);
+      line-height: 1.5;
     }
 
     .reading-jump {
       appearance: none;
-      margin-top: 12px;
+      margin-top: 9px;
       border: 1px solid rgba(0,113,227,.24);
       border-radius: 999px;
       background: var(--blue-soft);
       color: var(--blue);
-      padding: 9px 13px;
+      padding: 7px 11px;
       font-family: var(--font);
-      font-weight: 780;
+      font-size: .86rem;
+      font-weight: 760;
       cursor: pointer;
+    }
+
+    .detail-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .detail-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface-muted);
+      color: var(--blue);
+      font-size: .86rem;
+      font-weight: 720;
+      text-decoration: none;
+    }
+
+    .compact-disclosure {
+      grid-column: 1 / -1;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .compact-disclosure > summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      font-size: .9rem;
+      font-weight: 780;
+      color: var(--ink);
+    }
+
+    .compact-disclosure > summary::after {
+      content: "展开";
+      color: var(--blue);
+      font-size: .82rem;
+      font-weight: 760;
+    }
+
+    .compact-disclosure[open] > summary::after { content: "收起"; }
+
+    .compact-disclosure-body {
+      padding: 0 12px 12px;
     }
 
     .reading-group.reading-highlight {
@@ -1846,20 +2038,22 @@
     .source-toolbar {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin: 14px 0 18px;
+      gap: 6px;
+      margin: 12px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
     }
 
     .source-filter {
       border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
+      border-radius: 8px;
+      background: var(--surface);
       color: var(--text);
       cursor: pointer;
       font-family: inherit;
-      font-size: .86rem;
-      font-weight: 650;
-      padding: 8px 13px;
+      font-size: .82rem;
+      font-weight: 700;
+      padding: 7px 10px;
       transition: background .18s ease, border-color .18s ease, color .18s ease;
     }
 
@@ -1873,16 +2067,17 @@
 
     .reference-register {
       display: grid;
-      gap: 18px;
+      gap: 12px;
+      counter-reset: reference-group;
     }
 
     .reference-group {
       display: grid;
-      gap: 10px;
-      padding: 14px 16px;
+      gap: 0;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.78);
+      border-radius: 8px;
+      background: var(--surface);
+      overflow: hidden;
     }
 
     .reference-group-head {
@@ -1890,9 +2085,10 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      padding: 0 2px;
+      padding: 12px 14px;
       cursor: pointer;
       list-style: none;
+      background: var(--surface-muted);
     }
 
     .reference-group-head::-webkit-details-marker { display: none; }
@@ -1900,13 +2096,12 @@
     .reference-group-head::after {
       content: "展开";
       margin-left: auto;
-      color: var(--blue);
+      color: var(--muted);
       font-size: .78rem;
       font-weight: 700;
     }
 
     .reference-group[open] .reference-group-head {
-      padding-bottom: 10px;
       border-bottom: 1px solid var(--line);
     }
 
@@ -1914,8 +2109,8 @@
 
     .reference-group-head h3 {
       margin: 0;
-      font-size: 1rem;
-      letter-spacing: -.01em;
+      font-size: .92rem;
+      letter-spacing: 0;
     }
 
     .reference-group-head span {
@@ -1926,48 +2121,72 @@
 
     .source-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 0;
+      counter-reset: reference-item;
     }
 
     .source-card {
       display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
       gap: 10px;
-      min-height: 210px;
+      min-height: 0;
+      padding: 13px 14px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      counter-increment: reference-item;
+    }
+
+    .source-card:last-child { border-bottom: none; }
+
+    .source-card::before {
+      content: "[" counter(reference-item) "]";
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .8rem;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .source-entry {
+      display: grid;
+      gap: 5px;
+      min-width: 0;
     }
 
     .source-meta {
       display: flex;
-      justify-content: space-between;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 6px 10px;
       align-items: center;
       color: var(--muted);
       font-size: .72rem;
-      font-weight: 750;
-      letter-spacing: .045em;
-      text-transform: uppercase;
+      font-weight: 720;
     }
 
     .source-type {
       display: inline-flex;
       width: fit-content;
-      padding: 3px 9px;
+      padding: 2px 7px;
       border-radius: 999px;
       background: var(--gray-soft);
       color: var(--text);
     }
 
     .source-card h3 {
-      margin: 0;
-      font-size: 1rem;
-      letter-spacing: -.01em;
+      display: none;
     }
 
     .source-citation {
       margin: 0;
-      color: var(--text);
-      font-size: .88rem;
-      line-height: 1.55;
+      color: var(--ink);
+      font-size: .9rem;
+      line-height: 1.58;
+      hanging-punctuation: first;
     }
 
     .source-citation cite { font-style: italic; }
@@ -1975,16 +2194,15 @@
     .source-use {
       margin: 0;
       color: var(--muted);
-      font-size: .82rem;
+      font-size: .8rem;
       line-height: 1.5;
     }
 
     .source-card a.source-link {
-      align-self: end;
       width: fit-content;
       border-bottom: 1px solid rgba(0,113,227,.28);
       color: var(--blue);
-      font-size: .88rem;
+      font-size: .82rem;
       font-weight: 700;
     }
 
@@ -2026,7 +2244,6 @@
     :root[data-theme="dark"] .option-card,
     :root[data-theme="dark"] .check-card,
     :root[data-theme="dark"] .mistake-card,
-    :root[data-theme="dark"] .source-card,
     :root[data-theme="dark"] .progress-card,
     :root[data-theme="dark"] .road-semester,
     :root[data-theme="dark"] .path-card,
@@ -2047,8 +2264,7 @@
       background: var(--card);
     }
 
-    :root[data-theme="dark"] .elective-meta span,
-    :root[data-theme="dark"] .scenario-output .so-grid > div {
+    :root[data-theme="dark"] .elective-meta span {
       background: var(--gray-soft);
     }
 
@@ -2069,7 +2285,7 @@
     @media (max-width: 980px) {
       .structure-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .metric, .metric.metric-primary, .metric.metric-wide { grid-column: auto; }
-      .grid-2, .grid-3, .grid-4, .course-sections, .source-grid, .progress-grid, .path-grid, .candidate-grid, .elective-grid, .whatif-grid { grid-template-columns: 1fr; }
+      .grid-2, .grid-3, .grid-4, .course-detail-grid, .source-grid, .progress-grid, .path-grid, .candidate-grid, .elective-grid, .whatif-grid { grid-template-columns: 1fr; }
       .cluster-tabs { grid-template-columns: repeat(auto-fit, minmax(136px, 1fr)); }
       .elective-grid.focused .elective-cluster { grid-template-columns: 1fr; }
       .primary-focus, .plan-lens, .course-lens { grid-template-columns: 1fr; }
@@ -2083,6 +2299,9 @@
       .hero-tools { justify-content: flex-start; min-width: 0; }
       .workflow-list, .workspace-grid { grid-template-columns: 1fr; }
       .snapshot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .snap-item { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .snap-item:nth-child(2n) { border-right: none; }
+      .snap-item:nth-last-child(-n + 2) { border-bottom: none; }
       .term-grid { grid-template-columns: 1fr; }
       .roadmap-timeline { grid-template-columns: 1fr; }
     }
@@ -2091,6 +2310,10 @@
       .page { width: min(calc(100% - 20px), var(--max)); padding-top: 16px; }
       .hero, .section-card { padding: 20px; border-radius: 22px; }
       .structure-grid, .checklist, .snapshot { grid-template-columns: 1fr; }
+      .snap-item,
+      .snap-item:nth-child(2n),
+      .snap-item:nth-child(4n) { border-right: none; border-bottom: 1px solid var(--line); }
+      .snap-item:last-child { border-bottom: none; }
       .metric, .metric.metric-primary, .metric.metric-wide { grid-column: auto; }
       .semester { grid-template-columns: 1fr; }
       .roadmap-timeline { grid-template-columns: 1fr; overflow-x: visible; }
@@ -2349,11 +2572,8 @@
       border-radius: 999px;
       background: var(--gray-soft);
       font-size: .76rem;
-      color: var(--muted);
-    }
-    .workload-score b {
-      color: var(--ink);
       font-weight: 700;
+      color: var(--muted);
     }
     .workload-score.warn { background: #fff3df; color: #7a4500; }
     .workload-score.risk { background: #fdecea; color: #c0392b; }
@@ -2510,73 +2730,6 @@
       color: #7a2820;
       font-size: .82rem;
       border-radius: 10px;
-    }
-
-    /* Scenario simulator — enhanced */
-    .scenario-shell {
-      display: grid;
-      gap: 16px;
-    }
-    .scenario-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .scenario-btn {
-      padding: 8px 14px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--card);
-      cursor: pointer;
-      font-family: inherit;
-      font-size: .88rem;
-      color: var(--text);
-      transition: border-color .14s, color .14s, background .14s;
-    }
-    .scenario-btn:hover { border-color: var(--line-strong); }
-    .scenario-btn.active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-    .scenario-output {
-      padding: 22px 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--card);
-    }
-    .scenario-output h4 {
-      margin: 0 0 4px;
-      font-size: 1.1rem;
-      letter-spacing: -.01em;
-    }
-    .scenario-output .so-summary {
-      color: var(--muted);
-      font-size: .92rem;
-      margin: 0 0 16px;
-    }
-    .scenario-output .so-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px 18px;
-    }
-    .scenario-output .so-grid > div {
-      padding: 12px 14px;
-      background: var(--bg);
-      border-radius: 12px;
-    }
-    .scenario-output .so-grid > div h5 {
-      margin: 0 0 6px;
-      font-size: .76rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 700;
-    }
-    .scenario-output .so-grid p { margin: 0; color: var(--text); font-size: .9rem; }
-    .scenario-output .so-grid ul { margin: 0; padding-left: 18px; color: var(--text); font-size: .9rem; }
-    @media (max-width: 720px) {
-      .scenario-output .so-grid { grid-template-columns: 1fr; }
     }
 
     /* Prerequisite bottleneck panel */
@@ -2950,8 +3103,7 @@
     .reading-card,
     .audit-row,
     .mistake-card,
-    .source-card,
-    .progress-card,
+	    .progress-card,
     .check-card,
     .decision-card,
     .lock-chip,
@@ -2966,8 +3118,7 @@
     .risk-card:hover,
     .reading-card:hover,
     .mistake-card:hover,
-    .source-card:hover,
-    .progress-card:hover {
+	    .progress-card:hover {
       transform: translateY(-1px);
       box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
       border-color: rgba(0, 0, 0, .14);
@@ -2984,7 +3135,6 @@
       border-color: rgba(0, 0, 0, .12);
       background: #fff;
     }
-    .scenario-btn,
     .reading-tab,
     .roadmap-tab,
     .cluster-tab,
@@ -3136,18 +3286,18 @@
 	    :root[data-theme="dark"] .reading-group,
 	    :root[data-theme="dark"] .reading-card,
 	    :root[data-theme="dark"] .reference-group,
-	    :root[data-theme="dark"] .reference-card,
+	    :root[data-theme="dark"] .source-entry,
 	    :root[data-theme="dark"] .bottleneck-card,
 	    :root[data-theme="dark"] .checklist-details,
 	    :root[data-theme="dark"] .status-bar,
-	    :root[data-theme="dark"] .scenario-output,
-	    :root[data-theme="dark"] .scenario-output .so-grid > div,
 	    :root[data-theme="dark"] .decision-card,
 	    :root[data-theme="dark"] .decision-locked,
 	    :root[data-theme="dark"] .placement-row,
 	    :root[data-theme="dark"] .placement-segment,
 	    :root[data-theme="dark"] .grade-input,
 	    :root[data-theme="dark"] .course-workspace,
+	    :root[data-theme="dark"] .compact-disclosure,
+	    :root[data-theme="dark"] .detail-link,
 	    :root[data-theme="dark"] .workspace-field textarea,
 	    :root[data-theme="dark"] .prereq-note {
 	      background: var(--card) !important;
@@ -3170,7 +3320,7 @@
 	    :root[data-theme="dark"] .section-head p,
 	    :root[data-theme="dark"] .elective-card p,
 	    :root[data-theme="dark"] .reading-card .r-en,
-	    :root[data-theme="dark"] .reference-card p,
+	    :root[data-theme="dark"] .source-citation,
 	    :root[data-theme="dark"] .bn-note,
 	    :root[data-theme="dark"] .workspace-saved {
 	      color: var(--text);
@@ -3198,7 +3348,6 @@
 	    :root[data-theme="dark"] .cluster-tab,
 	    :root[data-theme="dark"] .elective-filter,
 	    :root[data-theme="dark"] .source-filter,
-	    :root[data-theme="dark"] .scenario-btn,
 	    :root[data-theme="dark"] .status-btn,
 	    :root[data-theme="dark"] .metric-actions button,
 	    :root[data-theme="dark"] .workspace-actions button,
@@ -3247,7 +3396,6 @@
 	    :root[data-theme="dark"] .route-button.active,
 	    :root[data-theme="dark"] .cluster-tab.active,
 	    :root[data-theme="dark"] .elective-filter.active,
-	    :root[data-theme="dark"] .scenario-btn.active,
 	    :root[data-theme="dark"] .status-btn.active[data-status="candidate"] {
 	      background: var(--blue) !important;
 	      color: #07111f !important;
@@ -3720,10 +3868,9 @@
     .plan-card,
     .flow-card,
     .option-card,
-    .check-card,
-    .mistake-card,
-    .source-card,
-    .progress-card,
+	    .check-card,
+	    .mistake-card,
+	    .progress-card,
     .road-semester,
     .path-card,
     .elective-cluster,
@@ -3734,9 +3881,8 @@
     .toolbar,
     .lens-card,
     .bottleneck-card,
-    .scenario-output,
-    .reading-group,
-    .reference-group,
+	    .reading-group,
+	    .reference-group,
     .checklist-details {
       border-radius: 10px !important;
       background: var(--surface) !important;
@@ -3756,8 +3902,7 @@
     .cluster-tabs,
     .elective-filters,
     .reading-tabs,
-    .source-toolbar,
-    .scenario-buttons {
+    .source-toolbar {
       gap: 6px;
     }
 
@@ -3773,7 +3918,6 @@
     .route-button,
     .cluster-tab,
     .elective-filter,
-    .scenario-btn,
     .reading-tab,
     .source-filter,
     .filter-options button {
@@ -3803,7 +3947,6 @@
     .risk-card:hover,
     .reading-card:hover,
     .mistake-card:hover,
-    .source-card:hover,
     .progress-card:hover {
       transform: none;
       box-shadow: var(--shadow-hover) !important;
@@ -3826,16 +3969,12 @@
       background: var(--surface);
     }
 
-    .snapshot,
-    .info-block,
-    .term-grid li,
-    .reading-list li,
-    .learning-outcome-list li,
-    .workflow-list li,
-    .compact-reading li,
-    .scenario-output .so-grid > div,
-    .elective-meta span,
-    .placement-row {
+	    .snapshot,
+	    .info-block,
+	    .term-grid li,
+	    .reading-list li,
+	    .elective-meta span,
+	    .placement-row {
       border-radius: 8px;
       background: var(--surface-muted) !important;
     }
@@ -3898,29 +4037,37 @@
           <div class="metric-top"><strong>144cp</strong><span class="metric-value" data-progress-value>0 / 144cp</span></div>
           <b>Bachelor of Science</b>
           <span data-progress-status>尚未记录已完成课程</span>
-          <div class="progress-bar" style="--value:0%"><span></span></div>
-          <p>只有在课程库中标记“已完成”的课程会计入。</p>
+          <div class="metric-progress" data-progress-stack>
+            <div class="progress-bar stacked" aria-label="总学分规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
+          </div>
         </article>
         <article class="metric" data-progress-card="major">
           <div class="metric-top"><strong>48cp</strong><span class="metric-value" data-progress-value>0 / 48cp</span></div>
           <b>Computer Science</b>
           <span data-progress-status>未计入 major 学分</span>
-          <div class="progress-bar good" style="--value:0%"><span></span></div>
-          <p>Major 结构进度。</p>
+          <div class="metric-progress" data-progress-stack>
+            <div class="progress-bar stacked" aria-label="Major 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
+          </div>
         </article>
         <article class="metric" data-progress-card="minor">
           <div class="metric-top"><strong>36cp</strong><span class="metric-value" data-progress-value>0 / 36cp</span></div>
           <b>DMA Minor</b>
           <span data-progress-status>未计入 minor 学分</span>
-          <div class="progress-bar good" style="--value:0%"><span></span></div>
-          <p>Discrete Mathematics and Algorithms 结构进度。</p>
+          <div class="metric-progress" data-progress-stack>
+            <div class="progress-bar stacked" aria-label="Minor 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
+          </div>
         </article>
         <article class="metric" data-progress-card="ole">
           <div class="metric-top"><strong>6cp</strong><span class="metric-value" data-progress-value>0 / 6cp</span></div>
           <b>Open Learning Environment</b>
           <span data-progress-status>总需求 6cp</span>
-          <div class="progress-bar" style="--value:0%"><span></span></div>
-          <p>OLE requirement 已确认 6cp。</p>
+          <div class="metric-progress" data-progress-stack>
+            <div class="progress-bar stacked" aria-label="OLE 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
+          </div>
         </article>
         <article class="metric" data-progress-card="wam">
           <div class="metric-top"><strong>WAM</strong><span class="metric-value" data-progress-value>暂无成绩</span></div>
@@ -3933,8 +4080,10 @@
           <div class="metric-top"><strong>弹性空间</strong><span class="metric-value" data-progress-value>0cp 已完成</span></div>
           <b>选修课 / degree core 调整</b>
           <span data-progress-status>尚未完成弹性空间</span>
-          <div class="progress-bar" style="--value:0%"><span></span></div>
-          <p>用于方向探索、WAM 保护、先修补强、实习或交换空间。</p>
+          <div class="metric-progress" data-progress-stack>
+            <div class="progress-bar stacked" aria-label="弹性空间规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
+          </div>
         </article>
         <article class="metric metric-wide" data-progress-card="pressure">
           <div class="metric-top"><strong>压力</strong><span class="metric-value" data-progress-value>低</span></div>
@@ -3950,18 +4099,15 @@
       </div>
       <div class="primary-focus" aria-label="核心使用入口">
         <a class="focus-card" href="#checklist">
-          <span>当前进度</span>
           <strong>毕业结构核对</strong>
           <p>查看 144cp、Major、Minor、OLE、WAM 与风险状态，正式选课前快速扫一遍结构缺口。</p>
         </a>
         <a class="focus-card" href="#plans">
-          <span>学期计划</span>
-          <strong>锁定下一阶段课程</strong>
+          <strong>学期计划</strong>
           <p>围绕接近 2.5 年毕业目标，判断每学期 cp、课业压力和 intensive 是否值得加入。</p>
         </a>
         <a class="focus-card" href="#courses">
-          <span>课程库</span>
-          <strong>筛选与标记候选课</strong>
+          <strong>课程库</strong>
           <p>用搜索加三组筛选定位课程，查看是否适合选、什么时候选、需要什么准备。</p>
         </a>
       </div>
@@ -3972,7 +4118,6 @@
       <a href="#plans">学期计划</a>
       <a href="#courses">课程库</a>
       <a href="#bottleneck">先修图</a>
-      <a href="#scenarios">路线模拟</a>
       <a href="#reading">阅读</a>
       <a href="#sources">来源</a>
     </nav>
@@ -4046,7 +4191,7 @@
         <div class="roadmap-shell">
           <div class="roadmap-panel deprecated-progress" data-roadmap-panel="requirements" hidden aria-hidden="true">
             <h3 class="roadmap-panel-title">毕业要求进度仪表盘</h3>
-            <p class="roadmap-intro">本仪表盘用来快速判断路线是否“结构上可毕业”。默认不计入任何已完成学分；每完成一个学期或 intensive 后，可在“学期时间轴”中勾选对应阶段，进度会自动更新并保存在本机浏览器。</p>
+            <p class="roadmap-intro">本仪表盘用来快速判断路线是否“结构上可毕业”。默认不计入任何已完成学分；每完成一个学期或 intensive 后，可在计划区勾选对应阶段，进度会自动更新并保存在本机浏览器。</p>
             <div class="progress-actions">
               <p>当前进度以已勾选阶段为准；未完成的 2026 S1 不会提前计入。</p>
               <button type="button" id="resetProgress">重置已完成标记</button>
@@ -4062,8 +4207,7 @@
           </div>
 
           <div class="roadmap-panel" data-roadmap-panel="timeline">
-            <h3 class="roadmap-panel-title">学期时间轴</h3>
-            <div class="route-note"><p><strong>快速路线：</strong>学位规划目标统一为接近 2.5 年毕业，需要 intensive 或 26–32cp overload。Prerequisite 瓶颈更敏感，WAM 和课业压力风险更高；不能牺牲 INFO1110、INFO1113、COMP2123、COMP2017、COMP3027 的质量。</p></div>
+            <div class="plan-brief"><strong>快速路线 · 接近 2.5 年</strong><span>学分与压力会按锁定、候选和已完成课程实时更新。</span></div>
             <div class="roadmap-timeline">
               <article class="road-semester" data-stage-id="2026-s1" data-stage-name="2026 S1" data-total-cp="24" data-major-cp="6" data-minor-cp="0" data-ole-cp="0" data-elective-cp="18" data-pressure-comfortable="Medium" data-pressure-accelerated="Medium">
                 <header><h3>2026 S1</h3><span class="cp-note">24cp · 基础阶段</span></header>
@@ -4338,18 +4482,6 @@
         <div class="bottleneck-grid" id="bottleneckGrid"></div>
       </section>
 
-      <section id="scenarios" class="section-card">
-        <div class="section-head">
-          <span class="section-kicker">路线模拟</span>
-          <h2>路线模拟</h2>
-          <p>比较保 WAM、加速、兴趣路线和实习交换空间，重点看 workload、intensive、风险组合和毕业速度。</p>
-        </div>
-        <div class="scenario-shell">
-          <div class="scenario-buttons" id="scenarioButtons"></div>
-          <div class="scenario-output" id="scenarioOutput" aria-live="polite"></div>
-        </div>
-      </section>
-
       <section id="reading" class="section-card">
         <div class="section-head">
           <span class="section-kicker">阅读准备</span>
@@ -4366,9 +4498,9 @@
 
       <section id="sources" class="section-card">
         <div class="section-head">
-          <span class="section-kicker">来源</span>
-          <h2>来源登记</h2>
-          <p>集中登记学位结构、课程官方页面、学生系统和学习资源；最终选课仍以 Sydney Student 与 Handbook 为准。</p>
+          <span class="section-kicker">Reference</span>
+          <h2>参考 Reference</h2>
+          <p>按 Harvard referencing 的阅读习惯整理学位结构、课程官方页面、学生系统和学习资源；最终选课仍以 Sydney Student 与 Handbook 为准。</p>
         </div>
         <div class="source-toolbar" id="sourceToolbar" aria-label="来源筛选">
           <button class="source-filter active" type="button" data-source-filter="all">全部</button>
@@ -5686,20 +5818,19 @@
               <h3>${escapeHtml(SOURCE_TYPE_LABELS[type])}</h3>
               <span>${items.length} 条来源</span>
             </summary>
-            <div class="source-grid">
-              ${items.map(source => `
-                <article class="source-card" data-source-type="${escapeHtml(source.type)}">
-                  <div class="source-meta">
-                    <span class="source-type">${escapeHtml(SOURCE_TYPE_LABELS[source.type])}</span>
-                    <span>访问 ${escapeHtml(PLANNER_CONFIG.accessDate)}</span>
-                  </div>
-                  <h3>${escapeHtml(source.title)}</h3>
-                  <p class="source-citation">${escapeHtml(source.citation)}</p>
-                  <p class="source-use">用途：${escapeHtml(source.use)}</p>
-                  <a class="source-link" href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">打开来源</a>
-                </article>
-              `).join("")}
-            </div>
+	            <div class="source-grid">
+	              ${items.map(source => `
+	                <article class="source-card" data-source-type="${escapeHtml(source.type)}">
+	                  <div class="source-entry">
+	                    <p class="source-citation">${escapeHtml(source.citation)} Available at: <a class="source-link" href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(source.url)}</a> (Accessed: ${escapeHtml(PLANNER_CONFIG.accessDate)}).</p>
+	                    <div class="source-meta">
+	                      <span class="source-type">${escapeHtml(SOURCE_TYPE_LABELS[source.type])}</span>
+	                      <span>${escapeHtml(source.use)}</span>
+	                    </div>
+	                  </div>
+	                </article>
+	              `).join("")}
+	            </div>
           </details>
         `;
       }).join("");
@@ -5717,7 +5848,11 @@
       core: "核心课", math: "数学", data: "数据", science: "科学基础", ai: "AI", systems: "系统", project: "项目课", ole: "OLE", music: "音乐", philosophy: "哲学", design: "设计", business: "商业", psychology: "心理学", elective: "选修课"
     };
 
+    const codePrefix = code => (String(code || "").match(/[A-Z]{4}/) || [""])[0];
+    const codePrefixes = Array.from(new Set(courses.map(course => codePrefix(course.code)).filter(Boolean))).sort();
+
     const filterGroups = [
+      { label: "课号前缀", key: "prefix", values: ["all", ...codePrefixes] },
       { label: "课程类型", key: "category", values: ["all", "core", "math", "data", "systems", "ai", "project", "ole", "elective"] },
       { label: "压力", key: "workload", values: ["all", "Low", "Medium", "Medium-High", "High", "Very High"] },
       { label: "年级", key: "level", values: ["all", "1000", "2000", "3000"] }
@@ -5767,7 +5902,7 @@
       "graduation requirement": "毕业要求"
     };
 
-    const activeFilters = { category: "all", workload: "all", level: "all" };
+    const activeFilters = { prefix: "all", category: "all", workload: "all", level: "all" };
     const filterRoot = document.querySelector("#filters");
     const courseList = document.querySelector("#courseList");
     const search = document.querySelector("#search");
@@ -5778,7 +5913,10 @@
     const stageOverride = document.querySelector("#stageOverride");
 
     const tagClass = value => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-");
-    const list = items => `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
+    const normalizedLabel = value => String(value || "").trim().replace(/\s+/g, " ").toLowerCase();
+    const workloadKey = value => String(value || "").replace("–", "-");
+    const workloadLabelFor = workload => filterValueLabels[workloadKey(workload)] || filterValueLabels[workload] || workload;
+    const compactList = items => `<ul class="compact-list">${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
     const linkLabel = label => ({
       "Official Unit Page": "官方课程页",
       "OLET1666 Unit Page": "OLET1666 官方课程页",
@@ -5804,7 +5942,7 @@
     }
 
     function workloadScore(workload) {
-      return ({ "Low": 1, "Low-Med": 1.5, "Medium": 2, "Medium-High": 2.5, "Medium–High": 2.5, "High": 3, "Very High": 4 })[workload] ?? 2;
+      return ({ "Low": 1, "Low-Med": 1.5, "Medium": 2, "Medium-High": 2.5, "High": 3, "Very High": 4 })[workloadKey(workload)] ?? 2;
     }
 
     function workloadScoreClass(score) {
@@ -6112,12 +6250,20 @@
       `;
     }
 
-    function readingEntry(course) {
-      const target = readingTargetFor(course);
-      return `
-        <p>关联阅读分组：<strong>${target.group}</strong></p>
-        <button type="button" class="reading-jump" data-reading-tab="${target.tab}" data-reading-group="${groupKey(target.group)}">跳转到完整书单</button>
-      `;
+    function summaryTagsFor(course) {
+      const seen = new Set();
+      const tags = [];
+      const add = (label, className = "") => {
+        const normalized = String(label || "").trim();
+        const key = normalizedLabel(normalized);
+        if (!normalized || seen.has(key)) return;
+        seen.add(key);
+        tags.push({ label: normalized, className });
+      };
+
+      (course.category || []).forEach(cat => add(categoryLabels[cat] || cat, tagClass(cat)));
+      (course.skills || []).forEach(skill => add(filterValueLabels[skill] || skill));
+      return tags;
     }
 
     function workspaceMarkup(course) {
@@ -6176,10 +6322,8 @@
               <p class="one-line">${course.summary}</p>
               <div class="tag-row">
                 <span class="tag">${course.cp}</span>
-                ${course.category.map(cat => `<span class="tag ${tagClass(cat)}">${categoryLabels[cat] || cat}</span>`).join("")}
-                <span class="tag ${tagClass(course.workload)}">${filterValueLabels[course.workload] || course.workload}</span>
-                <span class="workload-score ${workloadScoreClass(score)}" title="课业压力分">压力分 <b>${score}</b></span>
-                ${course.skills.slice(0, 3).map(skill => `<span class="tag">${filterValueLabels[skill] || skill}</span>`).join("")}
+                ${summaryTagsFor(course).map(tag => `<span class="tag ${tag.className}">${tag.label}</span>`).join("")}
+                <span class="workload-score ${workloadScoreClass(score)}" title="课业压力：${workloadLabelFor(course.workload)}，分值 ${score}">压力 ${workloadLabelFor(course.workload)} · ${score}</span>
               </div>
               <div class="course-status-row" data-course-status-buttons="${course.code}">
                 <span class="status-label">状态</span>
@@ -6212,18 +6356,17 @@
             <span class="toggle"></span>
           </summary>
           <div class="course-body">
-            <div class="snapshot">
-              <div class="snap-item"><span>课程代码</span><b>${course.code}</b></div>
-              <div class="snap-item"><span>学分</span><b>${course.cp}</b></div>
-              <div class="snap-item"><span>类别</span><b>${course.category.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
-              <div class="snap-item"><span>课业压力 / 分</span><b>${filterValueLabels[course.workload] || course.workload} · ${score}</b></div>
-              <div class="snap-item"><span>能力类型</span><b>${course.skills.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
-              <div class="snap-item"><span>建议时间</span><b>${course.best}</b></div>
-              <div class="snap-item"><span>后续衔接</span><b>${course.later}</b></div>
-              <div class="snap-item"><span>规划功能</span><b>${course.functionTags.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
-            </div>
-
-            <div class="info-block full workload-guide"><h4>课业压力分说明</h4><p>单课压力分：Low = 1，Medium = 2，Medium-High = 2.5，High = 3，Very High = 4。学期压力分为该学期课程压力分相加：0–8 相对舒适，9–10 认真负担，11–12 高压，13+ 属于危险组合。</p></div>
+            <div class="course-detail-panel">
+              <div class="snapshot">
+                <div class="snap-item"><span>课程代码</span><b>${course.code}</b></div>
+                <div class="snap-item"><span>学分</span><b>${course.cp}</b></div>
+                <div class="snap-item"><span>类别</span><b>${course.category.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
+                <div class="snap-item"><span>压力</span><b>${workloadLabelFor(course.workload)} · ${score}</b></div>
+                <div class="snap-item"><span>能力</span><b>${course.skills.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
+                <div class="snap-item"><span>建议时间</span><b>${course.best}</b></div>
+                <div class="snap-item"><span>后续衔接</span><b>${course.later}</b></div>
+                <div class="snap-item"><span>规划功能</span><b>${course.functionTags.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
+              </div>
 
             ${showDecision ? `
             <details class="shouldtake">
@@ -6242,16 +6385,42 @@
               </div>
             </details>` : ""}
 
-            <div class="course-sections">
-              <div class="info-block"><h4>这门课学什么</h4><ul class="learning-outcome-list">${mergedLearningList(course)}</ul></div>
-              <div class="info-block"><h4>为什么重要 / Why it matters</h4><p>${course.matters}</p>${prerequisiteNoteFor(course)}</div>
-              <div class="info-block"><h4>Assumed Knowledge / 建议基础</h4>${list(course.before)}</div>
-              <div class="info-block"><h4>课程阅读 / Course Reading</h4>${compactCourseReading(course)}</div>
-              <div class="info-block full"><h4>学习执行清单 / Study Workflow</h4><ul class="workflow-list">${workflowFor(course)}</ul></div>
-              <div class="info-block full"><h4>中英文核心术语 / Key terms bilingual</h4><ul class="term-grid">${course.terms.map(term => `<li>${term}</li>`).join("")}</ul></div>
-              <div class="info-block full"><h4>相关书单入口</h4>${readingEntry(course)}</div>
-              <div class="info-block full"><h4>官方链接</h4><p>${course.links.map(([label, href]) => `<a href="${href}" target="_blank" rel="noreferrer">${linkLabel(label)}</a>`).join(" · ")}</p></div>
-              ${workspaceMarkup(course)}
+              <div class="course-detail-grid">
+                <div class="info-block">
+                  <h4>核心判断</h4>
+                  <p>${course.matters}</p>
+                  ${prerequisiteNoteFor(course)}
+                </div>
+                <div class="info-block">
+                  <h4>建议基础</h4>
+                  ${compactList(course.before)}
+                </div>
+                <div class="info-block wide">
+                  <h4>学习内容与达标标准</h4>
+                  <ul class="learning-outcome-list">${mergedLearningList(course)}</ul>
+                </div>
+                <div class="info-block wide">
+                  <h4>学习执行清单</h4>
+                  <ul class="workflow-list">${workflowFor(course)}</ul>
+                </div>
+                <div class="info-block">
+                  <h4>阅读准备</h4>
+                  ${compactCourseReading(course)}
+                </div>
+                <div class="info-block">
+                  <h4>官方来源</h4>
+                  <div class="detail-actions">
+                    ${course.links.map(([label, href]) => `<a class="detail-link" href="${href}" target="_blank" rel="noreferrer">${linkLabel(label)}</a>`).join("")}
+                  </div>
+                </div>
+                <details class="compact-disclosure">
+                  <summary>核心术语</summary>
+                  <div class="compact-disclosure-body">
+                    <ul class="term-grid">${course.terms.map(term => `<li>${term}</li>`).join("")}</ul>
+                  </div>
+                </details>
+                ${workspaceMarkup(course)}
+              </div>
             </div>
           </div>
         </details>
@@ -6365,6 +6534,8 @@
 
     function filterMatches(course, key, value) {
       if (value === "all") return true;
+      if (key === "workload") return workloadKey(course.workload) === workloadKey(value);
+      if (key === "prefix") return codePrefix(course.code) === value;
       const target = course[key];
       if (Array.isArray(target)) return target.includes(value);
       return target === value;
@@ -6443,10 +6614,41 @@
       document.querySelectorAll(`[data-progress-card="${type}"]`).forEach(card => {
         const valueNode = card.querySelector("[data-progress-value]");
         const statusNode = card.querySelector("[data-progress-status]");
-        const bar = card.querySelector(".progress-bar");
+        const bar = card.querySelector(".progress-bar:not(.stacked)");
         if (valueNode) valueNode.textContent = label;
         if (statusNode) statusNode.textContent = status;
         if (bar) bar.style.setProperty("--value", `${percent}%`);
+      });
+    }
+
+    function setCreditProgressCard(type, values, target, titleLabel, emptyStatus) {
+      const completed = Math.max(0, values.completed || 0);
+      const locked = Math.max(0, values.locked || 0);
+      const candidate = Math.max(0, values.candidate || 0);
+      const planned = completed + locked + candidate;
+      const completedPercent = Math.min(100, (completed / target) * 100);
+      const lockedPercent = Math.min(Math.max(0, 100 - completedPercent), (locked / target) * 100);
+      const candidatePercent = Math.min(Math.max(0, 100 - completedPercent - lockedPercent), (candidate / target) * 100);
+      const valueLabel = titleLabel || `${completed} / ${target}cp`;
+      const status = planned
+        ? `已完成 ${completed}cp · 锁定 ${locked}cp · 候选 ${candidate}cp`
+        : emptyStatus;
+
+      setProgressCard(type, completed, target, valueLabel, status);
+
+      document.querySelectorAll(`.metric[data-progress-card="${type}"]`).forEach(card => {
+        const completedNode = card.querySelector(".segment-completed");
+        const lockedNode = card.querySelector(".segment-locked");
+        const candidateNode = card.querySelector(".segment-candidate");
+        const completedLabel = card.querySelector('[data-progress-part="completed"]');
+        const lockedLabel = card.querySelector('[data-progress-part="locked"]');
+        const candidateLabel = card.querySelector('[data-progress-part="candidate"]');
+        if (completedNode) completedNode.style.setProperty("--segment", `${completedPercent}%`);
+        if (lockedNode) lockedNode.style.setProperty("--segment", `${lockedPercent}%`);
+        if (candidateNode) candidateNode.style.setProperty("--segment", `${candidatePercent}%`);
+        if (completedLabel) completedLabel.textContent = `已完成 ${completed}cp`;
+        if (lockedLabel) lockedLabel.textContent = `锁定 ${locked}cp`;
+        if (candidateLabel) candidateLabel.textContent = `候选 ${candidate}cp`;
       });
     }
 
@@ -6454,18 +6656,28 @@
       const statuses = readCourseStatuses();
       const completedCourses = courses.filter(course => (statuses[course.code] || {}).status === "completed");
       const lockedOrCandidateCount = Object.values(statuses).filter(entry => entry && (entry.status === "locked" || entry.status === "candidate")).length;
-      const totals = { total: 0, major: 0, minor: 0, ole: 0, elective: 0 };
+      const totals = {
+        completed: { total: 0, major: 0, minor: 0, ole: 0, elective: 0 },
+        locked: { total: 0, major: 0, minor: 0, ole: 0, elective: 0 },
+        candidate: { total: 0, major: 0, minor: 0, ole: 0, elective: 0 }
+      };
       let wamNumerator = 0;
       let wamDenominator = 0;
 
+      courses.forEach(course => {
+        const status = (statuses[course.code] || {}).status;
+        if (!["completed", "locked", "candidate"].includes(status)) return;
+        const bucket = totals[status];
+        const cp = creditPoints(course);
+        bucket.total += cp;
+        if (majorCreditCodes.has(course.code)) bucket.major += cp;
+        if (minorCreditCodes.has(course.code)) bucket.minor += cp;
+        if (course.category.includes("ole")) bucket.ole += cp;
+        if (!majorCreditCodes.has(course.code) && !minorCreditCodes.has(course.code) && !course.category.includes("ole")) bucket.elective += cp;
+      });
+
       completedCourses.forEach(course => {
         const cp = creditPoints(course);
-        totals.total += cp;
-        if (majorCreditCodes.has(course.code)) totals.major += cp;
-        if (minorCreditCodes.has(course.code)) totals.minor += cp;
-        if (course.category.includes("ole")) totals.ole += cp;
-        if (!majorCreditCodes.has(course.code) && !minorCreditCodes.has(course.code) && !course.category.includes("ole")) totals.elective += cp;
-
         const rawMark = (statuses[course.code] || {}).mark;
         const mark = Number(rawMark);
         if (rawMark !== "" && rawMark !== undefined && rawMark !== null && Number.isFinite(mark) && mark >= 0 && mark <= 100 && !course.category.includes("ole")) {
@@ -6475,12 +6687,31 @@
         }
       });
 
-      const totalPercent = Math.min(100, Math.round((totals.total / progressTargets.total) * 100));
-      setProgressCard("total", totals.total, progressTargets.total, `${totals.total} / 144cp`, totals.total ? `已完成 ${totalPercent}%` : "尚未记录已完成课程");
-      setProgressCard("major", totals.major, progressTargets.major, `${totals.major} / 48cp`, totals.major ? "已完成部分 major 结构" : "未计入 major 学分");
-      setProgressCard("minor", totals.minor, progressTargets.minor, `${totals.minor} / 36cp`, totals.minor ? "已完成部分 minor 结构" : "未计入 minor 学分");
-      setProgressCard("ole", totals.ole, progressTargets.ole, `${totals.ole} / 6cp`, totals.ole >= 6 ? "OLE 已满足" : "总需求 6cp");
-      setProgressCard("elective", totals.elective, progressTargets.elective, `${totals.elective}cp 已完成`, totals.elective ? "已完成部分弹性空间" : "尚未完成弹性空间");
+      setCreditProgressCard("total", {
+        completed: totals.completed.total,
+        locked: totals.locked.total,
+        candidate: totals.candidate.total
+      }, progressTargets.total, `${totals.completed.total} / 144cp`, "尚未记录课程进度");
+      setCreditProgressCard("major", {
+        completed: totals.completed.major,
+        locked: totals.locked.major,
+        candidate: totals.candidate.major
+      }, progressTargets.major, `${totals.completed.major} / 48cp`, "未计入 major 学分");
+      setCreditProgressCard("minor", {
+        completed: totals.completed.minor,
+        locked: totals.locked.minor,
+        candidate: totals.candidate.minor
+      }, progressTargets.minor, `${totals.completed.minor} / 36cp`, "未计入 minor 学分");
+      setCreditProgressCard("ole", {
+        completed: totals.completed.ole,
+        locked: totals.locked.ole,
+        candidate: totals.candidate.ole
+      }, progressTargets.ole, `${totals.completed.ole} / 6cp`, "总需求 6cp");
+      setCreditProgressCard("elective", {
+        completed: totals.completed.elective,
+        locked: totals.locked.elective,
+        candidate: totals.candidate.elective
+      }, progressTargets.elective, `${totals.completed.elective}cp 已完成`, "尚未使用弹性空间");
 
       if (wamDenominator > 0) {
         const wam = wamNumerator / wamDenominator;
@@ -6496,7 +6727,7 @@
       const completedCodes = new Set(completedCourses.map(course => course.code));
       const bottleneckOpen = ["INFO1113", "COMP2123", "COMP2017", "COMP3027"].filter(code => !completedCodes.has(code)).length;
       let pressurePoints = 0;
-      if (totals.total < 36 && lockedOrCandidateCount >= 6) pressurePoints += 1;
+      if (totals.completed.total < 36 && lockedOrCandidateCount >= 6) pressurePoints += 1;
       if (lockedOrCandidateCount >= 10) pressurePoints += 2;
       else if (lockedOrCandidateCount >= 5) pressurePoints += 1;
       if (plannedHighPressure >= 3) pressurePoints += 2;
@@ -6870,30 +7101,6 @@
       return { tier: "comfort", text: `舒适 (${score})` };
     }
 
-    function injectWorkloadBudget() {
-      // Static workload scores per stage (manually estimated based on courses listed)
-      const stageScores = {
-        "2026-s1": 8, "2026-july": 1, "2026-s2": 9, "2026-summer": 1,
-        "2027-s1": 10, "2027-july": 2, "2027-s2": 11, "2027-summer": 1,
-        "2028-s1": 12, "2028-july": 1, "2028-s2": 11
-      };
-      document.querySelectorAll(".road-semester").forEach(card => {
-        const id = card.dataset.stageId;
-        const score = stageScores[id];
-        if (score == null) return;
-        let badge = card.querySelector(".workload-budget");
-        if (!badge) {
-          badge = document.createElement("span");
-          badge.className = "workload-budget";
-          card.querySelector("header")?.appendChild(badge);
-        }
-        const info = workloadLabel(score);
-        badge.className = `workload-budget score-${info.tier}`;
-        badge.textContent = `课业压力 ${info.text}`;
-      });
-    }
-    injectWorkloadBudget();
-
     /* ==========================================================
        Tag mini-courses with category and group semesters by year
        ========================================================== */
@@ -6941,15 +7148,96 @@
       return courseCode === timelineCode || courseParts.includes(timelineCode) || timelineCode.includes(courseParts[0]);
     }
 
+    function courseForTimelineCode(timelineCode) {
+      return courses.find(course => codeMatchesTimelineCode(course.code, timelineCode));
+    }
+
     function courseCpForCode(code) {
-      const target = courses.find(course => codeMatchesTimelineCode(course.code, code));
+      const target = courseForTimelineCode(code);
       return target ? creditPoints(target) : 6;
+    }
+
+    function timelineCourseLine(course) {
+      return `${course.name} · ${course.cp}`;
     }
 
     function staticTimelineCode(item) {
       const codeNode = item.querySelector("strong");
       const raw = codeNode?.dataset.originalCode || codeNode?.textContent || "";
       return raw.replace(/^(锁定|候选|已完成|不选)\s+/, "").trim();
+    }
+
+    function normalizeStaticTimelineText() {
+      document.querySelectorAll(".mini-course:not(.user-added-course)").forEach(item => {
+        if (item.classList.contains("placeholder")) {
+          const small = item.querySelector("small");
+          if (small) small.textContent = "从课程库选择并指定到本学期";
+          return;
+        }
+        const code = staticTimelineCode(item);
+        const course = courseForTimelineCode(code);
+        const small = item.querySelector("small");
+        if (course && small) small.textContent = timelineCourseLine(course);
+        else if (small) small.textContent = "从课程库选择 · 待定cp";
+      });
+    }
+
+    function entriesForStage(statuses, stageId) {
+      return Object.entries(statuses).filter(([, entry]) => {
+        if (!entry || !["locked", "candidate", "completed"].includes(entry.status) || !entry.year || !entry.semester) return false;
+        return stageIdFor(entry.year, entry.semester) === stageId;
+      });
+    }
+
+    function stageSummaryForEntries(entries) {
+      const cp = entries.reduce((sum, [code]) => sum + courseCpForCode(code), 0);
+      const score = entries.reduce((sum, [code]) => {
+        const course = courseForTimelineCode(code);
+        return sum + (course ? workloadScore(course.workload) : 0);
+      }, 0);
+      const locked = entries.filter(([, entry]) => entry.status === "locked").length;
+      const candidate = entries.filter(([, entry]) => entry.status === "candidate").length;
+      const completed = entries.filter(([, entry]) => entry.status === "completed").length;
+      const pressure = cp ? workloadLabel(score) : null;
+      const statusParts = [];
+      if (completed) statusParts.push(`已完成 ${completed}`);
+      if (locked) statusParts.push(`锁定 ${locked}`);
+      if (candidate) statusParts.push(`候选 ${candidate}`);
+      return { cp, score, locked, candidate, completed, pressure, statusText: statusParts.join(" / ") };
+    }
+
+    function updateTimelineHeaders(statuses) {
+      document.querySelectorAll(".road-semester").forEach(stage => {
+        const entries = entriesForStage(statuses, stage.dataset.stageId);
+        const summary = stageSummaryForEntries(entries);
+        const note = stage.querySelector(".cp-note");
+        if (note) {
+          note.textContent = summary.cp
+            ? `${summary.cp}cp · ${summary.statusText || "已排课程"} · 压力：${summary.pressure.text}`
+            : "0cp · 待安排";
+        }
+        let badge = stage.querySelector(".workload-budget");
+        if (!badge) {
+          badge = document.createElement("span");
+          badge.className = "workload-budget";
+          stage.querySelector("header")?.appendChild(badge);
+        }
+        if (summary.cp && summary.pressure) {
+          badge.hidden = false;
+          badge.className = `workload-budget score-${summary.pressure.tier}`;
+          badge.textContent = `课业压力 ${summary.pressure.text}`;
+        } else {
+          badge.hidden = true;
+        }
+      });
+
+      document.querySelectorAll(".year-column").forEach(column => {
+        const yearTotal = Array.from(column.querySelectorAll(".road-semester")).reduce((sum, stage) => {
+          return sum + stageSummaryForEntries(entriesForStage(statuses, stage.dataset.stageId)).cp;
+        }, 0);
+        const meta = column.querySelector(".year-header span");
+        if (meta) meta.textContent = `已排 ${yearTotal}cp`;
+      });
     }
 
     function updateTimelineFromCourseStatuses() {
@@ -6963,6 +7251,7 @@
           if (!item.classList.contains("placeholder")) item.classList.add("is-recommended");
         }
       });
+      normalizeStaticTimelineText();
 
       document.querySelectorAll(".road-semester").forEach(card => {
         card.classList.remove("has-user-course");
@@ -6984,31 +7273,30 @@
         });
 
         const label = STATUS_LABEL[entry.status] || "";
-        const statusClass = entry.status === "locked" ? "is-locked" : entry.status === "completed" ? "is-completed" : "is-candidate";
-        if (target) {
-          const strong = target.querySelector("strong");
-          if (strong && !strong.dataset.originalCode) strong.dataset.originalCode = strong.textContent.trim();
-          if (strong && !strong.querySelector(".status-prefix")) {
-            strong.insertAdjacentHTML("afterbegin", `<span class="status-prefix">${label}</span>`);
-          }
+	        const statusClass = entry.status === "locked" ? "is-locked" : entry.status === "completed" ? "is-completed" : "is-candidate";
+	        if (target) {
+	          const strong = target.querySelector("strong");
+	          if (strong && !strong.dataset.originalCode) strong.dataset.originalCode = strong.textContent.trim();
+	          const small = target.querySelector("small");
+	          if (small) small.textContent = timelineCourseLine(course);
+	          if (strong && !strong.querySelector(".status-prefix")) {
+	            strong.insertAdjacentHTML("afterbegin", `<span class="status-prefix">${label}</span>`);
+	          }
           target.classList.remove("is-recommended", "recommendation-hidden");
           target.classList.add(statusClass, "is-user-selected-static");
-        } else {
-          const card = document.createElement("div");
-          card.className = `mini-course user-added-course ${statusClass}`;
-          card.dataset.code = course.code;
-          card.innerHTML = `<strong><span class="status-prefix">${label}</span>${course.code}</strong><small>${course.name} · ${course.cp}</small>`;
-          stage.appendChild(card);
-        }
-      });
+	        } else {
+	          const card = document.createElement("div");
+	          card.className = `mini-course user-added-course ${statusClass}`;
+	          card.dataset.code = course.code;
+	          card.innerHTML = `<strong><span class="status-prefix">${label}</span>${course.code}</strong><small>${timelineCourseLine(course)}</small>`;
+	          stage.appendChild(card);
+	        }
+	      });
 
-      document.querySelectorAll(".road-semester").forEach(stage => {
-        const stageEntries = Object.entries(statuses).filter(([, entry]) => {
-          if (!entry || !["locked", "candidate", "completed"].includes(entry.status) || !entry.year || !entry.semester) return false;
-          return stageIdFor(entry.year, entry.semester) === stage.dataset.stageId;
-        });
-        const hasCandidate = stageEntries.some(([, entry]) => entry.status === "candidate");
-        const lockedEntries = stageEntries.filter(([, entry]) => entry.status !== "candidate");
+	      document.querySelectorAll(".road-semester").forEach(stage => {
+	        const stageEntries = entriesForStage(statuses, stage.dataset.stageId);
+	        const hasCandidate = stageEntries.some(([, entry]) => entry.status === "candidate");
+	        const lockedEntries = stageEntries.filter(([, entry]) => entry.status !== "candidate");
         const lockedCp = lockedEntries.reduce((sum, [code, entry]) => {
           if (entry.status === "candidate") return sum;
           return sum + courseCpForCode(code);
@@ -7019,11 +7307,12 @@
         const lockedByCp = targetCp > 0 && lockedCp >= targetCp;
         const fullLocked = !hasCandidate && (lockedByCp || lockedByCount);
 
-        stage.querySelectorAll(".mini-course.is-recommended:not(.is-user-selected-static)").forEach(item => {
-          item.classList.toggle("recommendation-hidden", fullLocked);
-        });
-      });
-    }
+	        stage.querySelectorAll(".mini-course.is-recommended:not(.is-user-selected-static)").forEach(item => {
+	          item.classList.toggle("recommendation-hidden", fullLocked);
+	        });
+	      });
+	      updateTimelineHeaders(statuses);
+	    }
 
     (function tagAndGroupTimeline() {
       const timeline = document.querySelector(".roadmap-timeline");
@@ -7106,158 +7395,6 @@
           if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); }
         });
       });
-    })();
-
-    /* ==========================================================
-       路线情境模拟
-       ========================================================== */
-
-    const scenarios = [
-      {
-        id: "comfort", label: "备用：3 年标准毕业",
-        title: "3 年标准备用路线",
-        summary: "作为快速路线不可行时的备用对照：标准每学期 24cp，保留实习 / 交换空间，核心课不堆叠。",
-        pace: "每学期 24cp，约 6 学期 + 2 个 intensive 完成 144cp。",
-        load: "每学期最多 1 门高强度核心 + 1 门中等技术 + 1-2 门轻量。",
-        intensive: "intensive 主要用于 OLE / 轻量选修。",
-        early: "正常按先修关系推进，不需要提前。",
-        avoid: "COMP2017 + COMP3027 同学期 / COMP3888 + 高压数学同学期。",
-        risk: "毕业时间最长；如果不提前规划，毕业项目位置容易被挤压。",
-        electives: "保 WAM 的轻选修；DATA / DECO / PHIL 二选一。",
-        wam: "对 WAM 最友好。",
-        speed: "约 3 年。"
-      },
-      {
-        id: "accel", label: "2.5 年加速毕业",
-        title: "2.5 年加速路线",
-        summary: "提前推进算法主线和数据 / 系统主线，需要 intensive + 26cp 学期。",
-        pace: "若干 26-30cp 学期 + 多次 intensive。",
-        load: "至多 2 门高强度核心 + 1 门中等 + 1 门轻量缓冲。",
-        intensive: "暑期必须使用，至少 2 次 intensive 推进 OLE / 数据 / 音乐路线。",
-        early: "COMP2123 提前到 2026 S2 或 2027 S1；DATA2001 紧跟 DATA1002。",
-        avoid: "COMP2017 + COMP3027 + 项目课同学期；INFO1113 + COMP2123 + 高压数学同学期。",
-        risk: "WAM 显著下降；先修瓶颈极敏感；intensive 燃尽风险。",
-        electives: "全部选修服务路线；不留兴趣探索空间。",
-        wam: "WAM 最大风险路线。",
-        speed: "约 2.5 年。"
-      },
-      {
-        id: "wam", label: "最大化 WAM",
-        title: "WAM 优先 · 慢但稳",
-        summary: "为每门核心课留充足吸收时间；选修课全部用作缓冲。",
-        pace: "可能 3-3.5 年；优先低压力组合。",
-        load: "每学期 1 门高强度核心 + 1 门中等 + 2 门轻量缓冲。",
-        intensive: "intensive 用于 OLE，以及 INFO1110 / INFO1113 的复习强化。",
-        early: "MATH1064 与 INFO1110 都不提前；数据主线降优先级。",
-        avoid: "任何课业压力分 12 以上的学期；高压数学 + COMP3027 同学期。",
-        risk: "毕业时间最长；可能放弃某些方向探索。",
-        electives: "OLE / 轻量选修优先；音乐 / 设计仅作兴趣点缀。",
-        wam: "WAM 上限最高。",
-        speed: "3-3.5 年。"
-      },
-      {
-        id: "ux", label: "UX / 产品兴趣",
-        title: "UX / 产品方向叠加",
-        summary: "在计算机科学 Major 主线上加入 DECO 路线，强调作品集。",
-        pace: "标准 3 年，部分选修空间给到 DECO 主线。",
-        load: "1 门 DECO 通常算中等课业压力；不要与 COMP2017 同学期。",
-        intensive: "OLE 用于 LaTeX / 设计工具补强。",
-        early: "DECO1006 / DECO2016 / DECO2102 可作为独立设计兴趣入口；不要把它们画成硬性先修链。",
-        avoid: "DECO 项目课与 COMP3888 同学期。",
-        risk: "DECO 评分主观，可能略拖 WAM；作品集价值较高。",
-        electives: "DECO1006 / DECO2102 / DECO3000；保留 1 门 OLE。",
-        wam: "WAM 略低于纯 CS 路线。",
-        speed: "3 年。"
-      },
-      {
-        id: "music", label: "音乐 / 声音兴趣",
-        title: "音频 / 计算音乐路线",
-        summary: "在计算机科学 Major 主线上加入 OLET / MUSC / CMPN 路线。",
-        pace: "标准 3 年；intensive 推进音乐类 OLET。",
-        load: "OLET1801 / OLET1803 可做低风险兴趣试水；只有 MUSC3603 已确认可由 MUSC2653 进入，其他 CMPN 需逐门核对。",
-        intensive: "音乐类 OLET 通常以 intensive 形式开课。",
-        early: "若有兴趣可先用 OLET1801 / OLET1803 试水声音与乐理；它们不解锁 MUSC2653，只降低学习门槛。",
-        avoid: "MUSC 项目课与 COMP3888 同学期。",
-        risk: "兴趣路线会占用选修空间；不可同时叠 DECO 主线。",
-        electives: "音乐 OLET + MUSC + CMPN。",
-        wam: "WAM 风险中等（取决于项目评分）。",
-        speed: "3 年。"
-      },
-      {
-        id: "logic", label: "逻辑 / 哲学兴趣",
-        title: "逻辑 / 形式系统路线",
-        summary: "MATH3066 + PHIL1012 + PHIL3910 / PHIL2644 服务证明能力。",
-        pace: "标准 3 年；数学主线推到 3000 级。",
-        load: "MATH3066 + COMP3027 不应同学期。",
-        intensive: "OLET LaTeX 服务证明写作。",
-        early: "PHIL1012 早做；MATH1062 → 2069 → 3066。",
-        avoid: "MATH3066 + COMP3888 + 高压 COMP 同学期。",
-        risk: "理论密度最高；课业压力的真实负担容易被低估。",
-        electives: "PHIL1012 / PHIL3910 / PHIL2644 / MATH3066。",
-        wam: "WAM 取决于证明熟练度。",
-        speed: "3 年。"
-      },
-      {
-        id: "data", label: "数据 / SQL 方向",
-        title: "数据 / 数据系统路线",
-        summary: "DATA1002 → DATA2001 → DATA3404 + COMP2022。",
-        pace: "标准 3 年；数据主线占据 minor 学分。",
-        load: "DATA2001 与 INFO1113 不建议同修（作业高峰重叠）。",
-        intensive: "OLE 推进 LaTeX / SQL 类。",
-        early: "DATA2001 紧跟 DATA1002；COMP2022 紧跟 INFO1113。",
-        avoid: "DATA3404 + COMP3027 同学期。",
-        risk: "技术课业压力高；调试时间长。",
-        electives: "DATA2001 / DATA3404；保留 OLE 空间。",
-        wam: "WAM 中等。",
-        speed: "3 年。"
-      },
-      {
-        id: "exchange", label: "交换 / 实习空间",
-        title: "保留交换 / 实习路线",
-        summary: "为某 1 学期 / 1 暑假留出空档，核心课密度提前。",
-        pace: "前 4 学期推进重；交换 / 实习窗口为 2027 S2 或 2028 S1。",
-        load: "交换前一学期不要叠核心课，避免先修被卡死。",
-        intensive: "intensive 用于 OLE 与轻量缓冲。",
-        early: "INFO1113 / COMP2123 / DATA1002 / MATH1064 提前完成。",
-        avoid: "出去交换前一学期堆 COMP3027 + 项目课。",
-        risk: "交换学分认证不全；时间窗口错位。",
-        electives: "保留 1 门 OLE 给交换后；保留选修空间给学分映射。",
-        wam: "视交换学校而定。",
-        speed: "3-3.5 年。"
-      }
-    ];
-
-    (function renderScenarios() {
-      const btnRoot = document.querySelector("#scenarioButtons");
-      const out = document.querySelector("#scenarioOutput");
-      if (!btnRoot || !out) return;
-      const defaultScenarioId = "accel";
-      btnRoot.innerHTML = scenarios.map(s => `<button type="button" class="scenario-btn ${s.id === defaultScenarioId ? "active" : ""}" data-scenario="${s.id}">${s.label}</button>`).join("");
-
-      function showScenario(id) {
-        const s = scenarios.find(x => x.id === id) || scenarios.find(x => x.id === defaultScenarioId) || scenarios[0];
-        out.innerHTML = `
-          <h4>${s.title}</h4>
-          <p class="so-summary">${s.summary}</p>
-          <div class="so-grid">
-            <div><h5>推荐节奏</h5><p>${s.pace}</p></div>
-            <div><h5>推荐 semester load</h5><p>${s.load}</p></div>
-            <div><h5>是否需要 intensive</h5><p>${s.intensive}</p></div>
-            <div><h5>哪些课应提前</h5><p>${s.early}</p></div>
-            <div><h5>不应同修</h5><p>${s.avoid}</p></div>
-            <div><h5>最大风险</h5><p>${s.risk}</p></div>
-            <div><h5>推荐选修方向</h5><p>${s.electives}</p></div>
-            <div><h5>对 WAM / 毕业速度</h5><p>${s.wam} · ${s.speed}</p></div>
-          </div>
-        `;
-      }
-      btnRoot.querySelectorAll(".scenario-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          btnRoot.querySelectorAll(".scenario-btn").forEach(b => b.classList.toggle("active", b === btn));
-          showScenario(btn.dataset.scenario);
-        });
-      });
-      showScenario(defaultScenarioId);
     })();
 
     /* ==========================================================
