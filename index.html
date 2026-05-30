@@ -4769,6 +4769,48 @@
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH2022"]]
       },
       {
+        code: "ISYS2120",
+        name: "Data and Information Management",
+        cp: "6cp",
+        category: ["data", "systems", "elective"],
+        level: "2000",
+        workload: "Medium-High",
+        skills: ["data", "coding", "teamwork"],
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "INFO1110 / DATA1002 等入口后；数据库路线或 DATA3404 前",
+        later: "DATA3404, database route, data engineering",
+        summary: "数据库与信息管理基础课，覆盖 conceptual/logical/physical database design、normalisation、SQL、transactions 和 data application architecture。",
+        teaches: ["ER / conceptual modelling、relational schema、normalisation", "SQL query、table definition、integrity constraints", "transactions、indexing、query processing", "database-backed application architecture、security、privacy"],
+        matters: "ISYS2120 是 DATA3404 的官方入口之一，也是比 DATA2001 更数据库中心的路线选择。若想走 database / data engineering，它比泛数据分析更贴近 DBMS 基础。",
+        before: ["INFO1110 / INFO1910 / ENGG1810 / DATA1002 等官方编程或数据入口之一", "6cp MATH / STAT 或 DATA1001 是 assumed knowledge", "愿意持续练习 SQL 和 schema design"],
+        mastery: ["能把现实需求转成 conceptual model 和 relational schema", "能写 SQL 查询、约束和更新操作", "能解释 normalisation、transactions、indexes 对质量和性能的影响", "能说明数据库应用的基本架构与安全风险"],
+        how: ["每个案例先画 ER model，再映射成 relational schema", "SQL 练习固定写 expected result 和 edge cases", "normalisation 题写 functional dependencies 和 decomposition rationale"],
+        terms: ["database management system — 数据库管理系统", "relational model — 关系模型", "normalisation — 规范化", "integrity constraint — 完整性约束", "SQL — 结构化查询语言", "transaction — 事务", "index — 索引", "OLAP — 联机分析处理"],
+        readings: ["Database System Concepts — 暂无稳定通行中文译名：数据库系统经典教材。", "Designing Data-Intensive Applications — 《数据密集型应用系统设计》：数据库与分布式数据系统。", "SQLBolt — 暂无通行中文译名：SQL 练习。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/ISYS2120"]]
+      },
+      {
+        code: "SOFT2412",
+        name: "Agile Software Development Practices",
+        cp: "6cp",
+        category: ["systems", "elective"],
+        level: "2000",
+        workload: "Medium",
+        skills: ["project", "teamwork", "coding", "writing"],
+        functionTags: ["direction exploration", "WAM buffer"],
+        best: "INFO1113 后；想提前训练团队项目和软件流程时",
+        later: "COMP3888, software project, product / startup work",
+        summary: "软件开发流程与敏捷实践课程，重点从个人编程转向小团队协作、需求、估算、测试、文档和持续改进。",
+        teaches: ["agile methods、software process、planning and estimation", "requirements elicitation、client communication、team roles", "version control、issue tracking、daily build、documentation", "unit testing、functional testing、quality assurance"],
+        matters: "SOFT2412 不直接推进算法主线，但能提前补齐项目课需要的团队协作和工程流程。对 COMP3888 / 产品路线 / 实习项目很有实际价值。",
+        before: ["INFO1113 或等价面向对象编程入口", "能独立写中小型程序", "愿意在团队里写文档、测试和 process artefacts"],
+        mastery: ["能解释 agile、waterfall、incremental、spiral 等 process 的差异", "能用 issues、backlog、tests 和 documentation 管理小项目", "能把需求转成可交付任务", "能识别团队协作中的风险和质量问题"],
+        how: ["每周维护 backlog、risk log 和 decision log", "每个 feature 都配 acceptance criteria 和 test", "复盘时记录 process issue，而不只记录代码问题"],
+        terms: ["agile — 敏捷开发", "backlog — 待办列表", "sprint — 迭代", "requirements elicitation — 需求获取", "daily build — 每日构建", "quality assurance — 质量保证", "unit testing — 单元测试", "issue tracking — 问题追踪"],
+        readings: ["The Pragmatic Programmer — 《程序员修炼之道》：工程实践入门。", "Clean Code — 《代码整洁之道》：代码质量。", "Google Engineering Practices — 暂无通行中文译名：代码评审和测试实践。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/SOFT2412"]]
+      },
+      {
         code: "MATH2088",
         name: "Number Theory and Cryptography",
         cp: "6cp",
@@ -4788,6 +4830,27 @@
         terms: ["modular arithmetic — 模运算", "congruence — 同余", "prime — 素数", "Euclidean algorithm — 欧几里得算法", "Chinese Remainder Theorem — 中国剩余定理", "RSA — RSA 加密算法", "discrete logarithm — 离散对数", "public-key cryptography — 公钥密码学"],
         readings: ["A Friendly Introduction to Number Theory — 暂无通行中文译名：数论入门。", "An Introduction to Mathematical Cryptography — 暂无通行中文译名：数学密码学。", "Crypto 101 — 暂无通行中文译名：密码学直觉。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH2088"]]
+      },
+      {
+        code: "MATH2080",
+        name: "Abstract and Computational Algebra",
+        cp: "6cp",
+        category: ["math", "elective"],
+        level: "2000",
+        workload: "High",
+        skills: ["math", "proof", "coding"],
+        functionTags: ["graduation requirement", "direction exploration"],
+        best: "MATH1061 或 MATH1064 后；想把 algebra 与 computation 结合时",
+        later: "MATH3066, abstract algebra, symbolic computation",
+        summary: "研究 groups、rings、ideals 等代数结构，并通过 computer algebra systems 把抽象结构转化为可计算例子。",
+        teaches: ["groups、symmetry、subgroups、homomorphisms", "rings、ideals、factorisation", "polynomial arithmetic、modular computation", "computer algebra system experiments、examples and counterexamples"],
+        matters: "MATH2080 是 DMA 路线里非常合适的 2000-level MATH 选择：比 MATH2022 更强调 computational algebra，能给 MATH3066 的 algebra / logic 方向打基础。",
+        before: ["MATH1061 / MATH1961 / MATH1971 / MATH1064 / MATH1964 任一官方入口", "proof、sets、relations 和 modular arithmetic", "愿意同时做抽象证明和计算实验"],
+        mastery: ["能识别 group、ring、ideal 的基本例子", "能用 homomorphism / quotient 思维分析结构", "能用计算工具探索 algebraic examples", "能把抽象定理和具体计算互相验证"],
+        how: ["每个 structure 写 definition、examples、non-examples、standard theorem", "用小计算检验 conjecture，再回到 proof", "把 MATH1064 的 modular arithmetic 扩展到 rings 和 polynomial settings"],
+        terms: ["group — 群", "ring — 环", "ideal — 理想", "homomorphism — 同态", "quotient — 商结构", "factorisation — 因式分解", "computer algebra system — 计算机代数系统", "symmetry — 对称性"],
+        readings: ["A Book of Abstract Algebra — 暂无通行中文译名：抽象代数入门。", "Contemporary Abstract Algebra — 暂无稳定通行中文译名：例子多。", "SageMath documentation — 官方文档，适合 computational algebra。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH2080"]]
       },
       {
         code: "MATH3066",
@@ -4830,6 +4893,90 @@
         terms: ["artificial intelligence — 人工智能", "state space — 状态空间", "heuristic — 启发式", "minimax — 极小化极大算法", "alpha-beta pruning — α-β 剪枝", "machine learning — 机器学习", "neural network — 神经网络", "knowledge representation — 知识表示"],
         readings: ["Artificial Intelligence: A Modern Approach — 《人工智能：一种现代的方法》：AI 经典教材。", "Berkeley CS188 materials — 暂无通行中文译名：适合 search / game / probability。", "scikit-learn documentation — 官方文档，适合 ML 实作。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/COMP3308"]]
+      },
+      {
+        code: "COMP3311",
+        name: "Database Systems",
+        cp: "6cp",
+        category: ["data", "elective"],
+        level: "3000",
+        workload: "Medium-High",
+        skills: ["data", "coding"],
+        functionTags: ["direction exploration"],
+        best: "外部数据库课程参考；若考虑交换或学分抵免，必须先核对 USYD 认可情况",
+        later: "database systems, backend engineering, data engineering",
+        summary: "非 USYD 官方 unit code；按 UNSW COMP3311 Database Systems 作为外部参考课程加入，主要覆盖 relational database、SQL、schema design、transactions 和 database application development。",
+        teaches: ["data models、ER modelling、relational schema", "SQL data definition and query", "database application design and implementation", "storage management、query processing、transactions"],
+        matters: "这不是 USYD 课程库中的 COMP unit，不能直接当作 USYD 选课项。它适合作为数据库方向的外部参照；如果未来交换或申请 credit，需要按 Sydney Student / faculty advice 核对。",
+        before: ["外部课程通常要求数据结构或中级编程背景", "SQL 和 relational model 基础会有帮助", "USYD 学位中应优先核对 ISYS2120 / DATA2001 / DATA3404"],
+        mastery: ["能设计 relational schema 并写 SQL", "能解释 normalisation、transactions、indexes", "能实现简单 database-backed application", "能比较外部数据库课程与 USYD 数据库路线的对应关系"],
+        how: ["把它作为 reference，不画入 USYD 官方先修图", "若要计入学位，先保存 syllabus 并咨询 credit transfer", "学习时用 PostgreSQL / SQLite 做小型 schema + query project"],
+        terms: ["database system — 数据库系统", "relational schema — 关系模式", "SQL — 结构化查询语言", "transaction — 事务", "normalisation — 规范化", "query processing — 查询处理", "storage management — 存储管理", "credit transfer — 学分抵免"],
+        readings: ["Database System Concepts — 暂无稳定通行中文译名：数据库系统经典教材。", "Designing Data-Intensive Applications — 《数据密集型应用系统设计》：数据系统。", "PostgreSQL documentation — 官方文档，适合 SQL 实作。"],
+        links: [["UNSW Handbook Page", "https://www.handbook.unsw.edu.au/undergraduate/courses/2019/COMP3311"]]
+      },
+      {
+        code: "COMP3530",
+        name: "Discrete Optimization",
+        cp: "6cp",
+        category: ["math", "ai", "elective"],
+        level: "3000",
+        workload: "High",
+        skills: ["math", "proof", "coding"],
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "COMP2123 后；注意官方 unit page 显示该课当前不再开设",
+        later: "optimization, algorithms, operations research, AI planning",
+        summary: "离散优化课程，关注把实际问题建模为 optimisation problems，并学习 linear/integer programming、polyhedral theory、approximation algorithms 等工具。",
+        teaches: ["linear programming、integer programming", "polyhedral theory、relaxation、duality intuition", "approximation algorithms、fixed-parameter tractability", "modelling practical problems as optimisation problems"],
+        matters: "COMP3530 与 COMP3027、MATH2088、MATH3066 形成算法/优化方向的高级补充。但 USYD 官方页面显示该 unit 当前 no longer offered，选课前必须核对是否有替代课。",
+        before: ["COMP2123 / COMP2823 / COMP2007 / COMP2907 任一官方入口", "Big-O、graph algorithms、proof 基础", "linear algebra 和 discrete math 会有帮助"],
+        mastery: ["能把应用问题建模成 discrete optimisation problem", "能解释 LP/IP 和 relaxation 的用途", "能应用 approximation 或 parameterised thinking", "能实现或调用 optimisation tools 解小型问题"],
+        how: ["每题先写 decision variables、objective、constraints", "区分 exact、approximation、heuristic 三类方法", "用 small instance 手算，再用 solver / code 验证"],
+        terms: ["discrete optimisation — 离散优化", "linear programming — 线性规划", "integer programming — 整数规划", "polyhedron — 多面体", "relaxation — 松弛", "approximation algorithm — 近似算法", "objective function — 目标函数", "constraint — 约束"],
+        readings: ["Combinatorial Optimization — 暂无通行中文译名：组合优化经典。", "Algorithm Design — 《算法设计》：优化与近似算法章节。", "Convex Optimization — 暂无通行中文译名：优化背景参考。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/COMP3530"]]
+      },
+      {
+        code: "COMP3419",
+        name: "Graphics and Multimedia",
+        cp: "6cp",
+        category: ["ai", "elective"],
+        level: "3000",
+        workload: "Medium-High",
+        skills: ["coding", "data", "creative"],
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "COMP2123 后；对 graphics / multimedia / creative coding 有兴趣时",
+        later: "computer graphics, multimedia computing, media analytics, creative technology",
+        summary: "图形与多媒体计算入门，覆盖 graphics / image / audio / animation / video 的数据表示、处理、编码、检索和分析。",
+        teaches: ["graphics and image representation", "audio、animation、video processing", "multimedia coding、compression、retrieval", "media enhancement、content analysis、creative applications"],
+        matters: "COMP3419 适合把 CS 路线延伸到 graphics、multimedia、VR、intelligent media 或 creative technology。它比纯 AI 更偏 media representation 与 processing。",
+        before: ["COMP2123 / COMP2823 / INFO1105 / INFO1905 任一官方入口", "Programming skills 是 assumed knowledge", "线性代数、矩阵和 signal intuition 会有帮助"],
+        mastery: ["能解释不同 media type 的 representation", "能实现基本 image / audio / video processing", "能理解 compression、retrieval、enhancement 的核心 trade-off", "能把 multimedia techniques 应用到真实场景"],
+        how: ["每个媒体任务记录 representation、operation、artifact 和 evaluation", "用 small image/audio/video sample 做实验", "把算法效果用 before/after 和 metrics 共同评估"],
+        terms: ["computer graphics — 计算机图形学", "multimedia computing — 多媒体计算", "image processing — 图像处理", "audio processing — 音频处理", "animation — 动画", "video coding — 视频编码", "compression — 压缩", "content retrieval — 内容检索"],
+        readings: ["Computer Graphics: Principles and Practice — 暂无稳定通行中文译名：图形学经典。", "Digital Image Processing — 暂无稳定通行中文译名：图像处理参考。", "The Computer Music Tutorial — 暂无通行中文译名：音频/多媒体参考。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/COMP3419"]]
+      },
+      {
+        code: "COMP3109",
+        name: "Programming Languages and Paradigms",
+        cp: "6cp",
+        category: ["systems", "math", "elective"],
+        level: "3000",
+        workload: "High",
+        skills: ["coding", "logic", "proof"],
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "COMP2017 + COMP2022 后；注意官方 unit page 显示该课当前不再开设",
+        later: "programming language theory, compilers, formal semantics",
+        summary: "编程语言基础与实现课程，关注 semantics、programming paradigms、syntax、grammar 和 language implementation。",
+        teaches: ["syntax、grammar、semantics", "functional programming、logic-oriented programming、paradigms", "language composition and implementation", "analysing and modifying programming language semantics"],
+        matters: "COMP3109 是系统、逻辑和理论 CS 的交叉课，适合喜欢 COMP2022、MATH3066 和 programming language design 的学生。但官方 unit page 显示该课当前 no longer offered，必须核对替代课程。",
+        before: ["COMP2017 / COMP2129 与 COMP2022 / COMP2922 组合", "formal language、logic、semantics 基础", "愿意学习非主流 programming paradigms"],
+        mastery: ["能读写 grammar 和 semantics 规则", "能比较 imperative、functional、logic paradigms", "能实现小型 interpreter 或 language feature", "能解释 syntax 与 semantics 的分离"],
+        how: ["每个 language feature 写 syntax、static rule、dynamic behaviour", "用小 interpreter 连接 theory 和 implementation", "把 COMP2022 的 automata / grammar 与实际语言设计对上"],
+        terms: ["programming language semantics — 编程语言语义", "syntax — 语法", "grammar — 文法", "interpreter — 解释器", "functional programming — 函数式编程", "logic programming — 逻辑编程", "paradigm — 范式", "type system — 类型系统"],
+        readings: ["Types and Programming Languages — 暂无通行中文译名：PL 理论经典。", "Programming Language Pragmatics — 暂无通行中文译名：语言设计与实现参考。", "Structure and Interpretation of Computer Programs — 《计算机程序的构造和解释》：范式与解释器思维。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/COMP3109"]]
       },
       {
         code: "DATA3404",
@@ -5794,6 +5941,19 @@
 	        assumed: ["COMP2123 / COMP2823 中的数据结构与算法"],
 	        note: "COMP2123 是 assumed knowledge，不是硬性 prerequisite；不再画 COMP2123 → COMP3308 箭头。"
 	      },
+	      COMP3530: {
+	        requires: ["COMP2123 / COMP2823 / COMP2007 / COMP2907"],
+	        note: "官方 unit page 显示该课当前不再开设；若未来恢复开课，再按当年 Handbook 核对。"
+	      },
+	      COMP3419: {
+	        requires: ["COMP2123 / COMP2823 / INFO1105 / INFO1905"],
+	        assumed: ["Programming skills"],
+	        note: "Graphics and Multimedia 需要已有编程能力，适合 COMP2123 后作为多媒体方向选修。"
+	      },
+	      COMP3109: {
+	        requires: ["(COMP2017 / COMP2129) + (COMP2022 / COMP2922)"],
+	        note: "官方 unit page 显示该课当前不再开设；若未来恢复开课，再按当年 Handbook 核对。"
+	      },
 	      COMP3221: {
 	        requires: ["(INFO1105 / INFO1905) 或 (INFO1103 / INFO1113 + COMP2123 / COMP2823)"],
 	        note: "对本规划而言，通常需要 INFO1113 与 COMP2123 都完成后再考虑。"
@@ -5801,6 +5961,19 @@
 	      COMP3520: {
 	        requires: ["(COMP2017 / COMP2129) + (COMP2123 / COMP2823 / INFO1105 / INFO1905)"],
 	        note: "这是系统方向较明确的高阶先修组合。"
+	      },
+	      MATH2080: {
+	        requires: ["MATH1061 / MATH1961 / MATH1971 / MATH1064 / MATH1964"],
+	        note: "MATH2080 是 2000-level algebra 选项；prohibition 为 MATH2980。"
+	      },
+	      ISYS2120: {
+	        requires: ["INFO1110 / INFO1910 / ENGG1810 / DATA1002"],
+	        assumed: ["6cp MATH / STAT 或 DATA1001"],
+	        note: "ISYS2120 是 DATA3404 的官方入口之一，也可作为数据库路线替代 DATA2001 的一部分。"
+	      },
+	      SOFT2412: {
+	        requires: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"],
+	        note: "SOFT2412 训练团队软件开发流程，不是算法瓶颈，但能支持项目课准备。"
 	      },
 	      PHIL3610: {
 	        requires: ["PHIL1012"],
@@ -5878,11 +6051,15 @@
       { codes: ["COMP2022"], tab: "core", group: "COMP2022 — 计算理论与模型" },
       { codes: ["DATA1002 / DATA1902", "DATA1002"], tab: "core", group: "DATA1002 — 数据科学基础" },
       { codes: ["COMP3888 / COMP3988", "COMP3888", "COMP3988"], tab: "core", group: "COMP3888 · COMP3988 — 项目课与软件工程" },
-      { codes: ["DATA2001", "DATA3404"], tab: "elective", group: "DATA2001 · DATA3404 — 数据库与数据系统" },
+      { codes: ["DATA2001", "DATA3404", "ISYS2120", "COMP3311"], tab: "elective", group: "DATA2001 · DATA3404 · ISYS2120 — 数据库与数据系统" },
+      { codes: ["SOFT2412"], tab: "elective", group: "SOFT2412 — 敏捷软件开发实践" },
       { codes: ["COMP3221"], tab: "elective", group: "COMP3221 — 分布式系统" },
       { codes: ["COMP3520"], tab: "elective", group: "COMP3520 — 操作系统" },
       { codes: ["COMP3308"], tab: "elective", group: "COMP3308 — 人工智能 / 机器学习" },
-      { codes: ["MATH2022", "MATH2088"], tab: "elective", group: "MATH2022 · MATH2088 — 线性代数 / 数论 / 密码学" },
+      { codes: ["COMP3419"], tab: "elective", group: "COMP3419 — 图形与多媒体" },
+      { codes: ["COMP3530"], tab: "elective", group: "COMP3530 — 离散优化" },
+      { codes: ["COMP3109"], tab: "elective", group: "COMP3109 — 编程语言与范式" },
+      { codes: ["MATH2022", "MATH2088", "MATH2080"], tab: "elective", group: "MATH2022 · MATH2088 · MATH2080 — 代数 / 数论 / 密码学" },
       { codes: ["MATH3066"], tab: "elective", group: "MATH3066 — 数理逻辑" },
       { codes: ["DECO1006", "DECO2016", "DECO2102", "DECO3000"], tab: "elective", group: "DECO — 交互 / UX / 产品设计" },
       { codes: ["OLET1803", "OLET1801", "MUSC2653", "CMPN3635", "CMPN2632", "MUSC3603"], tab: "elective", group: "MUSC · CMPN — 音乐技术 / 声音" },
@@ -6391,8 +6568,8 @@
     const SEM_LABELS = { s1: "S1", july: "6-7月", winter: "6-7月", s2: "S2", summer: "12-2月" };
     const STATUS_EMOJI = { locked: "🔒", candidate: "⭐", completed: "✅", avoid: "❌" };
     const STATUS_LABEL = { locked: "锁定", candidate: "候选", completed: "已完成", avoid: "不选" };
-    const majorCreditCodes = new Set(["INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027", "COMP3888 / COMP3988", "COMP3308", "DATA3404", "COMP3221", "COMP3520"]);
-    const minorCreditCodes = new Set(["MATH1064", "DATA1002 / DATA1902", "INFO1110", "COMP2123", "MATH2022", "MATH2088", "MATH3066", "MATH3061", "COMP3308", "DATA3404", "COMP3221", "COMP3520"]);
+    const majorCreditCodes = new Set(["INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027", "COMP3888 / COMP3988", "COMP3308", "COMP3109", "COMP3221", "COMP3419", "COMP3520", "COMP3530", "DATA3404"]);
+    const minorCreditCodes = new Set(["MATH1064", "DATA1002 / DATA1902", "INFO1110", "COMP2123", "MATH2022", "MATH2088", "MATH2080", "MATH3066", "MATH3061", "COMP3308", "COMP3530", "DATA3404", "COMP3221", "COMP3520"]);
 
     function creditPoints(course) {
       const match = String(course.cp || "").match(/\d+(?:\.\d+)?/);
@@ -7098,8 +7275,13 @@
 		      { title: "DATA2001 官方多入口", before: ["DATA1002 / INFO1110 / 等价编程入口"], target: "DATA2001", note: "DATA1002 只是本规划的数据路线入口之一；官方也接受 INFO1110 / INFO1910 / INFO1903 / INFO1103 / ENGG1810 等入口。" },
 		      { title: "DATA3404 官方多入口", before: ["DATA2001 / ISYS2120 / INFO2120 / INFO2820"], target: "DATA3404", note: "本规划用 DATA2001 → DATA3404；官方也接受 DATA2901、ISYS2120、INFO2120、INFO2820 等入口。" },
 		      { title: "COMP3308 官方多入口", before: ["INFO1110 / DATA1002 / ENGG1810 / 等价入口"], target: "COMP3308", note: "DATA1002 只是可用入口之一；INFO1110、INFO1910、ENGG1801、ENGG1810、DATA1902 等也可满足官方 prerequisite。COMP2123 是 assumed knowledge，不是硬性 prerequisite。" },
+		      { title: "COMP3419 官方多入口", before: ["COMP2123 / INFO1105 / 等价入口"], target: "COMP3419", note: "Graphics and Multimedia 的 prerequisite 可由 COMP2123 / COMP2823 / INFO1105 / INFO1905 满足；programming skills 是 assumed knowledge。" },
+		      { title: "COMP3530 官方多入口", before: ["COMP2123 / COMP2007 / 等价入口"], target: "COMP3530", note: "Discrete Optimization 的官方入口包括 COMP2123 / COMP2823 / COMP2007 / COMP2907；但 unit page 显示该课当前不再开设。" },
+		      { title: "COMP3109 官方组合入口", before: ["COMP2017", "COMP2022"], joiner: "+", target: "COMP3109", note: "Programming Languages and Paradigms 需要 systems programming 与 models of computation 背景；unit page 显示该课当前不再开设。" },
+		      { title: "SOFT2412 官方多入口", before: ["INFO1113 / 等价 OOP 入口"], target: "SOFT2412", note: "SOFT2412 主要是软件流程与团队项目训练，不是算法或数学瓶颈。" },
 		      { title: "MATH2022 官方多入口", before: ["MATH1061 / MATH1X02 / 等价一阶数学"], target: "MATH2022", note: "本规划用 MATH1061 作为一阶数学/线代入口；官方也可能接受其他 MATH1XXX 入口。" },
 		      { title: "MATH2088 官方多入口", before: ["MATH1064 / MATH1061 / 其他 1000-level MATH"], target: "MATH2088", note: "本规划用 MATH1064 作为离散数学入口之一；官方也接受 MATH1061、MATH1961、MATH1971、MATH1002、MATH1902、MATH1004、MATH1904、MATH1014 65+ 等入口。" },
+		      { title: "MATH2080 官方多入口", before: ["MATH1061 / MATH1064 / 等价一阶数学"], target: "MATH2080", note: "Abstract and Computational Algebra 可由 MATH1061 或 MATH1064 等入口进入；prohibition 为 MATH2980。" },
 		      { title: "MATH3066 官方先修类型", before: ["任意 6cp MATH2XXX"], target: "MATH3066", note: "MATH3066 官方要求 6cp 2000-level MATH；MATH2022 只是本规划里一条自然示例，不是唯一入口。" },
 		      { title: "MATH3061 官方先修类型", before: ["任意 12cp MATH2XXX"], target: "MATH3061", note: "MATH3061 官方要求 12cp 2000-level MATH；MATH2022 + MATH2088 只是本规划里一条可满足路径。" },
 		      { title: "PHIL3610 官方先修", before: ["PHIL1012"], target: "PHIL3610", note: "OLET2148 不是 PHIL3610 的先修，只能作为批判性思维训练。" },
@@ -7244,10 +7426,15 @@
       ],
 
       elective: [
-        { group: "DATA2001 · DATA3404 — 数据库与数据系统", books: [
+        { group: "DATA2001 · DATA3404 · ISYS2120 — 数据库与数据系统", books: [
           { zh: "《数据库系统概念》", en: "Database System Concepts — Abraham Silberschatz, Henry F. Korth, S. Sudarshan", why: "数据库领域最被广泛使用的教材，关系模型、SQL、事务、索引都有。" },
           { zh: "《数据密集型应用系统设计》", en: "Designing Data-Intensive Applications — Martin Kleppmann", why: "工业级数据系统视角：复制、分区、一致性、流处理。DATA3404 与实习的桥梁。" },
           { zh: "《数据库系统全书》", en: "Database Systems: The Complete Book — Hector Garcia-Molina, Jeffrey D. Ullman, Jennifer Widom", why: "Stanford 经典厚书，作为查询优化、关系代数、存储引擎的深入参考。" }
+        ]},
+        { group: "SOFT2412 — 敏捷软件开发实践", books: [
+          { zh: "《程序员修炼之道：从小工到专家》", en: "The Pragmatic Programmer — Andrew Hunt, David Thomas", why: "从个人代码习惯到团队工程判断，适合作为软件项目课前的工程素养底座。" },
+          { zh: "《代码整洁之道》", en: "Clean Code — Robert C. Martin", why: "帮助把小作业式代码升级成可读、可维护、可协作的项目代码。" },
+          { zh: "Google Engineering Practices（暂无通行中文译名）", en: "Google Engineering Practices Documentation", why: "代码评审、测试和工程流程的轻量参考，适合团队项目直接套用。" }
         ]},
         { group: "COMP3221 — 分布式系统", books: [
           { zh: "《分布式系统：原理与范型》", en: "Distributed Systems: Principles and Paradigms — Andrew S. Tanenbaum, Maarten Van Steen", why: "分布式系统教材标杆：通信、命名、同步、一致性、容错全覆盖。" }
@@ -7263,9 +7450,25 @@
           { zh: "《机器学习》", en: "Machine Learning — 周志华（西瓜书）", why: "周志华西瓜书，国内最常用 ML 入门，章节结构清晰。" },
           { zh: "《模式识别与机器学习》", en: "Pattern Recognition and Machine Learning — Christopher M. Bishop", why: "PRML，贝叶斯视角的 ML 圣经，进阶推荐。" }
         ]},
-        { group: "MATH2022 · MATH2088 — 线性代数 / 数论 / 密码学", books: [
+        { group: "COMP3419 — 图形与多媒体", books: [
+          { zh: "Computer Graphics: Principles and Practice（暂无稳定通行中文译名）", en: "Computer Graphics: Principles and Practice — Hughes et al.", why: "图形学经典大部头，适合把课程里的图形表示和渲染概念系统化。" },
+          { zh: "Digital Image Processing（暂无稳定通行中文译名）", en: "Digital Image Processing — Rafael C. Gonzalez, Richard E. Woods", why: "图像处理标准参考，适合 multimedia / vision 方向补基础。" },
+          { zh: "The Computer Music Tutorial（暂无通行中文译名）", en: "The Computer Music Tutorial — Curtis Roads", why: "音频与计算机音乐方向的大型参考，适合把 multimedia 扩展到 sound processing。" }
+        ]},
+        { group: "COMP3530 — 离散优化", books: [
+          { zh: "Combinatorial Optimization（暂无通行中文译名）", en: "Combinatorial Optimization — Korte and Vygen", why: "组合优化经典参考，适合深入理解图、匹配、流和优化结构。" },
+          { zh: "《算法设计》", en: "Algorithm Design — Jon Kleinberg, Éva Tardos", why: "近似算法、网络流和建模章节与离散优化衔接很好。" },
+          { zh: "Convex Optimization（暂无通行中文译名）", en: "Convex Optimization — Stephen Boyd, Lieven Vandenberghe", why: "偏连续优化，但对理解 optimisation modelling、duality 和 constraints 很有帮助。" }
+        ]},
+        { group: "COMP3109 — 编程语言与范式", books: [
+          { zh: "Types and Programming Languages（暂无通行中文译名）", en: "Types and Programming Languages — Benjamin C. Pierce", why: "PL 理论经典，适合深入理解类型系统、语义和语言规则。" },
+          { zh: "Programming Language Pragmatics（暂无通行中文译名）", en: "Programming Language Pragmatics — Michael L. Scott", why: "语言设计、实现和范式覆盖面广，适合作为课程主参考。" },
+          { zh: "《计算机程序的构造和解释》", en: "Structure and Interpretation of Computer Programs — Abelson, Sussman, Sussman", why: "用解释器和抽象思维理解不同编程范式。" }
+        ]},
+        { group: "MATH2022 · MATH2088 · MATH2080 — 代数 / 数论 / 密码学", books: [
           { zh: "《线性代数应该这样学》", en: "Linear Algebra Done Right — Sheldon Axler", why: "去行列式中心化的现代写法，理解向量空间结构。" },
           { zh: "《初等数论及其应用》", en: "Elementary Number Theory and Its Applications — Kenneth H. Rosen", why: "数论 + 密码学应用合一，MATH2088 配套友好。" },
+          { zh: "A Book of Abstract Algebra（暂无通行中文译名）", en: "A Book of Abstract Algebra — Charles C. Pinter", why: "抽象代数入门友好，适合 MATH2080 / MATH3066 前建立 group 和 ring 直觉。" },
           { zh: "《应用密码学：协议、算法与 C 源程序》", en: "Applied Cryptography — Bruce Schneier", why: "密码学经典综述，把协议与算法讲到能动手实现。" }
         ]},
         { group: "MATH3066 — 数理逻辑", books: [
