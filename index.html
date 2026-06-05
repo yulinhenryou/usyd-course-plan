@@ -502,13 +502,12 @@
     }
 
     #guidelines  { order: 1; }
-    #checklist   { order: 2; }
-    #plans       { order: 3; }
-    #courses     { order: 4; }
-    #route       { order: 5; }
-    #bottleneck  { order: 6; }
-    #reading     { order: 7; }
-    #sources     { order: 8; }
+    #plans       { order: 2; }
+    #courses     { order: 3; }
+    #route       { order: 4; }
+    #bottleneck  { order: 5; }
+    #reading     { order: 6; }
+    #sources     { order: 7; }
 
     section {
       scroll-margin-top: 92px;
@@ -981,6 +980,20 @@
       border-color: rgba(0,113,227,.22);
       border-left-color: var(--blue);
       background: var(--blue-soft);
+    }
+
+    .mini-course.course-jump {
+      width: 100%;
+      appearance: none;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .mini-course.course-jump:hover {
+      border-color: rgba(31,95,191,.38);
+      box-shadow: 0 0 0 3px rgba(31,95,191,.08);
     }
 
     .mini-course.is-locked {
@@ -1923,6 +1936,12 @@
       animation: readingPulse 1.5s ease;
     }
 
+    .course.course-highlight {
+      outline: 2px solid rgba(0,113,227,.36);
+      outline-offset: 4px;
+      animation: readingPulse 1.5s ease;
+    }
+
     @keyframes readingPulse {
       0% { box-shadow: 0 0 0 0 rgba(0,113,227,.22); }
       100% { box-shadow: 0 0 0 14px rgba(0,113,227,0); }
@@ -2197,6 +2216,7 @@
       font-size: .9rem;
       line-height: 1.58;
       hanging-punctuation: first;
+      overflow-wrap: anywhere;
     }
 
     .source-citation cite { font-style: italic; }
@@ -2209,11 +2229,13 @@
     }
 
     .source-card a.source-link {
-      width: fit-content;
+      width: auto;
+      max-width: 100%;
       border-bottom: 1px solid rgba(0,113,227,.28);
       color: var(--blue);
       font-size: .82rem;
       font-weight: 700;
+      overflow-wrap: anywhere;
     }
 
     .reference-maintenance {
@@ -3343,43 +3365,6 @@
       box-shadow: 0 24px 56px rgba(0, 0, 0, .07);
     }
 
-    /* Interactive graduation checklist */
-    .check-card {
-      cursor: pointer;
-      padding: 12px 14px !important;
-      border-radius: 14px !important;
-      user-select: none;
-    }
-    .check-card .box {
-      transition: background .15s ease, border-color .15s ease;
-      position: relative;
-    }
-    .check-card.checked {
-      border-color: rgba(47, 125, 85, .35) !important;
-      background: linear-gradient(180deg, #fff, #f3faf5) !important;
-    }
-    .check-card.checked .box {
-      background: var(--green);
-      border-color: var(--green);
-    }
-    .check-card.checked .box::after {
-      content: "";
-      position: absolute;
-      left: 4px;
-      top: 0;
-      width: 6px;
-      height: 11px;
-      border: solid #fff;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-    .check-card.checked > div {
-      color: var(--muted);
-      text-decoration: line-through;
-      text-decoration-color: rgba(0, 0, 0, .25);
-      text-decoration-thickness: 1px;
-    }
-
     /* Audit panel enhancements */
     .audit-extra {
       display: grid;
@@ -3942,6 +3927,32 @@
       display: none;
     }
 
+    .metric-explain summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 36px;
+      padding: 2px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .metric-explain summary::after {
+      content: "展开";
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 760;
+    }
+
+    .metric-explain[open] summary::after {
+      content: "收起";
+    }
+
+    .metric-explain p {
+      display: block;
+    }
+
     .metric b {
       font-size: .9rem;
     }
@@ -4295,6 +4306,846 @@
       .metric { min-height: 0; }
     }
 
+    /* ==========================================================
+       Final visual pass: tighter academic dashboard rhythm.
+       ========================================================== */
+
+    :root {
+      --bg: #f5f6f8;
+      --surface: #ffffff;
+      --surface-muted: #f8f9fb;
+      --surface-tint: #f1f4f8;
+      --ink: #13161b;
+      --text: #303744;
+      --muted: #687181;
+      --line: rgba(15, 23, 42, .105);
+      --line-strong: rgba(15, 23, 42, .18);
+      --shadow: 0 1px 1px rgba(15, 23, 42, .035), 0 10px 24px rgba(15, 23, 42, .045);
+      --shadow-hover: 0 1px 2px rgba(15, 23, 42, .06), 0 12px 28px rgba(15, 23, 42, .07);
+      --radius-xl: 12px;
+      --radius: 10px;
+      --radius-sm: 8px;
+      --max: 1320px;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0d1117;
+      --surface: #171b22;
+      --surface-muted: #11161d;
+      --surface-tint: #1b2029;
+      --ink: #f5f7fb;
+      --text: #dce2ec;
+      --muted: #9aa5b5;
+      --line: rgba(226, 232, 240, .12);
+      --line-strong: rgba(226, 232, 240, .22);
+      --shadow: 0 1px 1px rgba(0, 0, 0, .28), 0 12px 30px rgba(0, 0, 0, .22);
+      --shadow-hover: 0 1px 2px rgba(0, 0, 0, .34), 0 16px 36px rgba(0, 0, 0, .28);
+    }
+
+    body {
+      line-height: 1.6;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, 0) 260px),
+        var(--bg);
+    }
+
+    :root[data-theme="dark"] body {
+      background:
+        linear-gradient(180deg, rgba(139, 188, 255, .07), rgba(139, 188, 255, 0) 260px),
+        var(--bg) !important;
+    }
+
+    .page {
+      width: min(calc(100% - 40px), var(--max));
+      padding-top: 20px;
+    }
+
+    .hero {
+      gap: 16px;
+      padding: 22px;
+      border-radius: 14px;
+      border-color: var(--line-strong);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(255, 255, 255, .92)),
+        var(--surface);
+    }
+
+    :root[data-theme="dark"] .hero {
+      background:
+        linear-gradient(180deg, rgba(23, 27, 34, .98), rgba(23, 27, 34, .92)),
+        var(--surface) !important;
+    }
+
+    .hero-topline {
+      align-items: center;
+      padding-bottom: 2px;
+    }
+
+    .eyebrow {
+      margin-bottom: 8px;
+      font-size: .72rem;
+      color: var(--muted);
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 2.7vw, 2.65rem);
+      line-height: 1.08;
+    }
+
+    h1 small {
+      margin-top: 5px;
+      font-size: .4em;
+      color: var(--muted);
+    }
+
+    .meta {
+      margin-top: 14px;
+      gap: 6px;
+    }
+
+    .meta span {
+      padding: 5px 9px;
+      border-radius: 7px;
+      background: var(--surface-muted);
+      font-size: .78rem;
+      line-height: 1.25;
+    }
+
+    .hero-tools {
+      gap: 8px;
+      min-width: min(360px, 100%);
+    }
+
+    .tool-button,
+    .stage-select {
+      min-height: 36px;
+      padding: 7px 11px;
+      border-radius: 8px;
+      background: var(--surface-muted);
+      font-size: .82rem;
+    }
+
+    .stage-select {
+      width: min(300px, 100%);
+    }
+
+    .structure-grid {
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-tint);
+    }
+
+    .metric,
+    .metric.metric-primary,
+    .metric.metric-wide {
+      min-height: 96px;
+      padding: 12px;
+      border-radius: 9px;
+      border-color: var(--line);
+      background: var(--surface) !important;
+      background-color: var(--surface) !important;
+      background-image: none !important;
+    }
+
+    .metric.metric-wide {
+      min-height: 100px;
+    }
+
+    .metric-top {
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .metric strong,
+    .metric.metric-primary strong,
+    .metric.metric-wide strong {
+      font-size: clamp(1.3rem, 1.9vw, 2rem);
+      line-height: 1;
+    }
+
+    .metric b {
+      margin-top: 2px;
+      font-size: .84rem;
+      line-height: 1.25;
+    }
+
+    .metric span,
+    .metric .metric-value {
+      font-size: .72rem;
+      line-height: 1.32;
+    }
+
+    .metric > span[data-progress-status] {
+      color: var(--muted);
+    }
+
+    .metric:not(.metric-primary):not(.metric-wide) > span[data-progress-status] {
+      display: none;
+    }
+
+    .metric .progress-bar,
+    .metric-progress {
+      margin-top: 2px;
+    }
+
+    .progress-bar {
+      height: 8px;
+    }
+
+    .progress-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .progress-breakdown span {
+      min-width: 0;
+      padding: 0;
+      color: var(--muted);
+      font-size: .68rem;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .progress-breakdown span::before {
+      width: 6px;
+      height: 6px;
+      margin-top: .34em;
+    }
+
+    .metric:not(.metric-primary):not(.metric-wide) .progress-breakdown {
+      display: none;
+    }
+
+    .metric-explain {
+      margin-top: 2px;
+      padding: 5px 8px;
+      border-radius: 8px;
+      background: var(--surface-muted);
+    }
+
+    .metric-explain summary {
+      min-height: 22px;
+      font-size: .78rem;
+    }
+
+    .metric-explain p {
+      margin-top: 6px;
+      font-size: .76rem;
+      line-height: 1.48;
+    }
+
+    .primary-focus {
+      gap: 10px;
+    }
+
+    .focus-card {
+      position: relative;
+      padding: 13px 14px 13px 16px;
+      border-radius: 9px;
+      background: var(--surface-muted) !important;
+      border-color: var(--line);
+    }
+
+    .focus-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 12px;
+      width: 3px;
+      border-radius: 99px;
+      background: var(--blue);
+      opacity: .58;
+    }
+
+    .focus-card strong {
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .focus-card p {
+      display: none;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.42;
+    }
+
+    .nav,
+    .status-bar {
+      border-color: var(--line-strong);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      margin-top: 10px;
+      padding: 5px;
+      border-radius: 9px;
+    }
+
+    .nav a {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: .84rem;
+      font-weight: 680;
+    }
+
+    .status-bar {
+      top: 58px;
+      margin-top: 10px;
+      padding: 9px 10px;
+      border-radius: 9px;
+    }
+
+    .status-bar > div {
+      padding: 0 9px;
+    }
+
+    .status-bar span.label {
+      margin-bottom: 1px;
+      font-size: .58rem;
+    }
+
+    .status-bar strong.value {
+      font-size: .8rem;
+      line-height: 1.28;
+    }
+
+    main {
+      gap: 24px;
+      margin-top: 26px;
+    }
+
+    .section-head {
+      margin-bottom: 12px;
+      padding-bottom: 9px;
+    }
+
+    h2 {
+      font-size: clamp(1.28rem, 2vw, 1.85rem);
+      line-height: 1.12;
+    }
+
+    h3 {
+      font-size: 1rem;
+      line-height: 1.28;
+    }
+
+    p,
+    li {
+      color: var(--text);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .plans-grid,
+    .bottleneck-grid,
+    .reading-grid,
+    .source-grid,
+    .course-list {
+      gap: 12px;
+    }
+
+    .mini-card,
+    .plan-card,
+    .flow-card,
+    .option-card,
+    .mistake-card,
+    .road-semester,
+    .path-card,
+    .elective-cluster,
+    .whatif-card,
+    .candidate-slot,
+    .course,
+    .toolbar,
+    .bottleneck-card,
+    .reading-group,
+    .reading-workspace,
+    .reading-all-groups,
+    .reference-group,
+    .source-entry {
+      border-radius: 9px !important;
+      border-color: var(--line) !important;
+    }
+
+    .mini-card,
+    .flow-card,
+    .bottleneck-card,
+    .reading-group,
+    .reference-group,
+    .source-entry {
+      padding: 14px;
+    }
+
+    .guideline-details,
+    .reading-all-groups,
+    .reference-maintenance {
+      border-radius: 9px;
+      background: var(--surface-muted) !important;
+    }
+
+    .guideline-details > summary,
+    .reading-all-groups > summary,
+    .reference-maintenance > summary {
+      min-height: 40px;
+      padding: 10px 12px;
+      border-radius: 8px;
+    }
+
+    .toolbar {
+      padding: 12px;
+      background: var(--surface) !important;
+    }
+
+    .search-panel {
+      gap: 10px;
+    }
+
+    .search-box {
+      min-height: 44px;
+      padding: 11px 14px;
+      border-radius: 8px;
+      font-size: .92rem;
+    }
+
+    .filter-row {
+      gap: 12px;
+      padding: 10px 0;
+    }
+
+    .filter-label {
+      font-size: .78rem;
+    }
+
+    .filter-options {
+      gap: 7px;
+    }
+
+    .filter-options button,
+    .clear-filters,
+    .status-btn,
+    .reading-tab,
+    .source-filter {
+      min-height: 34px;
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: .82rem;
+    }
+
+    .course {
+      overflow: hidden;
+    }
+
+    .course summary {
+      padding: 13px 15px;
+    }
+
+    .course-title {
+      gap: 8px 10px;
+    }
+
+    .course-code {
+      font-size: .96rem;
+    }
+
+    .course-name {
+      font-size: .94rem;
+    }
+
+    .course-desc {
+      margin-top: 6px;
+      font-size: .88rem;
+      line-height: 1.45;
+    }
+
+    .tags {
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .tag,
+    .tiny-chip,
+    .course-status-pill {
+      border-radius: 999px;
+      font-size: .74rem;
+      line-height: 1.2;
+    }
+
+    .course-status-row {
+      margin-top: 10px;
+      gap: 8px;
+    }
+
+    .course-body {
+      padding: 0 15px 15px;
+    }
+
+    .course-detail-panel,
+    .course-workspace,
+    .compact-disclosure,
+    .placement-row {
+      border-radius: 8px !important;
+    }
+
+    .roadmap-shell {
+      display: grid;
+      gap: 10px;
+    }
+
+    .plan-brief {
+      border-radius: 9px;
+      padding: 10px 12px;
+      background: var(--surface-muted);
+      border: 1px solid var(--line);
+    }
+
+    .roadmap-timeline {
+      gap: 12px;
+    }
+
+    .road-semester {
+      padding: 13px !important;
+    }
+
+    .road-semester header h3 {
+      font-size: 1.1rem;
+    }
+
+    .cp-note {
+      font-size: .8rem;
+    }
+
+    .mini-course {
+      min-height: 38px;
+      padding: 8px 10px;
+      border-radius: 7px;
+    }
+
+    .mini-course strong {
+      font-size: .9rem;
+    }
+
+    .mini-course small {
+      font-size: .8rem;
+      line-height: 1.25;
+    }
+
+    .road-semester .mini-course {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      align-items: center;
+      min-height: 40px;
+      height: 40px;
+      padding: 7px 10px;
+      column-gap: 7px;
+      text-align: left;
+      font: inherit;
+    }
+
+    .road-semester .mini-course strong,
+    .road-semester .mini-course small {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+
+    .road-semester .mini-course strong {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--mono);
+      font-size: .86rem;
+      font-weight: 850;
+    }
+
+    .road-semester .mini-course small {
+      grid-column: auto;
+      color: var(--text);
+      font-size: .82rem;
+      font-weight: 520;
+    }
+
+    .road-semester .mini-course .status-prefix {
+      flex: 0 0 auto;
+      min-width: 2.1em;
+      margin-right: 0;
+      font-family: var(--font);
+      font-weight: 760;
+    }
+
+    .reading-workspace {
+      padding: 12px;
+      background: var(--surface) !important;
+    }
+
+    .reading-browser-head {
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .reading-search {
+      min-height: 40px;
+      border-radius: 8px;
+    }
+
+    .reading-course-button,
+    .reading-detail,
+    .reading-detail-head,
+    .course-reading-item {
+      border-radius: 8px !important;
+    }
+
+    .reference-register {
+      gap: 12px;
+    }
+
+    .reference-group-head {
+      padding: 12px 14px;
+    }
+
+    .source-entry {
+      padding: 12px 14px;
+    }
+
+    #persistentStatus,
+    .status-bar {
+      display: none !important;
+    }
+
+    .status-bar {
+      grid-template-columns: minmax(180px, .85fr) minmax(220px, 1fr) minmax(170px, .75fr);
+      gap: 0;
+      padding: 8px 10px;
+    }
+
+    .status-bar > div {
+      padding: 0 12px;
+    }
+
+    .status-bar strong.value {
+      font-size: .82rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .metric.metric-wide > span[data-progress-status] {
+      display: block;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .bottleneck-grid {
+      grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+      gap: 12px;
+      align-items: start;
+    }
+
+    .bottleneck-card {
+      display: grid;
+      gap: 7px;
+      padding: 10px;
+      background: var(--surface) !important;
+      overflow: hidden;
+    }
+
+    .bottleneck-head {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .bottleneck-head h4 {
+      margin: 0;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: .86rem;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .bn-type {
+      flex: 0 0 auto;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--surface-tint);
+      color: var(--muted);
+      font-size: .68rem;
+      font-weight: 820;
+    }
+
+    .bottleneck-chain {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-muted);
+    }
+
+    .bottleneck-chain .chain-node {
+      display: inline-flex;
+      justify-content: center;
+      min-width: 0;
+      padding: 5px 8px;
+      border-radius: 7px;
+      background: var(--surface);
+      text-align: center;
+      overflow-wrap: anywhere;
+      font-size: .78rem;
+    }
+
+    .bottleneck-chain .chain-joiner {
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: var(--surface);
+    }
+
+    .bottleneck-chain .chain-arrow {
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .bn-note {
+      margin: 0 !important;
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .bottleneck-card.soft-note {
+      padding: 14px;
+      background: var(--surface-muted) !important;
+    }
+
+    footer {
+      margin-top: 24px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1120px) {
+      .structure-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+      }
+
+      .metric,
+      .metric.metric-primary,
+      .metric.metric-wide {
+        grid-column: span 3;
+      }
+
+      .hero-topline {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(calc(100% - 22px), var(--max));
+      }
+
+      .hero {
+        padding: 16px;
+      }
+
+      .hero-topline {
+        display: grid;
+      }
+
+      .hero-tools {
+        justify-content: stretch;
+      }
+
+      .tool-button,
+      .stage-select {
+        width: 100%;
+      }
+
+      .structure-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 8px;
+      }
+
+      .metric {
+        grid-column: auto;
+        min-height: 94px;
+      }
+
+      .metric.metric-primary,
+      .metric.metric-wide {
+        grid-column: 1 / -1;
+      }
+
+      .primary-focus {
+        grid-template-columns: 1fr;
+      }
+
+      .status-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-row {
+        grid-template-columns: 1fr;
+      }
+
+      .reading-browser,
+      .reading-browser-head {
+        grid-template-columns: 1fr !important;
+      }
+
+      .reading-course-list {
+        max-height: 260px;
+        padding-right: 0;
+      }
+
+      .reading-detail {
+        width: 100%;
+        min-height: 220px;
+      }
+
+      .course-reading-list {
+        padding: 10px;
+      }
+
+      .course-reading-item {
+        min-width: 0;
+      }
+
+      .source-card {
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 8px;
+        padding: 11px 10px;
+      }
+
+      .source-citation,
+      .source-use,
+      .source-meta {
+        font-size: .76rem;
+      }
+
+      .road-semester .mini-course {
+        grid-template-columns: max-content minmax(0, 1fr);
+      }
+    }
+
 	  </style>
 </head>
 <body>
@@ -4304,7 +5155,6 @@
       <div>
         <p class="eyebrow">University of Sydney · Bachelor of Science</p>
         <h1>USYD 学位规划仪表盘<small>进度、学期计划与课程决策</small></h1>
-        <p class="subtitle">面向 Computer Science Major 与 Discrete Mathematics and Algorithms Minor。这里优先回答三个问题：当前进度是否稳、下学期该锁定哪些课、每门候选课是否值得进入计划。</p>
         <div class="meta">
           <span>作者：Yulin Ou</span>
           <span>Major：Computer Science</span>
@@ -4375,39 +5225,24 @@
           <p>按学分加权，默认排除 OLE。</p>
         </article>
         <article class="metric metric-wide" data-progress-card="elective">
-          <div class="metric-top"><strong>弹性空间</strong><span class="metric-value" data-progress-value>0cp 已完成</span></div>
-          <b>选修课 / degree core 调整</b>
-          <span data-progress-status>尚未完成弹性空间</span>
+          <div class="metric-top"><strong>可调整学分</strong><span class="metric-value" data-progress-value>0cp 已安排</span></div>
+          <b>不属于 Major / Minor / OLE 的课程空间</b>
+          <span data-progress-status>用于选修、degree core、WAM 缓冲和时间调整</span>
           <div class="metric-progress" data-progress-stack>
-            <div class="progress-bar stacked" aria-label="弹性空间规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-bar stacked" aria-label="可调整学分规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
             <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
           </div>
         </article>
         <article class="metric metric-wide" data-progress-card="pressure">
-          <div class="metric-top"><strong>压力</strong><span class="metric-value" data-progress-value>低</span></div>
-          <b>快速毕业压力</b>
+          <div class="metric-top"><strong>课业负荷</strong><span class="metric-value" data-progress-value>低</span></div>
+          <b>按已锁定 / 候选课程估算</b>
           <span data-progress-status>当前未记录锁定或候选课程</span>
           <div class="progress-bar warn" style="--value:12%"><span></span></div>
           <details class="metric-explain">
             <summary>量化规则</summary>
             <p>综合已完成学分、锁定 / 候选数量、下一阶段高压课数量和 prerequisite bottleneck。单课压力：Low=1，Medium=2，Medium-High=2.5，High=3，Very High=4。</p>
           </details>
-          <div class="metric-actions"><button type="button" id="resetPlanningData">清除课程状态</button></div>
         </article>
-      </div>
-      <div class="primary-focus" aria-label="核心使用入口">
-        <a class="focus-card" href="#checklist">
-          <strong>毕业结构核对</strong>
-          <p>查看 144cp、Major、Minor、OLE、WAM 与风险状态，正式选课前快速扫一遍结构缺口。</p>
-        </a>
-        <a class="focus-card" href="#plans">
-          <strong>学期计划</strong>
-          <p>围绕接近 2.5 年毕业目标，判断每学期 cp、课业压力和 intensive 是否值得加入。</p>
-        </a>
-        <a class="focus-card" href="#courses">
-          <strong>课程库</strong>
-          <p>用搜索加三组筛选定位课程，查看是否适合选、什么时候选、需要什么准备。</p>
-        </a>
       </div>
     </header>
 
@@ -4420,32 +5255,9 @@
       <a href="#sources">来源</a>
     </nav>
 
-    <div class="status-bar" id="persistentStatus" aria-label="当前规划状态">
-      <div>
-        <span class="label">当前阶段</span>
-        <strong class="value" data-status-key="phase">2026 S1</strong>
-      </div>
-      <div>
-        <span class="label">当前路线</span>
-        <strong class="value" data-status-key="track">理学学士 · 计算机科学 Major · DMA Minor</strong>
-      </div>
-      <div>
-        <span class="label">规划目标</span>
-        <strong class="value" data-status-key="goal">快速路线 · 接近 2.5 年毕业</strong>
-      </div>
-      <div>
-        <span class="label">已完成学分</span>
-        <strong class="value" data-status-key="credits">0 / 144cp</strong>
-      </div>
-      <div>
-        <span class="label">当前风险 / OLE</span>
-        <strong class="value" data-status-key="risk">课业压力 + 先修排序 · OLE 6cp 已确认</strong>
-      </div>
-    </div>
-
     <main>
       <section id="guidelines" class="section-card overview-support">
-        <div class="section-head"><span class="section-kicker">决策原则</span><h2>决策原则</h2><p>用这些原则过滤掉明显高风险组合，再进入学期计划和课程库做具体选择。</p></div>
+        <div class="section-head"><span class="section-kicker">决策原则</span><h2>决策原则</h2></div>
         <div class="grid-3">
           <div class="mini-card"><h3>核心课质量优先</h3><p>加速毕业不能牺牲 INFO1110、INFO1113、COMP2123、COMP2017、COMP3027 等主线课程质量。</p></div>
           <div class="mini-card"><h3>先修链优先</h3><p>INFO1110 → INFO1113 → COMP2123 / COMP2022 → COMP3027 → Project 是关键路径，延后会影响后续排课。</p></div>
@@ -4465,27 +5277,8 @@
         </details>
       </section>
 
-      <section id="checklist" class="section-card">
-        <div class="section-head"><span class="section-kicker">当前进度</span><h2>结构核对</h2><p>快速确认总学分、Major、Minor、OLE、高阶课、先修和学期压力是否闭合。</p></div>
-        <details class="checklist-details">
-          <summary>最后一年或正式选课前展开核对</summary>
-          <div class="checklist">
-            <div class="check-card"><span class="box"></span><div>是否完成 144cp 总学分？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 Bachelor of Science degree core？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 Computer Science major 48cp？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 Discrete Mathematics and Algorithms minor 36cp？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否完成 6cp OLE？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否满足 3000-level / 高阶课程要求？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否有 prerequisite 被卡住？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否有某学期课业压力过重？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否有 OLE / 选修课可以作为缓冲？</div></div>
-            <div class="check-card"><span class="box"></span><div>是否已经核对 Handbook、unit page、Sydney Student availability？</div></div>
-          </div>
-        </details>
-      </section>
-
       <section id="plans" class="section-card">
-        <div class="section-head"><span class="section-kicker">学期计划</span><h2>学期计划</h2><p>用这里决定下一阶段锁定课、候选课和缓冲空间；默认推荐只作参考，你的锁定和候选状态会覆盖它。</p></div>
+        <div class="section-head"><span class="section-kicker">学期计划</span><h2>学期计划</h2></div>
         <div class="roadmap-shell">
           <div class="roadmap-panel deprecated-progress" data-roadmap-panel="requirements" hidden aria-hidden="true">
             <h3 class="roadmap-panel-title">毕业要求进度仪表盘</h3>
@@ -4505,7 +5298,6 @@
           </div>
 
           <div class="roadmap-panel" data-roadmap-panel="timeline">
-            <div class="plan-brief"><strong>快速路线 · 接近 2.5 年</strong><span>学分与压力会按锁定、候选和已完成课程实时更新。</span></div>
             <div class="roadmap-timeline">
               <article class="road-semester" data-stage-id="2026-s1" data-stage-name="2026 S1" data-total-cp="24" data-major-cp="6" data-minor-cp="0" data-ole-cp="0" data-elective-cp="18" data-pressure-comfortable="Medium" data-pressure-accelerated="Medium">
                 <header><h3>2026 S1</h3><span class="cp-note">24cp · 基础阶段</span></header>
@@ -4535,8 +5327,7 @@
               <article class="road-semester" data-stage-id="2028-s1" data-stage-name="2028 S1" data-total-cp="20" data-major-cp="12" data-minor-cp="6" data-ole-cp="0" data-elective-cp="0" data-pressure-comfortable="Very High" data-pressure-accelerated="Very High">
                 <header><h3>2028 S1</h3><span class="cp-note">20–24cp · 高阶瓶颈</span></header>
                 <div class="mini-course"><strong>COMP3027</strong><small>Algorithm Design · 需要 COMP2123</small><div class="course-chip-row"><span class="tiny-chip core">CS 核心</span><span class="tiny-chip warning">很高</span></div></div>
-                <div class="mini-course"><strong>MATH3066 / MATH3061</strong><small>3000-level MATH 选项；按逻辑或几何兴趣选择。</small><div class="course-chip-row"><span class="tiny-chip math">DMA 数学</span><span class="tiny-chip warning">高</span></div></div>
-                <div class="mini-course"><strong>COMP3888 / COMP3988</strong><small>项目课；避免与太多高压课程叠加。</small><div class="course-chip-row"><span class="tiny-chip core">项目课</span><span class="tiny-chip warning">高</span></div></div>
+                <div class="mini-course"><strong>MATH3066</strong><small>Algebra and Logic · 6cp</small><div class="course-chip-row"><span class="tiny-chip math">DMA 数学</span><span class="tiny-chip warning">高</span></div></div>
               </article>
               <article class="road-semester" data-stage-id="2028-s2" data-stage-name="2028 S2 / 缓冲" data-total-cp="24" data-major-cp="6" data-minor-cp="0" data-ole-cp="2" data-elective-cp="16" data-pressure-comfortable="Medium" data-pressure-accelerated="Buffer">
                 <header><h3>2028 S2 / 缓冲</h3><span class="cp-note">最终调整</span></header>
@@ -4727,11 +5518,7 @@
       </section>
 
       <section id="courses" class="section-card">
-        <div class="section-head"><span class="section-kicker">课程库</span><h2>课程库</h2><p>每张课程卡回答：是否适合选、最好何时选、难点在哪里、需要什么基础，以及完成后应掌握什么。</p></div>
-        <div class="course-lens">
-          <div class="lens-card"><span>先筛选</span><strong>只按三件事筛</strong><p>课程库只有 39 门，先用课程类型、压力和年级缩小范围；更细的方向直接搜索关键词即可。</p></div>
-          <div class="lens-card"><span>兴趣方向</span><strong>在课程库里搜索</strong><p>UX、音乐、逻辑、心理学、金融等发散选修不再单独成池，直接在这里搜索、标记和排入学期。</p></div>
-        </div>
+        <div class="section-head"><span class="section-kicker">课程库</span><h2>课程库</h2></div>
         <div class="toolbar">
           <div class="search-panel">
             <div class="search-wrap">
@@ -4770,7 +5557,7 @@
         <div class="section-head">
           <span class="section-kicker">先修图</span>
           <h2>先修图</h2>
-	          <p>本图中的箭头只表示 official unit page 里的硬性 prerequisite；如果一门课有多个官方入口，会用“/ 等价入口”压缩显示，不能理解成唯一先修。Corequisite、assumed knowledge、recommended preparation、兴趣准备和 OLE 缓冲不画箭头；这些信息在课程详情里单独备注。课程状态从课程卡片实时同步：<span style="color: var(--green); font-weight: 600;">● 绿色 = 已完成</span>，<span style="color: var(--ink); font-weight: 600;">● 亮色 = 锁定 / 已计划</span>，<span style="color: var(--blue); font-weight: 600;">● 蓝色 = 候选</span>，<span style="color: var(--danger); font-weight: 600;">● 红色 = 不选</span>。</p>
+	          <p><span style="color: var(--green); font-weight: 600;">● 绿色 = 已完成</span>，<span style="color: var(--ink); font-weight: 600;">● 黑色 = 锁定 / 已计划</span>，<span style="color: var(--blue); font-weight: 600;">● 蓝色 = 候选</span>，<span style="color: var(--danger); font-weight: 600;">● 红色 = 不选</span>。</p>
         </div>
         <div class="bottleneck-grid" id="bottleneckGrid"></div>
       </section>
@@ -4779,7 +5566,6 @@
         <div class="section-head">
           <span class="section-kicker">阅读准备</span>
           <h2>阅读准备</h2>
-          <p>按核心课、选修方向和扩展主题分组；先看书单结构，需要时再展开具体用途。</p>
         </div>
         <div class="reading-tabs" id="readingTabs">
           <button class="reading-tab active" data-reading-tab="core" type="button">必修核心</button>
@@ -4808,15 +5594,7 @@
       <section id="sources" class="section-card">
         <div class="section-head">
           <span class="section-kicker">Reference</span>
-          <h2>参考 Reference</h2>
-          <p>按 Harvard referencing 的阅读习惯整理学位结构、课程官方页面、学生系统和学习资源；最终选课仍以 Sydney Student 与 Handbook 为准。</p>
-        </div>
-        <div class="source-toolbar" id="sourceToolbar" aria-label="来源筛选">
-          <button class="source-filter active" type="button" data-source-filter="all">全部</button>
-          <button class="source-filter" type="button" data-source-filter="degree">学位结构</button>
-          <button class="source-filter" type="button" data-source-filter="unit">课程官方页</button>
-          <button class="source-filter" type="button" data-source-filter="system">学生系统</button>
-          <button class="source-filter" type="button" data-source-filter="learning">学习资源</button>
+          <h2>官方参考</h2>
         </div>
         <div class="reference-register" id="sourceRegistry"></div>
         <details class="reference-maintenance">
@@ -7256,6 +8034,34 @@
       applyFilters();
     });
 
+    function resetCourseLibraryFilters() {
+      search.value = "";
+      Object.keys(activeFilters).forEach(key => activeFilters[key] = "all");
+      filterRoot.querySelectorAll(".filter-row").forEach(row => {
+        row.querySelectorAll("button").forEach(button => button.classList.toggle("active", button.dataset.value === "all"));
+      });
+      activeCourseStatusFilter = "all";
+      document.querySelectorAll("[data-status-filter]").forEach(button => {
+        button.classList.toggle("active", button.dataset.statusFilter === "all");
+      });
+      applyFilters();
+    }
+
+    function openCourseFromTimeline(code) {
+      const card = Array.from(document.querySelectorAll(".course")).find(item => item.dataset.code === code);
+      if (!card) return;
+      resetCourseLibraryFilters();
+      card.hidden = false;
+      card.open = false;
+      document.querySelectorAll(".course.course-highlight").forEach(item => item.classList.remove("course-highlight"));
+      document.querySelector("#courses")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+        card.classList.add("course-highlight");
+        setTimeout(() => card.classList.remove("course-highlight"), 1800);
+      }, 180);
+    }
+
     document.querySelectorAll(".nav a").forEach(link => {
       link.addEventListener("click", () => {
         document.querySelectorAll(".nav a").forEach(item => item.classList.toggle("active", item === link));
@@ -7402,7 +8208,7 @@
         completed: totals.completed.elective,
         locked: totals.locked.elective,
         candidate: totals.candidate.elective
-      }, progressTargets.elective, `${totals.completed.elective}cp 已完成`, "尚未使用弹性空间");
+      }, progressTargets.elective, `${totals.completed.elective + totals.locked.elective + totals.candidate.elective}cp 已安排`, "用于选修、degree core、WAM 缓冲和时间调整");
 
       if (wamDenominator > 0) {
         const wam = wamNumerator / wamDenominator;
@@ -7427,7 +8233,7 @@
       const pressure = pressurePoints >= 4 ? "高" : pressurePoints >= 2 ? "中" : "低";
       const pressurePercent = pressure === "高" ? 74 : pressure === "中" ? 46 : 16;
       const pressureStatus = lockedOrCandidateCount
-        ? `锁定 / 候选 ${lockedOrCandidateCount} 门；高压课 ${plannedHighPressure} 门；核心瓶颈未完成 ${bottleneckOpen} 项`
+        ? `锁定 / 候选 ${lockedOrCandidateCount} 门 · 高压课 ${plannedHighPressure} 门 · 核心瓶颈 ${bottleneckOpen} 项未完成`
         : "当前未记录锁定或候选课程";
       setProgressCard("pressure", pressurePoints, 6, pressure, pressureStatus, pressurePercent);
     }
@@ -7722,13 +8528,9 @@
       const autoStageOption = stageOverride?.querySelector('option[value=""]');
       if (autoStageOption) autoStageOption.textContent = `当前阶段：${inferCurrentStage()}（自动）`;
 
-      const risk = document.querySelector('[data-status-key="risk"]');
-      if (risk) {
-        const parts = [];
-        if (avoidCount) parts.push(`不选 ${avoidCount}`);
-        if (lockedCount) parts.push(`锁定 ${lockedCount}`);
-        if (candidateCount) parts.push(`候选 ${candidateCount}`);
-        risk.textContent = parts.length ? parts.join(" · ") + " · OLE 6cp" : "课业压力 + 先修排序 · OLE 6cp 已确认";
+      const decisions = document.querySelector('[data-status-key="decisions"]');
+      if (decisions) {
+        decisions.textContent = `锁定 ${lockedCount} · 候选 ${candidateCount} · 不选 ${avoidCount}`;
       }
     }
 
@@ -7841,7 +8643,18 @@
     }
 
     function courseForTimelineCode(timelineCode) {
-      return courses.find(course => codeMatchesTimelineCode(course.code, timelineCode));
+      const normalized = String(timelineCode || "").trim();
+      const exact = courses.find(course => course.code === normalized);
+      if (exact) return exact;
+      const options = normalized.split("/").map(part => part.trim()).filter(Boolean);
+      for (const option of options) {
+        const optionMatch = courses.find(course => {
+          const parts = String(course.code).split("/").map(part => part.trim());
+          return course.code === option || parts.includes(option);
+        });
+        if (optionMatch) return optionMatch;
+      }
+      return courses.find(course => codeMatchesTimelineCode(course.code, normalized));
     }
 
     function courseCpForCode(code) {
@@ -7869,8 +8682,19 @@
         const code = staticTimelineCode(item);
         const course = courseForTimelineCode(code);
         const small = item.querySelector("small");
-        if (course && small) small.textContent = timelineCourseLine(course);
-        else if (small) small.textContent = "从课程库选择 · 待定cp";
+        if (course && small) {
+          const strong = item.querySelector("strong");
+          if (strong && !strong.dataset.originalCode) strong.dataset.originalCode = code;
+          small.textContent = timelineCourseLine(course);
+          item.dataset.code = course.code;
+          item.setAttribute("role", "button");
+          item.setAttribute("tabindex", "0");
+          item.setAttribute("aria-label", `定位 ${course.code} 到课程库`);
+          item.classList.add("course-jump");
+        } else if (small) {
+          small.textContent = "从课程库选择 · 待定cp";
+          item.classList.remove("course-jump");
+        }
       });
     }
 
@@ -7905,7 +8729,7 @@
         const note = stage.querySelector(".cp-note");
         if (note) {
           note.textContent = summary.cp
-            ? `${summary.cp}cp · ${summary.statusText || "已排课程"} · 压力：${summary.pressure.text}`
+            ? `${summary.cp}cp · ${summary.statusText || "已排课程"}`
             : "0cp · 待安排";
         }
         let badge = stage.querySelector(".workload-budget");
@@ -7935,11 +8759,15 @@
     function updateTimelineFromCourseStatuses() {
       const statuses = readCourseStatuses();
       document.querySelectorAll(".mini-course").forEach(item => {
-        item.classList.remove("is-locked", "is-candidate", "is-completed", "is-recommended", "is-user-selected-static", "recommendation-hidden");
+        item.classList.remove("is-locked", "is-candidate", "is-completed", "is-recommended", "is-user-selected-static", "recommendation-hidden", "course-jump");
         item.removeAttribute("hidden");
         if (item.classList.contains("user-added-course")) item.remove();
         else {
           item.querySelector(".status-prefix")?.remove();
+          delete item.dataset.code;
+          item.removeAttribute("role");
+          item.removeAttribute("tabindex");
+          item.removeAttribute("aria-label");
           if (!item.classList.contains("placeholder")) item.classList.add("is-recommended");
         }
       });
@@ -7974,12 +8802,18 @@
 	          if (strong && !strong.querySelector(".status-prefix")) {
 	            strong.insertAdjacentHTML("afterbegin", `<span class="status-prefix">${label}</span>`);
 	          }
+          target.dataset.code = course.code;
+          target.setAttribute("role", "button");
+          target.setAttribute("tabindex", "0");
+          target.setAttribute("aria-label", `查看 ${course.code} 课程详情`);
           target.classList.remove("is-recommended", "recommendation-hidden");
-          target.classList.add(statusClass, "is-user-selected-static");
+          target.classList.add(statusClass, "is-user-selected-static", "course-jump");
 	        } else {
-	          const card = document.createElement("div");
-	          card.className = `mini-course user-added-course ${statusClass}`;
+	          const card = document.createElement("button");
+          card.type = "button";
+	          card.className = `mini-course user-added-course course-jump ${statusClass}`;
 	          card.dataset.code = course.code;
+          card.setAttribute("aria-label", `查看 ${course.code} 课程详情`);
 	          card.innerHTML = `<strong><span class="status-prefix">${label}</span>${course.code}</strong><small>${timelineCourseLine(course)}</small>`;
 	          stage.appendChild(card);
 	        }
@@ -8056,36 +8890,23 @@
       });
       timeline.dataset.grouped = "true";
     })();
+
+    document.querySelector(".roadmap-timeline")?.addEventListener("click", event => {
+      const target = event.target.closest(".mini-course.course-jump[data-code]");
+      if (!target) return;
+      event.preventDefault();
+      openCourseFromTimeline(target.dataset.code);
+    });
+
+    document.querySelector(".roadmap-timeline")?.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      const target = event.target.closest(".mini-course.course-jump[data-code]");
+      if (!target) return;
+      event.preventDefault();
+      openCourseFromTimeline(target.dataset.code);
+    });
+
     updateTimelineFromCourseStatuses();
-
-    /* ==========================================================
-       Interactive graduation checklist (localStorage)
-       ========================================================== */
-
-    (function wireChecklist() {
-      const KEY = "usyd-checklist-v1";
-      const cards = Array.from(document.querySelectorAll("#checklist .check-card"));
-      if (!cards.length) return;
-      let state = [];
-      try { state = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { state = []; }
-      cards.forEach((card, i) => {
-        card.setAttribute("role", "checkbox");
-        card.setAttribute("tabindex", "0");
-        card.setAttribute("aria-checked", state[i] ? "true" : "false");
-        if (state[i]) card.classList.add("checked");
-        const toggle = () => {
-          const isChecked = !card.classList.contains("checked");
-          card.classList.toggle("checked", isChecked);
-          card.setAttribute("aria-checked", isChecked ? "true" : "false");
-          state[i] = isChecked;
-          try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {}
-        };
-        card.addEventListener("click", toggle);
-        card.addEventListener("keydown", (e) => {
-          if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(); }
-        });
-      });
-    })();
 
     /* ==========================================================
        Prerequisite Bottleneck Map
@@ -8133,24 +8954,21 @@
 	        const beforeMarkup = before.map((node, i) => `${i ? `<span class="chain-joiner">${joiner}</span>` : ""}${renderNode(node)}`).join("");
 	        return `${beforeMarkup}<span class="chain-arrow">→</span>${renderNode(b.target)}`;
 	      };
-		      root.innerHTML = bottleneckChains.map(b => `
+		      root.innerHTML = bottleneckChains.map(b => {
+	        const type = b.joiner === "+" ? "组合入口" : b.before?.some(item => item.includes("/")) ? "多入口" : "硬性先修";
+	        return `
 		        <div class="bottleneck-card" data-chain-codes="${chainCodes(b).map(encodeURIComponent).join("|")}">
-		          <h4>${b.title}</h4>
-	          <div class="bottleneck-chain">
-	            ${renderChain(b)}
+		          <div class="bottleneck-head">
+		            <span class="bn-type">${type}</span>
+		            <h4>${b.title}</h4>
+		          </div>
+	            <div class="bottleneck-chain">
+	              ${renderChain(b)}
+	            </div>
+	            <p class="bn-note">${b.note}</p>
 	          </div>
-	          <p class="bn-note">${b.note}</p>
-	        </div>
-	      `).join("") + `
-	        <div class="bottleneck-card soft-note">
-	          <h4>不画箭头的课程与关系</h4>
-	          <ul>
-	            <li>OLE 课程（如 OLET1666、OLES1602、OLET1801、OLET1803、OLET2148、OLET2111、OLET2151、OLET1203）按当前核对不作为后续 6cp 课程的硬性 prerequisite；它们只承担 OLE / 兴趣探索 / workload buffer 功能。</li>
-	            <li>DECO1006、DECO2016、DECO2102 均不是彼此的官方先修；DECO2016 与 DECO1006 是 prohibition / replacement 语境，不是“先修链”。</li>
-	            <li>Assumed knowledge、recommended preparation、兴趣准备和 corequisite 不用箭头表示；这些会在课程详情中用备注说明。</li>
-	          </ul>
-	        </div>
-	      `;
+	        `;
+	      }).join("");
 	    }
     updateBottleneckMap();
 
