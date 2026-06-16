@@ -1435,19 +1435,36 @@
     }
 
     .search-wrap::before {
-      content: "⌕";
+      content: "";
       position: absolute;
-      left: 15px;
+      left: 18px;
       top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 1.05rem;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--muted);
+      border-radius: 50%;
+      transform: translateY(-55%);
+      opacity: .72;
+      pointer-events: none;
+    }
+
+    .search-wrap::after {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      width: 7px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--muted);
+      transform: translateY(5px) rotate(45deg);
+      opacity: .72;
       pointer-events: none;
     }
 
     .search-box {
       width: 100%;
-      padding: 14px 16px 14px 40px;
+      padding: 14px 16px 14px 54px;
       border: 1px solid var(--line);
       border-radius: 999px;
       background: #f5f5f7;
@@ -4707,7 +4724,7 @@
 
     .search-box {
       min-height: 44px;
-      padding: 11px 14px;
+      padding: 11px 14px 11px 50px;
       border-radius: 8px;
       font-size: .92rem;
     }
@@ -6630,6 +6647,27 @@
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/PSYC1001"]]
       },
       {
+        code: "WRIT1001",
+        name: "Writing and Rhetoric: Academic Essays",
+        cp: "6cp",
+        category: ["elective"],
+        level: "1000",
+        workload: "Medium",
+        skills: ["writing", "critical thinking", "research"],
+        functionTags: ["WAM buffer", "direction exploration"],
+        best: "S1 / S2；想系统提升 academic essay、argument 和 editing 能力时",
+        later: "academic writing, essay-based electives, research reports, project documentation",
+        summary: "写作与修辞入门课，训练如何发现论题、组织观点、分析论证表达，并在 print、visual media、political debate 和跨文化交流语境中构建有说服力的 academic essays。",
+        teaches: ["rhetorical theory and persuasive writing", "topic discovery and argument arrangement", "academic essay conventions", "argument analysis across print, visual and political contexts", "editing your own writing and peer writing"],
+        matters: "WRIT1001 不推进 CS / DMA 先修链，但对论文写作、项目报告、argument structure 和英文表达很实用。它适合用作 WAM buffer 或写作能力补强课。",
+        before: ["官方 2026 信息显示 prerequisites / corequisites / prohibitions / assumed knowledge 均为 None", "需要愿意反复 draft、edit 和 peer review", "如果同学期已有大量 writing-heavy 选修，要注意 assessment 时间"],
+        mastery: ["能写出结构清楚、有论证意识的 academic essay", "能识别 rhetorical choices 如何影响说服力", "能为 multicultural audiences 调整表达和论证方式", "能持续编辑自己的文字并给同伴提供有效反馈"],
+        how: ["每篇文章先写 claim、audience、evidence、counterpoint、structure", "draft 阶段先改 argument，再改 sentence polish", "把 feedback 分成 structure、evidence、clarity、style 四类处理"],
+        terms: ["rhetoric — 修辞", "academic essay — 学术论文", "argument — 论证", "audience — 受众", "arrangement — 结构安排", "persuasion — 说服", "editing — 编辑", "peer review — 同伴评阅"],
+        readings: ["They Say / I Say — 暂无通行中文译名：学术论证写作入门。", "The Elements of Style — 暂无通行中文译名：英文风格简明指南。", "Style: Lessons in Clarity and Grace — 暂无通行中文译名：英文清晰表达参考。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/WRIT1001"]]
+      },
+      {
         code: "EDGU1003",
         name: "Diet and Nutrition for Health and Sport",
         cp: "6cp",
@@ -7001,6 +7039,7 @@
       STAT3021: "2026 S1",
       STAT3022: "2026 S1",
       STAT3023: "2026 S2",
+      WRIT1001: "2026 S1 / S2",
       EDGU1003: "2026 S1 / S2 / January-February intensive",
       PSYC1002: "需按当年 Handbook 核对",
       PSYC2016: "需按当年 Handbook 核对",
