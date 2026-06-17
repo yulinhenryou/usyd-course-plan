@@ -8680,6 +8680,7 @@
       const existing = new Set(Array.from(timeline.querySelectorAll(".road-semester")).map(item => item.dataset.stageId));
       ["2026", "2027", "2028"].forEach(year => {
         timelineTerms.forEach(term => {
+          if (year === "2028" && term.key === "summer") return;
           const id = stageIdFor(year, term.key);
           if (existing.has(id)) return;
           const card = document.createElement("article");
