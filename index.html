@@ -380,6 +380,305 @@
     .progress-breakdown [data-progress-part="locked"] { --dot: #1d1d1f; }
     .progress-breakdown [data-progress-part="candidate"] { --dot: var(--blue); }
 
+    .metric-structure-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      min-height: 30px;
+      margin-top: 1px;
+      padding: 7px 0 0;
+      border: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: .76rem;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .metric-structure-trigger::after {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 auto;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform .18s ease;
+    }
+
+    .metric-structure-trigger:hover,
+    .metric-structure-trigger:focus-visible,
+    .metric[data-structure-active="true"] .metric-structure-trigger {
+      color: var(--blue);
+    }
+
+    .metric[data-structure-active="true"] {
+      border-color: rgba(37,99,235,.42);
+      box-shadow: inset 0 -2px 0 var(--blue);
+    }
+
+    .metric[data-structure-active="true"] .metric-structure-trigger::after {
+      transform: rotate(225deg) translate(-2px, -2px);
+    }
+
+    .major-structure-drawer {
+      grid-column: 1 / -1;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      box-shadow: 0 8px 26px rgba(18, 28, 45, .06);
+      animation: structure-drawer-in .18s ease-out;
+    }
+
+    .major-structure-drawer[hidden] {
+      display: none;
+    }
+
+    @keyframes structure-drawer-in {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .structure-drawer-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .structure-drawer-tabs {
+      display: inline-flex;
+      min-width: 0;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface-muted);
+    }
+
+    .structure-drawer-tab,
+    .structure-drawer-close {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: .75rem;
+      font-weight: 800;
+    }
+
+    .structure-drawer-tab {
+      min-height: 30px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .structure-drawer-tab[aria-selected="true"] {
+      background: var(--ink);
+      color: var(--surface);
+    }
+
+    .structure-drawer-close {
+      display: inline-grid;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .structure-drawer-close:hover,
+    .structure-drawer-close:focus-visible {
+      color: var(--ink);
+      border-color: var(--line-strong);
+    }
+
+    .structure-slot-list {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .major-structure-drawer[data-active-group="dma"] .structure-slot-list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .structure-slot {
+      display: grid;
+      gap: 5px;
+      align-content: start;
+      min-height: 96px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.72);
+    }
+
+    .structure-slot-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .structure-slot-name {
+      min-width: 0;
+      color: var(--ink);
+      font-size: .76rem;
+      font-weight: 760;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .structure-slot-value {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .structure-slot-bar {
+      height: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--gray-soft);
+    }
+
+    .structure-slot-bar span {
+      display: block;
+      width: var(--value, 0%);
+      height: 100%;
+      border-radius: inherit;
+      background: var(--blue);
+    }
+
+    .structure-slot[data-state="complete"] .structure-slot-bar span { background: var(--green); }
+    .structure-slot[data-state="empty"] .structure-slot-bar span { background: var(--muted); }
+
+    .structure-slot-courses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      min-height: 22px;
+    }
+
+    .structure-course-pill,
+    .structure-course-empty {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 760;
+      line-height: 1.45;
+    }
+
+    .structure-course-pill {
+      background: var(--blue-soft);
+      color: #0a5cad;
+    }
+
+    .structure-course-pill.completed {
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .structure-course-pill.locked {
+      background: rgba(24,24,27,.08);
+      color: var(--ink);
+    }
+
+    .structure-course-pill.candidate {
+      background: rgba(37,99,235,.10);
+      color: var(--blue);
+    }
+
+    .structure-course-empty {
+      color: var(--muted);
+      background: var(--gray-soft);
+    }
+
+    @media (max-width: 760px) {
+      .major-structure-drawer {
+        padding: 10px;
+      }
+
+      .structure-drawer-toolbar {
+        align-items: stretch;
+      }
+
+      .structure-drawer-tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        flex: 1;
+      }
+
+      .structure-drawer-tab {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .structure-slot-list {
+        grid-template-columns: 1fr;
+      }
+
+      .major-structure-drawer[data-active-group="dma"] .structure-slot-list {
+        grid-template-columns: 1fr;
+      }
+
+      .structure-slot {
+        min-height: 0;
+      }
+    }
+
+    .metric.metric-wam .metric-top {
+      display: grid;
+      gap: 8px;
+      justify-content: stretch;
+    }
+
+    .metric.metric-wam .metric-top strong {
+      color: var(--muted);
+      font-family: var(--font);
+      font-size: .86rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .metric.metric-wam .metric-value {
+      color: var(--ink);
+      font-size: clamp(1.7rem, 3vw, 2.8rem);
+      font-weight: 900;
+      letter-spacing: -.045em;
+      line-height: .95;
+      text-align: left;
+      text-transform: none;
+      overflow-wrap: normal;
+      white-space: nowrap;
+    }
+
+    .metric.metric-wam b {
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
     .metric-actions {
       display: flex;
       flex-wrap: wrap;
@@ -1601,6 +1900,13 @@
       letter-spacing: -.02em;
     }
 
+    .code-slash {
+      display: inline-block;
+      margin: 0 .18em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
     .course-name { font-weight: 680; }
 
     .one-line {
@@ -2309,8 +2615,18 @@
     :root[data-theme="dark"] .compact-reading li,
     :root[data-theme="dark"] .lens-card,
     :root[data-theme="dark"] .progress-actions,
+    :root[data-theme="dark"] .structure-slot,
     :root[data-theme="dark"] .reference-maintenance {
       background: var(--card);
+    }
+
+    :root[data-theme="dark"] .structure-course-pill.locked {
+      background: rgba(255,255,255,.12);
+      color: var(--ink);
+    }
+
+    :root[data-theme="dark"] .structure-course-empty {
+      background: rgba(255,255,255,.08);
     }
 
     :root[data-theme="dark"] .elective-meta span {
@@ -5163,6 +5479,1055 @@
       }
     }
 
+    /* ==========================================================
+       2026 visual system consolidation
+       One final layer keeps the single-file app visually coherent
+       without touching its storage, course data or interaction model.
+       ========================================================== */
+
+    :root {
+      --bg: #f3f5f7;
+      --card: #ffffff;
+      --surface: #ffffff;
+      --surface-muted: #f7f8fa;
+      --surface-tint: #eef2f6;
+      --ink: #16191f;
+      --text: #3f4652;
+      --muted: #707887;
+      --line: #dde2e8;
+      --line-strong: #c7ced7;
+      --blue: #1769d2;
+      --blue-soft: #eaf2ff;
+      --green: #277a52;
+      --green-soft: #e9f5ef;
+      --orange: #a45f08;
+      --orange-soft: #fff3df;
+      --danger: #c33b32;
+      --radius-xl: 12px;
+      --radius: 10px;
+      --radius-sm: 8px;
+      --shadow: 0 1px 2px rgba(18, 28, 45, .04), 0 10px 28px rgba(18, 28, 45, .05);
+      --shadow-hover: 0 1px 2px rgba(18, 28, 45, .05), 0 14px 34px rgba(18, 28, 45, .07);
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0d1015;
+      --card: #161a21;
+      --surface: #161a21;
+      --surface-muted: #11151b;
+      --surface-tint: #1c222b;
+      --ink: #f3f5f8;
+      --text: #c4cad3;
+      --muted: #929aa8;
+      --line: #2a303a;
+      --line-strong: #3b4350;
+      --blue: #68a8ff;
+      --blue-soft: rgba(75, 143, 232, .16);
+      --green: #69c896;
+      --green-soft: rgba(58, 151, 103, .16);
+      --orange: #efb65e;
+      --orange-soft: rgba(194, 125, 31, .16);
+      --danger: #ff8178;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 14px 34px rgba(0, 0, 0, .18);
+      --shadow-hover: 0 1px 2px rgba(0, 0, 0, .34), 0 18px 40px rgba(0, 0, 0, .24);
+    }
+
+    * {
+      letter-spacing: 0 !important;
+    }
+
+    html {
+      scroll-padding-top: 82px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      width: min(calc(100% - 32px), 1480px);
+      padding: 18px 0 42px;
+    }
+
+    .hero {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-topline {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(250px, 310px);
+      gap: 20px;
+      align-items: start;
+      margin-bottom: 14px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: .68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: none;
+      font-size: 2.15rem;
+      line-height: 1.08;
+    }
+
+    h1 small {
+      display: inline;
+      margin: 0 0 0 12px;
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 650;
+    }
+
+    .meta {
+      margin-top: 12px;
+    }
+
+    .meta span,
+    .tool-button,
+    .stage-select {
+      min-height: 34px;
+      border-radius: 7px;
+      background: var(--surface-muted);
+    }
+
+    .hero-tools {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      min-width: 0;
+    }
+
+    .stage-select {
+      width: 100%;
+    }
+
+    .structure-grid {
+      gap: 8px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-muted);
+    }
+
+    .metric,
+    .metric.metric-primary,
+    .metric.metric-wide {
+      min-height: 108px;
+      padding: 13px;
+      border-radius: 8px;
+      border-color: var(--line);
+      background: var(--surface) !important;
+      box-shadow: none;
+    }
+
+    .metric strong,
+    .metric.metric-primary strong,
+    .metric.metric-wide strong {
+      font-size: 1.85rem;
+    }
+
+    .metric b {
+      font-size: .84rem;
+    }
+
+    .metric > span[data-progress-status] {
+      font-size: .72rem;
+    }
+
+    .metric.metric-wam .metric-value {
+      font-size: 2.25rem;
+    }
+
+    .major-structure-drawer {
+      border-radius: 8px;
+      box-shadow: none;
+    }
+
+    .nav {
+      top: 10px;
+      gap: 2px;
+      margin-top: 12px;
+      padding: 5px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      box-shadow: var(--shadow);
+    }
+
+    .nav a {
+      min-height: 34px;
+      padding: 8px 11px;
+      border-radius: 7px;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      background: var(--surface-tint);
+      color: var(--ink);
+    }
+
+    main {
+      gap: 42px;
+      margin-top: 30px;
+    }
+
+    .section-card {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .section-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .section-head {
+      margin-bottom: 14px;
+      padding: 0 0 11px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      line-height: 1.12;
+    }
+
+    h3 {
+      font-size: .98rem;
+    }
+
+    #guidelines .grid-3 {
+      counter-reset: principle;
+      gap: 8px;
+    }
+
+    #guidelines .mini-card {
+      counter-increment: principle;
+      position: relative;
+      min-height: 126px;
+      padding: 18px 16px 16px 48px;
+      border: 1px solid var(--line);
+      border-radius: 8px !important;
+      background: var(--surface) !important;
+      box-shadow: none;
+    }
+
+    #guidelines .mini-card::before {
+      content: counter(principle, decimal-leading-zero);
+      position: absolute;
+      top: 18px;
+      left: 15px;
+      color: var(--blue);
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 850;
+    }
+
+    #guidelines .mini-card.warning {
+      border-color: rgba(195, 59, 50, .26) !important;
+    }
+
+    #guidelines .mini-card.warning::before {
+      color: var(--danger);
+    }
+
+    #guidelines .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+
+    .guideline-details {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      background: var(--surface) !important;
+    }
+
+    .roadmap-timeline {
+      gap: 14px;
+    }
+
+    .year-column {
+      gap: 9px;
+    }
+
+    .year-column .year-header {
+      min-height: 38px;
+      padding: 0 3px 8px;
+    }
+
+    .road-semester {
+      gap: 8px;
+      padding: 13px !important;
+      border-radius: 8px !important;
+      background: var(--surface) !important;
+      box-shadow: none !important;
+    }
+
+    .road-semester:hover {
+      transform: none;
+      border-color: var(--line-strong) !important;
+    }
+
+    .road-semester header {
+      padding-bottom: 8px;
+    }
+
+    .road-semester .mini-course {
+      min-height: 38px;
+      height: 38px;
+      border-radius: 6px;
+      box-shadow: none;
+    }
+
+    .road-semester .mini-course.course-jump:hover {
+      transform: none;
+      box-shadow: inset 0 0 0 1px var(--blue);
+    }
+
+    .toolbar {
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px !important;
+      background: var(--surface) !important;
+      box-shadow: none;
+    }
+
+    .search-panel {
+      grid-template-columns: minmax(0, 1fr) auto;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .search-box {
+      min-height: 42px;
+      background: var(--surface-muted);
+    }
+
+    .filter-drawer {
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    .filter-drawer > summary {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      min-height: 42px;
+      padding: 8px 4px 0;
+      color: var(--ink);
+      font-size: .82rem;
+      font-weight: 780;
+    }
+
+    .filter-drawer > summary small {
+      color: var(--muted);
+      font-size: .74rem;
+      font-weight: 600;
+    }
+
+    .filter-drawer > summary::after {
+      content: "+";
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+    }
+
+    .filter-drawer[open] > summary::after {
+      content: "−";
+    }
+
+    .filter-drawer-body {
+      padding-top: 6px;
+    }
+
+    .filter-row {
+      grid-template-columns: 100px minmax(0, 1fr);
+      gap: 12px;
+      padding: 9px 2px;
+    }
+
+    .filter-options {
+      gap: 5px;
+    }
+
+    .filter-options button,
+    .clear-filters,
+    .status-btn,
+    .reading-tab {
+      min-height: 31px;
+      padding: 6px 9px;
+      border-radius: 6px;
+      box-shadow: none;
+    }
+
+    #resetCourseStatuses {
+      margin-left: 8px;
+    }
+
+    .course-list {
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .course {
+      border-radius: 8px !important;
+      background: var(--surface);
+      box-shadow: none;
+    }
+
+    .course:hover {
+      transform: none;
+      border-color: var(--line-strong);
+      box-shadow: none;
+    }
+
+    .course[open] {
+      border-color: rgba(23, 105, 210, .38) !important;
+      box-shadow: 0 0 0 3px rgba(23, 105, 210, .06);
+    }
+
+    .course summary {
+      gap: 12px;
+      padding: 11px 13px;
+    }
+
+    .course summary > div {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto;
+      gap: 7px 16px;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .course-title {
+      grid-column: 1;
+      grid-row: 1;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .course-title .code,
+    .course-title .course-name {
+      white-space: nowrap;
+    }
+
+    .course-title .course-name {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .one-line {
+      display: none;
+    }
+
+    .tag-row {
+      grid-column: 1;
+      grid-row: 2;
+      gap: 5px;
+      margin: 0;
+    }
+
+    .course-status-row {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      flex-wrap: nowrap;
+      gap: 3px;
+      margin: 0;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface-muted);
+    }
+
+    .course-status-row .status-label {
+      display: none;
+    }
+
+    .status-btn {
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: .76rem;
+    }
+
+    .status-btn:hover {
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .status-btn.active[data-status="locked"] {
+      background: var(--ink);
+      color: var(--surface);
+    }
+
+    .status-btn.active[data-status="candidate"] {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .status-btn.active[data-status="completed"] {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .status-btn.active[data-status="avoid"] {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .status-btn.active[data-status="neutral"] {
+      background: var(--surface-tint);
+      color: var(--muted);
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+
+    .placement-row {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      margin-top: 2px;
+    }
+
+    .toggle {
+      align-self: center;
+      font-size: .78rem;
+    }
+
+    .course-body {
+      padding: 0 12px 12px;
+    }
+
+    .snapshot {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      border-radius: 7px;
+    }
+
+    .snap-item {
+      min-height: 70px;
+      padding: 9px 10px;
+      border-bottom: 0;
+    }
+
+    .snap-item:nth-child(6n) {
+      border-right: none;
+    }
+
+    .course-detail-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .course-detail-grid > .info-block,
+    .course-detail-grid > .info-block.wide,
+    .course-detail-grid > .compact-disclosure,
+    .course-detail-grid > .course-workspace {
+      grid-column: span 6;
+    }
+
+    .info-block {
+      padding: 11px;
+      border-radius: 7px !important;
+    }
+
+    .learning-outcome-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 14px;
+    }
+
+    .learning-outcome-list li,
+    .workflow-list li,
+    .compact-reading li {
+      padding: 6px 0;
+      font-size: .84rem;
+    }
+
+    .compact-disclosure,
+    .course-workspace {
+      align-self: start;
+      margin: 0;
+    }
+
+    .prereq-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px 16px;
+      margin-top: 10px;
+    }
+
+    .prereq-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .prereq-legend span::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--state-color);
+    }
+
+    .prereq-legend [data-state="completed"] { --state-color: var(--green); }
+    .prereq-legend [data-state="locked"] { --state-color: var(--ink); }
+    .prereq-legend [data-state="candidate"] { --state-color: var(--blue); }
+    .prereq-legend [data-state="avoid"] { --state-color: var(--danger); }
+
+    .bottleneck-grid {
+      gap: 10px;
+    }
+
+    .bottleneck-card {
+      position: relative;
+      padding: 14px 14px 13px 17px;
+      border-radius: 8px !important;
+      background: var(--surface) !important;
+      box-shadow: none !important;
+    }
+
+    .bottleneck-card::before {
+      content: "";
+      position: absolute;
+      top: 13px;
+      bottom: 13px;
+      left: 0;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: var(--blue);
+      opacity: .65;
+    }
+
+    .bottleneck-card:hover {
+      transform: none;
+      border-color: var(--line-strong) !important;
+      box-shadow: none !important;
+    }
+
+    .bottleneck-chain {
+      margin: 9px 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .bottleneck-chain .chain-node,
+    .bottleneck-chain .chain-joiner {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface-muted);
+    }
+
+    .bn-note {
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .reading-tabs {
+      gap: 4px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .reading-tab {
+      border-color: transparent;
+      background: transparent;
+    }
+
+    .reading-tab.active {
+      background: var(--ink);
+      color: var(--surface);
+    }
+
+    .reading-workspace {
+      padding: 10px;
+      border-radius: 8px !important;
+      box-shadow: none;
+    }
+
+    .reading-browser-head {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .reading-course-list {
+      gap: 4px;
+      padding-right: 8px;
+    }
+
+    .reading-course-button {
+      min-height: 40px;
+      border-radius: 6px !important;
+      background: transparent;
+    }
+
+    .reading-course-button.active {
+      border-color: rgba(23, 105, 210, .32);
+      background: var(--blue-soft);
+      box-shadow: inset 3px 0 0 var(--blue);
+    }
+
+    .reading-detail {
+      border-radius: 7px !important;
+      background: var(--surface-muted);
+    }
+
+    .course-reading-item {
+      border-radius: 6px !important;
+      background: var(--surface);
+      box-shadow: none;
+    }
+
+    .reading-all-groups {
+      margin-top: 10px;
+      background: var(--surface) !important;
+    }
+
+    .reference-register {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      border-top: 0;
+    }
+
+    .reference-group {
+      counter-increment: reference-group;
+      border: 1px solid var(--line) !important;
+      border-radius: 8px !important;
+      background: var(--surface) !important;
+      overflow: hidden;
+    }
+
+    .reference-group[open] {
+      grid-column: 1 / -1;
+    }
+
+    .reference-group-head {
+      min-height: 56px;
+      padding: 11px 12px;
+      background: var(--surface) !important;
+    }
+
+    .reference-group-head::before {
+      content: "0" counter(reference-group);
+      color: var(--blue);
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 850;
+    }
+
+    .reference-group-head h3 {
+      font-size: .9rem;
+    }
+
+    .reference-group-head::after {
+      min-width: 40px;
+      text-align: right;
+    }
+
+    .reference-group[open] .reference-group-head {
+      background: var(--surface-muted) !important;
+    }
+
+    .source-grid {
+      background: var(--surface);
+    }
+
+    .source-card {
+      padding: 12px 10px;
+    }
+
+    footer {
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      font-size: .74rem;
+    }
+
+    :root[data-theme="dark"] .hero,
+    :root[data-theme="dark"] .metric,
+    :root[data-theme="dark"] .course,
+    :root[data-theme="dark"] .toolbar,
+    :root[data-theme="dark"] .road-semester,
+    :root[data-theme="dark"] .bottleneck-card,
+    :root[data-theme="dark"] .reading-workspace,
+    :root[data-theme="dark"] .reading-detail,
+    :root[data-theme="dark"] .course-reading-item,
+    :root[data-theme="dark"] .info-block,
+    :root[data-theme="dark"] .snapshot,
+    :root[data-theme="dark"] #guidelines .mini-card {
+      background: var(--surface) !important;
+      border-color: var(--line) !important;
+      box-shadow: none !important;
+    }
+
+    :root[data-theme="dark"] .nav {
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+    }
+
+    :root[data-theme="dark"] .status-btn.active[data-status="locked"],
+    :root[data-theme="dark"] .reading-tab.active,
+    :root[data-theme="dark"] .structure-drawer-tab[aria-selected="true"] {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    :root[data-theme="dark"] .status-btn.active[data-status="neutral"] {
+      background: var(--surface-tint) !important;
+      color: var(--muted) !important;
+      border-color: var(--line) !important;
+    }
+
+    @media (max-width: 1120px) {
+      .course summary > div {
+        grid-template-columns: 1fr;
+      }
+
+      .course-title,
+      .tag-row,
+      .course-status-row,
+      .placement-row {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .course-status-row {
+        width: fit-content;
+      }
+
+      .snapshot {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .snap-item {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .snap-item:nth-child(3n) {
+        border-right: none;
+      }
+
+      .snap-item:nth-last-child(-n + 3) {
+        border-bottom: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: min(calc(100% - 18px), 1480px);
+        padding-top: 9px;
+      }
+
+      .hero {
+        padding: 13px;
+      }
+
+      .hero-topline {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      h1 small {
+        display: block;
+        margin: 5px 0 0;
+        font-size: .72rem;
+      }
+
+      .hero-tools {
+        grid-template-columns: 1fr;
+      }
+
+      .structure-grid {
+        padding: 7px;
+      }
+
+      .metric,
+      .metric.metric-primary,
+      .metric.metric-wide {
+        min-height: 100px;
+      }
+
+      .metric strong,
+      .metric.metric-primary strong,
+      .metric.metric-wide strong {
+        font-size: 1.55rem;
+      }
+
+      .nav {
+        margin-top: 8px;
+      }
+
+      main {
+        gap: 34px;
+        margin-top: 26px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      #guidelines .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      #guidelines .mini-card {
+        min-height: 0;
+      }
+
+      .search-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar-meta {
+        justify-content: space-between;
+      }
+
+      .filter-drawer > summary {
+        grid-template-columns: 1fr auto;
+      }
+
+      .filter-drawer > summary small {
+        display: none;
+      }
+
+      .filter-row {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-options {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .filter-options button {
+        flex: 0 0 auto;
+      }
+
+      #resetCourseStatuses {
+        margin-left: 0;
+      }
+
+      .course summary {
+        padding: 11px;
+      }
+
+      .course-title {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+      }
+
+      .course-title .course-status-pill {
+        grid-column: 1 / -1;
+      }
+
+      .course-status-row {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .status-btn {
+        flex: 1 0 auto;
+      }
+
+      .tag-row {
+        max-height: 28px;
+        overflow: hidden;
+      }
+
+      .snapshot {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .snap-item:nth-child(3n) {
+        border-right: 1px solid var(--line);
+      }
+
+      .snap-item:nth-child(2n) {
+        border-right: none;
+      }
+
+      .snap-item:nth-last-child(-n + 3) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .snap-item:nth-last-child(-n + 2) {
+        border-bottom: none;
+      }
+
+      .course-detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-detail-grid > .info-block,
+      .course-detail-grid > .info-block.wide,
+      .course-detail-grid > .compact-disclosure,
+      .course-detail-grid > .course-workspace {
+        grid-column: 1;
+      }
+
+      .learning-outcome-list,
+      .workflow-list {
+        grid-template-columns: 1fr;
+      }
+
+      .prereq-legend {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .reference-register {
+        grid-template-columns: 1fr;
+      }
+
+      .reference-group[open] {
+        grid-column: 1;
+      }
+
+      .bottleneck-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reading-browser-head {
+        grid-template-columns: 1fr !important;
+      }
+
+      .reading-browser {
+        grid-template-columns: 1fr !important;
+      }
+
+      .reading-course-list {
+        max-height: 230px;
+      }
+    }
+
 	  </style>
 </head>
 <body>
@@ -5174,8 +6539,8 @@
         <h1>USYD 学位规划仪表盘<small>进度、学期计划与课程决策</small></h1>
         <div class="meta">
           <span>作者：Yulin Ou</span>
-          <span>Major：Computer Science</span>
-          <span>Minor：Discrete Mathematics and Algorithms</span>
+          <span>Major 1：Computer Science</span>
+          <span>Major 2：Discrete Mathematics and Algorithms</span>
         </div>
       </div>
       <div class="hero-tools" aria-label="页面偏好与当前阶段">
@@ -5209,21 +6574,27 @@
         </article>
         <article class="metric" data-progress-card="major">
           <div class="metric-top"><strong>48cp</strong><span class="metric-value" data-progress-value>0 / 48cp</span></div>
-          <b>Computer Science</b>
-          <span data-progress-status>未计入 major 学分</span>
+          <b>Major 1 · Computer Science</b>
+          <span data-progress-status>未计入 CS Major 学分</span>
           <div class="metric-progress" data-progress-stack>
             <div class="progress-bar stacked" aria-label="Major 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
             <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
           </div>
+          <button class="metric-structure-trigger" type="button" data-structure-trigger="cs" aria-expanded="false" aria-controls="majorStructureDrawer">
+            <span><span data-structure-summary="cs">0 / 5</span> 结构要求</span>
+          </button>
         </article>
         <article class="metric" data-progress-card="minor">
-          <div class="metric-top"><strong>36cp</strong><span class="metric-value" data-progress-value>0 / 36cp</span></div>
-          <b>DMA Minor</b>
-          <span data-progress-status>未计入 minor 学分</span>
+          <div class="metric-top"><strong>48cp</strong><span class="metric-value" data-progress-value>0 / 48cp</span></div>
+          <b>Major 2 · DMA</b>
+          <span data-progress-status>未计入 DMA Major 学分</span>
           <div class="metric-progress" data-progress-stack>
-            <div class="progress-bar stacked" aria-label="Minor 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-bar stacked" aria-label="DMA Major 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
             <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
           </div>
+          <button class="metric-structure-trigger" type="button" data-structure-trigger="dma" aria-expanded="false" aria-controls="majorStructureDrawer">
+            <span><span data-structure-summary="dma">0 / 7</span> 结构要求</span>
+          </button>
         </article>
         <article class="metric" data-progress-card="ole">
           <div class="metric-top"><strong>6cp</strong><span class="metric-value" data-progress-value>0 / 6cp</span></div>
@@ -5234,16 +6605,26 @@
             <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
           </div>
         </article>
-        <article class="metric" data-progress-card="wam">
+        <article class="metric metric-wam" data-progress-card="wam">
           <div class="metric-top"><strong>WAM</strong><span class="metric-value" data-progress-value>暂无成绩</span></div>
           <b>自动计算</b>
           <span data-progress-status>完成课程并输入成绩后自动计算</span>
           <div class="progress-bar warn" style="--value:0%"><span></span></div>
           <p>按学分加权，默认排除 OLE。</p>
         </article>
+        <section class="major-structure-drawer" id="majorStructureDrawer" aria-label="Major 结构要求" hidden>
+          <div class="structure-drawer-toolbar">
+            <div class="structure-drawer-tabs" role="tablist" aria-label="切换 Major 结构">
+              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="cs" aria-selected="true">CS <span data-structure-tab-summary="cs">0 / 5</span></button>
+              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="dma" aria-selected="false">DMA <span data-structure-tab-summary="dma">0 / 7</span></button>
+            </div>
+            <button class="structure-drawer-close" type="button" data-structure-close aria-label="关闭 Major 结构详情">×</button>
+          </div>
+          <div class="structure-slot-list" data-structure-detail></div>
+        </section>
         <article class="metric metric-wide" data-progress-card="elective">
           <div class="metric-top"><strong>可调整学分</strong><span class="metric-value" data-progress-value>0cp 已安排</span></div>
-          <b>不属于 Major / Minor / OLE 的课程空间</b>
+          <b>不属于两个 Major / OLE 的课程空间</b>
           <span data-progress-status>用于选修、degree core、WAM 缓冲和时间调整</span>
           <div class="metric-progress" data-progress-stack>
             <div class="progress-bar stacked" aria-label="可调整学分规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
@@ -5269,7 +6650,7 @@
       <a href="#courses">课程库</a>
       <a href="#bottleneck">先修图</a>
       <a href="#reading">阅读</a>
-      <a href="#sources">来源</a>
+      <a href="#sources">官方参考</a>
     </nav>
 
     <main>
@@ -5306,8 +6687,8 @@
             </div>
             <div class="progress-grid">
               <article class="progress-card" data-progress-card="total"><div class="progress-top"><span>总学分</span><span data-progress-value>0 / 144cp</span></div><strong data-progress-status>尚未开始记录</strong><div class="progress-bar" style="--value:0%"><span></span></div><p>每勾选一个已完成阶段，自动累计该阶段学分。</p></article>
-              <article class="progress-card" data-progress-card="major"><div class="progress-top"><span>Computer Science Major</span><span data-progress-value>0 / 48cp</span></div><strong data-progress-status>未计入已完成 major 学分</strong><div class="progress-bar good" style="--value:0%"><span></span></div><p>只按已完成阶段中的 CS major 贡献估算，最终仍以 Sydney Student 审核为准。</p></article>
-              <article class="progress-card" data-progress-card="minor"><div class="progress-top"><span>Discrete Mathematics and Algorithms Minor</span><span data-progress-value>0 / 36cp</span></div><strong data-progress-status>未计入已完成 minor 学分</strong><div class="progress-bar good" style="--value:0%"><span></span></div><p>按 MATH / COMP / DATA 在 minor 中的规划作用估算，重叠计算需最终核对。</p></article>
+              <article class="progress-card" data-progress-card="major"><div class="progress-top"><span>Computer Science Major</span><span data-progress-value>0 / 48cp</span></div><strong data-progress-status>未计入已完成 CS Major 学分</strong><div class="progress-bar good" style="--value:0%"><span></span></div><p>只按已完成阶段中的 CS major 贡献估算，最终仍以 Sydney Student 审核为准。</p></article>
+              <article class="progress-card" data-progress-card="minor"><div class="progress-top"><span>Discrete Mathematics and Algorithms Major</span><span data-progress-value>0 / 48cp</span></div><strong data-progress-status>未计入已完成 DMA Major 学分</strong><div class="progress-bar good" style="--value:0%"><span></span></div><p>按 DMA major 48cp 官方结构估算：1000-level 基础、2000/3000-level MATH/COMP 和 interdisciplinary project 均需闭合。</p></article>
               <article class="progress-card" data-progress-card="ole"><div class="progress-top"><span>Open Learning Environment</span><span data-progress-value>0 / 6cp</span></div><strong data-progress-status>已确认总需求 6cp</strong><div class="progress-bar" style="--value:0%"><span></span></div><p>例如完成 OLET1666 后，可勾选 July intensive，把 2cp OLE 计入。</p></article>
               <article class="progress-card" data-progress-card="elective"><div class="progress-top"><span>选修 / 自由空间</span><span data-progress-value>0cp 已使用</span></div><strong data-progress-status>尚未使用弹性空间</strong><div class="progress-bar" style="--value:0%"><span></span></div><p>用于 WAM 保护、方向探索、prerequisite 补强、实习 / 交换空间。</p></article>
               <article class="progress-card" data-progress-card="pressure"><div class="progress-top"><span>快速毕业压力</span><span data-progress-value>低</span></div><strong data-progress-status>当前无已完成负担记录</strong><div class="progress-bar warn" style="--value:12%"><span></span></div><p>完成学分越多但核心瓶颈越滞后时，应重新评估加速路线。</p></article>
@@ -5346,9 +6727,10 @@
                 <div class="mini-course"><strong>COMP3027</strong><small>Algorithm Design · 需要 COMP2123</small><div class="course-chip-row"><span class="tiny-chip core">CS 核心</span><span class="tiny-chip warning">很高</span></div></div>
                 <div class="mini-course"><strong>MATH3066</strong><small>Algebra and Logic · 6cp</small><div class="course-chip-row"><span class="tiny-chip math">DMA 数学</span><span class="tiny-chip warning">高</span></div></div>
               </article>
-              <article class="road-semester" data-stage-id="2028-s2" data-stage-name="2028 S2 / 缓冲" data-total-cp="24" data-major-cp="6" data-minor-cp="0" data-ole-cp="2" data-elective-cp="16" data-pressure-comfortable="Medium" data-pressure-accelerated="Buffer">
-                <header><h3>2028 S2 / 缓冲</h3><span class="cp-note">最终调整</span></header>
-                <div class="mini-course placeholder"><strong>待安排</strong><small>从课程库中选择“锁定 / 候选 / 已完成”并指定到 2028 S2 后自动显示。</small></div>
+              <article class="road-semester" data-stage-id="2028-s2" data-stage-name="2028 S2 / 收尾" data-total-cp="18" data-major-cp="6" data-minor-cp="6" data-ole-cp="0" data-elective-cp="6" data-pressure-comfortable="High" data-pressure-accelerated="High">
+                <header><h3>2028 S2 / 收尾</h3><span class="cp-note">双 Major 项目课</span></header>
+                <div class="mini-course"><strong>COMP3888<span class="code-slash">/</span>COMP3988</strong><small>Computer Science Project · 6cp</small><div class="course-chip-row"><span class="tiny-chip core">CS 项目</span><span class="tiny-chip warning">高</span></div></div>
+                <div class="mini-course"><strong>SCPU3001</strong><small>Science Interdisciplinary Project · 6cp</small><div class="course-chip-row"><span class="tiny-chip core">DMA 项目</span><span class="tiny-chip warning">高</span></div></div>
               </article>
             </div>
           </div>
@@ -5426,7 +6808,7 @@
                   <div class="semester-meta"><span class="tag project">project</span><span class="tag systems">systems/data</span><span class="tag ole">OLE</span><span class="tag">final adjustment</span></div>
                   <p><strong>Workload risk:</strong> <span class="risk medium">Medium–High</span></p>
                   <p class="semester-note"><strong>Intensive decision point:</strong> 只用于补结构缺口；不再为了加速加入 heavy core。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 该阶段用于 project、remaining electives 和最终结构核对，确保 144cp、6cp OLE、major/minor senior requirements 全部闭合。</p>
+                  <p class="semester-note"><strong>Planning note:</strong> 该阶段用于 project、remaining electives 和最终结构核对，确保 144cp、6cp OLE 与两个 major 的 senior requirements 全部闭合。</p>
                 </div>
               </article>
             </div>
@@ -5546,35 +6928,40 @@
               <button class="clear-filters" id="clearFilters" type="button">重置筛选</button>
             </div>
           </div>
-          <div class="filters" id="filters"></div>
-          <div class="filter-row" id="statusFilterRow">
-            <div class="filter-label">课程状态</div>
-            <div class="filter-options">
-              <button type="button" data-status-filter="all" class="active">全部</button>
-              <button type="button" data-status-filter="planned">已加入计划</button>
-              <button type="button" data-status-filter="unplanned">未加入计划</button>
-              <button type="button" data-status-filter="completed">已完成</button>
-              <button type="button" data-status-filter="avoid">不选</button>
-              <button type="button" id="resetCourseStatuses" class="clear-filters" style="margin-left: 8px;">重置课程状态</button>
+          <details class="filter-drawer">
+            <summary>
+              <span>筛选课程</span>
+              <small>课号前缀 · 类型 · 压力 · 年级 · 状态</small>
+            </summary>
+            <div class="filter-drawer-body">
+              <div class="filters" id="filters"></div>
+              <div class="filter-row" id="statusFilterRow">
+                <div class="filter-label">课程状态</div>
+                <div class="filter-options">
+                  <button type="button" data-status-filter="all" class="active">全部</button>
+                  <button type="button" data-status-filter="planned">已加入计划</button>
+                  <button type="button" data-status-filter="unplanned">未加入计划</button>
+                  <button type="button" data-status-filter="completed">已完成</button>
+                  <button type="button" data-status-filter="avoid">不选</button>
+                  <button type="button" id="resetCourseStatuses" class="clear-filters">重置课程状态</button>
+                </div>
+              </div>
             </div>
-          </div>
+          </details>
         </div>
         <div class="course-list" id="courseList"></div>
-      </section>
-
-      <section id="route" class="section-card">
-        <div class="section-head"><span class="section-kicker">知识主线</span><h2>CS + DMA 主线</h2><p>作为先修图的阅读前置：课程顺序可以调整，但编程、算法、系统、离散数学和高阶数学的能力链要保持连续。</p></div>
-        <div class="grid-2">
-          <div class="flow-card"><h3>Computer Science Major 主线</h3><div class="flow"><span class="node">INFO1110</span><span class="arrow">→</span><span class="node">INFO1113</span><span class="arrow">→</span><span class="node">COMP2123</span><span class="arrow">→</span><span class="node">COMP2017</span><span class="arrow">/</span><span class="node">COMP2022</span><span class="arrow">→</span><span class="node">COMP3027</span><span class="arrow">→</span><span class="node">COMP3888 / COMP3988</span></div></div>
-          <div class="flow-card"><h3>Discrete Mathematics and Algorithms Minor 主线</h3><div class="flow"><span class="node">MATH1064</span><span class="arrow">→</span><span class="node">DATA1002 / DATA1902 / INFO1110</span><span class="arrow">→</span><span class="node">COMP2123</span><span class="arrow">→</span><span class="node">2000-level MATH</span><span class="arrow">→</span><span class="node">3000-level MATH</span><span class="arrow">+</span><span class="node">3000-level COMP</span></div></div>
-        </div>
       </section>
 
       <section id="bottleneck" class="section-card">
         <div class="section-head">
           <span class="section-kicker">先修图</span>
           <h2>先修图</h2>
-	          <p><span style="color: var(--green); font-weight: 600;">● 绿色 = 已完成</span>，<span style="color: var(--ink); font-weight: 600;">● 黑色 = 锁定 / 已计划</span>，<span style="color: var(--blue); font-weight: 600;">● 蓝色 = 候选</span>，<span style="color: var(--danger); font-weight: 600;">● 红色 = 不选</span>。</p>
+          <div class="prereq-legend" aria-label="课程状态图例">
+            <span data-state="completed">已完成</span>
+            <span data-state="locked">锁定 / 已计划</span>
+            <span data-state="candidate">候选</span>
+            <span data-state="avoid">不选</span>
+          </div>
         </div>
         <div class="bottleneck-grid" id="bottleneckGrid"></div>
       </section>
@@ -5614,14 +7001,10 @@
           <h2>官方参考</h2>
         </div>
         <div class="reference-register" id="sourceRegistry"></div>
-        <details class="reference-maintenance">
-          <summary>维护说明</summary>
-          <p>为了让网页可长期扩展，课程来源不再手动写死在本区，而是由 <code>courses</code> 数据中的 <code>links</code> 自动生成。未来新增课程、候选课或课程管理功能时，优先扩展课程对象字段，再让界面自动读取。</p>
-        </details>
       </section>
     </main>
 
-    <footer>USYD 学位规划仪表盘 · Bachelor of Science · Computer Science Major · Discrete Mathematics and Algorithms Minor</footer>
+    <footer>USYD 学位规划仪表盘 · Bachelor of Science · Computer Science Major · Discrete Mathematics and Algorithms Major</footer>
   </div>
 
   <script>
@@ -5647,7 +7030,7 @@
         readings: ["Think Python — 《像计算机科学家一样思考 Python》：入门友好，适合 procedural programming。", "Python Tutorial — Python 官方教程：适合查询语法和标准行为。", "CS50 early programming lectures — 暂无通行中文译名：适合理解计算思维。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/INFO1110"]],
         shouldTake: {
-          bestFor: "所有走计算机科学 Major / DMA Minor / 数据路线的人；本质上不可跳过。",
+          bestFor: "所有走计算机科学 Major / DMA Major / 数据路线的人；本质上不可跳过。",
           notFor: "已通过同等高级课程的人；其他情况都建议正式上。",
           bestSemester: "2026 S1 — 越早越好，作为后续课程的根基。",
           avoidWith: "不要与 COMP2017、COMP2123 同学期（基础未稳）。",
@@ -5655,7 +7038,7 @@
           wamBuffer: "中等课业压力；不适合作为缓冲课。",
           career: "几乎所有 CS / 数据类实习面试的隐含前提。",
           major: "Major 的根基课。",
-          minor: "DMA Minor 的隐式前提之一。",
+          minor: "DMA Major 的隐式前提之一。",
           interest: "对所有方向都是入口。"
         }
       },
@@ -5705,7 +7088,7 @@
         later: "COMP3027, COMP3308, DATA3404, advanced COMP electives",
         summary: "本科算法路线的中枢课程，连接编程、离散数学和高级算法设计。",
         teaches: ["abstract data types、lists、stacks、queues", "trees、search trees、hash tables / 散列表", "graphs、tree traversal、graph traversal", "sorting、searching、recursion、Big-O analysis"],
-        matters: "这是 CS major 与 DMA minor 的关键重叠课。它提供后续算法设计、AI search、systems performance 和 scalable data management 共同需要的 algorithmic efficiency 语言。",
+        matters: "这是 CS major 与 DMA major 的关键重叠课。它提供后续算法设计、AI search、systems performance 和 scalable data management 共同需要的 algorithmic efficiency 语言。",
         before: ["基本编程能力：函数、递归、数组/列表操作", "MATH1064 的 proof、sets、relations 思维会显著有帮助", "能手动 trace 小程序和递归过程"],
         mastery: ["能为问题选择合适数据结构", "能说明 insert/search/delete/traverse 的复杂度", "能写出基本 sorting 与 graph traversal", "能用 Big-O 比较方案优劣"],
         how: ["每个结构整理：操作、实现、复杂度、适用场景", "每题先判断 representation，再设计 algorithm", "复杂度分析必须写清 input size 和 dominant operation"],
@@ -5721,7 +7104,7 @@
           wamBuffer: "❌ 不适合作为缓冲课；理论密度高。",
           career: "技术面试算法部分的核心。",
           major: "Major 算法主线必修。",
-          minor: "DMA Minor 算法主线的核心。",
+          minor: "DMA Major 算法主线的核心。",
           interest: "逻辑 / 理论路线的中转站。"
         }
       },
@@ -5808,13 +7191,13 @@
           wamBuffer: "❌ 理论密度极高。",
           career: "大厂算法面试中最重要的单门课。",
           major: "Major 算法主线的终点。",
-          minor: "DMA Minor 的高阶节点。",
+          minor: "DMA Major 的高阶节点。",
           interest: "逻辑 / 理论路线必经。"
         }
       },
       {
         code: "COMP3888 / COMP3988",
-        name: "Computer Science Project / Advanced Project",
+        name: "Computer Science Project",
         cp: "6cp",
         category: ["project", "core"],
         level: "3000",
@@ -5832,6 +7215,27 @@
         terms: ["requirements — 需求", "stakeholder — 利益相关者", "backlog — 待办列表", "sprint — 迭代", "technical debt — 技术债", "testing — 测试", "documentation — 文档", "deliverable — 交付物"],
         readings: ["Refactoring — 《重构》：适合改进项目代码质量。", "Code Complete — 《代码大全》：适合大型代码实践。", "Google Technical Writing — 暂无通行中文译名：适合技术报告。"],
         links: [["COMP3888 Unit Page", "https://www.sydney.edu.au/units/COMP3888"], ["COMP3988 Unit Page", "https://www.sydney.edu.au/units/COMP3988"]]
+      },
+      {
+        code: "SCPU3001",
+        name: "Science Interdisciplinary Project",
+        cp: "6cp",
+        category: ["project", "science", "core"],
+        level: "3000",
+        workload: "High",
+        skills: ["project", "teamwork", "research", "writing"],
+        functionTags: ["core", "graduation requirement"],
+        best: "完成 96cp 后；双 Science majors 收尾阶段，需与 COMP3888 / COMP3988 等项目课规则一起核对",
+        later: "interdisciplinary science project, industry/community project, graduate portfolio",
+        summary: "Science 跨学科项目课，面向双 Science majors 的高阶项目要求，通过团队合作解决行业、社区或政府组织提出的复杂真实问题。",
+        teaches: ["interdisciplinary problem framing", "stakeholder perspective integration", "team-based research and analysis", "professional communication and presentation", "project professionalism and reflective practice"],
+        matters: "DMA Major 官方结构包含 3000-level interdisciplinary project。SCPU3001 是网页中用来闭合 DMA Major 48cp 的关键项目课，但它在 2026 主要面向 Faculty of Science 双 major 学生，并有 96cp prerequisite 与 project corequisite，正式选课前必须核对 Sydney Student。",
+        before: ["96 credit points", "通常需要与 COMP3888 / COMP3988 或其他 3888 project unit 的 corequisite 规则一起核对", "需要具备团队项目、调研、沟通和报告写作基础"],
+        mastery: ["能把学科知识用于复杂现实问题", "能整合不同 stakeholder perspective", "能选择并应用合适的问题解决方法", "能以专业形式展示项目结果", "能在跨学科团队中展示主动性和适应性"],
+        how: ["提前准备 project evidence log：问题、利益相关者、方法、数据、产出、反思", "每周记录 team decision、个人贡献和 unresolved risk", "把算法/数学能力翻译成非技术 stakeholder 能理解的结论"],
+        terms: ["interdisciplinary project — 跨学科项目", "stakeholder — 利益相关者", "industry partner — 行业伙伴", "professional communication — 专业沟通", "project reflection — 项目反思"],
+        readings: ["The Craft of Research — 暂无通行中文译名：项目研究和论证。", "Team Geek — 暂无通行中文译名：团队协作与技术沟通。", "Google Technical Writing — 暂无通行中文译名：项目报告写作。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/SCPU3001"]]
       },
       {
         code: "MATH1061",
@@ -5867,7 +7271,7 @@
         later: "COMP2022, COMP3027, MATH2088, MATH3066",
         summary: "为算法、逻辑和计算理论提供离散数学语言与证明能力。",
         teaches: ["logic、proof、induction、sets、relations", "functions、orders、sequences、counting", "discrete probability、asymptotic growth", "elementary number theory、graph theory、algebraic structures"],
-        matters: "它是 DMA minor 的入口，也是 COMP2123、COMP2022、COMP3027 和 MATH3066 的共同基础。",
+        matters: "它是 DMA major 的入口，也是 COMP2123、COMP2022、COMP3027 和 MATH3066 的共同基础。",
         before: ["MATH1061 或同等数学成熟度", "愿意写完整证明，而不是只给答案", "基本集合与函数符号"],
         mastery: ["能用 induction、contradiction 等证明方法", "能用 sets/functions/relations 表述问题", "能做基本 counting 和 asymptotic comparison", "能理解 graph 和 relation 在计算问题中的作用"],
         how: ["每个定义配 examples 和 counterexamples", "证明题写清 assumption、goal、method、conclusion", "把抽象结构和具体计算例子配对"],
@@ -5875,7 +7279,7 @@
         readings: ["Discrete Mathematics and Its Applications — 《离散数学及其应用》：Rosen，系统覆盖。", "Mathematics for Computer Science — 暂无通行中文译名：适合 CS 数学。", "How to Prove It — 《如何证明它》：适合证明训练。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH1064"]],
         shouldTake: {
-          bestFor: "DMA Minor、计算机科学 Major 的学生（集合论 / 逻辑 / 证明基础）。",
+          bestFor: "DMA Major、计算机科学 Major 的学生（集合论 / 逻辑 / 证明基础）。",
           notFor: "几乎所有理学学士 + CS 学生都需要。",
           bestSemester: "2026 S2 — 与 INFO1113 一起上，建立证明思维。",
           avoidWith: "不建议与 COMP2123 同学期（双重证明负担）。",
@@ -5883,7 +7287,7 @@
           wamBuffer: "中等；练习量大但分数稳定。",
           career: "面试中归纳证明 / 概率题的铺底。",
           major: "Major 数学基础。",
-          minor: "DMA Minor 的起点。",
+          minor: "DMA Major 的起点。",
           interest: "逻辑 / 哲学路线的入口。"
         }
       },
@@ -5942,7 +7346,7 @@
         later: "DATA2001, DATA3404, COMP3308",
         summary: "将 Python、数据文件、自动化和 data science pipeline 连接起来。",
         teaches: ["data ingestion、format conversion、cleaning", "summarisation、visualisation、metadata", "basic predictive modelling、model evaluation", "regression、classification、overfitting、underfitting"],
-        matters: "它为 data / AI / database 方向建立实践基础，也是 DMA minor 1000-level computing selective 的候选。",
+        matters: "它为 data / AI / database 方向建立实践基础，也是 DMA major 1000-level computing selective 的候选。",
         before: ["基本编程能力", "理解 table、variable、function", "愿意处理真实数据中的 messy cases"],
         mastery: ["能用 Python 自动化数据处理流程", "能从文件读写到清理、转换、可视化、建模", "能解释模型评估和 overfitting", "能记录 pipeline 中的信息损失"],
         how: ["按 pipeline 学：read → inspect → clean → transform → visualise → model → evaluate", "每一步记录 assumption 和 limitation", "优先形成可重复运行 notebook / script"],
@@ -5979,7 +7383,7 @@
           wamBuffer: "中到中高课业压力；不适合作为缓冲课。",
           career: "数据工程师 / 数据分析实习的核心。",
           major: "Major 中数据子方向。",
-          minor: "DMA Minor 的数据路线。",
+          minor: "DMA Major 的数据路线。",
           interest: "数据 / 商业 / 分析路线必经。"
         }
       },
@@ -6059,7 +7463,7 @@
         later: "cryptography, security, MATH3066",
         summary: "用 elementary number theory 理解 public-key cryptography 的数学基础。",
         teaches: ["Euclidean Algorithm、Fermat's Little Theorem、Chinese Remainder Theorem", "modular arithmetic、prime factorisation、discrete logarithms", "RSA、ElGamal、Diffie-Hellman", "classical cryptosystems attack 与 complexity"],
-        matters: "它连接离散数学、算法和 cryptography，是 DMA minor 中很自然的 2000-level MATH 选择。",
+        matters: "它连接离散数学、算法和 cryptography，是 DMA major 中很自然的 2000-level MATH 选择。",
         before: ["MATH1064 的 proof 和 modular notation", "基础 divisibility、gcd、prime 概念", "愿意把 theorem 和算法联系起来"],
         mastery: ["能熟练做 modular arithmetic", "能解释 RSA / Diffie-Hellman 的数学机制", "能使用 Euclidean algorithm 和 CRT", "能理解 factoring / discrete log 与安全性的关系"],
         how: ["每个密码系统写 key generation、encryption、decryption、security assumption", "theorem 必须配具体数字例子", "把 number theory algorithm 和 complexity 放在一起学"],
@@ -6101,7 +7505,7 @@
         later: "theoretical CS, logic, computability, honours preparation",
         summary: "把 algebra、logic、axiomatics、computability 与 undecidability 连接起来的高级数学课程。",
         teaches: ["rings、fields、field extensions、quotient rings", "first-order logic、set theory、syntax/semantics", "consistency、completeness", "Turing machines、computability、Halting Problem、undecidability"],
-        matters: "这是 DMA minor 中最能体现数学、逻辑和计算交叉的 3000-level MATH 选择，与 COMP2022 和 COMP3027 形成理论闭环。",
+        matters: "这是 DMA major 中最能体现数学、逻辑和计算交叉的 3000-level MATH 选择，与 COMP2022 和 COMP3027 形成理论闭环。",
         before: ["MATH1064 proof、sets、relations", "MATH2022 或 abstract algebra 入门会很有帮助", "能持续阅读抽象定义和证明"],
         mastery: ["能分析 rings、fields、integral domains", "能区分 syntax、semantics、model、proof", "能解释 Halting Problem 和 undecidability", "能读写较长的 algebra / logic proof"],
         how: ["每个 definition 写 examples、counterexamples、standard theorem", "logic 部分单独整理 syntax vs semantics", "computability 部分用 Turing machine 和 diagonalisation 理解不可判定性"],
@@ -7038,6 +8442,7 @@
       COMP2022: "S2",
       COMP3027: "2026 S1",
       "COMP3888 / COMP3988": "S1 / S2 项目安排需核对",
+      SCPU3001: "S1 / S2；需核对 project corequisite",
       COMP3308: "S1",
       COMP3109: "S2；当前开设状态需核对",
       COMP3221: "S1",
@@ -7082,7 +8487,7 @@
     ]);
     const courseSortMajorMinorCodes = new Set([
       "INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027",
-      "COMP3888 / COMP3988", "COMP3308", "COMP3109", "COMP3221", "COMP3419",
+      "COMP3888 / COMP3988", "SCPU3001", "COMP3308", "COMP3109", "COMP3221", "COMP3419",
       "COMP3520", "COMP3530", "DATA3404", "MATH1064", "DATA1002 / DATA1902",
       "MATH2022", "MATH2088", "MATH2080", "MATH3066", "MATH3061"
     ]);
@@ -7166,9 +8571,9 @@
       },
       {
         type: "degree",
-        title: "Discrete Mathematics and Algorithms minor",
-        citation: "University of Sydney. (2026). Discrete Mathematics and Algorithms minor. Science Handbook.",
-        use: "用于核对 Discrete Mathematics and Algorithms minor 36cp 结构、数学与计算机选课层级。",
+        title: "Discrete Mathematics and Algorithms major",
+        citation: "University of Sydney. (2026). Discrete Mathematics and Algorithms major. Science Handbook.",
+        use: "用于核对 Discrete Mathematics and Algorithms major 48cp 结构、数学与计算机选课层级和 interdisciplinary project 要求。",
         url: "https://www.sydney.edu.au/handbooks/science/subject-areas/subject-areas-ae/discrete-mathematics-algorithms/unit-of-study-table.html"
       },
       {
@@ -7439,6 +8844,7 @@
     const normalizedLabel = value => String(value || "").trim().replace(/\s+/g, " ").toLowerCase();
     const workloadKey = value => String(value || "").replace("–", "-");
     const workloadLabelFor = workload => filterValueLabels[workloadKey(workload)] || filterValueLabels[workload] || workload;
+    const formatUnitCode = code => escapeHtml(String(code || "")).replace(/\s*\/\s*/g, '<span class="code-slash">/</span>');
     const compactList = items => `<ul class="compact-list">${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
     const linkLabel = label => ({
       "Official Unit Page": "官方课程页",
@@ -7537,7 +8943,8 @@
       "COMP3027",
       "MATH1064",
       "DATA1002 / DATA1902",
-      "COMP3888 / COMP3988"
+      "COMP3888 / COMP3988",
+      "SCPU3001"
     ]);
 
     function isRequiredPathCourse(course) {
@@ -7570,6 +8977,11 @@
 	        requires: ["COMP2123 / COMP2823"],
 	        assumed: ["MATH1064 或同等离散数学与概率"],
 	        note: "这是明确的高级算法硬性先修。"
+	      },
+	      SCPU3001: {
+	        requires: ["96 credit points"],
+	        corequisite: ["3000-level interdisciplinary project unit，例如 COMP3888 / COMP3988"],
+	        note: "这是 DMA Major 的 interdisciplinary project 收尾课；需要接近毕业阶段再核对是否满足 project pairing。"
 	      },
 	      MATH2022: {
 	        requires: ["MATH1061 / MATH1961 / MATH1971 / MATH1X02 / MATH1014 65+"],
@@ -7740,6 +9152,7 @@
       { codes: ["COMP2022"], tab: "core", group: "COMP2022 — 计算理论与模型" },
       { codes: ["DATA1002 / DATA1902", "DATA1002"], tab: "core", group: "DATA1002 — 数据科学基础" },
       { codes: ["COMP3888 / COMP3988", "COMP3888", "COMP3988"], tab: "core", group: "COMP3888 · COMP3988 — 项目课与软件工程" },
+      { codes: ["SCPU3001"], tab: "core", group: "SCPU3001 — 跨学科科学项目" },
       { codes: ["DATA2001", "DATA2002", "DATA3404", "ISYS2120"], tab: "elective", group: "DATA2001 · DATA2002 · DATA3404 · ISYS2120 — 数据与数据库系统" },
       { codes: ["STAT2011", "STAT3021", "STAT3022", "STAT3023"], tab: "elective", group: "STAT2011 · STAT3021 · STAT3022 · STAT3023 — 统计建模与推断" },
       { codes: ["SOFT2412"], tab: "elective", group: "SOFT2412 — 敏捷软件开发实践" },
@@ -7867,7 +9280,7 @@
           <summary>
             <div>
               <div class="course-title">
-                <span class="code">${course.code}</span>
+                <span class="code">${formatUnitCode(course.code)}</span>
                 <span class="course-name">${course.name}</span>
                 ${pillText ? `<span class="course-status-pill" data-status="${status}">${pillText}</span>` : ""}
               </div>
@@ -7881,7 +9294,7 @@
               <div class="course-status-row" data-course-status-buttons="${course.code}">
                 <span class="status-label">状态</span>
                 ${["locked","candidate","completed","avoid","neutral"].map(s => `
-                  <button type="button" class="status-btn ${status === s ? "active" : ""}" data-status="${s}" data-for="${course.code}">${({locked:"🔒 锁定",candidate:"⭐ 候选",completed:"✅ 已完成",avoid:"❌ 不选",neutral:"清除状态"})[s]}</button>
+                  <button type="button" class="status-btn ${status === s ? "active" : ""}" data-status="${s}" data-for="${course.code}">${({locked:"锁定",candidate:"候选",completed:"已完成",avoid:"不选",neutral:"清除"})[s]}</button>
                 `).join("")}
               </div>
               <div class="placement-row" data-placement-for="${course.code}" ${showPlacement ? "" : "hidden"}>
@@ -7911,10 +9324,7 @@
           <div class="course-body">
             <div class="course-detail-panel">
               <div class="snapshot">
-                <div class="snap-item"><span>课程代码</span><b>${course.code}</b></div>
-                <div class="snap-item"><span>学分</span><b>${course.cp}</b></div>
                 <div class="snap-item"><span>开课</span><b>${course.availability || "需核对"}</b></div>
-                <div class="snap-item"><span>类别</span><b>${course.category.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
                 <div class="snap-item"><span>压力</span><b>${workloadLabelFor(course.workload)} · ${score}</b></div>
                 <div class="snap-item"><span>能力</span><b>${course.skills.map(item => filterValueLabels[item] || item).join(", ")}</b></div>
                 <div class="snap-item"><span>建议时间</span><b>${course.best}</b></div>
@@ -7934,7 +9344,7 @@
                 ${st.wamBuffer  ? `<div><span class="k">是否适合做缓冲 / intensive</span>${st.wamBuffer}</div>` : ""}
                 ${st.career     ? `<div><span class="k">对项目 / 实习 / 作品集</span>${st.career}</div>` : ""}
                 ${st.major      ? `<div><span class="k">对计算机科学 Major</span>${st.major}</div>` : ""}
-                ${st.minor      ? `<div><span class="k">对 DMA Minor</span>${st.minor}</div>` : ""}
+                ${st.minor      ? `<div><span class="k">对 DMA Major</span>${st.minor}</div>` : ""}
                 ${st.interest   ? `<div><span class="k">对兴趣路线</span>${st.interest}</div>` : ""}
               </div>
             </details>` : ""}
@@ -8168,7 +9578,7 @@
 
     applyAcceleratedRoutePressure();
 
-    const progressTargets = { total: 144, major: 48, minor: 36, ole: 6, elective: 54 };
+    const progressTargets = { total: 144, major: 48, minor: 48, ole: 6, elective: 42 };
     const progressStorageKey = "usyd-degree-roadmap-completed-stages";
 
     function readCompletedStages() {
@@ -8278,12 +9688,12 @@
         completed: totals.completed.major,
         locked: totals.locked.major,
         candidate: totals.candidate.major
-      }, progressTargets.major, `${totals.completed.major} / 48cp`, "未计入 major 学分");
+      }, progressTargets.major, `${totals.completed.major} / 48cp`, "未计入 CS Major 学分");
       setCreditProgressCard("minor", {
         completed: totals.completed.minor,
         locked: totals.locked.minor,
         candidate: totals.candidate.minor
-      }, progressTargets.minor, `${totals.completed.minor} / 36cp`, "未计入 minor 学分");
+      }, progressTargets.minor, `${totals.completed.minor} / 48cp`, "未计入 DMA Major 学分");
       setCreditProgressCard("ole", {
         completed: totals.completed.ole,
         locked: totals.locked.ole,
@@ -8294,6 +9704,8 @@
         locked: totals.locked.elective,
         candidate: totals.candidate.elective
       }, progressTargets.elective, `${totals.completed.elective + totals.locked.elective + totals.candidate.elective}cp 已安排`, "用于选修、degree core、WAM 缓冲和时间调整");
+
+      updateStructureAudit(statuses);
 
       if (wamDenominator > 0) {
         const wam = wamNumerator / wamDenominator;
@@ -8382,7 +9794,7 @@
     const STATUS_EMOJI = { locked: "🔒", candidate: "⭐", completed: "✅", avoid: "❌" };
     const STATUS_LABEL = { locked: "锁定", candidate: "候选", completed: "已完成", avoid: "不选" };
     const majorCreditCodes = new Set(["INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027", "COMP3888 / COMP3988", "COMP3308", "COMP3109", "COMP3221", "COMP3419", "COMP3520", "COMP3530", "DATA3404"]);
-    const minorCreditCodes = new Set(["MATH1064", "DATA1002 / DATA1902", "INFO1110", "COMP2123", "MATH2022", "MATH2088", "MATH2080", "MATH3066", "MATH3061", "COMP3308", "COMP3530", "DATA3404", "COMP3221", "COMP3520"]);
+    const minorCreditCodes = new Set(["MATH1064", "DATA1002 / DATA1902", "INFO1110", "COMP2123", "MATH2022", "MATH2088", "MATH2080", "MATH3066", "MATH3061", "SCPU3001", "COMP3027", "COMP3308", "COMP3530", "DATA3404", "COMP3221", "COMP3520"]);
 
     function creditPoints(course) {
       const match = String(course.cp || "").match(/\d+(?:\.\d+)?/);
@@ -8393,6 +9805,134 @@
       // USYD WAM is credit-point weighted and may include level weight by award rules.
       // This planning tool uses level weight = 1 for all units unless a future rule needs to be modelled.
       return 1;
+    }
+
+    const majorStructureRequirements = [
+      {
+        id: "cs",
+        title: "Major 1 · Computer Science",
+        target: 48,
+        slots: [
+          { label: "1000-level core", target: 12, codes: ["INFO1110", "INFO1113"] },
+          { label: "2000-level core", target: 18, codes: ["COMP2123", "COMP2017", "COMP2022"] },
+          { label: "3000-level core", target: 6, codes: ["COMP3027"] },
+          { label: "3000-level project", target: 6, codes: ["COMP3888 / COMP3988"] },
+          { label: "3000-level selective", target: 6, codes: ["COMP3308", "COMP3109", "COMP3221", "COMP3419", "COMP3520", "COMP3530", "DATA3404"] }
+        ]
+      },
+      {
+        id: "dma",
+        title: "Major 2 · Discrete Mathematics and Algorithms",
+        target: 48,
+        slots: [
+          { label: "1000-level MATH core", target: 6, codes: ["MATH1064"] },
+          { label: "1000-level COMP selective", target: 6, codes: ["INFO1110", "DATA1002 / DATA1902"] },
+          { label: "2000-level MATH selective", target: 12, codes: ["MATH2022", "MATH2088", "MATH2080"] },
+          { label: "2000-level COMP core", target: 6, codes: ["COMP2123"] },
+          { label: "3000-level MATH selective", target: 6, codes: ["MATH3066", "MATH3061"] },
+          { label: "3000-level COMP selective", target: 6, codes: ["COMP3308", "COMP3530", "COMP3027", "DATA3404", "COMP3221", "COMP3520"] },
+          { label: "3000-level interdisciplinary project", target: 6, codes: ["SCPU3001"] }
+        ]
+      }
+    ];
+
+    function plannedCourseStatus(statuses, code) {
+      const entry = statuses[code] || {};
+      return ["completed", "locked", "candidate"].includes(entry.status) ? entry.status : "";
+    }
+
+    function courseByCode(code) {
+      return courses.find(course => course.code === code);
+    }
+
+    function evaluateStructureSlot(slot, statuses) {
+      const coursesInSlot = slot.codes
+        .map(code => courseByCode(code))
+        .filter(Boolean)
+        .filter(course => plannedCourseStatus(statuses, course.code));
+      const cp = Math.min(slot.target, coursesInSlot.reduce((sum, course) => sum + creditPoints(course), 0));
+      return {
+        ...slot,
+        courses: coursesInSlot,
+        cp,
+        percent: Math.min(100, Math.round((cp / slot.target) * 100)),
+        state: cp >= slot.target ? "complete" : cp > 0 ? "partial" : "empty"
+      };
+    }
+
+    function renderStructureSlot(slot, statuses) {
+      const pills = slot.courses.length
+        ? slot.courses.map(course => `<span class="structure-course-pill ${plannedCourseStatus(statuses, course.code)}">${formatUnitCode(course.code)}</span>`).join("")
+        : `<span class="structure-course-empty">未安排</span>`;
+      return `
+        <div class="structure-slot" data-state="${slot.state}">
+          <div class="structure-slot-top">
+            <span class="structure-slot-name">${escapeHtml(slot.label)}</span>
+            <span class="structure-slot-value">${slot.cp} / ${slot.target}cp</span>
+          </div>
+          <div class="structure-slot-bar" style="--value:${slot.percent}%"><span></span></div>
+          <div class="structure-slot-courses">${pills}</div>
+        </div>`;
+    }
+
+    let activeStructureGroup = "";
+
+    function structureGroupById(groupId) {
+      return majorStructureRequirements.find(group => group.id === groupId) || null;
+    }
+
+    function renderStructureDrawer(statuses = readCourseStatuses()) {
+      const drawer = document.querySelector("#majorStructureDrawer");
+      const detail = drawer?.querySelector("[data-structure-detail]");
+      const group = structureGroupById(activeStructureGroup);
+      if (!drawer || !detail || !group) return;
+      const slots = group.slots.map(slot => evaluateStructureSlot(slot, statuses));
+      detail.innerHTML = slots.map(slot => renderStructureSlot(slot, statuses)).join("");
+      drawer.dataset.activeGroup = group.id;
+      drawer.hidden = false;
+      document.querySelectorAll("[data-structure-tab]").forEach(tab => {
+        tab.setAttribute("aria-selected", String(tab.dataset.structureTab === group.id));
+      });
+    }
+
+    function setStructureDrawer(groupId = "") {
+      const drawer = document.querySelector("#majorStructureDrawer");
+      activeStructureGroup = groupId;
+      document.querySelectorAll("[data-structure-trigger]").forEach(trigger => {
+        const active = trigger.dataset.structureTrigger === groupId;
+        trigger.setAttribute("aria-expanded", String(active));
+        trigger.closest(".metric")?.setAttribute("data-structure-active", String(active));
+      });
+      if (!drawer) return;
+      if (!groupId) {
+        drawer.hidden = true;
+        return;
+      }
+      renderStructureDrawer();
+    }
+
+    function initStructureDrawer() {
+      document.querySelectorAll("[data-structure-trigger]").forEach(trigger => {
+        trigger.addEventListener("click", () => {
+          const groupId = trigger.dataset.structureTrigger;
+          setStructureDrawer(activeStructureGroup === groupId ? "" : groupId);
+        });
+      });
+      document.querySelectorAll("[data-structure-tab]").forEach(tab => {
+        tab.addEventListener("click", () => setStructureDrawer(tab.dataset.structureTab));
+      });
+      document.querySelector("[data-structure-close]")?.addEventListener("click", () => setStructureDrawer(""));
+    }
+
+    function updateStructureAudit(statuses = readCourseStatuses()) {
+      majorStructureRequirements.forEach(group => {
+        const slots = group.slots.map(slot => evaluateStructureSlot(slot, statuses));
+        const done = slots.filter(slot => slot.state === "complete").length;
+        document.querySelectorAll(`[data-structure-summary="${group.id}"], [data-structure-tab-summary="${group.id}"]`).forEach(summary => {
+          summary.textContent = `${done} / ${slots.length}`;
+        });
+      });
+      if (activeStructureGroup) renderStructureDrawer(statuses);
     }
 
     function readCourseStatuses() {
@@ -8640,8 +10180,8 @@
       if (!audit) return;
       const rows = [
         { label: "144cp 总学分", state: completedCp >= 144 ? "ok" : "warn", text: `${completedCp} / 144cp` },
-        { label: "计算机科学 Major 48cp", state: majorCp >= 48 ? "ok" : "warn", text: `${majorCp} / 48cp` },
-        { label: "DMA Minor 36cp", state: minorCp >= 36 ? "ok" : "warn", text: `${minorCp} / 36cp` },
+        { label: "Major 1 · Computer Science 48cp", state: majorCp >= 48 ? "ok" : "warn", text: `${majorCp} / 48cp` },
+        { label: "Major 2 · DMA 48cp", state: minorCp >= 48 ? "ok" : "warn", text: `${minorCp} / 48cp` },
         { label: "OLE 6cp", state: oleCheck.length ? "ok" : "warn", text: oleCheck.length ? `已计划 ${oleCheck.length} 门 OLE` : "需选 OLE" },
         { label: "3000 级高阶课", state: senior3k.length >= 2 ? "ok" : senior3k.length ? "warn" : "risk", text: senior3k.length ? `已规划 ${senior3k.length} 门` : "尚未规划高阶课" },
         { label: "毕业项目 / capstone", state: projectCheck ? "ok" : "warn", text: projectCheck ? "COMP3888 / COMP3988 已规划" : "尚未确定毕业项目" },
@@ -8900,7 +10440,7 @@
 	          card.className = `mini-course user-added-course course-jump ${statusClass}`;
 	          card.dataset.code = course.code;
           card.setAttribute("aria-label", `查看 ${course.code} 课程详情`);
-	          card.innerHTML = `<strong><span class="status-prefix">${label}</span>${course.code}</strong><small>${timelineCourseLine(course)}</small>`;
+	          card.innerHTML = `<strong><span class="status-prefix">${label}</span>${formatUnitCode(course.code)}</strong><small>${timelineCourseLine(course)}</small>`;
 	          stage.appendChild(card);
 	        }
 	      });
@@ -9018,6 +10558,7 @@
 		      { title: "MATH2080 官方多入口", before: ["MATH1061 / MATH1064 / 等价一阶数学"], target: "MATH2080", note: "Abstract and Computational Algebra 可由 MATH1061 或 MATH1064 等入口进入；prohibition 为 MATH2980。" },
 		      { title: "MATH3066 官方先修类型", before: ["任意 6cp MATH2XXX"], target: "MATH3066", note: "MATH3066 官方要求 6cp 2000-level MATH；MATH2022 只是本规划里一条自然示例，不是唯一入口。" },
 		      { title: "MATH3061 官方先修类型", before: ["任意 12cp MATH2XXX"], target: "MATH3061", note: "MATH3061 官方要求 12cp 2000-level MATH；MATH2022 + MATH2088 只是本规划里一条可满足路径。" },
+		      { title: "SCPU3001 收尾项目入口", before: ["96cp + project corequisite"], target: "SCPU3001", note: "DMA Major 48cp 结构中的 interdisciplinary project 收尾项；通常到毕业阶段再核对。" },
 		      { title: "PHIL3610 官方先修", before: ["PHIL1012"], target: "PHIL3610", note: "OLET2148 不是 PHIL3610 的先修，只能作为批判性思维训练。" },
 		      { title: "MUSC3603 官方先修", before: ["MUSC2653"], target: "MUSC3603", note: "本规划用 MUSC2653 作为音乐技术进阶入口；OLET1801 / OLET1803 不作为硬性先修。" },
 		      { title: "CMPN2632 官方先修", before: ["MUSC2653"], target: "CMPN2632", note: "MUSC2653 是 Computer Music Fundamentals 的官方入口之一。" },
@@ -9152,6 +10693,11 @@
           { zh: "《人月神话》", en: "The Mythical Man-Month — Frederick P. Brooks Jr.", why: "软件工程历史上最著名的小书，团队项目前必读。" },
           { zh: "《程序员修炼之道：从小工到专家》", en: "The Pragmatic Programmer — Andrew Hunt, David Thomas", why: "工程素养训练，毕业项目阶段读最有共鸣。" },
           { zh: "《代码大全》", en: "Code Complete — Steve McConnell", why: "项目代码量上来后回头读，会发现自己写过的所有错都被它点名。" }
+        ]},
+        { group: "SCPU3001 — 跨学科科学项目", books: [
+          { zh: "The Craft of Research（暂无通行中文译名）", en: "The Craft of Research — Wayne C. Booth, Gregory G. Colomb, Joseph M. Williams", why: "把项目问题、证据、论证和报告结构串起来，适合跨学科项目写作。" },
+          { zh: "Team Geek（暂无通行中文译名）", en: "Team Geek — Brian W. Fitzpatrick, Ben Collins-Sussman", why: "团队项目中的沟通、协作和责任边界很实用。" },
+          { zh: "Google Technical Writing（暂无通行中文译名）", en: "Google Technical Writing Courses", why: "面向非单一技术受众解释方法和结果，适合 SCPU3001 presentation / report。" }
         ]}
       ],
 
@@ -9484,6 +11030,7 @@
 
     initThemeControl();
     initStageControl();
+    initStructureDrawer();
     renderFilters();
     renderCourses();
     applyFilters();

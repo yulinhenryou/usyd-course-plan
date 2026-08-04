@@ -1,6 +1,6 @@
 # USYD Course Plan
 
-A personal University of Sydney degree planning dashboard for a Bachelor of Science student planning a Computer Science major and Discrete Mathematics and Algorithms minor.
+A personal University of Sydney degree planning dashboard for a Bachelor of Science student planning a Computer Science major and Discrete Mathematics and Algorithms major.
 
 Live site: <https://yulinhenryou.github.io/usyd-course-plan/>
 
@@ -10,7 +10,7 @@ This is a single-page academic planning tool for checking degree structure, seme
 
 Main features:
 
-- Dashboard for 144cp degree progress, CS major, DMA minor, OLE, WAM and workload risk.
+- Dashboard for 144cp degree progress, CS major, DMA major, OLE, WAM and workload risk.
 - Semester plan with locked, candidate and completed courses synced from the course library.
 - Course library with search, prefix/type/workload/year filters and local course status marking.
 - Prerequisite map for key CS, maths, data and systems bottlenecks.
