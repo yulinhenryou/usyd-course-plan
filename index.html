@@ -10574,7 +10574,20 @@
 	      if (!root) return;
 	      const statuses = readCourseStatuses();
 	      const chainCodes = (b) => [...(b.before || []), b.target].filter(Boolean);
-	      const renderNode = (node) => `<span class="chain-node" data-state="${(statuses[node] && statuses[node].status) || ''}">${node}</span>`;
+	      const statusPriority = { completed: 4, locked: 3, candidate: 2, avoid: 1, neutral: 0 };
+	      const unitCodes = value => String(value || "").toUpperCase().match(/[A-Z]{4}\d{4}/g) || [];
+	      const nodeStatus = node => {
+	        const nodeCodes = new Set(unitCodes(node));
+	        const matches = Object.entries(statuses).filter(([statusCode, entry]) => {
+	          if (!entry?.status || entry.status === "neutral") return false;
+	          if (statusCode === node) return true;
+	          return unitCodes(statusCode).some(code => nodeCodes.has(code));
+	        });
+	        return matches.reduce((best, [, entry]) => {
+	          return (statusPriority[entry.status] || 0) > (statusPriority[best] || 0) ? entry.status : best;
+	        }, "");
+	      };
+	      const renderNode = node => `<span class="chain-node" data-state="${nodeStatus(node)}">${node}</span>`;
 	      const renderChain = (b) => {
 	        const before = b.before || [];
 	        const joiner = b.joiner || "或";
