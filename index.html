@@ -507,12 +507,12 @@
 
     .structure-slot-list {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 8px;
     }
 
-    .major-structure-drawer[data-active-group="dma"] .structure-slot-list {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    .major-structure-drawer[data-active-group="sd"] .structure-slot-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .structure-slot {
@@ -528,8 +528,8 @@
 
     .structure-slot-top {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 10px;
+      grid-template-columns: 1fr;
+      gap: 3px;
       align-items: baseline;
     }
 
@@ -538,9 +538,7 @@
       color: var(--ink);
       font-size: .76rem;
       font-weight: 760;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      overflow-wrap: anywhere;
     }
 
     .structure-slot-value {
@@ -552,6 +550,7 @@
     }
 
     .structure-slot-bar {
+      display: flex;
       height: 7px;
       overflow: hidden;
       border-radius: 999px;
@@ -562,12 +561,28 @@
       display: block;
       width: var(--value, 0%);
       height: 100%;
-      border-radius: inherit;
+      flex: 0 0 auto;
       background: var(--blue);
     }
 
-    .structure-slot[data-state="complete"] .structure-slot-bar span { background: var(--green); }
-    .structure-slot[data-state="empty"] .structure-slot-bar span { background: var(--muted); }
+    .structure-slot-bar .completed { background: var(--green); }
+    .structure-slot-bar .locked { background: var(--ink); }
+    .structure-slot-bar .candidate { background: var(--blue); }
+
+    .structure-slot-note,
+    .structure-accounting-note {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: .74rem;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .structure-accounting-note {
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      margin-top: 12px;
+    }
 
     .structure-slot-courses {
       display: flex;
@@ -638,7 +653,7 @@
         grid-template-columns: 1fr;
       }
 
-      .major-structure-drawer[data-active-group="dma"] .structure-slot-list {
+      .major-structure-drawer[data-active-group="sd"] .structure-slot-list {
         grid-template-columns: 1fr;
       }
 
@@ -6539,8 +6554,8 @@
         <h1>USYD 学位规划仪表盘<small>进度、学期计划与课程决策</small></h1>
         <div class="meta">
           <span>作者：Yulin Ou</span>
-          <span>Major 1：Computer Science</span>
-          <span>Major 2：Discrete Mathematics and Algorithms</span>
+          <span>Major：Computer Science</span>
+          <span>Minor：Software Development</span>
         </div>
       </div>
       <div class="hero-tools" aria-label="页面偏好与当前阶段">
@@ -6574,7 +6589,7 @@
         </article>
         <article class="metric" data-progress-card="major">
           <div class="metric-top"><strong>48cp</strong><span class="metric-value" data-progress-value>0 / 48cp</span></div>
-          <b>Major 1 · Computer Science</b>
+          <b>Major · Computer Science</b>
           <span data-progress-status>未计入 CS Major 学分</span>
           <div class="metric-progress" data-progress-stack>
             <div class="progress-bar stacked" aria-label="Major 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
@@ -6585,15 +6600,15 @@
           </button>
         </article>
         <article class="metric" data-progress-card="minor">
-          <div class="metric-top"><strong>48cp</strong><span class="metric-value" data-progress-value>0 / 48cp</span></div>
-          <b>Major 2 · DMA</b>
-          <span data-progress-status>未计入 DMA Major 学分</span>
+          <div class="metric-top"><strong>36cp</strong><span class="metric-value" data-progress-value>0 / 36cp</span></div>
+          <b>Minor · Software Development</b>
+          <span data-progress-status>未计入 Software Development minor 学分</span>
           <div class="metric-progress" data-progress-stack>
-            <div class="progress-bar stacked" aria-label="DMA Major 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-bar stacked" aria-label="Software Development minor 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
             <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
           </div>
-          <button class="metric-structure-trigger" type="button" data-structure-trigger="dma" aria-expanded="false" aria-controls="majorStructureDrawer">
-            <span><span data-structure-summary="dma">0 / 7</span> 结构要求</span>
+          <button class="metric-structure-trigger" type="button" data-structure-trigger="sd" aria-expanded="false" aria-controls="majorStructureDrawer">
+            <span><span data-structure-summary="sd">0 / 3</span> 结构要求</span>
           </button>
         </article>
         <article class="metric" data-progress-card="ole">
@@ -6612,19 +6627,20 @@
           <div class="progress-bar warn" style="--value:0%"><span></span></div>
           <p>按学分加权，默认排除 OLE。</p>
         </article>
-        <section class="major-structure-drawer" id="majorStructureDrawer" aria-label="Major 结构要求" hidden>
+        <section class="major-structure-drawer" id="majorStructureDrawer" aria-label="Major / Minor 结构要求" hidden>
           <div class="structure-drawer-toolbar">
-            <div class="structure-drawer-tabs" role="tablist" aria-label="切换 Major 结构">
-              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="cs" aria-selected="true">CS <span data-structure-tab-summary="cs">0 / 5</span></button>
-              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="dma" aria-selected="false">DMA <span data-structure-tab-summary="dma">0 / 7</span></button>
+            <div class="structure-drawer-tabs" role="tablist" aria-label="切换专业结构">
+              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="cs" aria-selected="true">CS Major <span data-structure-tab-summary="cs">0 / 5</span></button>
+              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="sd" aria-selected="false">SD Minor <span data-structure-tab-summary="sd">0 / 3</span></button>
             </div>
-            <button class="structure-drawer-close" type="button" data-structure-close aria-label="关闭 Major 结构详情">×</button>
+            <button class="structure-drawer-close" type="button" data-structure-close aria-label="关闭专业结构详情">×</button>
           </div>
           <div class="structure-slot-list" data-structure-detail></div>
+          <p class="structure-accounting-note">INFO1110、INFO1113、COMP2123 可满足两个专业的共同核心要求，但总学分只计一次。专业进度不替代 BSc degree core 与毕业资格审核。</p>
         </section>
         <article class="metric metric-wide" data-progress-card="elective">
-          <div class="metric-top"><strong>可调整学分</strong><span class="metric-value" data-progress-value>0cp 已安排</span></div>
-          <b>不属于两个 Major / OLE 的课程空间</b>
+          <div class="metric-top"><strong>其他学分</strong><span class="metric-value" data-progress-value>0cp 已安排</span></div>
+          <b>Degree core、额外选修与超出专业限额的课程</b>
           <span data-progress-status>用于选修、degree core、WAM 缓冲和时间调整</span>
           <div class="metric-progress" data-progress-stack>
             <div class="progress-bar stacked" aria-label="可调整学分规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
@@ -6658,7 +6674,7 @@
         <div class="section-head"><span class="section-kicker">决策原则</span><h2>决策原则</h2></div>
         <div class="grid-3">
           <div class="mini-card"><h3>核心课质量优先</h3><p>加速毕业不能牺牲 INFO1110、INFO1113、COMP2123、COMP2017、COMP3027 等主线课程质量。</p></div>
-          <div class="mini-card"><h3>先修链优先</h3><p>INFO1110 → INFO1113 → COMP2123 / COMP2022 → COMP3027 → Project 是关键路径，延后会影响后续排课。</p></div>
+          <div class="mini-card"><h3>先修链优先</h3><p>CS 项目依赖编程、算法与系统核心；软件方向需留意 INFO1113 → SOFT2201 → SOFT3202。SOFT2201 通常在 S2，SOFT3202 在下一年 S1。</p></div>
           <div class="mini-card warning"><h3>控制高压课程堆叠</h3><p>COMP2017、COMP3027、项目课和高压 MATH 不应无脑放在同一学期。</p></div>
           <div class="mini-card"><h3>选修课要承担功能</h3><p>选修课应服务方向探索、课业压力平衡、WAM 保护或 prerequisite 补强，而不是随意填空。</p></div>
           <div class="mini-card"><h3>OLE / 轻量课提前分散</h3><p>不要把 OLE 或所有轻量选修留到最后；它们可以作为后续核心课压力的缓冲空间。</p></div>
@@ -6678,241 +6694,39 @@
       <section id="plans" class="section-card">
         <div class="section-head"><span class="section-kicker">学期计划</span><h2>学期计划</h2></div>
         <div class="roadmap-shell">
-          <div class="roadmap-panel deprecated-progress" data-roadmap-panel="requirements" hidden aria-hidden="true">
-            <h3 class="roadmap-panel-title">毕业要求进度仪表盘</h3>
-            <p class="roadmap-intro">本仪表盘用来快速判断路线是否“结构上可毕业”。默认不计入任何已完成学分；每完成一个学期或 intensive 后，可在计划区勾选对应阶段，进度会自动更新并保存在本机浏览器。</p>
-            <div class="progress-actions">
-              <p>当前进度以已勾选阶段为准；未完成的 2026 S1 不会提前计入。</p>
-              <button type="button" id="resetProgress">重置已完成标记</button>
-            </div>
-            <div class="progress-grid">
-              <article class="progress-card" data-progress-card="total"><div class="progress-top"><span>总学分</span><span data-progress-value>0 / 144cp</span></div><strong data-progress-status>尚未开始记录</strong><div class="progress-bar" style="--value:0%"><span></span></div><p>每勾选一个已完成阶段，自动累计该阶段学分。</p></article>
-              <article class="progress-card" data-progress-card="major"><div class="progress-top"><span>Computer Science Major</span><span data-progress-value>0 / 48cp</span></div><strong data-progress-status>未计入已完成 CS Major 学分</strong><div class="progress-bar good" style="--value:0%"><span></span></div><p>只按已完成阶段中的 CS major 贡献估算，最终仍以 Sydney Student 审核为准。</p></article>
-              <article class="progress-card" data-progress-card="minor"><div class="progress-top"><span>Discrete Mathematics and Algorithms Major</span><span data-progress-value>0 / 48cp</span></div><strong data-progress-status>未计入已完成 DMA Major 学分</strong><div class="progress-bar good" style="--value:0%"><span></span></div><p>按 DMA major 48cp 官方结构估算：1000-level 基础、2000/3000-level MATH/COMP 和 interdisciplinary project 均需闭合。</p></article>
-              <article class="progress-card" data-progress-card="ole"><div class="progress-top"><span>Open Learning Environment</span><span data-progress-value>0 / 6cp</span></div><strong data-progress-status>已确认总需求 6cp</strong><div class="progress-bar" style="--value:0%"><span></span></div><p>例如完成 OLET1666 后，可勾选 July intensive，把 2cp OLE 计入。</p></article>
-              <article class="progress-card" data-progress-card="elective"><div class="progress-top"><span>选修 / 自由空间</span><span data-progress-value>0cp 已使用</span></div><strong data-progress-status>尚未使用弹性空间</strong><div class="progress-bar" style="--value:0%"><span></span></div><p>用于 WAM 保护、方向探索、prerequisite 补强、实习 / 交换空间。</p></article>
-              <article class="progress-card" data-progress-card="pressure"><div class="progress-top"><span>快速毕业压力</span><span data-progress-value>低</span></div><strong data-progress-status>当前无已完成负担记录</strong><div class="progress-bar warn" style="--value:12%"><span></span></div><p>完成学分越多但核心瓶颈越滞后时，应重新评估加速路线。</p></article>
-            </div>
-          </div>
 
           <div class="roadmap-panel" data-roadmap-panel="timeline">
             <div class="roadmap-timeline">
-              <article class="road-semester" data-stage-id="2026-s1" data-stage-name="2026 S1" data-total-cp="24" data-major-cp="6" data-minor-cp="0" data-ole-cp="0" data-elective-cp="18" data-pressure-comfortable="Medium" data-pressure-accelerated="Medium">
-                <header><h3>2026 S1</h3><span class="cp-note">24cp · 基础阶段</span></header>
-                <div class="mini-course"><strong>INFO1110</strong><small>Introduction to Programming · 6cp</small><div class="course-chip-row"><span class="tiny-chip core">CS 核心</span><span class="tiny-chip">中等</span><span class="tiny-chip">S1</span></div></div>
-                <div class="mini-course"><strong>MATH1061</strong><small>Mathematics 1A · 6cp</small><div class="course-chip-row"><span class="tiny-chip math">数学基础</span><span class="tiny-chip">中等</span><span class="tiny-chip">S1</span></div></div>
+              <article class="road-semester" data-stage-id="2026-s1" data-stage-name="2026 S1" data-total-cp="24">
+                <header><h3>2026 S1</h3><span class="cp-note">0cp · 待安排</span></header>
+                <div class="mini-course" data-cat="core"><strong>INFO1110</strong><small></small></div>
               </article>
-              <article class="road-semester" data-stage-id="2026-july" data-stage-name="2026 6-7月" data-total-cp="0" data-major-cp="0" data-minor-cp="0" data-ole-cp="0" data-elective-cp="0" data-pressure-comfortable="Buffer" data-pressure-accelerated="Buffer">
-                <header><h3>2026 6-7月</h3><span class="cp-note">Intensive / OLE / 轻量选修</span></header>
-                <div class="mini-course placeholder"><strong>待安排</strong><small>从课程库中选择“锁定 / 候选 / 已完成”并指定到 2026 6-7月后自动显示。</small></div>
+              <article class="road-semester" data-stage-id="2026-s2" data-stage-name="2026 S2" data-total-cp="24">
+                <header><h3>2026 S2</h3><span class="cp-note">0cp · 待安排</span></header>
+                <div class="mini-course" data-cat="core"><strong>INFO1113</strong><small></small></div>
               </article>
-              <article class="road-semester" data-stage-id="2026-s2" data-stage-name="2026 S2" data-total-cp="26" data-major-cp="6" data-minor-cp="6" data-ole-cp="2" data-elective-cp="12" data-pressure-comfortable="High" data-pressure-accelerated="High">
-                <header><h3>2026 S2</h3><span class="cp-note">26cp · 第一个瓶颈学期</span></header>
-                <div class="mini-course"><strong>INFO1113</strong><small>Object-Oriented Programming · 解锁 COMP2022</small><div class="course-chip-row"><span class="tiny-chip core">CS 核心</span><span class="tiny-chip warning">先修瓶颈</span><span class="tiny-chip">S2</span></div></div>
-                <div class="mini-course"><strong>MATH1064</strong><small>Discrete Mathematics for Computation · CS / DMA 必修</small><div class="course-chip-row"><span class="tiny-chip core">DMA 起点</span><span class="tiny-chip math">离散数学</span><span class="tiny-chip">S2</span></div></div>
+              <article class="road-semester" data-stage-id="2027-s1" data-stage-name="2027 S1" data-total-cp="24">
+                <header><h3>2027 S1</h3><span class="cp-note">0cp · 待安排</span></header>
+                <div class="mini-course" data-cat="core"><strong>COMP2123</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>COMP2017</strong><small></small></div>
               </article>
-              <article class="road-semester" data-stage-id="2027-s1" data-stage-name="2027 S1" data-total-cp="24" data-major-cp="12" data-minor-cp="12" data-ole-cp="0" data-elective-cp="0" data-pressure-comfortable="High" data-pressure-accelerated="High">
-                <header><h3>2027 S1</h3><span class="cp-note">24cp · 核心课压力</span></header>
-                <div class="mini-course"><strong>COMP2123</strong><small>Data Structures and Algorithms · 6cp</small><div class="course-chip-row"><span class="tiny-chip core">CS / DMA</span><span class="tiny-chip warning">高</span><span class="tiny-chip">解锁 COMP3027</span></div></div>
-                <div class="mini-course"><strong>COMP2017</strong><small>Systems Programming · 6cp</small><div class="course-chip-row"><span class="tiny-chip core">CS 核心</span><span class="tiny-chip warning">很高</span><span class="tiny-chip">系统</span></div></div>
-                <div class="mini-course"><strong>MATH2022</strong><small>Linear and Abstract Algebra · 6cp</small><div class="course-chip-row"><span class="tiny-chip math">DMA 数学</span><span class="tiny-chip">高</span><span class="tiny-chip">需核对</span></div></div>
+              <article class="road-semester" data-stage-id="2027-s2" data-stage-name="2027 S2" data-total-cp="24">
+                <header><h3>2027 S2</h3><span class="cp-note">0cp · 待安排</span></header>
+                <div class="mini-course" data-cat="core"><strong>COMP2022</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>SOFT2201</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>SOFT2412</strong><small></small></div>
               </article>
-              <article class="road-semester" data-stage-id="2027-s2" data-stage-name="2027 S2" data-total-cp="24" data-major-cp="6" data-minor-cp="12" data-ole-cp="0" data-elective-cp="6" data-pressure-comfortable="High" data-pressure-accelerated="Very High">
-                <header><h3>2027 S2</h3><span class="cp-note">24–30cp · 理论课 + 方向选择</span></header>
-                <div class="mini-course"><strong>COMP2022</strong><small>Models of Computation · 需要 INFO1113</small><div class="course-chip-row"><span class="tiny-chip core">CS 核心</span><span class="tiny-chip warning">理论</span></div></div>
-                <div class="mini-course"><strong>MATH2088</strong><small>Number Theory and Cryptography · 6cp</small><div class="course-chip-row"><span class="tiny-chip math">DMA 数学</span><span class="tiny-chip">中高</span></div></div>
+              <article class="road-semester" data-stage-id="2028-s1" data-stage-name="2028 S1" data-total-cp="24">
+                <header><h3>2028 S1</h3><span class="cp-note">0cp · 待安排</span></header>
+                <div class="mini-course" data-cat="core"><strong>COMP3027</strong><small></small></div>
               </article>
-              <article class="road-semester" data-stage-id="2028-s1" data-stage-name="2028 S1" data-total-cp="20" data-major-cp="12" data-minor-cp="6" data-ole-cp="0" data-elective-cp="0" data-pressure-comfortable="Very High" data-pressure-accelerated="Very High">
-                <header><h3>2028 S1</h3><span class="cp-note">20–24cp · 高阶瓶颈</span></header>
-                <div class="mini-course"><strong>COMP3027</strong><small>Algorithm Design · 需要 COMP2123</small><div class="course-chip-row"><span class="tiny-chip core">CS 核心</span><span class="tiny-chip warning">很高</span></div></div>
-                <div class="mini-course"><strong>MATH3066</strong><small>Algebra and Logic · 6cp</small><div class="course-chip-row"><span class="tiny-chip math">DMA 数学</span><span class="tiny-chip warning">高</span></div></div>
-              </article>
-              <article class="road-semester" data-stage-id="2028-s2" data-stage-name="2028 S2 / 收尾" data-total-cp="18" data-major-cp="6" data-minor-cp="6" data-ole-cp="0" data-elective-cp="6" data-pressure-comfortable="High" data-pressure-accelerated="High">
-                <header><h3>2028 S2 / 收尾</h3><span class="cp-note">双 Major 项目课</span></header>
-                <div class="mini-course"><strong>COMP3888<span class="code-slash">/</span>COMP3988</strong><small>Computer Science Project · 6cp</small><div class="course-chip-row"><span class="tiny-chip core">CS 项目</span><span class="tiny-chip warning">高</span></div></div>
-                <div class="mini-course"><strong>SCPU3001</strong><small>Science Interdisciplinary Project · 6cp</small><div class="course-chip-row"><span class="tiny-chip core">DMA 项目</span><span class="tiny-chip warning">高</span></div></div>
+              <article class="road-semester" data-stage-id="2028-s2" data-stage-name="2028 S2 / 收尾" data-total-cp="24">
+                <header><h3>2028 S2 / 收尾</h3><span class="cp-note">0cp · 待安排</span></header>
+                <div class="mini-course" data-cat="core"><strong>COMP3888 / COMP3988</strong><small></small></div>
               </article>
             </div>
           </div>
 
-        </div>
-        <div class="plans-grid legacy-plan" hidden aria-hidden="true">
-          <div class="plan-card">
-            <h3>备用路线 · 标准 3 年</h3>
-            <p>目标：优先保护 WAM、打牢 Computer Science + Discrete Mathematics and Algorithms 核心基础，不盲目压缩毕业时间。Intensive 主要作为 OLE / elective buffer，而不是硬性加速工具。</p>
-            <div class="timeline">
-              <article class="semester">
-                <div class="semester-title"><b>2026 S1</b><span>24cp · cumulative 24cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> INFO1110, MATH1061, DATA1001, SCIE1001</p>
-                  <div class="semester-meta"><span class="tag core">core</span><span class="tag math">math</span><span class="tag data">data</span><span class="tag ole">degree core</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk medium">Medium</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> S1 后只安排轻量 2cp OLE；不要在第一学期后立刻加入 heavy elective。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> INFO1110 与 MATH1061 的质量优先，它们决定后续 programming、algorithms 与 mathematics 的基础稳定性。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2026 6-7月</b><span>待安排 · cumulative 24cp 起</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> 待安排；从课程库中选择 OLE / light elective 后再显示。</p>
-                  <div class="semester-meta"><span class="tag ole">OLE</span><span class="tag">buffer</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk low">Low</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 推荐只完成 2cp OLE，用于提前锁定 OLE 进度，不叠加额外压力。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 本规划 OLE requirement = 6cp；July 完成 2cp 后，剩余 4cp 可放入后续 intensive / summer / light semester。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2026 S2</b><span>26cp · End of 2026 cumulative 52cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> INFO1113, MATH1064, DATA1002, 6cp elective, 2cp OLE</p>
-                  <div class="semester-meta"><span class="tag core">core</span><span class="tag math">math</span><span class="tag data">data</span><span class="tag ole">OLE</span><span class="tag">elective</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk high">High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> S2 后 only add a light OLE/elective if WAM is stable and no core assignment pressure is expected.</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 这是第一个结构关键学期；第四门 6cp 课应优先选择 workload 可控、能支持 data / math / software 方向探索的课程。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2027 S1</b><span>24cp · cumulative 76cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> COMP2123, COMP2017, MATH2022, 6cp elective / workload buffer</p>
-                  <div class="semester-meta"><span class="tag core">major core</span><span class="tag systems">systems</span><span class="tag math">math</span><span class="tag">elective</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk high">High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 仅在 COMP2123 与 COMP2017 early assessment 表现稳定时，考虑 July 的 2cp OLE 或轻量 elective。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> COMP2123 + COMP2017 技术密度高，elective 应承担 buffer 功能，不建议再加入 heavy technical unit。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2027 S2</b><span>24cp · cumulative 100cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> COMP2022, MATH2088, COMP3308, 6cp elective</p>
-                  <div class="semester-meta"><span class="tag core">major core</span><span class="tag math">math</span><span class="tag ai">AI</span><span class="tag">elective</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk high">High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 如果 theory + math workload 已经偏重，summer 不加 hard core；只考虑 OLE / WAM-friendly elective。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> COMP2022 与 MATH2088 都需要 proof maturity；COMP3308 可作为 AI 方向探索，但需控制 assignment 节奏。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2028 S1</b><span>24cp · cumulative 124cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> COMP3027, MATH3066, 6cp elective / 3000-level COMP option, 6cp elective / degree-core adjustment</p>
-                  <div class="semester-meta"><span class="tag core">algorithm core</span><span class="tag math">3000-level math</span><span class="tag">elective</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk very-high">Very High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 不建议在此阶段额外加入 intensive，除非只是补剩余 2cp OLE 且不会影响 COMP3027 / MATH3066。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 不把 COMP2017 + COMP3027 + MATH3066 + project 堆在同一学期；这里优先保护 senior algorithm / math quality。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2028 S2</b><span>20cp · cumulative 144cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> COMP3888 / COMP3988, DATA3404 或 COMP3221、COMP3520 之一, 6cp elective, remaining 2cp OLE if needed</p>
-                  <div class="semester-meta"><span class="tag project">project</span><span class="tag systems">systems/data</span><span class="tag ole">OLE</span><span class="tag">final adjustment</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk medium">Medium–High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 只用于补结构缺口；不再为了加速加入 heavy core。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 该阶段用于 project、remaining electives 和最终结构核对，确保 144cp、6cp OLE 与两个 major 的 senior requirements 全部闭合。</p>
-                </div>
-              </article>
-            </div>
-          </div>
-          <div class="plan-card">
-            <h3>快速路线 · 接近 2.5 年</h3>
-            <p>目标：探索 2.5 年毕业或尽量接近 2.5 年毕业。该版本必须使用 summer / July / higher semester load 补足学分，否则 144cp 很难在 2028 S1 前完成。</p>
-            <div class="timeline">
-              <article class="semester">
-                <div class="semester-title"><b>2026 S1</b><span>24cp · cumulative 24cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> INFO1110, MATH1061, DATA1001, SCIE1001</p>
-                  <div class="semester-meta"><span class="tag core">core</span><span class="tag math">math</span><span class="tag data">data</span><span class="tag ole">degree core</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk medium">Medium</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> S1 后可以加入 2cp OLE，但不建议加入 6cp hard elective。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 加速版本也不能牺牲 INFO1110 / MATH1061 的基础质量。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2026 6-7月</b><span>待安排 · cumulative 24cp 起</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> 待安排；从课程库中选择 OLE / light elective 后再显示。</p>
-                  <div class="semester-meta"><span class="tag ole">OLE</span><span class="tag">acceleration buffer</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk low">Low</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 推荐执行；它提前完成 6cp OLE 中的 2cp，并降低后续 semester 的碎片学分压力。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> July 不承担 hard core 功能，只做 OLE 进度推进。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2026 S2</b><span>26cp · End of 2026 cumulative 52cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> INFO1113, MATH1064, DATA1002, 6cp elective, 2cp OLE</p>
-                  <div class="semester-meta"><span class="tag core">core</span><span class="tag math">math</span><span class="tag data">data</span><span class="tag ole">OLE</span><span class="tag">elective</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk high">High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 2026 End：如果 WAM 稳定、INFO1113 / MATH1064 / DATA1002 表现好，可以考虑 Summer 6cp light elective；否则取消加速。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 第四门 6cp 课必须审慎选择；DATA2001、MATH1062、ISYS2120、SOFT2412 或 WAM-friendly technical elective 各有不同风险。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2026–2027 Summer</b><span>6cp · cumulative 58cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> light 6cp elective / technical elective；不安排 hard core</p>
-                  <div class="semester-meta"><span class="tag">elective</span><span class="tag">WAM buffer</span><span class="tag">acceleration</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk medium">Medium</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> Summer 的价值是提前完成 elective，给 COMP3027 / MATH3066 / Project 留出更干净的学期。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 如果 2026 S2 已经压线完成，不应继续 summer；保 WAM 优先于压缩毕业时间。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2027 S1</b><span>24cp · cumulative 82cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> COMP2123, COMP2017, MATH2022, 6cp elective / buffer</p>
-                  <div class="semester-meta"><span class="tag core">major core</span><span class="tag systems">systems</span><span class="tag math">math</span><span class="tag">elective</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk high">High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 2027 S1 End：根据 COMP2123 + COMP2017 表现判断是否还能加 July intensive；若 debugging 或 algorithms 已吃紧，取消 July。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> COMP2017 与 COMP2123 都会消耗大量练习时间；elective 必须轻量。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2027 July Intensive</b><span>6cp · cumulative 88cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> 6cp light elective，或 remaining 2cp OLE + 4cp flexible adjustment</p>
-                  <div class="semester-meta"><span class="tag ole">OLE/elective</span><span class="tag">acceleration</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk medium">Medium</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 只在 S1 WAM 和 core assignment 质量稳定时执行；不用于硬塞 COMP / heavy MATH。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 该 intensive 的功能是降低后续 semester core 堆叠压力，而不是制造新的技术负担。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2027 S2</b><span>30cp · cumulative 118cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> COMP2022, MATH2088, COMP3308, 6cp elective, 6cp elective / data option</p>
-                  <div class="semester-meta"><span class="tag core">major core</span><span class="tag math">math</span><span class="tag ai">AI</span><span class="tag">electives</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk very-high">Very High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 2027 S2 End：如果 COMP2022 / MATH2088 / COMP3308 压力可控，可以用 Summer 补 6cp elective；否则保留恢复期。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 这是 accelerated plan 的核心风险点；两个 elective 不能都是 heavy technical units。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2027–2028 Summer</b><span>6cp · cumulative 124cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> 6cp elective / DATA3404 if available and workload is acceptable</p>
-                  <div class="semester-meta"><span class="tag data">data/elective</span><span class="tag">acceleration</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk medium">Medium–High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> Summer 可提高 2.5 年毕业的现实可能性，但不能牺牲 COMP3027 / MATH3066 / Project 前的准备时间。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> 如果 summer 课程 assessment 密集，应优先选择 elective 而不是新增 hard core。</p>
-                </div>
-              </article>
-              <article class="semester">
-                <div class="semester-title"><b>2028 S1</b><span>20cp · target cumulative 144cp</span></div>
-                <div class="semester-content">
-                  <p><strong>Units:</strong> COMP3027, MATH3066, COMP3888 / COMP3988, remaining 2cp OLE / flexible adjustment</p>
-                  <div class="semester-meta"><span class="tag core">algorithm core</span><span class="tag math">3000-level math</span><span class="tag project">project</span><span class="tag ole">OLE/flexible</span></div>
-                  <p><strong>Workload risk:</strong> <span class="risk very-high">Very High</span></p>
-                  <p class="semester-note"><strong>Intensive decision point:</strong> 2028 S1 前避免把 COMP3027 + MATH3066 + Project + heavy elective 同时压满；如果前期未补足学分，应优先延后毕业而不是牺牲核心课质量。</p>
-                  <p class="semester-note"><strong>Planning note:</strong> Accelerated plan 的最终判断标准不是“能否塞满”，而是 COMP3027、MATH3066、Project 是否仍能高质量完成。</p>
-                </div>
-              </article>
-            </div>
-            <div class="plan-summary">
-              <p><strong>Intensive 的好处：</strong>提前完成 OLE / elective，降低后续 semester core 堆叠压力，给 COMP3027 / MATH3066 / Project 留出更干净的学期，提高 2.5 年毕业的现实可能性。</p>
-              <p><strong>Intensive 的风险：</strong>不能用来硬塞 heavy core；不应牺牲 INFO1110 / INFO1113 / COMP2123 / COMP2017 / COMP3027 的学习质量；如果 WAM 或基础课表现不稳，应优先取消加速。</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -7004,7 +6818,7 @@
       </section>
     </main>
 
-    <footer>USYD 学位规划仪表盘 · Bachelor of Science · Computer Science Major · Discrete Mathematics and Algorithms Major</footer>
+    <footer>USYD 学位规划仪表盘 · Bachelor of Science · Computer Science Major · Software Development minor</footer>
   </div>
 
   <script>
@@ -7030,7 +6844,7 @@
         readings: ["Think Python — 《像计算机科学家一样思考 Python》：入门友好，适合 procedural programming。", "Python Tutorial — Python 官方教程：适合查询语法和标准行为。", "CS50 early programming lectures — 暂无通行中文译名：适合理解计算思维。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/INFO1110"]],
         shouldTake: {
-          bestFor: "所有走计算机科学 Major / DMA Major / 数据路线的人；本质上不可跳过。",
+          bestFor: "CS Major 与 Software Development minor 的共同核心；数据方向也可作为编程基础。",
           notFor: "已通过同等高级课程的人；其他情况都建议正式上。",
           bestSemester: "2026 S1 — 越早越好，作为后续课程的根基。",
           avoidWith: "不要与 COMP2017、COMP2123 同学期（基础未稳）。",
@@ -7038,7 +6852,7 @@
           wamBuffer: "中等课业压力；不适合作为缓冲课。",
           career: "几乎所有 CS / 数据类实习面试的隐含前提。",
           major: "Major 的根基课。",
-          minor: "DMA Major 的隐式前提之一。",
+          minor: "与 CS Major 共用的 1000-level 核心课，计入 minor 12cp。",
           interest: "对所有方向都是入口。"
         }
       },
@@ -7071,7 +6885,7 @@
           wamBuffer: "中等课业压力；不适合作为缓冲课。",
           career: "面向对象设计是软件 / 后端实习面试的基础。",
           major: "Major 的第二根基。",
-          minor: "对 DMA 影响中等（与 COMP2022 衔接）。",
+          minor: "与 CS Major 共用的核心课，也是 SOFT2201、SOFT2412 的先修入口。",
           interest: "UX / 音乐 / 设计路线后续也会用到面向对象思维。"
         }
       },
@@ -7088,7 +6902,7 @@
         later: "COMP3027, COMP3308, DATA3404, advanced COMP electives",
         summary: "本科算法路线的中枢课程，连接编程、离散数学和高级算法设计。",
         teaches: ["abstract data types、lists、stacks、queues", "trees、search trees、hash tables / 散列表", "graphs、tree traversal、graph traversal", "sorting、searching、recursion、Big-O analysis"],
-        matters: "这是 CS major 与 DMA major 的关键重叠课。它提供后续算法设计、AI search、systems performance 和 scalable data management 共同需要的 algorithmic efficiency 语言。",
+        matters: "这是 CS Major 与 Software Development minor 的共同核心课。它提供后续算法设计、AI search、systems performance 和 scalable data management 共同需要的 algorithmic efficiency 语言。",
         before: ["基本编程能力：函数、递归、数组/列表操作", "MATH1064 的 proof、sets、relations 思维会显著有帮助", "能手动 trace 小程序和递归过程"],
         mastery: ["能为问题选择合适数据结构", "能说明 insert/search/delete/traverse 的复杂度", "能写出基本 sorting 与 graph traversal", "能用 Big-O 比较方案优劣"],
         how: ["每个结构整理：操作、实现、复杂度、适用场景", "每题先判断 representation，再设计 algorithm", "复杂度分析必须写清 input size 和 dominant operation"],
@@ -7096,7 +6910,7 @@
         readings: ["Introduction to Algorithms — 《算法导论》：系统、偏厚，适合作为概念查询。", "The Algorithm Design Manual — 《算法设计手册》：更实战，适合训练算法设计直觉。", "Algorithms — 《算法》：适合数据结构和基础算法的可视化理解。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/COMP2123"]],
         shouldTake: {
-          bestFor: "INFO1110 非常稳、希望走算法 / DMA / 毕业项目主线的人。",
+          bestFor: "INFO1110 非常稳、希望走算法 / 软件开发 / 毕业项目主线的人。",
           notFor: "INFO1110 还吃力 / 同学期已有两门重课的人。",
           bestSemester: "2026 S2（加速）或 2027 S1（稳）。",
           avoidWith: "不建议与 INFO1113 + MATH1064 同学期（课业压力会爆发）。",
@@ -7104,7 +6918,7 @@
           wamBuffer: "❌ 不适合作为缓冲课；理论密度高。",
           career: "技术面试算法部分的核心。",
           major: "Major 算法主线必修。",
-          minor: "DMA Major 算法主线的核心。",
+          minor: "与 CS Major 共用的 2000-level 核心课，计入 minor 18cp。",
           interest: "逻辑 / 理论路线的中转站。"
         }
       },
@@ -7137,7 +6951,7 @@
           wamBuffer: "❌ 课业压力极高，绝不能当填空课。",
           career: "后端 / 操作系统 / 嵌入式 / 固件 / 高频交易实习核心。",
           major: "Major 系统子方向核心。",
-          minor: "对 DMA 影响较弱。",
+          minor: "不直接计入 Software Development minor；可补充工程与项目能力。",
           interest: "音乐 / 底层音频方向的隐性入口。"
         }
       },
@@ -7191,7 +7005,7 @@
           wamBuffer: "❌ 理论密度极高。",
           career: "大厂算法面试中最重要的单门课。",
           major: "Major 算法主线的终点。",
-          minor: "DMA Major 的高阶节点。",
+          minor: "不计入 Software Development minor；属于 CS Major 核心。",
           interest: "逻辑 / 理论路线必经。"
         }
       },
@@ -7220,16 +7034,16 @@
         code: "SCPU3001",
         name: "Science Interdisciplinary Project",
         cp: "6cp",
-        category: ["project", "science", "core"],
+        category: ["project", "science", "elective"],
         level: "3000",
         workload: "High",
         skills: ["project", "teamwork", "research", "writing"],
-        functionTags: ["core", "graduation requirement"],
+        functionTags: ["direction exploration", "graduation requirement"],
         best: "完成 96cp 后；双 Science majors 收尾阶段，需与 COMP3888 / COMP3988 等项目课规则一起核对",
         later: "interdisciplinary science project, industry/community project, graduate portfolio",
         summary: "Science 跨学科项目课，面向双 Science majors 的高阶项目要求，通过团队合作解决行业、社区或政府组织提出的复杂真实问题。",
         teaches: ["interdisciplinary problem framing", "stakeholder perspective integration", "team-based research and analysis", "professional communication and presentation", "project professionalism and reflective practice"],
-        matters: "DMA Major 官方结构包含 3000-level interdisciplinary project。SCPU3001 是网页中用来闭合 DMA Major 48cp 的关键项目课，但它在 2026 主要面向 Faculty of Science 双 major 学生，并有 96cp prerequisite 与 project corequisite，正式选课前必须核对 Sydney Student。",
+        matters: "CS Major 的 BSc 项目选项之一，不是 Software Development minor 要求。2026 课程页另有双 major、96cp prerequisite 与 project corequisite 限制；当前 major + minor 路径不能据此假定有资格。默认仍以 COMP3888 / COMP3988 作为 CS 项目规划，SCPU3001 必须单独确认准入。",
         before: ["96 credit points", "通常需要与 COMP3888 / COMP3988 或其他 3888 project unit 的 corequisite 规则一起核对", "需要具备团队项目、调研、沟通和报告写作基础"],
         mastery: ["能把学科知识用于复杂现实问题", "能整合不同 stakeholder perspective", "能选择并应用合适的问题解决方法", "能以专业形式展示项目结果", "能在跨学科团队中展示主动性和适应性"],
         how: ["提前准备 project evidence log：问题、利益相关者、方法、数据、产出、反思", "每周记录 team decision、个人贡献和 unresolved risk", "把算法/数学能力翻译成非技术 stakeholder 能理解的结论"],
@@ -7266,12 +7080,12 @@
         level: "1000",
         workload: "High",
         skills: ["proof", "math"],
-        functionTags: ["core", "prerequisite", "graduation requirement"],
+        functionTags: ["prerequisite", "direction exploration"],
         best: "2026 S2；COMP2022/COMP3027 前",
         later: "COMP2022, COMP3027, MATH2088, MATH3066",
         summary: "为算法、逻辑和计算理论提供离散数学语言与证明能力。",
         teaches: ["logic、proof、induction、sets、relations", "functions、orders、sequences、counting", "discrete probability、asymptotic growth", "elementary number theory、graph theory、algebraic structures"],
-        matters: "它是 DMA major 的入口，也是 COMP2123、COMP2022、COMP3027 和 MATH3066 的共同基础。",
+        matters: "它为离散数学、算法证明与逻辑提供数学准备，但不计入 CS Major 或 Software Development minor 的专业学分；是否用于 BSc 数学 degree core 需按学位规则核对。",
         before: ["MATH1061 或同等数学成熟度", "愿意写完整证明，而不是只给答案", "基本集合与函数符号"],
         mastery: ["能用 induction、contradiction 等证明方法", "能用 sets/functions/relations 表述问题", "能做基本 counting 和 asymptotic comparison", "能理解 graph 和 relation 在计算问题中的作用"],
         how: ["每个定义配 examples 和 counterexamples", "证明题写清 assumption、goal、method、conclusion", "把抽象结构和具体计算例子配对"],
@@ -7279,7 +7093,7 @@
         readings: ["Discrete Mathematics and Its Applications — 《离散数学及其应用》：Rosen，系统覆盖。", "Mathematics for Computer Science — 暂无通行中文译名：适合 CS 数学。", "How to Prove It — 《如何证明它》：适合证明训练。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH1064"]],
         shouldTake: {
-          bestFor: "DMA Major、计算机科学 Major 的学生（集合论 / 逻辑 / 证明基础）。",
+          bestFor: "希望补强集合论、逻辑与证明基础的学生。",
           notFor: "几乎所有理学学士 + CS 学生都需要。",
           bestSemester: "2026 S2 — 与 INFO1113 一起上，建立证明思维。",
           avoidWith: "不建议与 COMP2123 同学期（双重证明负担）。",
@@ -7287,7 +7101,7 @@
           wamBuffer: "中等；练习量大但分数稳定。",
           career: "面试中归纳证明 / 概率题的铺底。",
           major: "Major 数学基础。",
-          minor: "DMA Major 的起点。",
+          minor: "不计入 Software Development minor；作为数学准备或其他学分。",
           interest: "逻辑 / 哲学路线的入口。"
         }
       },
@@ -7325,7 +7139,7 @@
         later: "science communication, policy reasoning, interdisciplinary project, research writing",
         summary: "跨学科 Science 基础课，训练如何理解科学实践、证据、客观性、不确定性、数学/统计模型、政策语境与不同知识系统。",
         teaches: ["scientific practice、objectivity、evidence、uncertainty", "science、mathematics、statistics 在 decision making 中的使用与误用", "conditional probability、Bayesian logic、false positives / false negatives", "Indigenous knowledges、disciplinary perspectives、biology、physics、mathematics", "science in policy, regulation, industry and communities"],
-        matters: "这门课不是 CS / DMA 技术主线课，但它补足 Bachelor of Science 的科学素养：如何判断证据、解释不确定性、理解科学与社会、政策、伦理和知识系统之间的关系。对未来做 data / AI / project report 时的 evidence reasoning 很有帮助。",
+        matters: "这门课不是 CS / 软件开发 技术主线课，但它补足 Bachelor of Science 的科学素养：如何判断证据、解释不确定性、理解科学与社会、政策、伦理和知识系统之间的关系。对未来做 data / AI / project report 时的 evidence reasoning 很有帮助。",
         before: ["无需先修", "需要愿意阅读不同学科材料并写 reflection / short analytical response", "具备基础统计直觉会帮助理解 probability、uncertainty 和 decision making"],
         mastery: ["能解释 objectivity、evidence、uncertainty 如何影响科学研究", "能识别科学、数学、统计在公共决策中的使用、误用和限制", "能用 conditional probability / Bayesian thinking 解释 false positive / false negative 等问题", "能说明科学知识如何进入 policy、regulation、industry 和 community contexts", "能以跨学科方式分析一个 science impact case"],
         how: ["每个 topic 按 concept → example → evidence → limitation → policy/social implication 整理", "遇到统计或概率案例时，先写 base rate、uncertainty、decision consequence", "写作时不要只复述材料，要明确 claim、evidence、counterpoint、implication", "把课程案例和 DATA1001 的 statistical thinking、OLET2148 / PHIL1012 的 reasoning skill 连接起来"],
@@ -7341,12 +7155,12 @@
         level: "1000",
         workload: "Medium",
         skills: ["coding", "data"],
-        functionTags: ["core", "prerequisite", "direction exploration"],
+        functionTags: ["prerequisite", "direction exploration"],
         best: "2026 S2",
         later: "DATA2001, DATA3404, COMP3308",
         summary: "将 Python、数据文件、自动化和 data science pipeline 连接起来。",
         teaches: ["data ingestion、format conversion、cleaning", "summarisation、visualisation、metadata", "basic predictive modelling、model evaluation", "regression、classification、overfitting、underfitting"],
-        matters: "它为 data / AI / database 方向建立实践基础，也是 DMA major 1000-level computing selective 的候选。",
+        matters: "它为 data / AI / database 方向建立实践基础；属于额外选修，不能替代当前 CS Major 与 Software Development minor 的 INFO1110 核心要求。",
         before: ["基本编程能力", "理解 table、variable、function", "愿意处理真实数据中的 messy cases"],
         mastery: ["能用 Python 自动化数据处理流程", "能从文件读写到清理、转换、可视化、建模", "能解释模型评估和 overfitting", "能记录 pipeline 中的信息损失"],
         how: ["按 pipeline 学：read → inspect → clean → transform → visualise → model → evaluate", "每一步记录 assumption 和 limitation", "优先形成可重复运行 notebook / script"],
@@ -7383,7 +7197,7 @@
           wamBuffer: "中到中高课业压力；不适合作为缓冲课。",
           career: "数据工程师 / 数据分析实习的核心。",
           major: "Major 中数据子方向。",
-          minor: "DMA Major 的数据路线。",
+          minor: "数据方向额外选修，不计入 Software Development minor。",
           interest: "数据 / 商业 / 分析路线必经。"
         }
       },
@@ -7395,7 +7209,7 @@
         level: "2000",
         workload: "High",
         skills: ["math", "proof"],
-        functionTags: ["graduation requirement", "direction exploration"],
+        functionTags: ["direction exploration", "prerequisite"],
         best: "MATH1061 后；作为 2000-level MATH 候选",
         later: "MATH3066, AI/math depth, graphics",
         summary: "把 first-year linear algebra 扩展到 vector space、linear operator、group 和 abstract algebra。",
@@ -7433,16 +7247,16 @@
         code: "SOFT2412",
         name: "Agile Software Development Practices",
         cp: "6cp",
-        category: ["systems", "elective"],
+        category: ["core", "systems"],
         level: "2000",
         workload: "Medium",
         skills: ["project", "teamwork", "coding", "writing"],
-        functionTags: ["direction exploration", "WAM buffer"],
-        best: "INFO1113 后；想提前训练团队项目和软件流程时",
+        functionTags: ["core", "graduation requirement"],
+        best: "2027 S2；INFO1113 或等价先修后，与 SOFT2201 同属 minor 核心",
         later: "COMP3888, software project, product / startup work",
         summary: "软件开发流程与敏捷实践课程，重点从个人编程转向小团队协作、需求、估算、测试、文档和持续改进。",
         teaches: ["agile methods、software process、planning and estimation", "requirements elicitation、client communication、team roles", "version control、issue tracking、daily build、documentation", "unit testing、functional testing、quality assurance"],
-        matters: "SOFT2412 不直接推进算法主线，但能提前补齐项目课需要的团队协作和工程流程。对 COMP3888 / 产品路线 / 实习项目很有实际价值。",
+        matters: "SOFT2412 是 Software Development minor 的 2000-level 必修，与 COMP2123、SOFT2201 共同满足 18cp；不计入 CS Major。团队协作和工程流程也为 COMP3888、实习项目做准备。",
         before: ["INFO1113 或等价面向对象编程入口", "能独立写中小型程序", "愿意在团队里写文档、测试和 process artefacts"],
         mastery: ["能解释 agile、waterfall、incremental、spiral 等 process 的差异", "能用 issues、backlog、tests 和 documentation 管理小项目", "能把需求转成可交付任务", "能识别团队协作中的风险和质量问题"],
         how: ["每周维护 backlog、risk log 和 decision log", "每个 feature 都配 acceptance criteria 和 test", "复盘时记录 process issue，而不只记录代码问题"],
@@ -7458,12 +7272,12 @@
         level: "2000",
         workload: "Medium-High",
         skills: ["math", "proof"],
-        functionTags: ["graduation requirement", "direction exploration"],
+        functionTags: ["direction exploration"],
         best: "MATH1064 后；作为 2000-level MATH 候选",
         later: "cryptography, security, MATH3066",
         summary: "用 elementary number theory 理解 public-key cryptography 的数学基础。",
         teaches: ["Euclidean Algorithm、Fermat's Little Theorem、Chinese Remainder Theorem", "modular arithmetic、prime factorisation、discrete logarithms", "RSA、ElGamal、Diffie-Hellman", "classical cryptosystems attack 与 complexity"],
-        matters: "它连接离散数学、算法和 cryptography，是 DMA major 中很自然的 2000-level MATH 选择。",
+        matters: "它连接离散数学、算法和 cryptography，是数学方向额外选修，不计入当前 Major / Minor 专业结构。",
         before: ["MATH1064 的 proof 和 modular notation", "基础 divisibility、gcd、prime 概念", "愿意把 theorem 和算法联系起来"],
         mastery: ["能熟练做 modular arithmetic", "能解释 RSA / Diffie-Hellman 的数学机制", "能使用 Euclidean algorithm 和 CRT", "能理解 factoring / discrete log 与安全性的关系"],
         how: ["每个密码系统写 key generation、encryption、decryption、security assumption", "theorem 必须配具体数字例子", "把 number theory algorithm 和 complexity 放在一起学"],
@@ -7479,12 +7293,12 @@
         level: "2000",
         workload: "High",
         skills: ["math", "proof", "coding"],
-        functionTags: ["graduation requirement", "direction exploration"],
+        functionTags: ["direction exploration", "prerequisite"],
         best: "MATH1061 或 MATH1064 后；想把 algebra 与 computation 结合时",
         later: "MATH3066, abstract algebra, symbolic computation",
         summary: "研究 groups、rings、ideals 等代数结构，并通过 computer algebra systems 把抽象结构转化为可计算例子。",
         teaches: ["groups、symmetry、subgroups、homomorphisms", "rings、ideals、factorisation", "polynomial arithmetic、modular computation", "computer algebra system experiments、examples and counterexamples"],
-        matters: "MATH2080 是 DMA 路线里非常合适的 2000-level MATH 选择：比 MATH2022 更强调 computational algebra，能给 MATH3066 的 algebra / logic 方向打基础。",
+        matters: "MATH2080 是计算代数方向的数学选修，不计入当前 Major / Minor 专业结构：比 MATH2022 更强调 computational algebra，能给 MATH3066 的 algebra / logic 方向打基础。",
         before: ["MATH1061 / MATH1961 / MATH1971 / MATH1064 / MATH1964 任一官方入口", "proof、sets、relations 和 modular arithmetic", "愿意同时做抽象证明和计算实验"],
         mastery: ["能识别 group、ring、ideal 的基本例子", "能用 homomorphism / quotient 思维分析结构", "能用计算工具探索 algebraic examples", "能把抽象定理和具体计算互相验证"],
         how: ["每个 structure 写 definition、examples、non-examples、standard theorem", "用小计算检验 conjecture，再回到 proof", "把 MATH1064 的 modular arithmetic 扩展到 rings 和 polynomial settings"],
@@ -7500,12 +7314,12 @@
         level: "3000",
         workload: "Very High",
         skills: ["math", "proof"],
-        functionTags: ["graduation requirement"],
+        functionTags: ["direction exploration"],
         best: "MATH1064 + 2000-level MATH 后；不要与太多 heavy COMP 同修",
         later: "theoretical CS, logic, computability, honours preparation",
         summary: "把 algebra、logic、axiomatics、computability 与 undecidability 连接起来的高级数学课程。",
         teaches: ["rings、fields、field extensions、quotient rings", "first-order logic、set theory、syntax/semantics", "consistency、completeness", "Turing machines、computability、Halting Problem、undecidability"],
-        matters: "这是 DMA major 中最能体现数学、逻辑和计算交叉的 3000-level MATH 选择，与 COMP2022 和 COMP3027 形成理论闭环。",
+        matters: "这门数学选修连接代数、逻辑与计算，可补充 COMP2022 和 COMP3027 的理论视角；不计入当前 Major / Minor 专业结构。",
         before: ["MATH1064 proof、sets、relations", "MATH2022 或 abstract algebra 入门会很有帮助", "能持续阅读抽象定义和证明"],
         mastery: ["能分析 rings、fields、integral domains", "能区分 syntax、semantics、model、proof", "能解释 Halting Problem 和 undecidability", "能读写较长的 algebra / logic proof"],
         how: ["每个 definition 写 examples、counterexamples、standard theorem", "logic 部分单独整理 syntax vs semantics", "computability 部分用 Turing machine 和 diagonalisation 理解不可判定性"],
@@ -7605,7 +7419,7 @@
         level: "3000",
         workload: "High",
         skills: ["data", "systems"],
-        functionTags: ["direction exploration", "graduation requirement"],
+        functionTags: ["direction exploration"],
         best: "DATA2001 / database 背景后；毕业收尾或 data route",
         later: "data engineering, databases, distributed systems project",
         summary: "研究数据平台内部机制、数据库调优和大规模数据管理系统。",
@@ -7668,12 +7482,12 @@
         level: "3000",
         workload: "Very High",
         skills: ["math", "proof"],
-        functionTags: ["direction exploration", "graduation requirement"],
+        functionTags: ["direction exploration"],
         best: "完成 12cp MATH2XXX 后；MATH2022 / linear algebra 背景越扎实越好",
         later: "advanced mathematics, topology, geometry, theoretical CS intuition",
         summary: "高级几何与拓扑课程，使用 transformations、projective geometry、graphs、surfaces 和 knots 训练空间结构与证明能力。",
         teaches: ["Euclidean plane transformations、isometries、symmetry、frieze groups", "affine transformations、projective plane、homogeneous coordinates、conics", "graphs、surfaces、homeomorphism、subdivision、cutting and pasting", "Euler invariant、classification of surfaces、map colouring、knots、Reidemeister moves、knot invariants"],
-        matters: "MATH3061 是 DMA 路线中偏几何/拓扑的 3000-level MATH 候选。它不像 MATH3066 那样直接连接 logic / computability，但能训练空间抽象、classification proof、invariant thinking，这些能力对 graphics、topological data intuition 和理论数学 maturity 都有价值。",
+        matters: "MATH3061 是几何与拓扑方向的高阶数学选修，不计入当前 Major / Minor 专业结构。它不像 MATH3066 那样直接连接 logic / computability，但能训练空间抽象、classification proof、invariant thinking，这些能力对 graphics、topological data intuition 和理论数学 maturity 都有价值。",
         before: ["至少完成 12cp MATH2XXX；正式选课前核对 prerequisite", "linear transformations、vector spaces、matrices、coordinate geometry", "能读写 proof，能把图形直觉转化为 algebraic 或 combinatorial argument"],
         mastery: ["能分类平面 isometry，并解释 reflection / rotation / translation / glide reflection", "能用 matrix / homogeneous coordinates 处理 affine 与 projective transformations", "能使用 Euler characteristic 分析 graphs 和 triangulated surfaces", "能通过 cutting, pasting, invariants 区分 surfaces 或 simple knots"],
         how: ["每个 geometric transformation 同时写 coordinate formula、matrix form、fixed points、preserved properties", "topology 部分用 examples / non-examples 建立 homeomorphism 与 invariant 直觉", "每个 classification theorem 都整理成 definition → invariant → normal form → proof strategy"],
@@ -7710,7 +7524,7 @@
           wamBuffer: "✅ 适合 — 课业压力低、评分友好。",
           career: "音频 / 创意科技 / 多媒体方向的入口。",
           major: "对 Major 影响较弱。",
-          minor: "对 DMA 影响较弱。",
+          minor: "不直接计入 Software Development minor；可补充工程与项目能力。",
           interest: "音乐 / 声音路线的核心入口；不是 MUSC2653 的替代。"
         }
       },
@@ -7748,7 +7562,7 @@
         later: "general education, communication, policy / society context",
         summary: "从 regionalism、politics、culture、society、money 等角度理解美国政治、文化、经济、社会及 US-Australia relationship。",
         teaches: ["US regionalism、political institutions、culture and society", "race、religion、capitalism、celebrity culture", "US global influence and foreign policy context", "US-Australia relationship and comparative perspective"],
-        matters: "这门课不服务 CS/DMA core，但适合作为 OLE buffer 与 general education。对未来做科技产品、AI policy、international tech industry 或赴美交流的人，它能补充美国社会和制度背景。",
+        matters: "这门课不服务 CS / 软件开发 core，但适合作为 OLE buffer 与 general education。对未来做科技产品、AI policy、international tech industry 或赴美交流的人，它能补充美国社会和制度背景。",
         before: ["无需背景知识", "愿意阅读社会、历史、政治材料", "能用 evidence 支撑短篇 analytical writing"],
         mastery: ["能从 politics、culture、economy、society 多角度解释美国现象", "能区分美国内部差异和外部影响", "能分析 US-Australia relationship 的基本议题", "能用 written / visual / digital texts 支撑观点"],
         how: ["每周建立 issue map：topic、actors、history、evidence、counterpoint", "不要只记事实，要练习 comparative perspective", "写作时明确 claim、evidence、disciplinary lens 和 limitation"],
@@ -8063,7 +7877,7 @@
         later: "academic writing, essay-based electives, research reports, project documentation",
         summary: "写作与修辞入门课，训练如何发现论题、组织观点、分析论证表达，并在 print、visual media、political debate 和跨文化交流语境中构建有说服力的 academic essays。",
         teaches: ["rhetorical theory and persuasive writing", "topic discovery and argument arrangement", "academic essay conventions", "argument analysis across print, visual and political contexts", "editing your own writing and peer writing"],
-        matters: "WRIT1001 不推进 CS / DMA 先修链，但对论文写作、项目报告、argument structure 和英文表达很实用。它适合用作 WAM buffer 或写作能力补强课。",
+        matters: "WRIT1001 不推进 CS / 软件开发 先修链，但对论文写作、项目报告、argument structure 和英文表达很实用。它适合用作 WAM buffer 或写作能力补强课。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / prohibitions / assumed knowledge 均为 None", "需要愿意反复 draft、edit 和 peer review", "如果同学期已有大量 writing-heavy 选修，要注意 assessment 时间"],
         mastery: ["能写出结构清楚、有论证意识的 academic essay", "能识别 rhetorical choices 如何影响说服力", "能为 multicultural audiences 调整表达和论证方式", "能持续编辑自己的文字并给同伴提供有效反馈"],
         how: ["每篇文章先写 claim、audience、evidence、counterpoint、structure", "draft 阶段先改 argument，再改 sentence polish", "把 feedback 分成 structure、evidence、clarity、style 四类处理"],
@@ -8084,7 +7898,7 @@
         later: "science communication, philosophy of science, research literacy, policy / ethics discussion",
         summary: "科学史与科学哲学入门课，围绕科学知识如何产生、如何被验证、科学和伪科学如何区分，以及科学在社会争议中的角色展开。",
         teaches: ["philosophy and history of science foundations", "scientific method, evidence and theory change", "demarcation between science and pseudoscience", "case studies in scientific controversy", "critical writing about science in society"],
-        matters: "HPSC1001 不推进 CS / DMA 先修链，但能补强 research literacy、科学论证和批判性写作。对理解 AI、数据科学、统计证据和公共科学争议很有帮助，适合作为轻量选修或 WAM buffer。",
+        matters: "HPSC1001 不推进 CS / 软件开发 先修链，但能补强 research literacy、科学论证和批判性写作。对理解 AI、数据科学、统计证据和公共科学争议很有帮助，适合作为轻量选修或 WAM buffer。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / assumed knowledge 均为 None", "prohibition: HPSC2101 / HPSC2901 / HPSC1901", "需要愿意阅读理论文本和案例材料，并写清楚 argument"],
         mastery: ["能解释 scientific method 和 evidence 的基本争议", "能区分科学、伪科学和边界案例", "能分析 scientific controversy 中的证据、价值和社会因素", "能写出结构清楚的 science-and-society argument"],
         how: ["每个案例按 claim、evidence、method、counterargument、social implication 拆解", "写作时先明确问题是 empirical、conceptual 还是 normative", "把科学哲学概念连接到 data / AI / statistics 中的 evidence 判断"],
@@ -8105,7 +7919,7 @@
         later: "health literacy, sport nutrition, wellbeing planning, science communication",
         summary: "营养与健康选修，覆盖消化生理、宏量和微量营养素、饮食迷思、运动表现、慢性病风险、购物烹饪实践和个人饮食分析。",
         teaches: ["nutrition education models and healthy diet selection", "macronutrients, micronutrients and hydration", "digestion, food use for growth, health and exercise", "sports performance diets, fad diets and supplements", "personal diet analysis and reflective improvement"],
-        matters: "EDGU1003 不推进 CS / DMA 先修链，但很适合做 WAM buffer 或 intensive / light semester 选修。它的实际价值在于提升个人营养判断、运动表现和健康信息辨别能力。",
+        matters: "EDGU1003 不推进 CS / 软件开发 先修链，但很适合做 WAM buffer 或 intensive / light semester 选修。它的实际价值在于提升个人营养判断、运动表现和健康信息辨别能力。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / prohibitions / assumed knowledge 均为 None", "需要愿意做个人饮食记录和营养分析", "如果放进 intensive，注意 assessment 节奏和主线复习不要冲突"],
         mastery: ["能识别 carbohydrates、protein、fats、alcohol 与常见 micronutrients 的作用", "能解释食物、水和营养如何支持健康、成长和运动", "能批判常见 diet、supplement 和 media nutrition claims", "能分析个人饮食数据并提出改进方案"],
         how: ["把每个 nutrition claim 拆成 evidence、population、limitation、practical action", "个人饮食分析要提前记录，不要等 assessment 前补数据", "遇到 fad diet 或 supplement 先查 mechanism、evidence quality 和风险"],
@@ -8126,7 +7940,7 @@
         later: "science communication, climate / risk thinking, interdisciplinary project work",
         summary: "6cp OLE，研究核战争、气候变化、农业、经济崩溃、zombie 等 apocalypse scenarios，并用影视和文学案例理解科学、经济与社会文化中的灾难想象。",
         teaches: ["apocalyptic scenarios in science and popular culture", "nuclear physics、climate science、agriculture、economics 中的 catastrophic issues", "online research and interdisciplinary case study analysis", "fictional representations of apocalypse and public debate", "video production and group project communication"],
-        matters: "OLES1602 适合用作 6cp OLE / elective buffer。它不直接推进 CS + DMA 先修链，但能训练跨学科研究、科学传播、风险分析与小组项目表达，适合补足技术学习之外的 science-and-society 视角。",
+        matters: "OLES1602 适合用作 6cp OLE / elective buffer。它不直接推进 CS + 软件开发 先修链，但能训练跨学科研究、科学传播、风险分析与小组项目表达，适合补足技术学习之外的 science-and-society 视角。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / assumed knowledge 均为 None", "需要接受跨学科阅读、案例分析和小组项目", "如果同学期已有 heavy CS/math，需注意 video / group project 的时间管理"],
         mastery: ["能解释不同 apocalypse scenarios 的科学和社会文化背景", "能描述 climate change、economic collapse 等潜在 catastrophic issues", "能用 online research 在 interdisciplinary context 中分析威胁与解决方案", "能分析影视 / 文学中的 apocalypse representation 如何反映社会焦虑并影响公共讨论", "能完成一个以视频形式沟通观点的小组项目"],
         how: ["每个案例按 threat、science mechanism、social consequence、fictional representation、policy / survival response 拆解", "把影视 / 文学材料当作 cultural evidence，而不是只当剧情摘要", "小组视频项目提前确定角色：research、script、editing、voice / presentation、reference checking"],
@@ -8147,7 +7961,7 @@
         later: "math assignments, reports, project documentation, academic writing",
         summary: "2cp OLE，学习 LaTeX 文档结构、编译、格式、交叉引用、参考文献、图表和复杂文档元素。",
         teaches: ["LaTeX document structure、preamble、sections、lists、table of contents", "compilation workflow and document formatting", "cross-referencing、references、figures、tables", "complex document elements and visually attractive academic documents"],
-        matters: "OLET1666 对 CS + DMA 很实用：数学证明、算法报告、project documentation、research-style writing 都会用到清晰排版。它承担 OLE 进度和学习工具建设功能，适合放在 July / Summer / light semester。",
+        matters: "OLET1666 对 CS + 软件开发 很实用：数学证明、算法报告、project documentation、research-style writing 都会用到清晰排版。它承担 OLE 进度和学习工具建设功能，适合放在 July / Summer / light semester。",
         before: ["具备基本 computer skills", "熟悉 folder、file、plain text editing 会有帮助", "了解 referencing conventions 和 basic programming 会加速上手，但不是必要条件"],
         mastery: ["能创建并编译完整 LaTeX document", "能使用 sections、lists、tables、figures、equations、references 和 cross-reference", "能排版数学公式、算法说明或短报告", "能维护一个可复用 assignment / report template"],
         how: ["不要只复制模板；每次新增功能都理解 command、environment、package 的角色", "建立自己的 minimal template：math proof、algorithm report、project report 三类", "遇到编译错误先定位 line number、missing brace、package conflict"],
@@ -8166,7 +7980,7 @@
         level: "1000",
         workload: "Medium-High",
         skills: ["math", "data"],
-        functionTags: ["direction exploration", "graduation requirement"],
+        functionTags: ["direction exploration", "prerequisite"],
         best: "MATH1061 后；S1 / S2 / January intensive 均可核对",
         later: "statistics, calculus, financial mathematics, DATA / MATH electives",
         summary: "Mathematics 1B，补多变量微积分、微分方程和数理统计，是数学与数据路线的基础选项。",
@@ -8187,12 +8001,12 @@
         level: "2000",
         workload: "Medium-High",
         skills: ["data", "coding", "research"],
-        functionTags: ["direction exploration", "graduation requirement"],
+        functionTags: ["direction exploration"],
         best: "DATA1001 / DATA1002 或等价统计与编程基础后；通常作为 S2 数据路线课核对",
         later: "DATA3404, machine learning, analytics electives",
         summary: "Data analytics 中级课，围绕从数据中建模、评估和解释结论。",
         teaches: ["statistical learning workflow", "model fitting and validation", "data cleaning and exploratory analysis", "communicating data-driven findings"],
-        matters: "DATA2002 适合把 1000-level data foundation 推进到更像真实 analytics project 的层级，但不应挤压 CS / DMA 主线瓶颈。",
+        matters: "DATA2002 适合把 1000-level data foundation 推进到更像真实 analytics project 的层级，但不应挤压 CS / 软件开发 主线瓶颈。",
         before: ["一阶 statistics / data science 基础", "Python 或 R 编程基础", "能读懂模型评估指标"],
         mastery: ["能完成一条数据清洗到建模的 pipeline", "能解释 validation 和 overfitting", "能把模型结果写成清晰结论", "能识别数据质量限制"],
         how: ["每个模型记录 assumptions、features、metric、failure mode", "保留 reproducible notebook", "优先练习解释，而不是只追求分数"],
@@ -8356,11 +8170,11 @@
         workload: "High",
         skills: ["logic", "proof", "writing"],
         functionTags: ["direction exploration"],
-        best: "PHIL1012 后；适合 logic / theory 兴趣，不替代 DMA 必修",
+        best: "PHIL1012 后；适合 logic / theory 兴趣，不替代 Major / Minor 必修",
         later: "logic, computability, philosophy of mathematics",
         summary: "高级逻辑选修，适合把哲学逻辑和计算理论兴趣连接起来。",
         teaches: ["formal logic", "proof systems", "model-theoretic intuition", "logical argument writing"],
-        matters: "它出现在先修图中是为了标明 PHIL1012 → PHIL3610 的真实路径，不应被误认为 CS / DMA 主线要求。",
+        matters: "它出现在先修图中是为了标明 PHIL1012 → PHIL3610 的真实路径，不应被误认为 CS / 软件开发 主线要求。",
         before: ["PHIL1012", "基础 proof literacy", "愿意阅读抽象英文论证"],
         mastery: ["能读写 formal proof", "能解释 semantics 与 syntax", "能比较不同 logical systems", "能写严谨 argument"],
         how: ["先复习 truth tables / predicate logic", "把 proof rules 做成索引表", "每周整理一个完整证明"],
@@ -8402,7 +8216,7 @@
         later: "portfolio analytics, quantitative finance",
         summary: "投资与组合管理高阶 finance 课，关注资产定价、组合选择与风险管理。",
         teaches: ["portfolio theory", "asset pricing", "risk measurement", "investment decision making"],
-        matters: "它不是 CS/DMA 主线，也通常不是无门槛自由选修；先修和 enrolment access 需要单独核对。",
+        matters: "它不是 CS / 软件开发 主线，也通常不是无门槛自由选修；先修和 enrolment access 需要单独核对。",
         before: ["FINC2012", "概率统计与 spreadsheet 能力", "愿意处理金融案例"],
         mastery: ["能解释 diversification", "能做基础 portfolio calculation", "能理解 CAPM / risk premium", "能评价投资组合风险"],
         how: ["把公式与经济直觉配对", "用 spreadsheet 复现 portfolio examples", "避免与 COMP3027 / project 叠加"],
@@ -8447,13 +8261,97 @@
         later: "优化建模、投资组合分析与金融数学方向",
         summary: "将约束优化与金融模型连接起来，使用数学推导和 Python 分析资源配置与风险收益。",
         teaches: ["线性规划与 simplex algorithm", "非线性优化、Hessian、Lagrange multipliers 与 KKT", "expected utility 与风险偏好", "Markowitz portfolio theory 与 CAPM"],
-        matters: "数学方向自由选修，可补强优化与金融建模能力。2026 DMA Major 表未列入 MATH2070，不能用它替代该 Major 的 12cp 2000-level 数学选修要求。压力等级是本规划的估计，不是官方评级。",
+        matters: "数学方向自由选修，可补强优化与金融建模能力。MATH2070 不计入当前 CS Major 或 Software Development minor。压力等级是本规划的估计，不是官方评级。",
         before: ["需满足一阶数学两组先修；MATH1061 + MATH1062 是可用组合之一", "建议熟悉多元微积分、概率分布与期望", "禁止与 MATH2970 重复修读；电脑实验使用 Python"],
         mastery: ["能把实际约束转成线性规划并求解", "能选择合适的最优性条件并解释解", "能区分期望收益与期望效用决策", "能解释组合风险、收益与资产定价模型"],
         how: ["先写目标函数、变量和约束，再选择算法", "手算小例题后用 Python 检验数值结果", "每个金融模型同时记录假设与适用边界"],
         terms: ["linear programming — 线性规划", "simplex algorithm — 单纯形算法", "KKT conditions — KKT 条件", "expected utility — 期望效用", "portfolio — 投资组合", "CAPM — 资本资产定价模型"],
         readings: ["MATH2070 unit outline — 2026 S2：按官方周计划准备优化与金融数学主题。", "MATH2070 Canvas learning resources — 课程材料：优先使用当期讲义、习题与 Python 实验；教材以课程通知为准。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH2070"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/MATH2070/2026-S2C-ND-CC"]]
+      },
+      {
+        code: "MATH3076",
+        name: "Mathematical Computing",
+        cp: "6cp",
+        category: ["math", "elective"],
+        level: "3000",
+        workload: "Medium-High",
+        skills: ["math", "coding"],
+        functionTags: ["direction exploration"],
+        best: "S1；完成 12cp MATH2XXX，或 6cp MATH2XXX 加 6cp STAT2XXX / DATA2X02 后",
+        later: "科学计算、数值模拟与优化应用",
+        summary: "结合数学分析与编程实现，学习数值算法如何求解问题，以及如何判断计算结果的误差、效率与可靠性。",
+        teaches: ["浮点运算、计算误差与方程求解", "插值、函数逼近及数值微积分", "微分方程的数值求解", "数值优化及其应用"],
+        matters: "数学与编程交叉的自由选修。MATH3076 不计入当前 CS Major 或 Software Development minor。压力等级为规划估计，不是官方评级。",
+        before: ["先修有两种组合，完整规则见下方；没有指定 corequisite 或 assumed knowledge", "禁止与 MATH3976 / MATH4076 组合修读", "2026 S1：期末考试 50%、课堂测验 20%、每周测验 30%；期末须参加且至少取得 40% 才能通过本课"],
+        mastery: ["能实现算法并识别数值误差来源", "能比较精度与计算成本", "能选择合适的方法并解释适用条件", "能用误差分析检验计算结果"],
+        how: ["先用有已知解的小例子检验实现，再处理复杂问题", "每次实验同时记录误差、步长或迭代次数和计算成本", "把算法推导与代码对照整理，避免只会调用函数"],
+        terms: ["floating-point arithmetic — 浮点运算", "numerical analysis — 数值分析", "interpolation — 插值", "root finding — 求根", "numerical integration — 数值积分", "optimisation — 优化"],
+        readings: ["MATH3076 unit outline — 2026 S1：核对每周主题与考核要求。", "MATH3076 Canvas learning resources — 课程材料：使用当期讲义、计算实验与习题；编程语言和教材版本以课程通知为准。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH3076"], ["2026 S1 Unit Outline", "https://www.sydney.edu.au/units/MATH3076/2026-S1C-ND-CC"]]
+      },
+      {
+        code: "SOFT2201",
+        name: "Software Construction and Design 1",
+        cp: "6cp",
+        category: ["core"],
+        level: "2000",
+        workload: "Medium-High",
+        skills: ["coding", "design"],
+        functionTags: ["core", "prerequisite", "graduation requirement"],
+        best: "S2；完成 INFO1113 或官方等价课程后",
+        later: "SOFT3202、软件设计与工程实践",
+        summary: "从面向对象编程走向软件设计，结合建模、设计原则、基础设计模式与测试实践。",
+        teaches: ["UML、CRC 与 use cases 建模", "继承、多态、泛型及对象设计原则", "基础设计模式及其适用场景", "测试与 code review"],
+        matters: "Software Development minor 的 2000-level 核心课，与 COMP2123、SOFT2412 共同组成 18cp 要求；也是 SOFT3202 的硬性先修。不计入 CS Major。压力为规划估计。",
+        before: ["先修 INFO1113 / INFO1103 / INFO1105 / INFO1905 任一", "Prohibition：INFO3220 / COMP9201；无 corequisite", "建议先熟悉对象、接口、集合与基础测试"],
+        mastery: ["能用模型表达职责与对象协作", "能解释设计方案的耦合与扩展性", "能选择模式并避免过度设计", "能用测试和代码审查发现设计问题"],
+        how: ["从用例和职责出发，再画模型并实现", "为每个设计选择记录替代方案与取舍", "把小规模重构与回归测试配套进行"],
+        terms: ["UML — 统一建模语言", "CRC — 类、职责与协作者", "design pattern — 设计模式", "polymorphism — 多态", "generics — 泛型", "code review — 代码审查"],
+        readings: ["SOFT2201 unit outline — 2026 S2：核对建模、设计和测试主题。", "SOFT2201 Canvas learning resources — 课程材料：以当期讲义、实验与指定阅读为准。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/SOFT2201"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/SOFT2201/2026-S2C-ND-CC"]]
+      },
+      {
+        code: "SOFT3202",
+        name: "Software Construction and Design 2",
+        cp: "6cp",
+        category: ["elective"],
+        level: "3000",
+        workload: "High",
+        skills: ["coding", "design"],
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "S1；完成 SOFT2201 后",
+        later: "软件质量、测试与大型系统设计",
+        summary: "在 SOFT2201 基础上深入软件验证、测试理论与高级设计模式，把设计原理用于实际系统。",
+        teaches: ["高级面向对象设计", "高级设计模式", "测试理论与测试技术", "软件 validation / verification"],
+        matters: "Software Development minor 的 3000-level selective，与 INFO3315 二选一满足 6cp。两门都选时，超出的学分进入其他学分，不会把 minor 计成 42cp。不计入 CS Major；压力为规划估计。",
+        before: ["硬性先修 SOFT2201，不能用 INFO1113 直接替代", "Prohibition：INFO3220；无 corequisite / assumed knowledge", "建议熟悉设计模式、测试与软件构建流程"],
+        mastery: ["能分析复杂设计的职责与依赖", "能解释模式及其适用边界", "能设计有依据的测试策略", "能区分验证、确认与测试提供的证据"],
+        how: ["为设计模式比较适用情境与代价", "测试同时覆盖正常行为、边界和失败路径", "结合小项目解释质量保证，而不只背定义"],
+        terms: ["verification — 验证", "validation — 确认", "test strategy — 测试策略", "design pattern — 设计模式", "software quality — 软件质量"],
+        readings: ["SOFT3202 unit outline — 2026 S1：核对高级设计与验证主题。", "SOFT3202 Canvas learning resources — 课程材料：使用当期实验、案例与指定阅读。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/SOFT3202"], ["2026 S1 Unit Outline", "https://www.sydney.edu.au/units/SOFT3202/2026-S1C-ND-CC"]]
+      },
+      {
+        code: "INFO3315",
+        name: "Human-Computer Interaction",
+        cp: "6cp",
+        category: ["elective"],
+        level: "3000",
+        workload: "Medium-High",
+        skills: ["ux", "design", "teamwork", "research"],
+        functionTags: ["direction exploration", "graduation requirement"],
+        best: "S2；满足编程与二阶课程组合先修后",
+        later: "人机交互、UX 研究、原型与产品设计",
+        summary: "以人为中心设计交互系统，通过用户研究、原型与可用性评估，将心理学和软件技术连接起来。",
+        teaches: ["感知、认知与交互设计", "用户需求研究与分析", "低保真原型及界面设计", "可用性评估与小组项目"],
+        matters: "Software Development minor 的 3000-level selective，与 SOFT3202 二选一满足 6cp。不属于 CS Major 的 selective。虽是 HCI 课程，仍有团队交付与考试要求；压力为规划估计。",
+        before: ["6cp 指定 1000-level 编程课，加 12cp BAdvComp Table A 的 2000-level 课程", "第二组不是任意二阶课程；例如本库 COMP2017 + COMP2123 可作为组合，仍以当年表格为准", "2026 S2 期末占 50%，考试至少 40% 且须参与团队项目；以当期 outline 为准"],
+        mastery: ["能解释人因对交互设计的影响", "能用研究证据界定需求", "能制作并迭代原型", "能选择评估方法并报告局限"],
+        how: ["先明确用户任务和研究问题，再设计界面", "用低成本原型及早测试关键假设", "记录组内贡献、决策依据和迭代证据"],
+        terms: ["HCI — 人机交互", "user-centred design — 以用户为中心的设计", "usability — 可用性", "prototype — 原型", "user study — 用户研究"],
+        readings: ["INFO3315 unit outline — 2026 S2：核对用户研究、原型与评估安排。", "INFO3315 Canvas learning resources — 课程材料：使用当期讲义、方法练习和指定阅读。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/INFO3315"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/INFO3315/2026-S2C-ND-CC"]]
       },
       {
         code: "ECON1003",
@@ -8468,7 +8366,7 @@
         later: "经济学建模、商科数量分析与优化应用",
         summary: "以经济和商业问题为背景学习数量方法，重点是建立模型、求解并解释经济含义。",
         teaches: ["函数、图像与经济模型", "微分、积分及单变量优化", "金融数学与多变量函数", "有约束及无约束优化"],
-        matters: "适合作为经济学方向入门选修。官方明确说明它不能替代数学系课程，因此不计入本规划的 CS / DMA Major 结构。压力等级是规划估计，不能理解为保证高分。",
+        matters: "适合作为经济学方向入门选修。官方明确说明它不能替代数学系课程，因此不计入本规划的 CS Major / Software Development minor 结构。压力等级是规划估计，不能理解为保证高分。",
         before: ["官方无 prerequisite、corequisite 或 prohibition", "Assumed knowledge：代数运算与数据的图形表达", "2026 S2 包含期中测试与期末考试，不能只依赖线上测验"],
         mastery: ["能将经济问题写成函数与模型", "能用微积分分析变化及最优值", "能解释数量结果对应的经济含义", "能检查约束、假设与解的合理性"],
         how: ["每道题按经济问题、数学模型、计算、解释四步整理", "复习时把函数图像与代数式对照", "定期练习限时手算并记录符号错误"],
@@ -8489,7 +8387,7 @@
         later: "后续日语学习、跨文化沟通与交流准备",
         summary: "零基础日语入门，结合听说读写训练、假名与基础汉字学习，以及日本社会文化背景。",
         teaches: ["日常情境的基础听说交流", "平假名、片假名及基础汉字", "简单书面表达", "日本文化与跨文化交流"],
-        matters: "语言方向自由选修，不推进 CS / DMA Major。需要持续练习，intensive 只是集中授课，并不代表学习量更少。压力等级为本规划估计。",
+        matters: "语言方向自由选修，不推进 CS Major / Software Development minor。需要持续练习，intensive 只是集中授课，并不代表学习量更少。压力等级为本规划估计。",
         before: ["官方无 prerequisite、corequisite 或 assumed knowledge，但有既往日语学习的 prohibition", "有 HSC 日语或已修相关日语课者需先核对资格；其他日语背景建议咨询系里", "2026 年末 intensive 是 11-12月，不等于时间轴的 12-2月；排课前核对实际日期"],
         mastery: ["能完成熟悉场景中的简单信息交换", "能书写两套假名及约 60 个汉字，并在语境中认读至少 100 个汉字", "能表达基础的个人与日常信息", "能结合文化语境理解表达差异"],
         how: ["每天分开安排听说与读写练习", "使用短句和音频主动回忆，不只背词表", "为 intensive 预留连续练习时间，避免与重课截止日期冲突"],
@@ -8510,7 +8408,7 @@
         later: "STEMM 团队协作、实践领导与职业发展",
         summary: "仅向 Dalyell stream 学生开放，结合领导理论、行业交流、实践与反思，培养 STEMM 领域的领导能力。",
         teaches: ["领导价值观、伦理与理论", "STEMM 领域的领导实践", "团队沟通与人际策略", "实际领导经历与反思"],
-        matters: "选课前必须已进入 Dalyell stream。课程页的先修栏虽然写 None，正文仍明确限定 Dalyell 学生；不能仅凭高成绩或普通奖学金认定具备资格。本规划将其列为额外选修，不自动抵扣 CS / DMA Major 或 OLE。",
+        matters: "选课前必须已进入 Dalyell stream。课程页的先修栏虽然写 None，正文仍明确限定 Dalyell 学生；不能仅凭高成绩或普通奖学金认定具备资格。本规划将其列为额外选修，不自动抵扣 CS Major / Software Development minor 或 OLE。",
         before: ["需已正式注册 Dalyell stream / Dalyell Scholars program；资格以 Sydney Student 为准", "没有指定先修课程，但需要参与实际领导活动", "2026 S2 为线上授课，仍要求参与 seminar、讨论、实践和反思；压力为规划估计"],
         mastery: ["能解释领导决策中的价值观与伦理", "能将领导理论用于 STEMM 案例", "能根据团队情境调整沟通策略", "能用具体证据反思实际领导经验"],
         how: ["尽早确定可参与的团队或组织及实践任务", "持续记录行动、反馈和改进，避免期末补写反思", "把理论与实际案例对照，解释选择而不是只描述经历"],
@@ -8521,7 +8419,12 @@
     );
 
     const courseAvailability = {
+      INFO3315: "2026 S2",
+      SOFT2201: "2026 S2",
+      SOFT3202: "2026 S1",
+      SOFT2412: "2026 S2",
       MATH2070: "2026 S2",
+      MATH3076: "2026 S1",
       ECON1003: "2026 S1 / S2",
       JPNS1611: "2026 S1 / S2；6-7月、11-12月 intensive",
       SCDL2991: "2026 S1 / S2（Online）",
@@ -8572,16 +8475,30 @@
       course.availability = courseAvailability[course.code] || "需按当年 Handbook / Sydney Student 核对";
     });
 
-    const courseSortCoreCodes = new Set([
-      "INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027",
-      "MATH1064", "COMP3888 / COMP3988"
-    ]);
-    const courseSortMajorMinorCodes = new Set([
-      "INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027",
-      "COMP3888 / COMP3988", "SCPU3001", "COMP3308", "COMP3109", "COMP3221", "COMP3419",
-      "COMP3520", "COMP3530", "DATA3404", "MATH1064", "DATA1002 / DATA1902",
-      "MATH2022", "MATH2088", "MATH2080", "MATH3066", "MATH3061"
-    ]);
+    const majorStructureRequirements = [
+      {
+        id: "cs", title: "Major · Computer Science", target: 48,
+        slots: [
+          { label: "1000-level core", target: 12, kind: "core", codes: ["INFO1110", "INFO1113"] },
+          { label: "2000-level core", target: 18, kind: "core", codes: ["COMP2123", "COMP2017", "COMP2022"] },
+          { label: "3000-level core", target: 6, kind: "core", codes: ["COMP3027"] },
+          { label: "3000-level project", target: 6, codes: ["COMP3888 / COMP3988", "SCPU3001"], note: "BSc 可选 COMP 或 SCPU 项目；SCPU3001 另有准入与配套课程限制。" },
+          { label: "3000-level selective", target: 6, codes: ["COMP3308", "COMP3109", "COMP3221", "COMP3419", "COMP3520", "COMP3530"], note: "从所列课程中计入 6cp；需核对当年是否开课。" }
+        ]
+      },
+      {
+        id: "sd", title: "Minor · Software Development", target: 36,
+        slots: [
+          { label: "1000-level core", target: 12, kind: "core", codes: ["INFO1110", "INFO1113"], note: "INFO1110、INFO1113 均必修，与 CS Major 共用。" },
+          { label: "2000-level core", target: 18, kind: "core", codes: ["COMP2123", "SOFT2201", "SOFT2412"], note: "COMP2123、SOFT2201、SOFT2412 均必修；COMP2123 与 CS Major 共用。" },
+          { label: "3000-level selective", target: 6, codes: ["INFO3315", "SOFT3202"], note: "INFO3315 / SOFT3202 二选一；minor 无项目课要求。" }
+        ]
+      }
+    ];
+    const majorCreditCodes = new Set(majorStructureRequirements[0].slots.flatMap(slot => slot.codes));
+    const minorCreditCodes = new Set(majorStructureRequirements[1].slots.flatMap(slot => slot.codes));
+    const courseSortCoreCodes = new Set(majorStructureRequirements.flatMap(group => group.slots.filter(slot => slot.kind === "core").flatMap(slot => slot.codes)));
+    const courseSortMajorMinorCodes = new Set([...majorCreditCodes, ...minorCreditCodes]);
 
     function firstUnitCode(course) {
       return String(course.code || "").split("/")[0].trim();
@@ -8597,8 +8514,8 @@
 
     function courseImportanceRank(course) {
       if (courseSortCoreCodes.has(course.code)) return 0;
-      if (course.category?.includes("core")) return 1;
       if (courseSortMajorMinorCodes.has(course.code)) return 2;
+      if (course.category?.includes("core")) return 3;
       if (course.functionTags?.includes("graduation requirement")) return 3;
       if (course.category?.some(item => ["math", "statistics", "data", "systems", "ai", "project"].includes(item))) return 4;
       if (course.category?.includes("ole")) return 7;
@@ -8634,11 +8551,13 @@
     const PLANNER_CONFIG = Object.freeze({
       accessDate: "2026-05-09",
       sourceYear: "2026",
-      storageNamespace: "usyd-bsc-cs-dma-planner",
+      storageNamespace: "usyd-bsc-cs-dma-planner", // Keep the legacy namespace to preserve local records.
       wamNote: "WAM is modelled as credit-point weighted marks. OLE units are excluded from the planning WAM calculator."
     });
 
     const unitSourceAccessDates = {
+      INFO3315: "2026-08-28", SOFT2201: "2026-08-28", SOFT3202: "2026-08-28", SOFT2412: "2026-08-28",
+      MATH3076: "2026-08-28",
       MATH2070: "2026-08-28", ECON1003: "2026-08-28",
       JPNS1611: "2026-08-28", SCDL2991: "2026-08-28"
     };
@@ -8667,11 +8586,19 @@
       },
       {
         type: "degree",
-        title: "Discrete Mathematics and Algorithms major",
+        title: "Software Development minor",
         accessDate: "2026-08-28",
-        citation: "University of Sydney. (2026). Discrete Mathematics and Algorithms major. Science Handbook.",
-        use: "用于核对 Discrete Mathematics and Algorithms major 48cp 结构、数学与计算机选课层级和 interdisciplinary project 要求。",
-        url: "https://www.sydney.edu.au/handbooks/science/table-a/subject-areas/discrete-mathematics-algorithms/unit-of-study-table.html"
+        citation: "University of Sydney. (2026). Software Development. Science Handbook.",
+        use: "用于核对 Software Development minor 36cp：1000-level core 12cp、2000-level core 18cp、3000-level selective 6cp。",
+        url: "https://www.sydney.edu.au/handbooks/science/table-a/subject-areas/software-development/unit-of-study-table.html"
+      },
+      {
+        type: "degree",
+        title: "Science academic advice: overlapping units",
+        accessDate: "2026-08-28",
+        citation: "University of Sydney. (2026). Science academic advice.",
+        use: "核对共同核心课的专业计入规则；即使满足两个专业要求，毕业总学分也只计一次。",
+        url: "https://www.sydney.edu.au/students/course-planning/academic-advice/science.html"
       },
       {
         type: "degree",
@@ -9035,24 +8962,32 @@
       });
     }
 
-    const REQUIRED_PATH_CODES = new Set([
-      "INFO1110",
-      "INFO1113",
-      "COMP2123",
-      "COMP2017",
-      "COMP2022",
-      "COMP3027",
-      "MATH1064",
-      "DATA1002 / DATA1902",
-      "COMP3888 / COMP3988",
-      "SCPU3001"
-    ]);
+    const REQUIRED_PATH_CODES = new Set([...courseSortCoreCodes, "COMP3888 / COMP3988"]);
 
     function isRequiredPathCourse(course) {
       return REQUIRED_PATH_CODES.has(course.code);
     }
 
 	    const prerequisiteNotes = {
+          SOFT2201: {
+            requires: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"],
+            prohibitions: ["INFO3220 / COMP9201"],
+            note: "任选一个官方入口；这是 SD minor 核心课，也是 SOFT3202 的先修。"
+          },
+          SOFT3202: {
+            requires: ["SOFT2201"],
+            prohibitions: ["INFO3220"],
+            note: "SD minor 高阶二选一；INFO3315 是专业结构上的另一选项，不是本课先修。"
+          },
+          INFO3315: {
+            requires: ["6cp from INFO1110 / INFO1910 / INFO1113 / ENGG1810", "12cp 2000-level units from BAdvComp Table A"],
+            note: "两组必须同时满足。BSc 学生也需满足指定课程表的第二组条件；不是任意 12cp 二阶课程。"
+          },
+          MATH3076: {
+            requires: ["12cp MATH2XXX，或 [6cp MATH2XXX 加 (6cp STAT2XXX 或 DATA2X02)]"],
+            prohibitions: ["MATH3976 / MATH4076"],
+            note: "两条路径任选其一；第二条路径必须包含 6cp MATH2XXX，不能只用统计或数据课程代替。Corequisite / assumed knowledge 均为 None。"
+          },
           MATH2070: {
             requires: ["{(MATH1X61 or MATH1971) or [(MATH1X21 or MATH1011 or MATH1931 or MATH1X01 or MATH1906) and (MATH1014 or MATH1X02)]} and (MATH1X62 or MATH1972 or MATH1X23 or MATH1933)"],
             assumed: ["多元微积分，例如 MATH1X23 / MATH1X62"],
@@ -9082,7 +9017,7 @@
 	        note: "官方硬性 prerequisite 为 INFO1110 或同等 1000-level programming unit。"
 	      },
 	      COMP2123: {
-	        requires: ["INFO1110 / INFO1910 / INFO1103 / INFO1903"],
+	        requires: ["INFO1110 / INFO1910 / INFO1113 / DATA1002 / DATA1902 / ENGG1810"],
 	        assumed: ["MATH1064 或同等离散数学"],
 	        note: "箭头只表示官方 prerequisite；MATH1064 在该课中属于 assumed knowledge，不画成先修箭头。"
 	      },
@@ -9106,7 +9041,7 @@
 	      SCPU3001: {
 	        requires: ["96 credit points"],
 	        corequisite: ["3000-level interdisciplinary project unit，例如 COMP3888 / COMP3988"],
-	        note: "这是 DMA Major 的 interdisciplinary project 收尾课；需要接近毕业阶段再核对是否满足 project pairing。"
+	        note: "这是 CS Major 的有条件项目选项，不是 minor 必修；当前 major + minor 路径需先确认准入与 project pairing。"
 	      },
 	      MATH2022: {
 	        requires: ["MATH1061 / MATH1961 / MATH1971 / MATH1X02 / MATH1014 65+"],
@@ -9198,7 +9133,8 @@
 	      },
 	      SOFT2412: {
 	        requires: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"],
-	        note: "SOFT2412 训练团队软件开发流程，不是算法瓶颈，但能支持项目课准备。"
+            prohibitions: ["COMP9412"],
+	        note: "SD minor 的 2000-level 必修；训练团队开发流程，也为 CS 项目课做准备。"
 	      },
 	      PHIL3610: {
 	        requires: ["PHIL1012"],
@@ -9272,21 +9208,24 @@
     }
 
     const readingTargets = [
+      { codes: ["SOFT2201", "SOFT2412"], tab: "core", group: "SOFT2201 · SOFT2412 — 软件构建与团队开发" },
+      { codes: ["SOFT3202"], tab: "elective", group: "SOFT3202 — 高级软件设计与验证" },
+      { codes: ["INFO3315"], tab: "elective", group: "INFO3315 — 人机交互与用户研究" },
+      { codes: ["MATH3076"], tab: "elective", group: "MATH3076 — 数学计算与数值分析" },
       { codes: ["MATH2070"], tab: "elective", group: "MATH2070 — 优化与金融数学" },
       { codes: ["ECON1003"], tab: "elective", group: "ECON1003 — 经济数量方法" },
       { codes: ["JPNS1611"], tab: "elective", group: "JPNS1611 — 日语入门" },
       { codes: ["SCDL2991"], tab: "elective", group: "SCDL2991 — Dalyell 领导力" },
       { codes: ["INFO1110", "INFO1113"], tab: "core", group: "INFO1110 · INFO1113 — Python 与面向对象编程基础" },
-      { codes: ["MATH1064"], tab: "core", group: "MATH1064 — 离散数学" },
+      { codes: ["MATH1064"], tab: "elective", group: "MATH1064 — 离散数学" },
       { codes: ["COMP2123", "COMP3027"], tab: "core", group: "COMP2123 · COMP3027 — 数据结构与算法设计" },
       { codes: ["COMP2017"], tab: "core", group: "COMP2017 — 系统编程 / C" },
       { codes: ["COMP2022"], tab: "core", group: "COMP2022 — 计算理论与模型" },
-      { codes: ["DATA1002 / DATA1902", "DATA1002"], tab: "core", group: "DATA1002 — 数据科学基础" },
+      { codes: ["DATA1002 / DATA1902", "DATA1002"], tab: "elective", group: "DATA1002 — 数据科学基础" },
       { codes: ["COMP3888 / COMP3988", "COMP3888", "COMP3988"], tab: "core", group: "COMP3888 · COMP3988 — 项目课与软件工程" },
-      { codes: ["SCPU3001"], tab: "core", group: "SCPU3001 — 跨学科科学项目" },
+      { codes: ["SCPU3001"], tab: "elective", group: "SCPU3001 — 跨学科科学项目" },
       { codes: ["DATA2001", "DATA2002", "DATA3404", "ISYS2120"], tab: "elective", group: "DATA2001 · DATA2002 · DATA3404 · ISYS2120 — 数据与数据库系统" },
       { codes: ["STAT2011", "STAT3021", "STAT3022", "STAT3023"], tab: "elective", group: "STAT2011 · STAT3021 · STAT3022 · STAT3023 — 统计建模与推断" },
-      { codes: ["SOFT2412"], tab: "elective", group: "SOFT2412 — 敏捷软件开发实践" },
       { codes: ["COMP3221"], tab: "elective", group: "COMP3221 — 分布式系统" },
       { codes: ["COMP3520"], tab: "elective", group: "COMP3520 — 操作系统" },
       { codes: ["COMP3308"], tab: "elective", group: "COMP3308 — 人工智能 / 机器学习" },
@@ -9476,7 +9415,7 @@
                 ${st.wamBuffer  ? `<div><span class="k">是否适合做缓冲 / intensive</span>${st.wamBuffer}</div>` : ""}
                 ${st.career     ? `<div><span class="k">对项目 / 实习 / 作品集</span>${st.career}</div>` : ""}
                 ${st.major      ? `<div><span class="k">对计算机科学 Major</span>${st.major}</div>` : ""}
-                ${st.minor      ? `<div><span class="k">对 DMA Major</span>${st.minor}</div>` : ""}
+                ${st.minor      ? `<div><span class="k">对 SD Minor</span>${st.minor}</div>` : ""}
                 ${st.interest   ? `<div><span class="k">对兴趣路线</span>${st.interest}</div>` : ""}
               </div>
             </details>` : ""}
@@ -9710,7 +9649,8 @@
 
     applyAcceleratedRoutePressure();
 
-    const progressTargets = { total: 144, major: 48, minor: 48, ole: 6, elective: 42 };
+    // The two components share 18cp of core units; degree credits remain unique.
+    const progressTargets = { total: 144, major: 48, minor: 36, ole: 6, elective: 72 };
     const progressStorageKey = "usyd-degree-roadmap-completed-stages";
 
     function readCompletedStages() {
@@ -9779,26 +9719,11 @@
     function updateDegreeProgress() {
       const statuses = readCourseStatuses();
       const completedCourses = courses.filter(course => (statuses[course.code] || {}).status === "completed");
-      const lockedOrCandidateCount = Object.values(statuses).filter(entry => entry && (entry.status === "locked" || entry.status === "candidate")).length;
-      const totals = {
-        completed: { total: 0, major: 0, minor: 0, ole: 0, elective: 0 },
-        locked: { total: 0, major: 0, minor: 0, ole: 0, elective: 0 },
-        candidate: { total: 0, major: 0, minor: 0, ole: 0, elective: 0 }
-      };
+      const lockedOrCandidateCount = courses.filter(course => ["locked", "candidate"].includes(statuses[course.code]?.status)).length;
+      const { totals } = calculateDegreeCredits(statuses);
       let wamNumerator = 0;
       let wamDenominator = 0;
-
-      courses.forEach(course => {
-        const status = (statuses[course.code] || {}).status;
-        if (!["completed", "locked", "candidate"].includes(status)) return;
-        const bucket = totals[status];
-        const cp = creditPoints(course);
-        bucket.total += cp;
-        if (majorCreditCodes.has(course.code)) bucket.major += cp;
-        if (minorCreditCodes.has(course.code)) bucket.minor += cp;
-        if (course.category.includes("ole")) bucket.ole += cp;
-        if (!majorCreditCodes.has(course.code) && !minorCreditCodes.has(course.code) && !course.category.includes("ole")) bucket.elective += cp;
-      });
+      let wamCourseCount = 0;
 
       completedCourses.forEach(course => {
         const cp = creditPoints(course);
@@ -9808,6 +9733,7 @@
           const weight = cp * levelWeight(course);
           wamNumerator += mark * weight;
           wamDenominator += weight;
+          wamCourseCount += 1;
         }
       });
 
@@ -9825,7 +9751,7 @@
         completed: totals.completed.minor,
         locked: totals.locked.minor,
         candidate: totals.candidate.minor
-      }, progressTargets.minor, `${totals.completed.minor} / 48cp`, "未计入 DMA Major 学分");
+      }, progressTargets.minor, `${totals.completed.minor} / 36cp`, "未计入 Software Development minor 学分");
       setCreditProgressCard("ole", {
         completed: totals.completed.ole,
         locked: totals.locked.ole,
@@ -9841,7 +9767,7 @@
 
       if (wamDenominator > 0) {
         const wam = wamNumerator / wamDenominator;
-        setProgressCard("wam", wam, 100, wam.toFixed(2), `${completedCourses.filter(c => Number.isFinite(Number((statuses[c.code] || {}).mark)) && !c.category.includes("ole")).length} 门计入 WAM`, Math.min(100, Math.round(wam)));
+        setProgressCard("wam", wam, 100, wam.toFixed(2), `${wamCourseCount} 门计入 WAM`, Math.min(100, Math.round(wam)));
       } else {
         setProgressCard("wam", 0, 100, "暂无成绩", "完成课程并输入 0–100 成绩后自动计算", 0);
       }
@@ -9851,7 +9777,7 @@
         return (entry.status === "locked" || entry.status === "candidate") && workloadScore(course.workload) >= 3;
       }).length;
       const completedCodes = new Set(completedCourses.map(course => course.code));
-      const bottleneckOpen = ["INFO1113", "COMP2123", "COMP2017", "COMP3027"].filter(code => !completedCodes.has(code)).length;
+      const bottleneckOpen = ["INFO1113", "COMP2123", "COMP2017", "COMP3027", "SOFT2201"].filter(code => !completedCodes.has(code)).length;
       let pressurePoints = 0;
       if (totals.completed.total < 36 && lockedOrCandidateCount >= 6) pressurePoints += 1;
       if (lockedOrCandidateCount >= 10) pressurePoints += 2;
@@ -9925,8 +9851,6 @@
     const SEM_LABELS = { s1: "S1", july: "6-7月", winter: "6-7月", s2: "S2", summer: "12-2月" };
     const STATUS_EMOJI = { locked: "🔒", candidate: "⭐", completed: "✅", avoid: "❌" };
     const STATUS_LABEL = { locked: "锁定", candidate: "候选", completed: "已完成", avoid: "不选" };
-    const majorCreditCodes = new Set(["INFO1110", "INFO1113", "COMP2123", "COMP2017", "COMP2022", "COMP3027", "COMP3888 / COMP3988", "COMP3308", "COMP3109", "COMP3221", "COMP3419", "COMP3520", "COMP3530", "DATA3404"]);
-    const minorCreditCodes = new Set(["MATH1064", "DATA1002 / DATA1902", "INFO1110", "COMP2123", "MATH2022", "MATH2088", "MATH2080", "MATH3066", "MATH3061", "SCPU3001", "COMP3027", "COMP3308", "COMP3530", "DATA3404", "COMP3221", "COMP3520"]);
 
     function creditPoints(course) {
       const match = String(course.cp || "").match(/\d+(?:\.\d+)?/);
@@ -9939,35 +9863,6 @@
       return 1;
     }
 
-    const majorStructureRequirements = [
-      {
-        id: "cs",
-        title: "Major 1 · Computer Science",
-        target: 48,
-        slots: [
-          { label: "1000-level core", target: 12, codes: ["INFO1110", "INFO1113"] },
-          { label: "2000-level core", target: 18, codes: ["COMP2123", "COMP2017", "COMP2022"] },
-          { label: "3000-level core", target: 6, codes: ["COMP3027"] },
-          { label: "3000-level project", target: 6, codes: ["COMP3888 / COMP3988"] },
-          { label: "3000-level selective", target: 6, codes: ["COMP3308", "COMP3109", "COMP3221", "COMP3419", "COMP3520", "COMP3530", "DATA3404"] }
-        ]
-      },
-      {
-        id: "dma",
-        title: "Major 2 · Discrete Mathematics and Algorithms",
-        target: 48,
-        slots: [
-          { label: "1000-level MATH core", target: 6, codes: ["MATH1064"] },
-          { label: "1000-level COMP selective", target: 6, codes: ["INFO1110", "DATA1002 / DATA1902"] },
-          { label: "2000-level MATH selective", target: 12, codes: ["MATH2022", "MATH2088", "MATH2080"] },
-          { label: "2000-level COMP core", target: 6, codes: ["COMP2123"] },
-          { label: "3000-level MATH selective", target: 6, codes: ["MATH3066", "MATH3061"] },
-          { label: "3000-level COMP selective", target: 6, codes: ["COMP3308", "COMP3530", "COMP3027", "DATA3404", "COMP3221", "COMP3520"] },
-          { label: "3000-level interdisciplinary project", target: 6, codes: ["SCPU3001"] }
-        ]
-      }
-    ];
-
     function plannedCourseStatus(statuses, code) {
       const entry = statuses[code] || {};
       return ["completed", "locked", "candidate"].includes(entry.status) ? entry.status : "";
@@ -9978,32 +9873,75 @@
     }
 
     function evaluateStructureSlot(slot, statuses) {
+      const priority = { completed: 0, locked: 1, candidate: 2 };
       const coursesInSlot = slot.codes
         .map(code => courseByCode(code))
         .filter(Boolean)
-        .filter(course => plannedCourseStatus(statuses, course.code));
-      const cp = Math.min(slot.target, coursesInSlot.reduce((sum, course) => sum + creditPoints(course), 0));
+        .filter(course => plannedCourseStatus(statuses, course.code))
+        .sort((a, b) => priority[plannedCourseStatus(statuses, a.code)] - priority[plannedCourseStatus(statuses, b.code)]);
+      const credits = { completed: 0, locked: 0, candidate: 0 };
+      const allocation = {};
+      let remaining = slot.target;
+      coursesInSlot.forEach(course => {
+        const accepted = Math.min(remaining, creditPoints(course));
+        allocation[course.code] = accepted;
+        credits[plannedCourseStatus(statuses, course.code)] += accepted;
+        remaining -= accepted;
+      });
+      const cp = slot.target - remaining;
       return {
         ...slot,
-        courses: coursesInSlot,
+        courses: coursesInSlot.filter(course => allocation[course.code] > 0),
+        extras: coursesInSlot.filter(course => allocation[course.code] < creditPoints(course)),
+        allocation,
+        credits,
         cp,
         percent: Math.min(100, Math.round((cp / slot.target) * 100)),
         state: cp >= slot.target ? "complete" : cp > 0 ? "partial" : "empty"
       };
     }
 
+    function calculateDegreeCredits(statuses) {
+      const groups = majorStructureRequirements.map(group => {
+        const slots = group.slots.map(slot => evaluateStructureSlot(slot, statuses));
+        return { ...group, slots, allocation: Object.assign({}, ...slots.map(slot => slot.allocation)) };
+      });
+      const ole = evaluateStructureSlot({ target: progressTargets.ole, codes: courses.filter(course => course.category.includes("ole")).map(course => course.code) }, statuses);
+      const totals = Object.fromEntries(["completed", "locked", "candidate"].map(status => [status, { total: 0, major: 0, minor: 0, shared: 0, ole: 0, elective: 0 }]));
+      courses.forEach(course => {
+        const status = plannedCourseStatus(statuses, course.code);
+        if (!status) return;
+        const cp = creditPoints(course);
+        const major = groups[0].allocation[course.code] || 0;
+        const minor = groups[1].allocation[course.code] || 0;
+        const oleCp = ole.allocation[course.code] || 0;
+        const bucket = totals[status];
+        bucket.total += cp;
+        bucket.major += major;
+        bucket.minor += minor;
+        bucket.shared += Math.min(major, minor);
+        bucket.ole += oleCp;
+        // Shared cores satisfy both components but consume degree credits once.
+        bucket.elective += cp - Math.max(major, minor, oleCp);
+      });
+      return { groups, totals };
+    }
+
     function renderStructureSlot(slot, statuses) {
       const pills = slot.courses.length
         ? slot.courses.map(course => `<span class="structure-course-pill ${plannedCourseStatus(statuses, course.code)}">${formatUnitCode(course.code)}</span>`).join("")
         : `<span class="structure-course-empty">未安排</span>`;
+      const label = `已完成 ${slot.credits.completed}cp，锁定 ${slot.credits.locked}cp，候选 ${slot.credits.candidate}cp；要求 ${slot.target}cp`;
+      const extras = slot.extras.length ? `<p class="structure-slot-note">额外选课：${slot.extras.map(course => escapeHtml(course.code)).join("、")}，超出额度部分计入其他学分。</p>` : "";
       return `
         <div class="structure-slot" data-state="${slot.state}">
           <div class="structure-slot-top">
             <span class="structure-slot-name">${escapeHtml(slot.label)}</span>
             <span class="structure-slot-value">${slot.cp} / ${slot.target}cp</span>
           </div>
-          <div class="structure-slot-bar" style="--value:${slot.percent}%"><span></span></div>
+          <div class="structure-slot-bar" role="img" aria-label="${label}" title="${label}">${Object.entries(slot.credits).map(([status, cp]) => `<span class="${status}" style="--value:${cp / slot.target * 100}%"></span>`).join("")}</div>
           <div class="structure-slot-courses">${pills}</div>
+          ${slot.note ? `<p class="structure-slot-note">${escapeHtml(slot.note)}</p>` : ""}${extras}
         </div>`;
     }
 
@@ -10062,6 +10000,7 @@
         const done = slots.filter(slot => slot.state === "complete").length;
         document.querySelectorAll(`[data-structure-summary="${group.id}"], [data-structure-tab-summary="${group.id}"]`).forEach(summary => {
           summary.textContent = `${done} / ${slots.length}`;
+          summary.title = `已安排满足 ${done} 项结构要求，共 ${slots.length} 项；不代表已修完`;
         });
       });
       if (activeStructureGroup) renderStructureDrawer(statuses);
@@ -10110,7 +10049,6 @@
       updateDegreeProgress();
       updateTimelineFromCourseStatuses();
       updateBottleneckMap();
-      updateGraduationAudit();
       updatePersistentStatus();
     }
 
@@ -10226,7 +10164,6 @@
       updateDegreeProgress();
       updateTimelineFromCourseStatuses();
       updateBottleneckMap();
-      updateGraduationAudit();
       updatePersistentStatus();
     }
 
@@ -10291,55 +10228,6 @@
       }
     }
 
-    /* ==========================================================
-       Graduation audit extras — extra rows below progress grid.
-       ========================================================== */
-
-    function updateGraduationAudit() {
-      const statuses = readCourseStatuses();
-      const completedSet = new Set(Object.entries(statuses).filter(([,v]) => v && v.status === "completed").map(([k]) => k));
-      const lockedOrCompleted = new Set(Object.entries(statuses).filter(([,v]) => v && (v.status === "completed" || v.status === "locked")).map(([k]) => k));
-      const completedCp = courses.reduce((sum, course) => completedSet.has(course.code) ? sum + creditPoints(course) : sum, 0);
-      const majorCp = courses.reduce((sum, course) => completedSet.has(course.code) && majorCreditCodes.has(course.code) ? sum + creditPoints(course) : sum, 0);
-      const minorCp = courses.reduce((sum, course) => completedSet.has(course.code) && minorCreditCodes.has(course.code) ? sum + creditPoints(course) : sum, 0);
-
-      // Senior / 3000-level check
-      const senior3k = courses.filter(c => c.level === "3000" && lockedOrCompleted.has(c.code));
-      const projectCheck = ["COMP3888","COMP3988","COMP3888 / COMP3988"].some(c => lockedOrCompleted.has(c));
-      const oleCheck = courses.filter(c => c.category.includes("ole") && lockedOrCompleted.has(c.code));
-
-      const audit = document.querySelector("#auditExtra");
-      if (!audit) return;
-      const rows = [
-        { label: "144cp 总学分", state: completedCp >= 144 ? "ok" : "warn", text: `${completedCp} / 144cp` },
-        { label: "Major 1 · Computer Science 48cp", state: majorCp >= 48 ? "ok" : "warn", text: `${majorCp} / 48cp` },
-        { label: "Major 2 · DMA 48cp", state: minorCp >= 48 ? "ok" : "warn", text: `${minorCp} / 48cp` },
-        { label: "OLE 6cp", state: oleCheck.length ? "ok" : "warn", text: oleCheck.length ? `已计划 ${oleCheck.length} 门 OLE` : "需选 OLE" },
-        { label: "3000 级高阶课", state: senior3k.length >= 2 ? "ok" : senior3k.length ? "warn" : "risk", text: senior3k.length ? `已规划 ${senior3k.length} 门` : "尚未规划高阶课" },
-        { label: "毕业项目 / capstone", state: projectCheck ? "ok" : "warn", text: projectCheck ? "COMP3888 / COMP3988 已规划" : "尚未确定毕业项目" },
-        { label: "先修瓶颈检查", state: "warn", text: "见先修瓶颈面板" },
-        { label: "弹性 / 选修空间", state: "flex", text: "服务 WAM / 兴趣 / 实习" }
-      ];
-      audit.innerHTML = rows.map(r => `
-        <div class="audit-row">
-          <span class="audit-label">${r.label}</span>
-          <span class="audit-status ${r.state}">${r.text}</span>
-        </div>
-      `).join("");
-    }
-
-    // Inject audit-extra container into the requirements panel if not present
-    (function injectAuditExtra() {
-      const panel = document.querySelector('[data-roadmap-panel="requirements"]');
-      if (!panel || panel.querySelector("#auditExtra")) return;
-      const wrap = document.createElement("div");
-      wrap.innerHTML = `
-        <h4 style="margin: 22px 0 10px; font-size: 1rem; letter-spacing: -.005em;">规划级核对 · 不替代 Sydney Student / Handbook 审核</h4>
-        <div class="audit-extra" id="auditExtra"></div>
-        <p style="margin: 10px 0 0; color: var(--muted); font-size: .82rem;">⚠️ 这里只是规划级核对。最终毕业资格请以 Sydney Student / Handbook 为准。</p>
-      `;
-      panel.appendChild(wrap);
-    })();
 
     /* ==========================================================
        Workload budget per semester (read from data-* on cards)
@@ -10382,12 +10270,6 @@
           card.dataset.stageId = id;
           card.dataset.stageName = `${year} ${term.label}`;
           card.dataset.totalCp = "0";
-          card.dataset.majorCp = "0";
-          card.dataset.minorCp = "0";
-          card.dataset.oleCp = "0";
-          card.dataset.electiveCp = "0";
-          card.dataset.pressureComfortable = "Buffer";
-          card.dataset.pressureAccelerated = "Buffer";
           card.innerHTML = `<header><h3>${year} ${term.label}</h3><span class="cp-note">${term.note}</span></header><div class="mini-course placeholder"><strong>待安排</strong><small>从课程库中选择“锁定 / 候选 / 已完成”并指定学期后自动显示。</small></div>`;
           timeline.appendChild(card);
           existing.add(id);
@@ -10590,7 +10472,10 @@
         if (stageEntries.length) stage.querySelector(".placeholder")?.setAttribute("hidden", "");
 
 	        stage.querySelectorAll(".mini-course.is-recommended:not(.is-user-selected-static)").forEach(item => {
-	          item.classList.toggle("recommendation-hidden", covered);
+            const course = courseForTimelineCode(staticTimelineCode(item));
+            const entry = course ? statuses[course.code] : null;
+            const placedElsewhere = entry?.year && entry?.semester && stageIdFor(entry.year, entry.semester) !== stage.dataset.stageId;
+            item.classList.toggle("recommendation-hidden", covered || entry?.status === "avoid" || entry?.status === "completed" || Boolean(placedElsewhere));
 	        });
 	      });
 	      updateTimelineHeaders(statuses);
@@ -10604,7 +10489,7 @@
       // Tag each mini-course by its first chip's category
       timeline.querySelectorAll(".mini-course").forEach(mc => {
         const firstChip = mc.querySelector(".tiny-chip");
-        let cat = "science";
+        let cat = mc.dataset.cat || "science";
         if (firstChip) {
           if (firstChip.classList.contains("core")) cat = "core";
           else if (firstChip.classList.contains("math")) cat = "math";
@@ -10671,8 +10556,11 @@
        ========================================================== */
 
 		    const bottleneckChains = [
+          { title: "SOFT2201 软件构建入口", before: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"], target: "SOFT2201", note: "SD minor 核心课。任选一个官方 OOP 入口，2026 S2 开课。" },
+          { title: "SOFT3202 软件设计进阶", before: ["SOFT2201"], target: "SOFT3202", note: "SD minor 高阶选修之一。先完成 SOFT2201；2026 S1 开课。" },
+          { title: "INFO3315 人机交互入口", before: ["6cp INFO1110 / INFO1910 / INFO1113 / ENGG1810", "12cp 2000-level BAdvComp Table A"], joiner: "+", target: "INFO3315", note: "两组条件均须满足，第二组不是任意 12cp 二阶课。2026 S2 开课；与 SOFT3202 二选一满足 minor 6cp。" },
 		      { title: "INFO1113 官方多入口", before: ["INFO1110 / INFO1910 / ENGG1810"], target: "INFO1113", note: "INFO1110 是本规划入口之一；官方也可能接受 INFO1910 / ENGG1810 等等价入口。" },
-		      { title: "COMP2123 官方多入口", before: ["INFO1110 / 等价 1000-level programming"], target: "COMP2123", note: "本规划用 INFO1110 满足 1000-level programming 入口；MATH1064 是 assumed knowledge，不画箭头。" },
+		      { title: "COMP2123 官方多入口", before: ["INFO1110 / INFO1113 / DATA1002 / 等价入口"], target: "COMP2123", note: "官方也接受 INFO1910、DATA1902、ENGG1810。MATH1064 是 assumed knowledge，不是硬性先修。" },
 		      { title: "COMP3027 官方先修", before: ["COMP2123"], target: "COMP3027", note: "本规划走 COMP2123 → COMP3027；官方也接受 COMP2823。" },
 		      { title: "COMP2017 官方多入口", before: ["INFO1113 / INFO1105 / INFO1905 / INFO1103"], target: "COMP2017", note: "COMP2017 的 COMP2123 要求属于 corequisite 组合，可同学期满足；不在这里画成“先修完成”箭头。" },
 		      { title: "COMP2022 官方多入口", before: ["INFO1113 / INFO1110 / ENGG1810"], target: "COMP2022", note: "本规划用 INFO1113 作为最清晰入口之一；官方也可能接受 INFO1110 / INFO1910 / ENGG1810 等入口。COMP2123 是 corequisite，MATH1064 是 assumed knowledge。" },
@@ -10684,14 +10572,15 @@
 		      { title: "COMP3419 官方多入口", before: ["COMP2123 / INFO1105 / 等价入口"], target: "COMP3419", note: "Graphics and Multimedia 的 prerequisite 可由 COMP2123 / COMP2823 / INFO1105 / INFO1905 满足；programming skills 是 assumed knowledge。" },
 		      { title: "COMP3530 官方多入口", before: ["COMP2123 / COMP2007 / 等价入口"], target: "COMP3530", note: "Discrete Optimization 的官方入口包括 COMP2123 / COMP2823 / COMP2007 / COMP2907；但 unit page 显示该课当前不再开设。" },
 		      { title: "COMP3109 官方组合入口", before: ["COMP2017", "COMP2022"], joiner: "+", target: "COMP3109", note: "Programming Languages and Paradigms 需要 systems programming 与 models of computation 背景；unit page 显示该课当前不再开设。" },
-		      { title: "SOFT2412 官方多入口", before: ["INFO1113 / 等价 OOP 入口"], target: "SOFT2412", note: "SOFT2412 主要是软件流程与团队项目训练，不是算法或数学瓶颈。" },
+		      { title: "SOFT2412 敏捷开发入口", before: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"], target: "SOFT2412", note: "SD minor 的 2000-level 核心课，2026 S2 开课；与 SOFT2201 均须修读。" },
 		      { title: "MATH2022 官方多入口", before: ["MATH1061 / MATH1X02 / 等价一阶数学"], target: "MATH2022", note: "本规划用 MATH1061 作为一阶数学/线代入口；官方也可能接受其他 MATH1XXX 入口。" },
           { title: "MATH2070 官方先修组合", before: ["MATH1061 / 官方等价第一组", "MATH1062 / 官方等价第二组"], joiner: "+", target: "MATH2070", note: "两组都需满足。这里展示 MATH1061 + MATH1062 这一可用组合；完整等价入口见课程详情。MATH2970 为 prohibition。" },
+          { title: "MATH3076 官方先修组合", before: ["12cp MATH2XXX", "6cp MATH2XXX + (6cp STAT2XXX 或 DATA2X02)"], joiner: "或", target: "MATH3076", note: "两种组合任选其一；第二种仍须包含 6cp 2000-level 数学。MATH3976 / MATH4076 为 prohibition。" },
 		      { title: "MATH2088 官方多入口", before: ["MATH1064 / MATH1061 / 其他 1000-level MATH"], target: "MATH2088", note: "本规划用 MATH1064 作为离散数学入口之一；官方也接受 MATH1061、MATH1961、MATH1971、MATH1002、MATH1902、MATH1004、MATH1904、MATH1014 65+ 等入口。" },
 		      { title: "MATH2080 官方多入口", before: ["MATH1061 / MATH1064 / 等价一阶数学"], target: "MATH2080", note: "Abstract and Computational Algebra 可由 MATH1061 或 MATH1064 等入口进入；prohibition 为 MATH2980。" },
 		      { title: "MATH3066 官方先修类型", before: ["任意 6cp MATH2XXX"], target: "MATH3066", note: "MATH3066 官方要求 6cp 2000-level MATH；MATH2022 只是本规划里一条自然示例，不是唯一入口。" },
 		      { title: "MATH3061 官方先修类型", before: ["任意 12cp MATH2XXX"], target: "MATH3061", note: "MATH3061 官方要求 12cp 2000-level MATH；MATH2022 + MATH2088 只是本规划里一条可满足路径。" },
-		      { title: "SCPU3001 收尾项目入口", before: ["96cp + project corequisite"], target: "SCPU3001", note: "DMA Major 48cp 结构中的 interdisciplinary project 收尾项；通常到毕业阶段再核对。" },
+		      { title: "SCPU3001 收尾项目入口", before: ["96cp + project corequisite"], target: "SCPU3001", note: "CS Major 的有条件项目选项；minor 无项目要求，需先确认双 major 准入限制及 project pairing。" },
 		      { title: "PHIL3610 官方先修", before: ["PHIL1012"], target: "PHIL3610", note: "OLET2148 不是 PHIL3610 的先修，只能作为批判性思维训练。" },
 		      { title: "MUSC3603 官方先修", before: ["MUSC2653"], target: "MUSC3603", note: "本规划用 MUSC2653 作为音乐技术进阶入口；OLET1801 / OLET1803 不作为硬性先修。" },
 		      { title: "CMPN2632 官方先修", before: ["MUSC2653"], target: "CMPN2632", note: "MUSC2653 是 Computer Music Fundamentals 的官方入口之一。" },
@@ -10730,7 +10619,7 @@
 		      root.innerHTML = bottleneckChains.map(b => {
 	        const type = b.joiner === "+" ? "组合入口" : b.before?.some(item => item.includes("/")) ? "多入口" : "硬性先修";
 	        return `
-		        <div class="bottleneck-card" data-chain-codes="${chainCodes(b).map(encodeURIComponent).join("|")}">
+		        <div class="bottleneck-card" data-target-code="${escapeHtml(b.target)}" data-chain-codes="${chainCodes(b).map(encodeURIComponent).join("|")}">
 		          <div class="bottleneck-head">
 		            <span class="bn-type">${type}</span>
 		            <h4>${b.title}</h4>
@@ -10749,7 +10638,8 @@
       const section = document.querySelector("#bottleneck");
       if (!section) return;
       document.querySelectorAll(".bottleneck-card.chain-highlight").forEach(card => card.classList.remove("chain-highlight"));
-      const target = Array.from(document.querySelectorAll(".bottleneck-card")).find(card => {
+      const cards = Array.from(document.querySelectorAll(".bottleneck-card"));
+      const target = cards.find(card => card.dataset.targetCode === code) || cards.find(card => {
         const chain = (card.dataset.chainCodes || "").split("|").map(item => {
           try { return decodeURIComponent(item); } catch { return item; }
         });
@@ -10759,7 +10649,7 @@
 	          return related.some(item => n.includes(item) || item.includes(n));
 	        });
 	      });
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      (target || section).scrollIntoView({ behavior: "smooth", block: "start" });
       if (target) {
         target.classList.add("chain-highlight");
         setTimeout(() => target.classList.remove("chain-highlight"), 2600);
@@ -10771,12 +10661,12 @@
        ========================================================== */
 
     const riskBad = [
-      { t: "COMP2017 + COMP2123 + MATH2022 + 一门重选修", d: "三门高强度课程并行，作业互相挤兑，WAM 风险极高。" },
-      { t: "COMP3027 + MATH3066 + COMP3888 / COMP3988", d: "同学期硬核理论 + 项目课，几乎不可能保住 WAM。" },
-      { t: "COMP2022 + MATH2088 + COMP3308 + 两门选修", d: "30cp 重 CS / 数学学期，超出可持续负荷。" },
+      { t: "COMP2017 + COMP2123 + 高负担选修", d: "系统编程与算法作业可能集中，需预留调试和证明练习时间。" },
+      { t: "COMP3027 + SOFT3202 + 高负担选修", d: "算法证明与软件设计作业并行，先核对截止日期与可投入时间。" },
+      { t: "SOFT2201 + SOFT2412 + INFO3315", d: "三门都有设计或协作任务；即使学分不高，也要检查团队项目高峰是否重叠。" },
       { t: "30cp 学期含两门以上 CS / 数学重课", d: "24cp 不一定安全，关键是课业压力的组合。" },
       { t: "intensive 紧贴重负担学期", d: "intensive 燃尽 + 下学期立刻高压 = WAM 双重打击。" },
-      { t: "COMP2017 + COMP3027 同学期", d: "系统 + 算法两大重课同时进行，几乎没人能稳住。" },
+      { t: "COMP2017 + COMP3027 同学期", d: "系统与算法两门高负担课并行，需预留额外练习时间。" },
       { t: "COMP3027 + 项目课 + 高压数学", d: "项目课评分主观 + 算法严苛 + 数学死磕，组合难度极高。" }
     ];
     const riskSafe = [
@@ -10799,6 +10689,11 @@
 
     const readingQueue = {
       core: [
+        { group: "SOFT2201 · SOFT2412 — 软件构建与团队开发", books: [
+          { zh: "《程序员修炼之道：从小工到专家》", en: "The Pragmatic Programmer — Andrew Hunt, David Thomas", why: "从个人代码习惯到团队工程判断，适合作为软件项目课前的工程素养底座。" },
+          { zh: "《代码整洁之道》", en: "Clean Code — Robert C. Martin", why: "帮助把小作业式代码升级成可读、可维护、可协作的项目代码。" },
+          { zh: "Google Engineering Practices（暂无通行中文译名）", en: "Google Engineering Practices Documentation", why: "代码评审、测试和工程流程的轻量参考，适合团队项目直接套用。" }
+        ]},
         { group: "INFO1110 · INFO1113 — Python 与面向对象编程基础", books: [
           { zh: "《像计算机科学家一样思考 Python》", en: "Think Python — Allen B. Downey", why: "INFO1110 入门最友好的免费教材，强调过程式思维与 debug 习惯。" },
           { zh: "《Python 编程：从入门到实践》", en: "Python Crash Course — Eric Matthes", why: "练习项目密度高，适合配合 INFO1110 周作业反复巩固语法直觉。" },
@@ -10807,12 +10702,6 @@
           { zh: "《Head First 设计模式》", en: "Head First Design Patterns — Eric Freeman, Elisabeth Robson", why: "用图示和案例讲清楚 23 个 GoF 模式，OOP 思维转向的理想入门。" },
           { zh: "《代码整洁之道》", en: "Clean Code — Robert C. Martin", why: "INFO1113 的项目作业里直接用得上：命名、函数、类、注释的工程级标准。" },
           { zh: "《重构：改善既有代码的设计》", en: "Refactoring — Martin Fowler", why: "学完 OOP 后理解为什么要重构、何时重构、怎么安全重构。" }
-        ]},
-        { group: "MATH1064 — 离散数学", books: [
-          { zh: "《离散数学及其应用》", en: "Discrete Mathematics and Its Applications — Kenneth H. Rosen", why: "MATH1064 教材级标准参考，覆盖逻辑、集合、归纳、关系、图论等全部主题。" },
-          { zh: "《如何证明：一种结构化方法》", en: "How to Prove It: A Structured Approach — Daniel J. Velleman", why: "把“证明”拆成可练习的几何动作，是证明能力补强的首选。" },
-          { zh: "《具体数学：计算机科学基础》", en: "Concrete Mathematics — Ronald Graham, Donald Knuth, Oren Patashnik", why: "Knuth 写的“算法分析数学预备书”，求和、递推、生成函数都讲透。" },
-          { zh: "《怎样解题》", en: "How to Solve It — George Pólya", why: "薄薄一本，但把数学解题思维方式说得最清楚的经典。" }
         ]},
         { group: "COMP2123 · COMP3027 — 数据结构与算法设计", books: [
           { zh: "《算法导论》", en: "Introduction to Algorithms — Cormen, Leiserson, Rivest, Stein (CLRS)", why: "全球通用算法权威教材，从基础到高级，整本书可以读三年。" },
@@ -10831,23 +10720,29 @@
           { zh: "《计算理论导引》", en: "Introduction to the Theory of Computation — Michael Sipser", why: "COMP2022 标准教材风格，自动机、可计算性、复杂度三段最清晰的讲法。" },
           { zh: "《自动机理论、语言和计算导论》", en: "Introduction to Automata Theory, Languages, and Computation — John E. Hopcroft, Rajeev Motwani, Jeffrey D. Ullman", why: "更厚更全的经典，作为 Sipser 的补充与查询参考。" }
         ]},
-        { group: "DATA1002 — 数据科学基础", books: [
-          { zh: "《利用 Python 进行数据分析》", en: "Python for Data Analysis — Wes McKinney", why: "Pandas 作者亲自写的指南，DATA1002 / DATA2001 的实战手册。" },
-          { zh: "《SQL 必知必会》", en: "Sams Teach Yourself SQL in 10 Minutes — Ben Forta", why: "薄一本但能让你 5 天写出能用的 SQL，DATA2001 之前先读。" }
-        ]},
         { group: "COMP3888 · COMP3988 — 项目课与软件工程", books: [
           { zh: "《人月神话》", en: "The Mythical Man-Month — Frederick P. Brooks Jr.", why: "软件工程历史上最著名的小书，团队项目前必读。" },
           { zh: "《程序员修炼之道：从小工到专家》", en: "The Pragmatic Programmer — Andrew Hunt, David Thomas", why: "工程素养训练，毕业项目阶段读最有共鸣。" },
           { zh: "《代码大全》", en: "Code Complete — Steve McConnell", why: "项目代码量上来后回头读，会发现自己写过的所有错都被它点名。" }
         ]},
+      ],
+
+      elective: [
+        { group: "MATH1064 — 离散数学", books: [
+          { zh: "《离散数学及其应用》", en: "Discrete Mathematics and Its Applications — Kenneth H. Rosen", why: "MATH1064 教材级标准参考，覆盖逻辑、集合、归纳、关系、图论等全部主题。" },
+          { zh: "《如何证明：一种结构化方法》", en: "How to Prove It: A Structured Approach — Daniel J. Velleman", why: "把“证明”拆成可练习的几何动作，是证明能力补强的首选。" },
+          { zh: "《具体数学：计算机科学基础》", en: "Concrete Mathematics — Ronald Graham, Donald Knuth, Oren Patashnik", why: "Knuth 写的“算法分析数学预备书”，求和、递推、生成函数都讲透。" },
+          { zh: "《怎样解题》", en: "How to Solve It — George Pólya", why: "薄薄一本，但把数学解题思维方式说得最清楚的经典。" }
+        ]},
+        { group: "DATA1002 — 数据科学基础", books: [
+          { zh: "《利用 Python 进行数据分析》", en: "Python for Data Analysis — Wes McKinney", why: "Pandas 作者亲自写的指南，DATA1002 / DATA2001 的实战手册。" },
+          { zh: "《SQL 必知必会》", en: "Sams Teach Yourself SQL in 10 Minutes — Ben Forta", why: "薄一本但能让你 5 天写出能用的 SQL，DATA2001 之前先读。" }
+        ]},
         { group: "SCPU3001 — 跨学科科学项目", books: [
           { zh: "The Craft of Research（暂无通行中文译名）", en: "The Craft of Research — Wayne C. Booth, Gregory G. Colomb, Joseph M. Williams", why: "把项目问题、证据、论证和报告结构串起来，适合跨学科项目写作。" },
           { zh: "Team Geek（暂无通行中文译名）", en: "Team Geek — Brian W. Fitzpatrick, Ben Collins-Sussman", why: "团队项目中的沟通、协作和责任边界很实用。" },
           { zh: "Google Technical Writing（暂无通行中文译名）", en: "Google Technical Writing Courses", why: "面向非单一技术受众解释方法和结果，适合 SCPU3001 presentation / report。" }
-        ]}
-      ],
-
-      elective: [
+        ]},
         { group: "DATA2001 · DATA3404 · ISYS2120 — 数据库与数据系统", books: [
           { zh: "《数据库系统概念》", en: "Database System Concepts — Abraham Silberschatz, Henry F. Korth, S. Sudarshan", why: "数据库领域最被广泛使用的教材，关系模型、SQL、事务、索引都有。" },
           { zh: "《数据密集型应用系统设计》", en: "Designing Data-Intensive Applications — Martin Kleppmann", why: "工业级数据系统视角：复制、分区、一致性、流处理。DATA3404 与实习的桥梁。" },
@@ -10858,11 +10753,6 @@
           { zh: "Statistical Inference（暂无通行中文译名）", en: "Statistical Inference — George Casella, Roger L. Berger", why: "数学统计推断经典，适合 STAT3023 的分布理论、MLE、testing 和 optimality。" },
           { zh: "Introduction to Probability Models（暂无通行中文译名）", en: "Introduction to Probability Models — Sheldon Ross", why: "随机过程应用视角清晰，适合 STAT3021 的 Markov chain、Poisson process 和 queueing。" },
           { zh: "Linear Models with R（暂无通行中文译名）", en: "Linear Models with R — Julian J. Faraway", why: "应用线性模型和 R 实作结合，适合 STAT3022 的 regression、diagnostics、ANOVA。" }
-        ]},
-        { group: "SOFT2412 — 敏捷软件开发实践", books: [
-          { zh: "《程序员修炼之道：从小工到专家》", en: "The Pragmatic Programmer — Andrew Hunt, David Thomas", why: "从个人代码习惯到团队工程判断，适合作为软件项目课前的工程素养底座。" },
-          { zh: "《代码整洁之道》", en: "Clean Code — Robert C. Martin", why: "帮助把小作业式代码升级成可读、可维护、可协作的项目代码。" },
-          { zh: "Google Engineering Practices（暂无通行中文译名）", en: "Google Engineering Practices Documentation", why: "代码评审、测试和工程流程的轻量参考，适合团队项目直接套用。" }
         ]},
         { group: "COMP3221 — 分布式系统", books: [
           { zh: "《分布式系统：原理与范型》", en: "Distributed Systems: Principles and Paradigms — Andrew S. Tanenbaum, Maarten Van Steen", why: "分布式系统教材标杆：通信、命名、同步、一致性、容错全覆盖。" }
@@ -11172,7 +11062,6 @@
     document.querySelectorAll("[data-complete-stage]").forEach(checkbox => {
       checkbox.addEventListener("change", () => {
         updatePersistentStatus();
-        updateGraduationAudit();
       });
     });
 
@@ -11185,7 +11074,6 @@
     updateDegreeProgress();
     updateTimelineFromCourseStatuses();
     updateBottleneckMap();
-    updateGraduationAudit();
     updatePersistentStatus();
   </script>
 </body>
