@@ -8433,7 +8433,98 @@
       }
     );
 
+    courses.push(
+      {
+        code: "MATH2070",
+        name: "Optimisation and Financial Mathematics",
+        cp: "6cp",
+        category: ["math", "elective"],
+        level: "2000",
+        workload: "Medium-High",
+        skills: ["math", "finance", "coding"],
+        functionTags: ["direction exploration"],
+        best: "S2；完成 MATH1061 + MATH1062 或官方等价组合后",
+        later: "优化建模、投资组合分析与金融数学方向",
+        summary: "将约束优化与金融模型连接起来，使用数学推导和 Python 分析资源配置与风险收益。",
+        teaches: ["线性规划与 simplex algorithm", "非线性优化、Hessian、Lagrange multipliers 与 KKT", "expected utility 与风险偏好", "Markowitz portfolio theory 与 CAPM"],
+        matters: "数学方向自由选修，可补强优化与金融建模能力。2026 DMA Major 表未列入 MATH2070，不能用它替代该 Major 的 12cp 2000-level 数学选修要求。压力等级是本规划的估计，不是官方评级。",
+        before: ["需满足一阶数学两组先修；MATH1061 + MATH1062 是可用组合之一", "建议熟悉多元微积分、概率分布与期望", "禁止与 MATH2970 重复修读；电脑实验使用 Python"],
+        mastery: ["能把实际约束转成线性规划并求解", "能选择合适的最优性条件并解释解", "能区分期望收益与期望效用决策", "能解释组合风险、收益与资产定价模型"],
+        how: ["先写目标函数、变量和约束，再选择算法", "手算小例题后用 Python 检验数值结果", "每个金融模型同时记录假设与适用边界"],
+        terms: ["linear programming — 线性规划", "simplex algorithm — 单纯形算法", "KKT conditions — KKT 条件", "expected utility — 期望效用", "portfolio — 投资组合", "CAPM — 资本资产定价模型"],
+        readings: ["MATH2070 unit outline — 2026 S2：按官方周计划准备优化与金融数学主题。", "MATH2070 Canvas learning resources — 课程材料：优先使用当期讲义、习题与 Python 实验；教材以课程通知为准。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH2070"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/MATH2070/2026-S2C-ND-CC"]]
+      },
+      {
+        code: "ECON1003",
+        name: "Quantitative Methods in Economics",
+        cp: "6cp",
+        category: ["business", "elective"],
+        level: "1000",
+        workload: "Medium",
+        skills: ["math", "finance"],
+        functionTags: ["direction exploration"],
+        best: "S1 / S2；想建立经济模型与数量分析基础时",
+        later: "经济学建模、商科数量分析与优化应用",
+        summary: "以经济和商业问题为背景学习数量方法，重点是建立模型、求解并解释经济含义。",
+        teaches: ["函数、图像与经济模型", "微分、积分及单变量优化", "金融数学与多变量函数", "有约束及无约束优化"],
+        matters: "适合作为经济学方向入门选修。官方明确说明它不能替代数学系课程，因此不计入本规划的 CS / DMA Major 结构。压力等级是规划估计，不能理解为保证高分。",
+        before: ["官方无 prerequisite、corequisite 或 prohibition", "Assumed knowledge：代数运算与数据的图形表达", "2026 S2 包含期中测试与期末考试，不能只依赖线上测验"],
+        mastery: ["能将经济问题写成函数与模型", "能用微积分分析变化及最优值", "能解释数量结果对应的经济含义", "能检查约束、假设与解的合理性"],
+        how: ["每道题按经济问题、数学模型、计算、解释四步整理", "复习时把函数图像与代数式对照", "定期练习限时手算并记录符号错误"],
+        terms: ["quantitative methods — 数量方法", "economic model — 经济模型", "marginal analysis — 边际分析", "partial derivative — 偏导数", "constrained optimisation — 约束优化"],
+        readings: ["ECON1003 unit outline — 2026 S2：按函数、微积分、金融数学与优化顺序预习。", "ECON1003 Canvas learning resources — 课程材料：使用当期 tutorial 习题与讲义，教材以课程通知为准。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/ECON1003"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/ECON1003/2026-S2C-ND-CC"]]
+      },
+      {
+        code: "JPNS1611",
+        name: "Japanese 1",
+        cp: "6cp",
+        category: ["elective"],
+        level: "1000",
+        workload: "Medium",
+        skills: ["language", "communication"],
+        functionTags: ["direction exploration"],
+        best: "S1 / S2；也可核对 6-7月、11-12月 intensive",
+        later: "后续日语学习、跨文化沟通与交流准备",
+        summary: "零基础日语入门，结合听说读写训练、假名与基础汉字学习，以及日本社会文化背景。",
+        teaches: ["日常情境的基础听说交流", "平假名、片假名及基础汉字", "简单书面表达", "日本文化与跨文化交流"],
+        matters: "语言方向自由选修，不推进 CS / DMA Major。需要持续练习，intensive 只是集中授课，并不代表学习量更少。压力等级为本规划估计。",
+        before: ["官方无 prerequisite、corequisite 或 assumed knowledge，但有既往日语学习的 prohibition", "有 HSC 日语或已修相关日语课者需先核对资格；其他日语背景建议咨询系里", "2026 年末 intensive 是 11-12月，不等于时间轴的 12-2月；排课前核对实际日期"],
+        mastery: ["能完成熟悉场景中的简单信息交换", "能书写两套假名及约 60 个汉字，并在语境中认读至少 100 个汉字", "能表达基础的个人与日常信息", "能结合文化语境理解表达差异"],
+        how: ["每天分开安排听说与读写练习", "使用短句和音频主动回忆，不只背词表", "为 intensive 预留连续练习时间，避免与重课截止日期冲突"],
+        terms: ["hiragana — 平假名", "katakana — 片假名", "kanji — 汉字", "listening comprehension — 听力理解", "intercultural communication — 跨文化交流"],
+        readings: ["JPNS1611 unit outline — 2026 S2：核对语言练习与文化主题的周计划。", "JPNS1611 Canvas learning resources — 课程材料：使用当期指定教材、音频和读写练习；先确认版本再购书。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/JPNS1611"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/JPNS1611/2026-S2C-ND-CC"]]
+      },
+      {
+        code: "SCDL2991",
+        name: "Leadership in STEMM",
+        cp: "6cp",
+        category: ["science", "elective"],
+        level: "2000",
+        workload: "Medium",
+        skills: ["leadership", "teamwork", "communication", "writing"],
+        functionTags: ["direction exploration"],
+        best: "S1 / S2（Online）；先确认已进入 Dalyell stream / Dalyell Scholars program",
+        later: "STEMM 团队协作、实践领导与职业发展",
+        summary: "仅向 Dalyell stream 学生开放，结合领导理论、行业交流、实践与反思，培养 STEMM 领域的领导能力。",
+        teaches: ["领导价值观、伦理与理论", "STEMM 领域的领导实践", "团队沟通与人际策略", "实际领导经历与反思"],
+        matters: "选课前必须已进入 Dalyell stream。课程页的先修栏虽然写 None，正文仍明确限定 Dalyell 学生；不能仅凭高成绩或普通奖学金认定具备资格。本规划将其列为额外选修，不自动抵扣 CS / DMA Major 或 OLE。",
+        before: ["需已正式注册 Dalyell stream / Dalyell Scholars program；资格以 Sydney Student 为准", "没有指定先修课程，但需要参与实际领导活动", "2026 S2 为线上授课，仍要求参与 seminar、讨论、实践和反思；压力为规划估计"],
+        mastery: ["能解释领导决策中的价值观与伦理", "能将领导理论用于 STEMM 案例", "能根据团队情境调整沟通策略", "能用具体证据反思实际领导经验"],
+        how: ["尽早确定可参与的团队或组织及实践任务", "持续记录行动、反馈和改进，避免期末补写反思", "把理论与实际案例对照，解释选择而不是只描述经历"],
+        terms: ["Dalyell stream — Dalyell 学术培养项目", "leadership — 领导力", "STEMM — 科学、技术、工程、数学与医学", "reflective practice — 反思实践", "leadership ethics — 领导伦理"],
+        readings: ["SCDL2991 unit outline — 2026 S2：先核对实践、案例与反思任务。", "SCDL2991 Canvas learning resources — 课程材料：围绕 seminar、领导理论及案例模块准备阅读。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/SCDL2991"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/SCDL2991/2026-S2C-OL-CC"]]
+      }
+    );
+
     const courseAvailability = {
+      MATH2070: "2026 S2",
+      ECON1003: "2026 S1 / S2",
+      JPNS1611: "2026 S1 / S2；6-7月、11-12月 intensive",
+      SCDL2991: "2026 S1 / S2（Online）",
       INFO1110: "2026 S1",
       INFO1113: "2026 S2",
       "DATA1002 / DATA1902": "S1 / S2 需按当年 Handbook 核对",
@@ -8547,6 +8638,11 @@
       wamNote: "WAM is modelled as credit-point weighted marks. OLE units are excluded from the planning WAM calculator."
     });
 
+    const unitSourceAccessDates = {
+      MATH2070: "2026-08-28", ECON1003: "2026-08-28",
+      JPNS1611: "2026-08-28", SCDL2991: "2026-08-28"
+    };
+
     const SOURCE_TYPE_LABELS = {
       degree: "学位结构",
       unit: "课程官方页",
@@ -8572,9 +8668,10 @@
       {
         type: "degree",
         title: "Discrete Mathematics and Algorithms major",
+        accessDate: "2026-08-28",
         citation: "University of Sydney. (2026). Discrete Mathematics and Algorithms major. Science Handbook.",
         use: "用于核对 Discrete Mathematics and Algorithms major 48cp 结构、数学与计算机选课层级和 interdisciplinary project 要求。",
-        url: "https://www.sydney.edu.au/handbooks/science/subject-areas/subject-areas-ae/discrete-mathematics-algorithms/unit-of-study-table.html"
+        url: "https://www.sydney.edu.au/handbooks/science/table-a/subject-areas/discrete-mathematics-algorithms/unit-of-study-table.html"
       },
       {
         type: "degree",
@@ -8710,6 +8807,7 @@
         return {
           type: "unit",
           title: `${unitCode}: ${course.name}`,
+          accessDate: unitSourceAccessDates[unitCode] || PLANNER_CONFIG.accessDate,
           citation: `University of Sydney. (${PLANNER_CONFIG.sourceYear}). ${unitCode}: ${course.name}. Unit of study.`,
           use: `用于核对 ${unitCode} 的 unit information、credit points、enrolment rules、availability、outline 与 learning outcomes。`,
           url: key
@@ -8747,7 +8845,7 @@
 	              ${items.map(source => `
 	                <article class="source-card" data-source-type="${escapeHtml(source.type)}">
 	                  <div class="source-entry">
-	                    <p class="source-citation">${escapeHtml(source.citation)} Available at: <a class="source-link" href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(source.url)}</a> (Accessed: ${escapeHtml(PLANNER_CONFIG.accessDate)}).</p>
+	                    <p class="source-citation">${escapeHtml(source.citation)} Available at: <a class="source-link" href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(source.url)}</a> (Accessed: ${escapeHtml(source.accessDate || PLANNER_CONFIG.accessDate)}).</p>
 	                    <div class="source-meta">
 	                      <span class="source-type">${escapeHtml(SOURCE_TYPE_LABELS[source.type])}</span>
 	                      <span>${escapeHtml(source.use)}</span>
@@ -8822,6 +8920,9 @@
       health: "健康",
       nutrition: "营养",
       career: "职业规划",
+      language: "语言",
+      communication: "沟通",
+      leadership: "领导力",
       prototyping: "原型设计",
       prerequisite: "先修节点",
       "degree core": "Degree core",
@@ -8952,6 +9053,30 @@
     }
 
 	    const prerequisiteNotes = {
+          MATH2070: {
+            requires: ["{(MATH1X61 or MATH1971) or [(MATH1X21 or MATH1011 or MATH1931 or MATH1X01 or MATH1906) and (MATH1014 or MATH1X02)]} and (MATH1X62 or MATH1972 or MATH1X23 or MATH1933)"],
+            assumed: ["多元微积分，例如 MATH1X23 / MATH1X62"],
+            prohibitions: ["MATH2970"],
+            note: "两组条件都需要满足；MATH1061 + MATH1062 是本课程库中一组可用入口，不是唯一入口。"
+          },
+          ECON1003: {
+            requires: ["无指定先修课程"],
+            assumed: ["代数运算与数据图形表达"],
+            note: "Corequisite / prohibition 均为 None；不替代数学系课程。",
+            graph: false
+          },
+          JPNS1611: {
+            requires: ["无指定先修课程"],
+            prohibitions: ["HSC Japanese Continuers / Beginners / Background Speakers / Extension", "JPNS1113 / JPNS1114 / JPNS1111"],
+            note: "这是初学者课程；没有先修要求不代表已有日语背景者都可修读。",
+            graph: false
+          },
+          SCDL2991: {
+            requires: ["无指定先修课程"],
+            eligibility: "仅限 Dalyell stream",
+            note: "必须已正式进入 Dalyell stream（Dalyell Scholar 身份）。课程页正文明确这一准入条件，不能仅依据 prerequisites 栏的 None 判断为向所有学生开放。",
+            graph: false
+          },
 	      INFO1113: {
 	        requires: ["INFO1110 / INFO1910 / ENGG1810"],
 	        note: "官方硬性 prerequisite 为 INFO1110 或同等 1000-level programming unit。"
@@ -9107,15 +9232,17 @@
 	      const note = prerequisiteNotes[course.code];
 	      if (!note) return "";
 	      const lines = [
+	        note.eligibility ? `<p><strong>准入资格：</strong>${escapeHtml(note.eligibility)}。</p>` : "",
 	        `<p><strong>官方先修：</strong>${note.requires.join("；")}。${note.note}</p>`,
 	        note.corequisite ? `<p><strong>Corequisite（可同学期）：</strong>${note.corequisite.join("；")}。</p>` : "",
+	        note.prohibitions ? `<p><strong>Prohibition（禁止组合）：</strong>${note.prohibitions.join("；")}。</p>` : "",
 	        note.assumed ? `<p><strong>Assumed knowledge（不等于硬性先修）：</strong>${note.assumed.join("；")}。</p>` : ""
 	      ].filter(Boolean).join("");
 	      return `
 	        <div class="prereq-note">
 	          <strong>先修规则备注</strong>
 	          ${lines}
-	          <button type="button" class="prereq-jump" data-prereq-course="${course.code}">查看硬性先修图</button>
+	          ${note.graph === false ? "" : `<button type="button" class="prereq-jump" data-prereq-course="${course.code}">查看硬性先修图</button>`}
 	        </div>
 	      `;
 	    }
@@ -9145,6 +9272,10 @@
     }
 
     const readingTargets = [
+      { codes: ["MATH2070"], tab: "elective", group: "MATH2070 — 优化与金融数学" },
+      { codes: ["ECON1003"], tab: "elective", group: "ECON1003 — 经济数量方法" },
+      { codes: ["JPNS1611"], tab: "elective", group: "JPNS1611 — 日语入门" },
+      { codes: ["SCDL2991"], tab: "elective", group: "SCDL2991 — Dalyell 领导力" },
       { codes: ["INFO1110", "INFO1113"], tab: "core", group: "INFO1110 · INFO1113 — Python 与面向对象编程基础" },
       { codes: ["MATH1064"], tab: "core", group: "MATH1064 — 离散数学" },
       { codes: ["COMP2123", "COMP3027"], tab: "core", group: "COMP2123 · COMP3027 — 数据结构与算法设计" },
@@ -9287,6 +9418,7 @@
               <p class="one-line">${course.summary}</p>
               <div class="tag-row">
                 <span class="tag">${course.cp}</span>
+                ${prerequisiteNotes[course.code]?.eligibility ? `<span class="tag">${escapeHtml(prerequisiteNotes[course.code].eligibility)}</span>` : ""}
                 <span class="tag availability">开课 ${escapeHtml(course.availability || "需核对")}</span>
                 ${summaryTagsFor(course).map(tag => `<span class="tag ${tag.className}">${tag.label}</span>`).join("")}
                 <span class="workload-score ${workloadScoreClass(score)}" title="课业压力：${workloadLabelFor(course.workload)}，分值 ${score}">压力 ${workloadLabelFor(course.workload)} · ${score}</span>
@@ -10554,6 +10686,7 @@
 		      { title: "COMP3109 官方组合入口", before: ["COMP2017", "COMP2022"], joiner: "+", target: "COMP3109", note: "Programming Languages and Paradigms 需要 systems programming 与 models of computation 背景；unit page 显示该课当前不再开设。" },
 		      { title: "SOFT2412 官方多入口", before: ["INFO1113 / 等价 OOP 入口"], target: "SOFT2412", note: "SOFT2412 主要是软件流程与团队项目训练，不是算法或数学瓶颈。" },
 		      { title: "MATH2022 官方多入口", before: ["MATH1061 / MATH1X02 / 等价一阶数学"], target: "MATH2022", note: "本规划用 MATH1061 作为一阶数学/线代入口；官方也可能接受其他 MATH1XXX 入口。" },
+          { title: "MATH2070 官方先修组合", before: ["MATH1061 / 官方等价第一组", "MATH1062 / 官方等价第二组"], joiner: "+", target: "MATH2070", note: "两组都需满足。这里展示 MATH1061 + MATH1062 这一可用组合；完整等价入口见课程详情。MATH2970 为 prohibition。" },
 		      { title: "MATH2088 官方多入口", before: ["MATH1064 / MATH1061 / 其他 1000-level MATH"], target: "MATH2088", note: "本规划用 MATH1064 作为离散数学入口之一；官方也接受 MATH1061、MATH1961、MATH1971、MATH1002、MATH1902、MATH1004、MATH1904、MATH1014 65+ 等入口。" },
 		      { title: "MATH2080 官方多入口", before: ["MATH1061 / MATH1064 / 等价一阶数学"], target: "MATH2080", note: "Abstract and Computational Algebra 可由 MATH1061 或 MATH1064 等入口进入；prohibition 为 MATH2980。" },
 		      { title: "MATH3066 官方先修类型", before: ["任意 6cp MATH2XXX"], target: "MATH3066", note: "MATH3066 官方要求 6cp 2000-level MATH；MATH2022 只是本规划里一条自然示例，不是唯一入口。" },
@@ -11009,7 +11142,9 @@
       renderReadingQueue(targetTab);
       const section = document.querySelector("#reading");
       const groupWrap = document.querySelector(".reading-all-groups");
-      const target = document.querySelector(`.reading-group[data-reading-group="${group}"]`) || document.querySelector(".reading-group");
+      const target = group
+        ? document.querySelector(`.reading-group[data-reading-group="${group}"]`) || document.querySelector(`.reading-group[data-reading-group="${group}-课程卡片补充"]`)
+        : document.querySelector(".reading-group");
       if (target) {
         if (groupWrap) groupWrap.open = true;
         target.open = true;
