@@ -25,13 +25,13 @@ const sdCore = ['INFO1110', 'INFO1113', 'COMP2123', 'SOFT2201', 'SOFT2412'];
 
 test('all inline scripts compile and all course codes remain unique', () => {
   new Function(script);
-  assert.equal(courses.length, 71);
+  assert.equal(courses.length, 72);
   assert.equal(new Set(courses.map(course => course.code)).size, courses.length);
   assert.ok(byCode('MATH3076'), 'Preserve the previous local addition');
 });
 
 test('new courses have full metadata and verified semester offerings', () => {
-  for (const [code, term] of [['SOFT2201', 'S2'], ['SOFT3202', 'S1'], ['INFO3315', 'S2']]) {
+  for (const [code, term] of [['SOFT2201', 'S2'], ['SOFT3202', 'S1'], ['INFO3315', 'S2'], ['DECO1016', 'S2']]) {
     const course = byCode(code);
     for (const field of ['summary', 'matters', 'before', 'mastery', 'how', 'terms', 'readings', 'links']) assert.ok(course[field]?.length, `${code}: ${field}`);
     assert.equal(course.cp, '6cp');
@@ -39,6 +39,24 @@ test('new courses have full metadata and verified semester offerings', () => {
     assert.ok(course.links.some(([, url]) => url === `https://www.sydney.edu.au/units/${code}`));
   }
   assert.ok(byCode('SOFT2412').category.includes('core'));
+});
+
+test('DECO1016 keeps admission restrictions separate from assumed knowledge and degree requirements', () => {
+  const course = byCode('DECO1016');
+  assert.equal(course.name, 'Introduction to Web Design');
+  assert.equal(course.level, '1000');
+  assert.deepEqual(course.category, ['design', 'elective']);
+  assert.match(course.matters, /Bachelor of Design Computing.*DECO2102/);
+  const notes = new Function(`${section('const prerequisiteNotes =', 'function prerequisiteNoteFor(')}; return prerequisiteNotes;`)();
+  assert.deepEqual(notes.DECO1016.requires, ['无指定先修课程']);
+  assert.deepEqual(notes.DECO1016.assumed, ['DECO1012']);
+  assert.equal(notes.DECO1016.graph, false, 'Assumed knowledge must not create a hard prerequisite arrow');
+  assert.ok(notes.DECO1016.eligibility);
+  for (const state of ['completed', 'locked', 'candidate']) {
+    assert.deepEqual(calculate(statuses(['DECO1016'], state)).totals[state], {
+      total: 6, major: 0, minor: 0, shared: 0, ole: 0, elective: 6
+    });
+  }
 });
 
 test('minor is 12 + 18 + 6, without maths or a project slot', () => {

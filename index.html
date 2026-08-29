@@ -7781,6 +7781,27 @@
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/DECO1006"]]
       },
       {
+        code: "DECO1016",
+        name: "Introduction to Web Design",
+        cp: "6cp",
+        category: ["design", "elective"],
+        level: "1000",
+        workload: "Medium-High",
+        skills: ["design", "programming", "ux", "creative"],
+        functionTags: ["direction exploration"],
+        best: "2026 S2；BSc 学生应先核对 DECO2102，不默认具备本课选课资格",
+        later: "Web interface prototypes, front-end projects, UX portfolio",
+        summary: "以 HTML、CSS 和交互原型连接 Web 设计与实现；官网提示非 Design Computing 学生应选 DECO2102。",
+        teaches: ["Web 页面结构、导航与布局", "HTML / CSS 与交互界面原型", "从低保真到高保真的迭代设计", "跨桌面与移动端的用户体验评估"],
+        matters: "可用于了解 Web 设计与前端原型方向，但官网 Additional advice 限定 Bachelor of Design Computing，其他学位学生应选 DECO2102。当前 BSc 规划中仅作课程参考；不计入 CS Major 或 SD minor，能否作为其他学分须先确认准入。",
+        before: ["Prerequisite / corequisite / prohibition 均为 None，但不代表向所有学位开放", "DECO1012 是 assumed knowledge，不是硬性先修", "压力为规划估计；assessment 以当年 unit outline 为准"],
+        mastery: ["能为网页规划清晰的内容与导航", "能用 HTML / CSS 实现界面原型", "能依据测试反馈迭代设计", "能解释布局和交互选择对用户体验的影响"],
+        how: ["先画页面结构和任务流程，再实现一个可用版本", "每轮迭代检查桌面与移动端布局、键盘操作和长文本", "记录用户测试发现，并用修改前后的证据解释改进"],
+        terms: ["HTML — 超文本标记语言", "CSS — 层叠样式表", "responsive design — 响应式设计", "prototype — 原型", "navigation — 导航", "usability — 可用性"],
+        readings: ["DECO1016 unit outline — 官方课程大纲：核对 assessment、每周内容和指定材料。", "MDN Learn web development — Web 开发学习区：HTML / CSS 和前端基础自学参考，非指定教材。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/DECO1016"], ["MDN Web 开发学习区", "https://developer.mozilla.org/en-US/docs/Learn_web_development"]]
+      },
+      {
         code: "DECO2016",
         name: "Design Thinking",
         cp: "6cp",
@@ -8419,6 +8440,7 @@
     );
 
     const courseAvailability = {
+      DECO1016: "2026 S2",
       INFO3315: "2026 S2",
       SOFT2201: "2026 S2",
       SOFT3202: "2026 S1",
@@ -8556,6 +8578,7 @@
     });
 
     const unitSourceAccessDates = {
+      DECO1016: "2026-08-29",
       INFO3315: "2026-08-28", SOFT2201: "2026-08-28", SOFT3202: "2026-08-28", SOFT2412: "2026-08-28",
       MATH3076: "2026-08-28",
       MATH2070: "2026-08-28", ECON1003: "2026-08-28",
@@ -8969,6 +8992,13 @@
     }
 
 	    const prerequisiteNotes = {
+          DECO1016: {
+            eligibility: "Design Computing 限定",
+            requires: ["无指定先修课程"],
+            assumed: ["DECO1012"],
+            note: "Corequisite / prohibition 均为 None。官网提示其他学位学生应选 DECO2102；BSc 学生需先确认准入，不默认可选。",
+            graph: false
+          },
           SOFT2201: {
             requires: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"],
             prohibitions: ["INFO3220 / COMP9201"],
@@ -9234,7 +9264,7 @@
       { codes: ["COMP3109"], tab: "elective", group: "COMP3109 — 编程语言与范式" },
       { codes: ["MATH2022", "MATH2088", "MATH2080"], tab: "elective", group: "MATH2022 · MATH2088 · MATH2080 — 代数 / 数论 / 密码学" },
       { codes: ["MATH3066"], tab: "elective", group: "MATH3066 — 数理逻辑" },
-      { codes: ["DECO1006", "DECO2016", "DECO2102", "DECO3000"], tab: "elective", group: "DECO — 交互 / UX / 产品设计" },
+      { codes: ["DECO1006", "DECO1016", "DECO2016", "DECO2102", "DECO3000"], tab: "elective", group: "DECO — 交互 / UX / 产品设计" },
       { codes: ["OLET1803", "OLET1801", "MUSC2653", "CMPN3635", "CMPN2632", "MUSC3603"], tab: "elective", group: "MUSC · CMPN — 音乐技术 / 声音" },
       { codes: ["PHIL1012", "PHIL1014", "PHIL3610", "OLET2148", "OLET2111"], tab: "elective", group: "PHIL — 逻辑 / 批判思维" },
       { codes: ["OLET1666"], tab: "extension", group: "LaTeX / academic writing — 学术排版工具" },
