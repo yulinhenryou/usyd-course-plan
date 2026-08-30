@@ -1,6 +1,6 @@
 # USYD Course Plan
 
-A personal University of Sydney degree planning dashboard for a **Bachelor of Science (144cp)** with a **Computer Science major (48cp)** and **Software Development minor (36cp)**.
+A personal University of Sydney degree planning dashboard for a **Bachelor of Science (144cp)** with a **Computer Science major (48cp)** and **Statistics minor (36cp)**.
 
 Live site: <https://yulinhenryou.github.io/usyd-course-plan/>
 
@@ -10,25 +10,26 @@ This is a single-page academic planning tool for checking degree structure, seme
 
 Main features:
 
-- Dashboard for degree credits, CS major, Software Development minor, OLE, WAM and workload estimates.
+- Dashboard for degree credits, CS major, Statistics minor, OLE, WAM and workload estimates.
 - Expandable major/minor structure with separate completed, locked and candidate credits for each requirement.
 - Semester plan with locked, candidate and completed courses synced from the course library.
 - Course library with search, prefix/type/workload/year filters and local course status marking.
-- Prerequisite map for CS, software development, maths, data and other electives.
+- Prerequisite map for CS, statistics, maths, data and other electives.
 - Reading preparation and academic reference section.
 - Light/dark theme and local browser storage for planning state.
 
 ## Degree Structure
 
-The Software Development minor follows the [2026 Handbook table](https://www.sydney.edu.au/handbooks/science/table-a/subject-areas/software-development/unit-of-study-table.html):
+The Statistics minor follows the [2026 Handbook table](https://www.sydney.edu.au/handbooks/science/table-a/subject-areas/statistics/unit-of-study-table.html):
 
-- 12cp at 1000 level: INFO1110 and INFO1113 (official equivalents may apply).
-- 18cp at 2000 level: COMP2123, SOFT2201 and SOFT2412.
-- 6cp at 3000 level: **INFO3315 or SOFT3202**. No minor project requirement.
+- 6cp 1000-level core: **MATH1061** (official advanced / SSP equivalents may apply).
+- 6cp 1000-level Mathematics or Data Science: **MATH1062 or DATA1001** (official equivalents may apply).
+- 12cp 2000-level core: **DATA2002 and STAT2011**.
+- 12cp 3000-level selective: the current library models **STAT3021, STAT3022, STAT3023 and STAT3888** as the available choices; two 6cp units fill the slot. The official table also contains advanced alternatives that must be checked separately.
 
-INFO1110, INFO1113 and COMP2123 are shared core units. Their 18cp can meet both components, but count only once toward the 144cp degree. Each structure slot is capped, prioritising completed, then locked, then candidate courses; excess electives count as other degree credits. The 72cp other-credit allowance includes BSc degree core and additional electives, not just unrestricted electives.
+The CS major and Statistics minor have no shared component units in this model. MATH1061 and DATA1001 may also satisfy BSc degree-core rules, but each unit still counts only once toward the 144cp degree. Each structure slot is capped, prioritising completed, then locked, then candidate courses; excess units count as other degree credits. The 54cp other-credit target includes BSc degree core and additional electives, not just unrestricted electives.
 
-Semester recommendations contain required-path courses only. Software Development options use the verified 2026 offerings: SOFT2201, SOFT2412 and INFO3315 in S2; SOFT3202 in S1 after SOFT2201. Later years must be checked again. Existing maths courses remain available as electives.
+Semester recommendations contain required-path courses only. The current third-year route recommends STAT3022 in S1 and STAT3888 in S2; STAT3021 and STAT3023 remain selectable alternatives. Because STAT3888 and the CS project are both project-heavy, the S2 workload warning remains visible and should be reviewed before locking the plan. MATH2069, QBUS3330 and the software-development units remain available as other electives rather than Statistics minor credit. Later-year offerings must be checked again.
 
 ## Notes
 

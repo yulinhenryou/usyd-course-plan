@@ -511,8 +511,8 @@
       gap: 8px;
     }
 
-    .major-structure-drawer[data-active-group="sd"] .structure-slot-list {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .major-structure-drawer[data-active-group="stats"] .structure-slot-list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     .structure-slot {
@@ -653,7 +653,7 @@
         grid-template-columns: 1fr;
       }
 
-      .major-structure-drawer[data-active-group="sd"] .structure-slot-list {
+      .major-structure-drawer[data-active-group="stats"] .structure-slot-list {
         grid-template-columns: 1fr;
       }
 
@@ -6555,7 +6555,7 @@
         <div class="meta">
           <span>作者：Yulin Ou</span>
           <span>Major：Computer Science</span>
-          <span>Minor：Software Development</span>
+          <span>Minor：Statistics</span>
         </div>
       </div>
       <div class="hero-tools" aria-label="页面偏好与当前阶段">
@@ -6601,14 +6601,14 @@
         </article>
         <article class="metric" data-progress-card="minor">
           <div class="metric-top"><strong>36cp</strong><span class="metric-value" data-progress-value>0 / 36cp</span></div>
-          <b>Minor · Software Development</b>
-          <span data-progress-status>未计入 Software Development minor 学分</span>
+          <b>Minor · Statistics</b>
+          <span data-progress-status>未计入 Statistics minor 学分</span>
           <div class="metric-progress" data-progress-stack>
-            <div class="progress-bar stacked" aria-label="Software Development minor 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
+            <div class="progress-bar stacked" aria-label="Statistics minor 规划进度"><span class="segment-completed"></span><span class="segment-locked"></span><span class="segment-candidate"></span></div>
             <div class="progress-breakdown"><span data-progress-part="completed">已完成 0cp</span><span data-progress-part="locked">锁定 0cp</span><span data-progress-part="candidate">候选 0cp</span></div>
           </div>
-          <button class="metric-structure-trigger" type="button" data-structure-trigger="sd" aria-expanded="false" aria-controls="majorStructureDrawer">
-            <span><span data-structure-summary="sd">0 / 3</span> 结构要求</span>
+          <button class="metric-structure-trigger" type="button" data-structure-trigger="stats" aria-expanded="false" aria-controls="majorStructureDrawer">
+            <span><span data-structure-summary="stats">0 / 4</span> 结构要求</span>
           </button>
         </article>
         <article class="metric" data-progress-card="ole">
@@ -6631,12 +6631,12 @@
           <div class="structure-drawer-toolbar">
             <div class="structure-drawer-tabs" role="tablist" aria-label="切换专业结构">
               <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="cs" aria-selected="true">CS Major <span data-structure-tab-summary="cs">0 / 5</span></button>
-              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="sd" aria-selected="false">SD Minor <span data-structure-tab-summary="sd">0 / 3</span></button>
+              <button class="structure-drawer-tab" type="button" role="tab" data-structure-tab="stats" aria-selected="false">Statistics Minor <span data-structure-tab-summary="stats">0 / 4</span></button>
             </div>
             <button class="structure-drawer-close" type="button" data-structure-close aria-label="关闭专业结构详情">×</button>
           </div>
           <div class="structure-slot-list" data-structure-detail></div>
-          <p class="structure-accounting-note">INFO1110、INFO1113、COMP2123 可满足两个专业的共同核心要求，但总学分只计一次。专业进度不替代 BSc degree core 与毕业资格审核。</p>
+          <p class="structure-accounting-note">CS Major 与 Statistics minor 在本规划中没有重复计分课程；MATH1061、DATA1001 等仍可能同时满足 BSc degree core。专业进度不替代正式毕业资格审核。</p>
         </section>
         <article class="metric metric-wide" data-progress-card="elective">
           <div class="metric-top"><strong>其他学分</strong><span class="metric-value" data-progress-value>0cp 已安排</span></div>
@@ -6674,7 +6674,7 @@
         <div class="section-head"><span class="section-kicker">决策原则</span><h2>决策原则</h2></div>
         <div class="grid-3">
           <div class="mini-card"><h3>核心课质量优先</h3><p>加速毕业不能牺牲 INFO1110、INFO1113、COMP2123、COMP2017、COMP3027 等主线课程质量。</p></div>
-          <div class="mini-card"><h3>先修链优先</h3><p>CS 项目依赖编程、算法与系统核心；软件方向需留意 INFO1113 → SOFT2201 → SOFT3202。SOFT2201 通常在 S2，SOFT3202 在下一年 S1。</p></div>
+          <div class="mini-card"><h3>先修链优先</h3><p>CS 项目依赖编程、算法与系统核心；统计路线需依次完成一阶数学/数据基础、DATA2002 与 STAT2011，再进入 3000-level selective。</p></div>
           <div class="mini-card warning"><h3>控制高压课程堆叠</h3><p>COMP2017、COMP3027、项目课和高压 MATH 不应无脑放在同一学期。</p></div>
           <div class="mini-card"><h3>选修课要承担功能</h3><p>选修课应服务方向探索、课业压力平衡、WAM 保护或 prerequisite 补强，而不是随意填空。</p></div>
           <div class="mini-card"><h3>OLE / 轻量课提前分散</h3><p>不要把 OLE 或所有轻量选修留到最后；它们可以作为后续核心课压力的缓冲空间。</p></div>
@@ -6700,6 +6700,8 @@
               <article class="road-semester" data-stage-id="2026-s1" data-stage-name="2026 S1" data-total-cp="24">
                 <header><h3>2026 S1</h3><span class="cp-note">0cp · 待安排</span></header>
                 <div class="mini-course" data-cat="core"><strong>INFO1110</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>MATH1061</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>DATA1001</strong><small></small></div>
               </article>
               <article class="road-semester" data-stage-id="2026-s2" data-stage-name="2026 S2" data-total-cp="24">
                 <header><h3>2026 S2</h3><span class="cp-note">0cp · 待安排</span></header>
@@ -6709,20 +6711,22 @@
                 <header><h3>2027 S1</h3><span class="cp-note">0cp · 待安排</span></header>
                 <div class="mini-course" data-cat="core"><strong>COMP2123</strong><small></small></div>
                 <div class="mini-course" data-cat="core"><strong>COMP2017</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>STAT2011</strong><small></small></div>
               </article>
               <article class="road-semester" data-stage-id="2027-s2" data-stage-name="2027 S2" data-total-cp="24">
                 <header><h3>2027 S2</h3><span class="cp-note">0cp · 待安排</span></header>
                 <div class="mini-course" data-cat="core"><strong>COMP2022</strong><small></small></div>
-                <div class="mini-course" data-cat="core"><strong>SOFT2201</strong><small></small></div>
-                <div class="mini-course" data-cat="core"><strong>SOFT2412</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>DATA2002</strong><small></small></div>
               </article>
               <article class="road-semester" data-stage-id="2028-s1" data-stage-name="2028 S1" data-total-cp="24">
                 <header><h3>2028 S1</h3><span class="cp-note">0cp · 待安排</span></header>
                 <div class="mini-course" data-cat="core"><strong>COMP3027</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>STAT3022</strong><small></small></div>
               </article>
               <article class="road-semester" data-stage-id="2028-s2" data-stage-name="2028 S2 / 收尾" data-total-cp="24">
                 <header><h3>2028 S2 / 收尾</h3><span class="cp-note">0cp · 待安排</span></header>
                 <div class="mini-course" data-cat="core"><strong>COMP3888 / COMP3988</strong><small></small></div>
+                <div class="mini-course" data-cat="core"><strong>STAT3888</strong><small></small></div>
               </article>
             </div>
           </div>
@@ -6818,7 +6822,7 @@
       </section>
     </main>
 
-    <footer>USYD 学位规划仪表盘 · Bachelor of Science · Computer Science Major · Software Development minor</footer>
+    <footer>USYD 学位规划仪表盘 · Bachelor of Science · Computer Science Major · Statistics minor</footer>
   </div>
 
   <script>
@@ -6844,7 +6848,7 @@
         readings: ["Think Python — 《像计算机科学家一样思考 Python》：入门友好，适合 procedural programming。", "Python Tutorial — Python 官方教程：适合查询语法和标准行为。", "CS50 early programming lectures — 暂无通行中文译名：适合理解计算思维。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/INFO1110"]],
         shouldTake: {
-          bestFor: "CS Major 与 Software Development minor 的共同核心；数据方向也可作为编程基础。",
+          bestFor: "CS Major 的编程核心；也是后续数据与统计课程的重要编程基础。",
           notFor: "已通过同等高级课程的人；其他情况都建议正式上。",
           bestSemester: "2026 S1 — 越早越好，作为后续课程的根基。",
           avoidWith: "不要与 COMP2017、COMP2123 同学期（基础未稳）。",
@@ -6852,7 +6856,7 @@
           wamBuffer: "中等课业压力；不适合作为缓冲课。",
           career: "几乎所有 CS / 数据类实习面试的隐含前提。",
           major: "Major 的根基课。",
-          minor: "与 CS Major 共用的 1000-level 核心课，计入 minor 12cp。",
+          minor: "不直接计入 Statistics minor；可作为数据处理与统计编程基础。",
           interest: "对所有方向都是入口。"
         }
       },
@@ -6885,7 +6889,7 @@
           wamBuffer: "中等课业压力；不适合作为缓冲课。",
           career: "面向对象设计是软件 / 后端实习面试的基础。",
           major: "Major 的第二根基。",
-          minor: "与 CS Major 共用的核心课，也是 SOFT2201、SOFT2412 的先修入口。",
+          minor: "不直接计入 Statistics minor；仍是多门软件课程的先修入口。",
           interest: "UX / 音乐 / 设计路线后续也会用到面向对象思维。"
         }
       },
@@ -6902,7 +6906,7 @@
         later: "COMP3027, COMP3308, DATA3404, advanced COMP electives",
         summary: "本科算法路线的中枢课程，连接编程、离散数学和高级算法设计。",
         teaches: ["abstract data types、lists、stacks、queues", "trees、search trees、hash tables / 散列表", "graphs、tree traversal、graph traversal", "sorting、searching、recursion、Big-O analysis"],
-        matters: "这是 CS Major 与 Software Development minor 的共同核心课。它提供后续算法设计、AI search、systems performance 和 scalable data management 共同需要的 algorithmic efficiency 语言。",
+        matters: "这是 CS Major 的算法核心课。它提供后续算法设计、AI search、systems performance 和 scalable data management 共同需要的 algorithmic efficiency 语言，但不直接计入 Statistics minor。",
         before: ["基本编程能力：函数、递归、数组/列表操作", "MATH1064 的 proof、sets、relations 思维会显著有帮助", "能手动 trace 小程序和递归过程"],
         mastery: ["能为问题选择合适数据结构", "能说明 insert/search/delete/traverse 的复杂度", "能写出基本 sorting 与 graph traversal", "能用 Big-O 比较方案优劣"],
         how: ["每个结构整理：操作、实现、复杂度、适用场景", "每题先判断 representation，再设计 algorithm", "复杂度分析必须写清 input size 和 dominant operation"],
@@ -6918,7 +6922,7 @@
           wamBuffer: "❌ 不适合作为缓冲课；理论密度高。",
           career: "技术面试算法部分的核心。",
           major: "Major 算法主线必修。",
-          minor: "与 CS Major 共用的 2000-level 核心课，计入 minor 18cp。",
+          minor: "不直接计入 Statistics minor；算法能力可辅助统计计算与机器学习。",
           interest: "逻辑 / 理论路线的中转站。"
         }
       },
@@ -6951,7 +6955,7 @@
           wamBuffer: "❌ 课业压力极高，绝不能当填空课。",
           career: "后端 / 操作系统 / 嵌入式 / 固件 / 高频交易实习核心。",
           major: "Major 系统子方向核心。",
-          minor: "不直接计入 Software Development minor；可补充工程与项目能力。",
+          minor: "不直接计入 Statistics minor；可补充工程与项目能力。",
           interest: "音乐 / 底层音频方向的隐性入口。"
         }
       },
@@ -7005,7 +7009,7 @@
           wamBuffer: "❌ 理论密度极高。",
           career: "大厂算法面试中最重要的单门课。",
           major: "Major 算法主线的终点。",
-          minor: "不计入 Software Development minor；属于 CS Major 核心。",
+          minor: "不计入 Statistics minor；属于 CS Major 核心。",
           interest: "逻辑 / 理论路线必经。"
         }
       },
@@ -7043,7 +7047,7 @@
         later: "interdisciplinary science project, industry/community project, graduate portfolio",
         summary: "Science 跨学科项目课，面向双 Science majors 的高阶项目要求，通过团队合作解决行业、社区或政府组织提出的复杂真实问题。",
         teaches: ["interdisciplinary problem framing", "stakeholder perspective integration", "team-based research and analysis", "professional communication and presentation", "project professionalism and reflective practice"],
-        matters: "CS Major 的 BSc 项目选项之一，不是 Software Development minor 要求。2026 课程页另有双 major、96cp prerequisite 与 project corequisite 限制；当前 major + minor 路径不能据此假定有资格。默认仍以 COMP3888 / COMP3988 作为 CS 项目规划，SCPU3001 必须单独确认准入。",
+        matters: "CS Major 的 BSc 项目选项之一，不是 Statistics minor 要求。2026 课程页另有 96cp prerequisite、项目配套与准入限制；当前 major + minor 路径不能据此假定有资格。默认仍以 COMP3888 / COMP3988 作为 CS 项目规划，SCPU3001 必须单独确认准入。",
         before: ["96 credit points", "通常需要与 COMP3888 / COMP3988 或其他 3888 project unit 的 corequisite 规则一起核对", "需要具备团队项目、调研、沟通和报告写作基础"],
         mastery: ["能把学科知识用于复杂现实问题", "能整合不同 stakeholder perspective", "能选择并应用合适的问题解决方法", "能以专业形式展示项目结果", "能在跨学科团队中展示主动性和适应性"],
         how: ["提前准备 project evidence log：问题、利益相关者、方法、数据、产出、反思", "每周记录 team decision、个人贡献和 unresolved risk", "把算法/数学能力翻译成非技术 stakeholder 能理解的结论"],
@@ -7064,7 +7068,7 @@
         later: "MATH1064, MATH2022, AI, graphics, data science",
         summary: "以 calculus、linear algebra 和 complex numbers 建立大学数学基础。",
         teaches: ["limits、continuity、differentiation、integration", "vectors、matrices、systems of linear equations", "eigenvalues、eigenvectors、linear transformations", "complex numbers 和基础建模"],
-        matters: "这是后续数学、算法、AI、graphics 和 data science 的数学基础。线性代数尤其影响 AI、graphics、optimisation 和 abstract algebra。",
+        matters: "这是 Statistics minor 的 1000-level core，也是后续数学、算法、AI、graphics 和 data science 的数学基础。线性代数尤其影响统计建模、AI、optimisation 和 abstract algebra。",
         before: ["高中函数、三角、微分基础", "愿意进行大量手算和符号检查", "基本矩阵运算会有帮助"],
         mastery: ["能处理 derivative / integral 基本问题", "能解线性方程组并解释 matrix operation", "能理解 eigenvalue/eigenvector 的几何意义", "能判断问题需要 calculus 还是 linear algebra"],
         how: ["calculus 按 definition → theorem → computation → application 学", "linear algebra 按 geometric meaning → algebraic manipulation 学", "每周整理常见错误：domain、dimension、sign、notation"],
@@ -7085,7 +7089,7 @@
         later: "COMP2022, COMP3027, MATH2088, MATH3066",
         summary: "为算法、逻辑和计算理论提供离散数学语言与证明能力。",
         teaches: ["logic、proof、induction、sets、relations", "functions、orders、sequences、counting", "discrete probability、asymptotic growth", "elementary number theory、graph theory、algebraic structures"],
-        matters: "它为离散数学、算法证明与逻辑提供数学准备，但不计入 CS Major 或 Software Development minor 的专业学分；是否用于 BSc 数学 degree core 需按学位规则核对。",
+        matters: "它为离散数学、算法证明与逻辑提供数学准备，但不计入 CS Major 或 Statistics minor 的专业学分；是否用于 BSc 数学 degree core 需按学位规则核对。",
         before: ["MATH1061 或同等数学成熟度", "愿意写完整证明，而不是只给答案", "基本集合与函数符号"],
         mastery: ["能用 induction、contradiction 等证明方法", "能用 sets/functions/relations 表述问题", "能做基本 counting 和 asymptotic comparison", "能理解 graph 和 relation 在计算问题中的作用"],
         how: ["每个定义配 examples 和 counterexamples", "证明题写清 assumption、goal、method、conclusion", "把抽象结构和具体计算例子配对"],
@@ -7101,7 +7105,7 @@
           wamBuffer: "中等；练习量大但分数稳定。",
           career: "面试中归纳证明 / 概率题的铺底。",
           major: "Major 数学基础。",
-          minor: "不计入 Software Development minor；作为数学准备或其他学分。",
+          minor: "不计入 Statistics minor；作为数学准备或其他学分。",
           interest: "逻辑 / 哲学路线的入口。"
         }
       },
@@ -7118,7 +7122,7 @@
         later: "DATA1002, DATA2001, COMP3308, data-oriented projects",
         summary: "建立 statistical thinking、data exploration 和 reproducible reporting 的基础。",
         teaches: ["study design、graphical and numerical summaries", "R / ggplot、normal approximation、linear regression", "central limit theorem、hypothesis testing、p-value", "confounding、bias、reproducible report"],
-        matters: "它训练数据解释和证据判断能力，对 data science、AI evaluation、project reporting 和科学沟通很重要。",
+        matters: "它可满足 Statistics minor 的 1000-level MATH / DATA 选项，并训练数据解释和证据判断能力，对 data science、AI evaluation、project reporting 和科学沟通很重要。",
         before: ["基础统计直觉：mean、variance、correlation", "愿意写 report 和解释图表", "简单 spreadsheet / coding workflow"],
         mastery: ["能解释 study design 对结论的影响", "能选择合适图表和数值摘要", "能解释 regression、p-value、bias、confounding", "能写 reproducible data report"],
         how: ["每次分析写 research question、data source、method、interpretation、limitation", "不要只画图，要解释 uncertainty", "把统计结论和研究设计限制一起呈现"],
@@ -7139,7 +7143,7 @@
         later: "science communication, policy reasoning, interdisciplinary project, research writing",
         summary: "跨学科 Science 基础课，训练如何理解科学实践、证据、客观性、不确定性、数学/统计模型、政策语境与不同知识系统。",
         teaches: ["scientific practice、objectivity、evidence、uncertainty", "science、mathematics、statistics 在 decision making 中的使用与误用", "conditional probability、Bayesian logic、false positives / false negatives", "Indigenous knowledges、disciplinary perspectives、biology、physics、mathematics", "science in policy, regulation, industry and communities"],
-        matters: "这门课不是 CS / 软件开发 技术主线课，但它补足 Bachelor of Science 的科学素养：如何判断证据、解释不确定性、理解科学与社会、政策、伦理和知识系统之间的关系。对未来做 data / AI / project report 时的 evidence reasoning 很有帮助。",
+        matters: "这门课不是 CS / Statistics 技术主线课，但它补足 Bachelor of Science 的科学素养：如何判断证据、解释不确定性、理解科学与社会、政策、伦理和知识系统之间的关系。对未来做 data / AI / project report 时的 evidence reasoning 很有帮助。",
         before: ["无需先修", "需要愿意阅读不同学科材料并写 reflection / short analytical response", "具备基础统计直觉会帮助理解 probability、uncertainty 和 decision making"],
         mastery: ["能解释 objectivity、evidence、uncertainty 如何影响科学研究", "能识别科学、数学、统计在公共决策中的使用、误用和限制", "能用 conditional probability / Bayesian thinking 解释 false positive / false negative 等问题", "能说明科学知识如何进入 policy、regulation、industry 和 community contexts", "能以跨学科方式分析一个 science impact case"],
         how: ["每个 topic 按 concept → example → evidence → limitation → policy/social implication 整理", "遇到统计或概率案例时，先写 base rate、uncertainty、decision consequence", "写作时不要只复述材料，要明确 claim、evidence、counterpoint、implication", "把课程案例和 DATA1001 的 statistical thinking、OLET2148 / PHIL1012 的 reasoning skill 连接起来"],
@@ -7160,7 +7164,7 @@
         later: "DATA2001, DATA3404, COMP3308",
         summary: "将 Python、数据文件、自动化和 data science pipeline 连接起来。",
         teaches: ["data ingestion、format conversion、cleaning", "summarisation、visualisation、metadata", "basic predictive modelling、model evaluation", "regression、classification、overfitting、underfitting"],
-        matters: "它为 data / AI / database 方向建立实践基础；属于额外选修，不能替代当前 CS Major 与 Software Development minor 的 INFO1110 核心要求。",
+        matters: "它为 data / AI / database 方向建立实践基础；属于额外选修，不能替代 CS Major 的 INFO1110，也不能替代 Statistics minor 的 DATA1001 / MATH1062 入口。",
         before: ["基本编程能力", "理解 table、variable、function", "愿意处理真实数据中的 messy cases"],
         mastery: ["能用 Python 自动化数据处理流程", "能从文件读写到清理、转换、可视化、建模", "能解释模型评估和 overfitting", "能记录 pipeline 中的信息损失"],
         how: ["按 pipeline 学：read → inspect → clean → transform → visualise → model → evaluate", "每一步记录 assumption 和 limitation", "优先形成可重复运行 notebook / script"],
@@ -7197,7 +7201,7 @@
           wamBuffer: "中到中高课业压力；不适合作为缓冲课。",
           career: "数据工程师 / 数据分析实习的核心。",
           major: "Major 中数据子方向。",
-          minor: "数据方向额外选修，不计入 Software Development minor。",
+          minor: "数据方向额外选修，不计入 Statistics minor。",
           interest: "数据 / 商业 / 分析路线必经。"
         }
       },
@@ -7209,7 +7213,7 @@
         level: "2000",
         workload: "High",
         skills: ["math", "proof"],
-        functionTags: ["direction exploration", "prerequisite"],
+        functionTags: ["core", "prerequisite"],
         best: "MATH1061 后；作为 2000-level MATH 候选",
         later: "MATH3066, AI/math depth, graphics",
         summary: "把 first-year linear algebra 扩展到 vector space、linear operator、group 和 abstract algebra。",
@@ -7247,16 +7251,16 @@
         code: "SOFT2412",
         name: "Agile Software Development Practices",
         cp: "6cp",
-        category: ["core", "systems"],
+        category: ["systems", "elective"],
         level: "2000",
         workload: "Medium",
         skills: ["project", "teamwork", "coding", "writing"],
-        functionTags: ["core", "graduation requirement"],
-        best: "2027 S2；INFO1113 或等价先修后，与 SOFT2201 同属 minor 核心",
+        functionTags: ["direction exploration"],
+        best: "INFO1113 或等价先修后；适合作为软件工程方向选修",
         later: "COMP3888, software project, product / startup work",
         summary: "软件开发流程与敏捷实践课程，重点从个人编程转向小团队协作、需求、估算、测试、文档和持续改进。",
         teaches: ["agile methods、software process、planning and estimation", "requirements elicitation、client communication、team roles", "version control、issue tracking、daily build、documentation", "unit testing、functional testing、quality assurance"],
-        matters: "SOFT2412 是 Software Development minor 的 2000-level 必修，与 COMP2123、SOFT2201 共同满足 18cp；不计入 CS Major。团队协作和工程流程也为 COMP3888、实习项目做准备。",
+        matters: "SOFT2412 不计入当前 CS Major 或 Statistics minor，但团队协作、测试和工程流程能为 COMP3888、实习与软件项目做准备，可作为方向选修。",
         before: ["INFO1113 或等价面向对象编程入口", "能独立写中小型程序", "愿意在团队里写文档、测试和 process artefacts"],
         mastery: ["能解释 agile、waterfall、incremental、spiral 等 process 的差异", "能用 issues、backlog、tests 和 documentation 管理小项目", "能把需求转成可交付任务", "能识别团队协作中的风险和质量问题"],
         how: ["每周维护 backlog、risk log 和 decision log", "每个 feature 都配 acceptance criteria 和 test", "复盘时记录 process issue，而不只记录代码问题"],
@@ -7524,7 +7528,7 @@
           wamBuffer: "✅ 适合 — 课业压力低、评分友好。",
           career: "音频 / 创意科技 / 多媒体方向的入口。",
           major: "对 Major 影响较弱。",
-          minor: "不直接计入 Software Development minor；可补充工程与项目能力。",
+          minor: "不直接计入 Statistics minor；可补充工程与项目能力。",
           interest: "音乐 / 声音路线的核心入口；不是 MUSC2653 的替代。"
         }
       },
@@ -7562,7 +7566,7 @@
         later: "general education, communication, policy / society context",
         summary: "从 regionalism、politics、culture、society、money 等角度理解美国政治、文化、经济、社会及 US-Australia relationship。",
         teaches: ["US regionalism、political institutions、culture and society", "race、religion、capitalism、celebrity culture", "US global influence and foreign policy context", "US-Australia relationship and comparative perspective"],
-        matters: "这门课不服务 CS / 软件开发 core，但适合作为 OLE buffer 与 general education。对未来做科技产品、AI policy、international tech industry 或赴美交流的人，它能补充美国社会和制度背景。",
+        matters: "这门课不服务 CS / Statistics core，但适合作为 OLE buffer 与 general education。对未来做科技产品、AI policy、international tech industry 或赴美交流的人，它能补充美国社会和制度背景。",
         before: ["无需背景知识", "愿意阅读社会、历史、政治材料", "能用 evidence 支撑短篇 analytical writing"],
         mastery: ["能从 politics、culture、economy、society 多角度解释美国现象", "能区分美国内部差异和外部影响", "能分析 US-Australia relationship 的基本议题", "能用 written / visual / digital texts 支撑观点"],
         how: ["每周建立 issue map：topic、actors、history、evidence、counterpoint", "不要只记事实，要练习 comparative perspective", "写作时明确 claim、evidence、disciplinary lens 和 limitation"],
@@ -7793,7 +7797,7 @@
         later: "Web interface prototypes, front-end projects, UX portfolio",
         summary: "以 HTML、CSS 和交互原型连接 Web 设计与实现；官网提示非 Design Computing 学生应选 DECO2102。",
         teaches: ["Web 页面结构、导航与布局", "HTML / CSS 与交互界面原型", "从低保真到高保真的迭代设计", "跨桌面与移动端的用户体验评估"],
-        matters: "可用于了解 Web 设计与前端原型方向，但官网 Additional advice 限定 Bachelor of Design Computing，其他学位学生应选 DECO2102。当前 BSc 规划中仅作课程参考；不计入 CS Major 或 SD minor，能否作为其他学分须先确认准入。",
+        matters: "可用于了解 Web 设计与前端原型方向，但官网 Additional advice 限定 Bachelor of Design Computing，其他学位学生应选 DECO2102。当前 BSc 规划中仅作课程参考；不计入 CS Major 或 Statistics minor，能否作为其他学分须先确认准入。",
         before: ["Prerequisite / corequisite / prohibition 均为 None，但不代表向所有学位开放", "DECO1012 是 assumed knowledge，不是硬性先修", "压力为规划估计；assessment 以当年 unit outline 为准"],
         mastery: ["能为网页规划清晰的内容与导航", "能用 HTML / CSS 实现界面原型", "能依据测试反馈迭代设计", "能解释布局和交互选择对用户体验的影响"],
         how: ["先画页面结构和任务流程，再实现一个可用版本", "每轮迭代检查桌面与移动端布局、键盘操作和长文本", "记录用户测试发现，并用修改前后的证据解释改进"],
@@ -7886,6 +7890,27 @@
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/PSYC1001"]]
       },
       {
+        code: "WRIT1000",
+        name: "Introduction to Academic Writing",
+        cp: "6cp",
+        category: ["elective"],
+        level: "1000",
+        workload: "Medium",
+        skills: ["writing", "critical thinking", "research"],
+        functionTags: ["WAM buffer", "direction exploration"],
+        best: "2026 S1 / S2；想系统建立学术写作、引用与编辑基础时",
+        later: "research reports, project documentation, essay-based electives, honours writing",
+        summary: "跨学科学术写作入门课，通过频繁的短篇练习训练句子、段落、论证、资料研究、引用和反复修订。",
+        teaches: ["evaluating academic articles and disciplinary genres", "sentence and paragraph construction", "short argumentative academic writing", "quotation, citation, summary and academic honesty", "editing, revision and peer feedback"],
+        matters: "WRIT1000 不推进 CS / Statistics 先修链，但能直接改善统计报告、项目文档和其他课程中的 academic writing。它不是英语语言习得课程，官网明确假设学生已有基本英语能力。",
+        before: ["官方 2026 信息显示 prerequisites / corequisites / prohibitions / assumed knowledge 均为 None", "需要具备基本英语阅读与表达能力；本课不教授基础英语语言习得", "需要愿意持续完成短写作、引用练习、编辑和 peer feedback"],
+        mastery: ["能按 discipline、genre 和 audience 评价 academic text", "能写出清楚的句子、段落和短篇 argumentative text", "能正确使用 quotation、citation 和 summary", "能依据反馈编辑自己与同伴的写作", "能理解写作形式与社会、文化、语言差异的关系"],
+        how: ["每次短写作先明确 audience、purpose、claim 和 evidence", "先修改 argument 与 paragraph structure，再处理 grammar、punctuation 和 style", "为引用、概述和改写保留 source note，避免 academic honesty 风险", "建立 revision log，记录反馈、修改原因和最终变化"],
+        terms: ["academic writing — 学术写作", "genre — 体裁", "audience — 受众", "argumentative text — 论证性文本", "quotation — 引用", "citation — 文献标注", "summary — 概述", "revision — 修订", "academic honesty — 学术诚信"],
+        readings: ["They Say / I Say — 暂无通行中文译名：学术对话与论证结构入门。", "The Craft of Research — 《研究的艺术》：从研究问题到证据与写作。", "Academic Phrasebank — 暂无通行中文译名：学术表达与段落功能参考。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/WRIT1000"]]
+      },
+      {
         code: "WRIT1001",
         name: "Writing and Rhetoric: Academic Essays",
         cp: "6cp",
@@ -7898,7 +7923,7 @@
         later: "academic writing, essay-based electives, research reports, project documentation",
         summary: "写作与修辞入门课，训练如何发现论题、组织观点、分析论证表达，并在 print、visual media、political debate 和跨文化交流语境中构建有说服力的 academic essays。",
         teaches: ["rhetorical theory and persuasive writing", "topic discovery and argument arrangement", "academic essay conventions", "argument analysis across print, visual and political contexts", "editing your own writing and peer writing"],
-        matters: "WRIT1001 不推进 CS / 软件开发 先修链，但对论文写作、项目报告、argument structure 和英文表达很实用。它适合用作 WAM buffer 或写作能力补强课。",
+        matters: "WRIT1001 不推进 CS / Statistics 先修链，但对论文写作、项目报告、argument structure 和英文表达很实用。它适合用作 WAM buffer 或写作能力补强课。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / prohibitions / assumed knowledge 均为 None", "需要愿意反复 draft、edit 和 peer review", "如果同学期已有大量 writing-heavy 选修，要注意 assessment 时间"],
         mastery: ["能写出结构清楚、有论证意识的 academic essay", "能识别 rhetorical choices 如何影响说服力", "能为 multicultural audiences 调整表达和论证方式", "能持续编辑自己的文字并给同伴提供有效反馈"],
         how: ["每篇文章先写 claim、audience、evidence、counterpoint、structure", "draft 阶段先改 argument，再改 sentence polish", "把 feedback 分成 structure、evidence、clarity、style 四类处理"],
@@ -7919,7 +7944,7 @@
         later: "science communication, philosophy of science, research literacy, policy / ethics discussion",
         summary: "科学史与科学哲学入门课，围绕科学知识如何产生、如何被验证、科学和伪科学如何区分，以及科学在社会争议中的角色展开。",
         teaches: ["philosophy and history of science foundations", "scientific method, evidence and theory change", "demarcation between science and pseudoscience", "case studies in scientific controversy", "critical writing about science in society"],
-        matters: "HPSC1001 不推进 CS / 软件开发 先修链，但能补强 research literacy、科学论证和批判性写作。对理解 AI、数据科学、统计证据和公共科学争议很有帮助，适合作为轻量选修或 WAM buffer。",
+        matters: "HPSC1001 不推进 CS / Statistics 先修链，但能补强 research literacy、科学论证和批判性写作。对理解 AI、数据科学、统计证据和公共科学争议很有帮助，适合作为轻量选修或 WAM buffer。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / assumed knowledge 均为 None", "prohibition: HPSC2101 / HPSC2901 / HPSC1901", "需要愿意阅读理论文本和案例材料，并写清楚 argument"],
         mastery: ["能解释 scientific method 和 evidence 的基本争议", "能区分科学、伪科学和边界案例", "能分析 scientific controversy 中的证据、价值和社会因素", "能写出结构清楚的 science-and-society argument"],
         how: ["每个案例按 claim、evidence、method、counterargument、social implication 拆解", "写作时先明确问题是 empirical、conceptual 还是 normative", "把科学哲学概念连接到 data / AI / statistics 中的 evidence 判断"],
@@ -7940,7 +7965,7 @@
         later: "health literacy, sport nutrition, wellbeing planning, science communication",
         summary: "营养与健康选修，覆盖消化生理、宏量和微量营养素、饮食迷思、运动表现、慢性病风险、购物烹饪实践和个人饮食分析。",
         teaches: ["nutrition education models and healthy diet selection", "macronutrients, micronutrients and hydration", "digestion, food use for growth, health and exercise", "sports performance diets, fad diets and supplements", "personal diet analysis and reflective improvement"],
-        matters: "EDGU1003 不推进 CS / 软件开发 先修链，但很适合做 WAM buffer 或 intensive / light semester 选修。它的实际价值在于提升个人营养判断、运动表现和健康信息辨别能力。",
+        matters: "EDGU1003 不推进 CS / Statistics 先修链，但很适合做 WAM buffer 或 intensive / light semester 选修。它的实际价值在于提升个人营养判断、运动表现和健康信息辨别能力。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / prohibitions / assumed knowledge 均为 None", "需要愿意做个人饮食记录和营养分析", "如果放进 intensive，注意 assessment 节奏和主线复习不要冲突"],
         mastery: ["能识别 carbohydrates、protein、fats、alcohol 与常见 micronutrients 的作用", "能解释食物、水和营养如何支持健康、成长和运动", "能批判常见 diet、supplement 和 media nutrition claims", "能分析个人饮食数据并提出改进方案"],
         how: ["把每个 nutrition claim 拆成 evidence、population、limitation、practical action", "个人饮食分析要提前记录，不要等 assessment 前补数据", "遇到 fad diet 或 supplement 先查 mechanism、evidence quality 和风险"],
@@ -7961,7 +7986,7 @@
         later: "science communication, climate / risk thinking, interdisciplinary project work",
         summary: "6cp OLE，研究核战争、气候变化、农业、经济崩溃、zombie 等 apocalypse scenarios，并用影视和文学案例理解科学、经济与社会文化中的灾难想象。",
         teaches: ["apocalyptic scenarios in science and popular culture", "nuclear physics、climate science、agriculture、economics 中的 catastrophic issues", "online research and interdisciplinary case study analysis", "fictional representations of apocalypse and public debate", "video production and group project communication"],
-        matters: "OLES1602 适合用作 6cp OLE / elective buffer。它不直接推进 CS + 软件开发 先修链，但能训练跨学科研究、科学传播、风险分析与小组项目表达，适合补足技术学习之外的 science-and-society 视角。",
+        matters: "OLES1602 适合用作 6cp OLE / elective buffer。它不直接推进 CS + Statistics 先修链，但能训练跨学科研究、科学传播、风险分析与小组项目表达，适合补足技术学习之外的 science-and-society 视角。",
         before: ["官方 2026 信息显示 prerequisites / corequisites / assumed knowledge 均为 None", "需要接受跨学科阅读、案例分析和小组项目", "如果同学期已有 heavy CS/math，需注意 video / group project 的时间管理"],
         mastery: ["能解释不同 apocalypse scenarios 的科学和社会文化背景", "能描述 climate change、economic collapse 等潜在 catastrophic issues", "能用 online research 在 interdisciplinary context 中分析威胁与解决方案", "能分析影视 / 文学中的 apocalypse representation 如何反映社会焦虑并影响公共讨论", "能完成一个以视频形式沟通观点的小组项目"],
         how: ["每个案例按 threat、science mechanism、social consequence、fictional representation、policy / survival response 拆解", "把影视 / 文学材料当作 cultural evidence，而不是只当剧情摘要", "小组视频项目提前确定角色：research、script、editing、voice / presentation、reference checking"],
@@ -7982,7 +8007,7 @@
         later: "math assignments, reports, project documentation, academic writing",
         summary: "2cp OLE，学习 LaTeX 文档结构、编译、格式、交叉引用、参考文献、图表和复杂文档元素。",
         teaches: ["LaTeX document structure、preamble、sections、lists、table of contents", "compilation workflow and document formatting", "cross-referencing、references、figures、tables", "complex document elements and visually attractive academic documents"],
-        matters: "OLET1666 对 CS + 软件开发 很实用：数学证明、算法报告、project documentation、research-style writing 都会用到清晰排版。它承担 OLE 进度和学习工具建设功能，适合放在 July / Summer / light semester。",
+        matters: "OLET1666 对 CS + Statistics 很实用：数学证明、统计报告、project documentation、research-style writing 都会用到清晰排版。它承担 OLE 进度和学习工具建设功能，适合放在 July / Summer / light semester。",
         before: ["具备基本 computer skills", "熟悉 folder、file、plain text editing 会有帮助", "了解 referencing conventions 和 basic programming 会加速上手，但不是必要条件"],
         mastery: ["能创建并编译完整 LaTeX document", "能使用 sections、lists、tables、figures、equations、references 和 cross-reference", "能排版数学公式、算法说明或短报告", "能维护一个可复用 assignment / report template"],
         how: ["不要只复制模板；每次新增功能都理解 command、environment、package 的角色", "建立自己的 minimal template：math proof、algorithm report、project report 三类", "遇到编译错误先定位 line number、missing brace、package conflict"],
@@ -8006,7 +8031,7 @@
         later: "statistics, calculus, financial mathematics, DATA / MATH electives",
         summary: "Mathematics 1B，补多变量微积分、微分方程和数理统计，是数学与数据路线的基础选项。",
         teaches: ["multivariable calculus", "differential equations", "mathematical statistics", "R-based statistical analysis"],
-        matters: "如果后续想走更多 statistics、financial mathematics 或 quantitative electives，MATH1062 比随意选轻量课更能补数学地基。",
+        matters: "MATH1062 可替代 DATA1001 满足 Statistics minor 的第二个 1000-level 6cp 选项。如果后续想走更多 statistics、financial mathematics 或 quantitative electives，它能补强多变量微积分与数理统计。",
         before: ["MATH1061 / MATH1021 / MATH1921 / HSC Extension 2 等微积分基础", "complex numbers、integration techniques", "愿意同时处理 calculus 和 statistics"],
         mastery: ["能做 partial derivatives 与 multivariable interpretation", "能建立并求解基础 differential equations", "能理解 statistical inference 的基本方法", "能用 R 分析小型数据集"],
         how: ["把 calculus、ODE、statistics 分成三套错题本", "每周保留 R / computation 练习", "先补 integration 和 complex numbers 再进 intensive"],
@@ -8022,12 +8047,12 @@
         level: "2000",
         workload: "Medium-High",
         skills: ["data", "coding", "research"],
-        functionTags: ["direction exploration"],
+        functionTags: ["core", "prerequisite"],
         best: "DATA1001 / DATA1002 或等价统计与编程基础后；通常作为 S2 数据路线课核对",
         later: "DATA3404, machine learning, analytics electives",
         summary: "Data analytics 中级课，围绕从数据中建模、评估和解释结论。",
         teaches: ["statistical learning workflow", "model fitting and validation", "data cleaning and exploratory analysis", "communicating data-driven findings"],
-        matters: "DATA2002 适合把 1000-level data foundation 推进到更像真实 analytics project 的层级，但不应挤压 CS / 软件开发 主线瓶颈。",
+        matters: "DATA2002 是 Statistics minor 的 2000-level core，把 1000-level data foundation 推进到真实 analytics project；安排时仍需避开 CS 核心课的作业高峰。",
         before: ["一阶 statistics / data science 基础", "Python 或 R 编程基础", "能读懂模型评估指标"],
         mastery: ["能完成一条数据清洗到建模的 pipeline", "能解释 validation 和 overfitting", "能把模型结果写成清晰结论", "能识别数据质量限制"],
         how: ["每个模型记录 assumptions、features、metric、failure mode", "保留 reproducible notebook", "优先练习解释，而不是只追求分数"],
@@ -8043,18 +8068,39 @@
         level: "2000",
         workload: "High",
         skills: ["statistics", "math", "data", "proof"],
-        functionTags: ["direction exploration", "prerequisite"],
+        functionTags: ["core", "prerequisite"],
         best: "S1；想走统计推断 / 高阶 STAT 路线时作为 2000-level 入口",
         later: "STAT3021, STAT3022, STAT3023, statistical modelling, data science",
         summary: "统计概率与估计理论基础课，覆盖随机变量、常见分布、参数估计、bootstrap 和统计软件实验。",
         teaches: ["random variables and probability distributions", "method of moments and maximum likelihood estimation", "uncertainty quantification and goodness of fit", "bootstrap and computational estimation labs"],
-        matters: "STAT2011 是后续 STAT3021、STAT3022、STAT3023 的关键入口之一；它比普通数据分析课更偏数学统计，适合测试自己是否想走 rigorous statistics 路线。",
+        matters: "STAT2011 是 Statistics minor 的 2000-level core，也是 STAT3021、STAT3022、STAT3023 与 STAT3888 的关键入口。它比普通数据分析课更偏数学统计。",
         before: ["一阶数学入口：MATH1X61 / MATH1971 / MATH1X21 / MATH1931 / MATH1X01 / MATH1906 / MATH1011 等", "一阶数据或统计入口：DATA1X01 / MATH1X62 / MATH1972 / MATH10X5 / MATH1905 / STAT1021 / ECMT1010 / BUSS1020 等", "愿意写推导并使用统计软件做模拟"],
         mastery: ["能构造随机变量模型并计算概率、期望和方差", "能用 method of moments / MLE 估计参数", "能解释参数估计的不确定性", "能用 bootstrap 和 goodness-of-fit 检查模型"],
         how: ["每个分布整理 support、parameters、mean、variance、typical use case", "估计题先写 likelihood 或 moment equations，再写计算步骤", "lab 代码保留 simulation、fit、diagnostic 三部分"],
         terms: ["random variable — 随机变量", "probability distribution — 概率分布", "maximum likelihood estimation — 最大似然估计", "bootstrap — 自助法", "goodness of fit — 拟合优度"],
         readings: ["All of Statistics — 暂无通行中文译名：统计推断和概率速查。", "Mathematical Statistics with Applications — 暂无通行中文译名：数学统计应用。", "OpenIntro Statistics — 暂无通行中文译名：统计直觉。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/STAT2011"]]
+      },
+      {
+        code: "MATH2069",
+        name: "Discrete Mathematics and Graph Theory",
+        cp: "6cp",
+        category: ["math", "elective"],
+        level: "2000",
+        workload: "High",
+        skills: ["math", "proof", "logic"],
+        functionTags: ["graduation requirement", "direction exploration"],
+        best: "S1；完成符合规则的 6cp MATH1XXX 后",
+        later: "图算法、组合数学、运筹与理论计算机科学",
+        summary: "研究组合计数、递推与生成函数，以及 Euler/Hamilton 图、树、平面图和图着色。",
+        teaches: ["combinatorics、recursion 与 induction", "generating functions 与 recurrence relations", "Eulerian / Hamiltonian graphs 与 trees", "weighted graph walks、spanning trees 与 graph colouring"],
+        matters: "适合连接 CS 算法与离散数学，但不属于 Statistics minor；在当前结构中计入其他学分。证明和抽象建模负担较高，不应误当成轻量图算法课。",
+        before: ["硬性先修：6cp MATH1XXX，但排除 MATH1XX5、MATH1050、MATH1111", "禁止与 MATH2011、MATH2009、MATH2969 重复修读", "无 corequisite 或 assumed knowledge"],
+        mastery: ["能用生成函数求解线性递推", "能识别 Eulerian 与 Hamiltonian graph", "能求最小加权路径和 spanning tree", "能分析 planar graph 与 chromatic polynomial"],
+        how: ["每种图结构先画小例子，再写定义与证明", "把 recurrence 的代数解法和 generating function 解法对照", "对图算法同时记录正确性理由和复杂度"],
+        terms: ["combinatorics — 组合数学", "generating function — 生成函数", "recurrence relation — 递推关系", "spanning tree — 生成树", "chromatic polynomial — 色多项式"],
+        readings: ["MATH2069 unit outline — 2026 S1：核对每周主题与考核。", "Introduction to Graph Theory — 暂无通行中文译名：图论概念与证明参考。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/MATH2069"]]
       },
       {
         code: "STAT3021",
@@ -8069,7 +8115,7 @@
         later: "stochastic analysis, stochastic differential equations, financial mathematics, queueing models",
         summary: "随机过程高阶课，研究 Markov chains、Poisson processes、continuous-time Markov chains、queueing theory、Brownian motion 和 martingales。",
         teaches: ["discrete-time Markov chains and random walks", "branching processes and Poisson processes", "continuous-time Markov chains and queueing theory", "Brownian motion and martingales"],
-        matters: "STAT3021 很适合连接 CS、金融、运筹和概率模型，但数学推导负担明显，不应和多个高压 COMP/MATH 同学期叠加。",
+        matters: "STAT3021 是 Statistics minor 的 3000-level selective 之一，很适合连接 CS、金融、运筹和概率模型；数学推导负担明显，不应和多个高压 COMP/MATH 同学期叠加。",
         before: ["STAT2X11", "扎实的 basic probability", "integral calculus", "愿意做 proof 和 long-form derivation"],
         mastery: ["能构造 Markov chain 并识别 transition matrix", "能求 stationary distribution 和解释 limit theorem", "能使用 Poisson process / CTMC 建模", "能解释 queue length、waiting time、Brownian motion 和 martingales 的基础概念"],
         how: ["每个 process 写 state space、transition rule、parameters、limiting behaviour", "把公式推导和模拟实验配套做", "先画状态图，再写 transition matrix 或 generator"],
@@ -8085,12 +8131,12 @@
         level: "3000",
         workload: "Medium-High",
         skills: ["statistics", "data", "writing"],
-        functionTags: ["direction exploration"],
+        functionTags: ["graduation requirement", "direction exploration"],
         best: "S1；STAT2011 + DATA2002/STAT2X12 后，适合应用统计建模路线",
         later: "regression modelling, experimental design, data analytics, applied statistics",
         summary: "应用线性模型课程，围绕回归、诊断、feature selection、实验设计、ANOVA、mixed effects models 和 R 统计图形。",
         teaches: ["least squares and linear regression", "model diagnostics and robust regression", "feature selection and experimental design", "ANOVA, multiple comparisons and mixed effects models"],
-        matters: "STAT3022 是从 data analysis 进入 rigorous applied statistics 的好选择，适合数据建模和研究型分析，但需要先修统计和线代背景。",
+        matters: "STAT3022 是 Statistics minor 的 3000-level selective 之一，也是从 data analysis 进入 rigorous applied statistics 的好选择；需要先修统计、数据建模与线代背景。",
         before: ["STAT2X11", "DATA2X02 或 STAT2X12", "MATH1X02 或等价 linear algebra assumed knowledge", "能使用 R 做建模和图形"],
         mastery: ["能选择并拟合合适的 linear model", "能解释 confidence intervals、prediction intervals 和 hypothesis tests", "能做 residual diagnostics 并识别异常点", "能设计和分析实验、解释 ANOVA 和 mixed effects model"],
         how: ["每个模型都记录 response、features、assumptions、diagnostics、interpretation", "不要只报 p-value，要解释 effect 和 uncertainty", "用 R notebook 保留图形、模型输出和文字结论"],
@@ -8106,18 +8152,39 @@
         level: "3000",
         workload: "Very High",
         skills: ["statistics", "math", "proof", "data"],
-        functionTags: ["direction exploration"],
+        functionTags: ["graduation requirement", "direction exploration"],
         best: "S2；STAT2011 / STAT2X11 后，适合严肃统计理论和推断路线",
         later: "mathematical statistics, statistical decision theory, honours preparation, machine learning theory",
         summary: "统计推断高阶课，研究 distribution theory、MLE、estimation/testing optimality、decision theory、Bayes/minimax/UMVU/most powerful tests。",
         teaches: ["distribution theory and moment-generating functions", "transformations and multivariate distributions", "exponential families and maximum likelihood", "decision theory, Bayes rules, minimax rules and optimal tests"],
-        matters: "STAT3023 是四门 STAT 中理论压力最高的一门。它能补强机器学习、数据科学和数学统计的理论底座，但不适合作为轻量选修。",
+        matters: "STAT3023 是 Statistics minor 的 3000-level selective 之一，也是四门候选中理论压力最高的一门。它能补强机器学习、数据科学和数学统计的理论底座，但不适合作为轻量选修。",
         before: ["STAT2X11", "DATA2X02 或 STAT2X12 assumed knowledge", "扎实的 probability 和 calculus", "能持续做推导、证明和 R lab"],
         mastery: ["能推导随机变量和和式的 limiting distribution", "能处理变量变换和多元分布", "能识别 exponential family 并使用 MLE", "能在 decision theory 框架下分析 Bayes/minimax/UMVU/most powerful procedures"],
         how: ["每个 theorem 写 assumptions、statement、proof idea、example", "把 estimation 和 testing 按 optimality criterion 建表", "lab 只作为验证，核心仍是推导与选择合适方法"],
         terms: ["statistical inference — 统计推断", "moment-generating function — 矩母函数", "exponential family — 指数族", "decision theory — 决策理论", "minimax rule — 极小极大规则", "UMVU estimator — 一致最小方差无偏估计"],
         readings: ["Statistical Inference — Casella and Berger，暂无通行中文译名：数学统计推断经典。", "All of Statistics — 暂无通行中文译名：概率统计速查。", "Theoretical Statistics — 暂无通行中文译名：统计理论进阶。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/STAT3023"]]
+      },
+      {
+        code: "STAT3888",
+        name: "Statistical Machine Learning",
+        cp: "6cp",
+        category: ["statistics", "data", "project"],
+        level: "3000",
+        workload: "Very High",
+        skills: ["statistics", "data", "coding", "teamwork", "research"],
+        functionTags: ["graduation requirement", "direction exploration"],
+        best: "S2；完成 STAT2011 与 DATA2002，并最好先修 STAT3022 后",
+        later: "统计学习、机器学习、跨学科数据项目与 honours preparation",
+        summary: "跨学科统计机器学习项目课，覆盖监督与非监督方法，并与营养学学生合作处理真实问题。",
+        teaches: ["PCA、multivariate tests 与 discrimination analysis", "graphical / log-linear models 与 logistic regression", "classification trees、k-nearest neighbours 与 clustering", "跨学科问题定义、团队分析与结果沟通"],
+        matters: "属于 Statistics minor 的 3000-level selective，也能强化 CS 的机器学习项目经验。它是高负担团队项目课；本规划把 STAT3022 放在前一学期，既满足 assumed knowledge，也减少直接跳级风险。",
+        before: ["硬性先修：STAT2X11 以及 DATA2X02 或 STAT2X12", "Assumed knowledge：STAT3012 / STAT3912 / STAT3022 / STAT3922", "禁止与 STAT3914、STAT3014 重复修读"],
+        mastery: ["能选择并比较合适的统计机器学习方法", "能评价模型适用性和验证方案", "能把开放问题转成可执行的调查策略", "能向跨学科受众解释模型与限制"],
+        how: ["开题时先定义 outcome、数据限制和评价指标", "建立可复现的清洗、建模与验证 pipeline", "按团队角色保留决策、贡献和迭代证据"],
+        terms: ["statistical machine learning — 统计机器学习", "PCA — 主成分分析", "classification tree — 分类树", "clustering — 聚类", "model evaluation — 模型评估"],
+        readings: ["STAT3888 unit outline — 2026 S2：核对项目主题、团队安排与考核。", "An Introduction to Statistical Learning — 暂无通行中文译名：监督与非监督学习参考。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/STAT3888"]]
       },
       {
         code: "PSYC1002",
@@ -8195,7 +8262,7 @@
         later: "logic, computability, philosophy of mathematics",
         summary: "高级逻辑选修，适合把哲学逻辑和计算理论兴趣连接起来。",
         teaches: ["formal logic", "proof systems", "model-theoretic intuition", "logical argument writing"],
-        matters: "它出现在先修图中是为了标明 PHIL1012 → PHIL3610 的真实路径，不应被误认为 CS / 软件开发 主线要求。",
+        matters: "它出现在先修图中是为了标明 PHIL1012 → PHIL3610 的真实路径，不应被误认为 CS / Statistics 主线要求。",
         before: ["PHIL1012", "基础 proof literacy", "愿意阅读抽象英文论证"],
         mastery: ["能读写 formal proof", "能解释 semantics 与 syntax", "能比较不同 logical systems", "能写严谨 argument"],
         how: ["先复习 truth tables / predicate logic", "把 proof rules 做成索引表", "每周整理一个完整证明"],
@@ -8237,7 +8304,7 @@
         later: "portfolio analytics, quantitative finance",
         summary: "投资与组合管理高阶 finance 课，关注资产定价、组合选择与风险管理。",
         teaches: ["portfolio theory", "asset pricing", "risk measurement", "investment decision making"],
-        matters: "它不是 CS / 软件开发 主线，也通常不是无门槛自由选修；先修和 enrolment access 需要单独核对。",
+        matters: "它不是 CS / Statistics 主线，也通常不是无门槛自由选修；先修和 enrolment access 需要单独核对。",
         before: ["FINC2012", "概率统计与 spreadsheet 能力", "愿意处理金融案例"],
         mastery: ["能解释 diversification", "能做基础 portfolio calculation", "能理解 CAPM / risk premium", "能评价投资组合风险"],
         how: ["把公式与经济直觉配对", "用 spreadsheet 复现 portfolio examples", "避免与 COMP3027 / project 叠加"],
@@ -8282,7 +8349,7 @@
         later: "优化建模、投资组合分析与金融数学方向",
         summary: "将约束优化与金融模型连接起来，使用数学推导和 Python 分析资源配置与风险收益。",
         teaches: ["线性规划与 simplex algorithm", "非线性优化、Hessian、Lagrange multipliers 与 KKT", "expected utility 与风险偏好", "Markowitz portfolio theory 与 CAPM"],
-        matters: "数学方向自由选修，可补强优化与金融建模能力。MATH2070 不计入当前 CS Major 或 Software Development minor。压力等级是本规划的估计，不是官方评级。",
+        matters: "数学方向自由选修，可补强优化与金融建模能力。MATH2070 不计入当前 CS Major 或 Statistics minor。压力等级是本规划的估计，不是官方评级。",
         before: ["需满足一阶数学两组先修；MATH1061 + MATH1062 是可用组合之一", "建议熟悉多元微积分、概率分布与期望", "禁止与 MATH2970 重复修读；电脑实验使用 Python"],
         mastery: ["能把实际约束转成线性规划并求解", "能选择合适的最优性条件并解释解", "能区分期望收益与期望效用决策", "能解释组合风险、收益与资产定价模型"],
         how: ["先写目标函数、变量和约束，再选择算法", "手算小例题后用 Python 检验数值结果", "每个金融模型同时记录假设与适用边界"],
@@ -8303,7 +8370,7 @@
         later: "科学计算、数值模拟与优化应用",
         summary: "结合数学分析与编程实现，学习数值算法如何求解问题，以及如何判断计算结果的误差、效率与可靠性。",
         teaches: ["浮点运算、计算误差与方程求解", "插值、函数逼近及数值微积分", "微分方程的数值求解", "数值优化及其应用"],
-        matters: "数学与编程交叉的自由选修。MATH3076 不计入当前 CS Major 或 Software Development minor。压力等级为规划估计，不是官方评级。",
+        matters: "数学与编程交叉的自由选修。MATH3076 不计入当前 CS Major 或 Statistics minor。压力等级为规划估计，不是官方评级。",
         before: ["先修有两种组合，完整规则见下方；没有指定 corequisite 或 assumed knowledge", "禁止与 MATH3976 / MATH4076 组合修读", "2026 S1：期末考试 50%、课堂测验 20%、每周测验 30%；期末须参加且至少取得 40% 才能通过本课"],
         mastery: ["能实现算法并识别数值误差来源", "能比较精度与计算成本", "能选择合适的方法并解释适用条件", "能用误差分析检验计算结果"],
         how: ["先用有已知解的小例子检验实现，再处理复杂问题", "每次实验同时记录误差、步长或迭代次数和计算成本", "把算法推导与代码对照整理，避免只会调用函数"],
@@ -8315,16 +8382,16 @@
         code: "SOFT2201",
         name: "Software Construction and Design 1",
         cp: "6cp",
-        category: ["core"],
+        category: ["systems", "elective"],
         level: "2000",
         workload: "Medium-High",
         skills: ["coding", "design"],
-        functionTags: ["core", "prerequisite", "graduation requirement"],
+        functionTags: ["prerequisite", "direction exploration"],
         best: "S2；完成 INFO1113 或官方等价课程后",
         later: "SOFT3202、软件设计与工程实践",
         summary: "从面向对象编程走向软件设计，结合建模、设计原则、基础设计模式与测试实践。",
         teaches: ["UML、CRC 与 use cases 建模", "继承、多态、泛型及对象设计原则", "基础设计模式及其适用场景", "测试与 code review"],
-        matters: "Software Development minor 的 2000-level 核心课，与 COMP2123、SOFT2412 共同组成 18cp 要求；也是 SOFT3202 的硬性先修。不计入 CS Major。压力为规划估计。",
+        matters: "软件设计方向选修，也是 SOFT3202 的硬性先修；不计入当前 CS Major 或 Statistics minor。压力为规划估计。",
         before: ["先修 INFO1113 / INFO1103 / INFO1105 / INFO1905 任一", "Prohibition：INFO3220 / COMP9201；无 corequisite", "建议先熟悉对象、接口、集合与基础测试"],
         mastery: ["能用模型表达职责与对象协作", "能解释设计方案的耦合与扩展性", "能选择模式并避免过度设计", "能用测试和代码审查发现设计问题"],
         how: ["从用例和职责出发，再画模型并实现", "为每个设计选择记录替代方案与取舍", "把小规模重构与回归测试配套进行"],
@@ -8340,12 +8407,12 @@
         level: "3000",
         workload: "High",
         skills: ["coding", "design"],
-        functionTags: ["direction exploration", "graduation requirement"],
+        functionTags: ["direction exploration"],
         best: "S1；完成 SOFT2201 后",
         later: "软件质量、测试与大型系统设计",
         summary: "在 SOFT2201 基础上深入软件验证、测试理论与高级设计模式，把设计原理用于实际系统。",
         teaches: ["高级面向对象设计", "高级设计模式", "测试理论与测试技术", "软件 validation / verification"],
-        matters: "Software Development minor 的 3000-level selective，与 INFO3315 二选一满足 6cp。两门都选时，超出的学分进入其他学分，不会把 minor 计成 42cp。不计入 CS Major；压力为规划估计。",
+        matters: "高级软件设计方向选修，不计入当前 CS Major 或 Statistics minor；适合希望继续深入软件验证、测试与大型系统设计的人。压力为规划估计。",
         before: ["硬性先修 SOFT2201，不能用 INFO1113 直接替代", "Prohibition：INFO3220；无 corequisite / assumed knowledge", "建议熟悉设计模式、测试与软件构建流程"],
         mastery: ["能分析复杂设计的职责与依赖", "能解释模式及其适用边界", "能设计有依据的测试策略", "能区分验证、确认与测试提供的证据"],
         how: ["为设计模式比较适用情境与代价", "测试同时覆盖正常行为、边界和失败路径", "结合小项目解释质量保证，而不只背定义"],
@@ -8361,12 +8428,12 @@
         level: "3000",
         workload: "Medium-High",
         skills: ["ux", "design", "teamwork", "research"],
-        functionTags: ["direction exploration", "graduation requirement"],
+        functionTags: ["direction exploration"],
         best: "S2；满足编程与二阶课程组合先修后",
         later: "人机交互、UX 研究、原型与产品设计",
         summary: "以人为中心设计交互系统，通过用户研究、原型与可用性评估，将心理学和软件技术连接起来。",
         teaches: ["感知、认知与交互设计", "用户需求研究与分析", "低保真原型及界面设计", "可用性评估与小组项目"],
-        matters: "Software Development minor 的 3000-level selective，与 SOFT3202 二选一满足 6cp。不属于 CS Major 的 selective。虽是 HCI 课程，仍有团队交付与考试要求；压力为规划估计。",
+        matters: "HCI 与 UX 方向选修，不计入当前 CS Major 或 Statistics minor。虽是跨设计与计算课程，仍有团队交付与考试要求；压力为规划估计。",
         before: ["6cp 指定 1000-level 编程课，加 12cp BAdvComp Table A 的 2000-level 课程", "第二组不是任意二阶课程；例如本库 COMP2017 + COMP2123 可作为组合，仍以当年表格为准", "2026 S2 期末占 50%，考试至少 40% 且须参与团队项目；以当期 outline 为准"],
         mastery: ["能解释人因对交互设计的影响", "能用研究证据界定需求", "能制作并迭代原型", "能选择评估方法并报告局限"],
         how: ["先明确用户任务和研究问题，再设计界面", "用低成本原型及早测试关键假设", "记录组内贡献、决策依据和迭代证据"],
@@ -8387,7 +8454,7 @@
         later: "经济学建模、商科数量分析与优化应用",
         summary: "以经济和商业问题为背景学习数量方法，重点是建立模型、求解并解释经济含义。",
         teaches: ["函数、图像与经济模型", "微分、积分及单变量优化", "金融数学与多变量函数", "有约束及无约束优化"],
-        matters: "适合作为经济学方向入门选修。官方明确说明它不能替代数学系课程，因此不计入本规划的 CS Major / Software Development minor 结构。压力等级是规划估计，不能理解为保证高分。",
+        matters: "适合作为经济学方向入门选修。官方明确说明它不能替代数学系课程，因此不计入本规划的 CS Major / Statistics minor 结构。压力等级是规划估计，不能理解为保证高分。",
         before: ["官方无 prerequisite、corequisite 或 prohibition", "Assumed knowledge：代数运算与数据的图形表达", "2026 S2 包含期中测试与期末考试，不能只依赖线上测验"],
         mastery: ["能将经济问题写成函数与模型", "能用微积分分析变化及最优值", "能解释数量结果对应的经济含义", "能检查约束、假设与解的合理性"],
         how: ["每道题按经济问题、数学模型、计算、解释四步整理", "复习时把函数图像与代数式对照", "定期练习限时手算并记录符号错误"],
@@ -8408,13 +8475,34 @@
         later: "后续日语学习、跨文化沟通与交流准备",
         summary: "零基础日语入门，结合听说读写训练、假名与基础汉字学习，以及日本社会文化背景。",
         teaches: ["日常情境的基础听说交流", "平假名、片假名及基础汉字", "简单书面表达", "日本文化与跨文化交流"],
-        matters: "语言方向自由选修，不推进 CS Major / Software Development minor。需要持续练习，intensive 只是集中授课，并不代表学习量更少。压力等级为本规划估计。",
+        matters: "语言方向自由选修，不推进 CS Major / Statistics minor。需要持续练习，intensive 只是集中授课，并不代表学习量更少。压力等级为本规划估计。",
         before: ["官方无 prerequisite、corequisite 或 assumed knowledge，但有既往日语学习的 prohibition", "有 HSC 日语或已修相关日语课者需先核对资格；其他日语背景建议咨询系里", "2026 年末 intensive 是 11-12月，不等于时间轴的 12-2月；排课前核对实际日期"],
         mastery: ["能完成熟悉场景中的简单信息交换", "能书写两套假名及约 60 个汉字，并在语境中认读至少 100 个汉字", "能表达基础的个人与日常信息", "能结合文化语境理解表达差异"],
         how: ["每天分开安排听说与读写练习", "使用短句和音频主动回忆，不只背词表", "为 intensive 预留连续练习时间，避免与重课截止日期冲突"],
         terms: ["hiragana — 平假名", "katakana — 片假名", "kanji — 汉字", "listening comprehension — 听力理解", "intercultural communication — 跨文化交流"],
         readings: ["JPNS1611 unit outline — 2026 S2：核对语言练习与文化主题的周计划。", "JPNS1611 Canvas learning resources — 课程材料：使用当期指定教材、音频和读写练习；先确认版本再购书。"],
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/JPNS1611"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/JPNS1611/2026-S2C-ND-CC"]]
+      },
+      {
+        code: "QBUS3330",
+        name: "Methods of Decision Analysis",
+        cp: "6cp",
+        category: ["business", "data", "elective"],
+        level: "3000",
+        workload: "Medium-High",
+        skills: ["statistics", "math", "finance", "communication"],
+        functionTags: ["direction exploration"],
+        best: "S2；完成官方指定的一阶数量方法入口后",
+        later: "decision science、risk analytics、operations 与产品决策",
+        summary: "用概率、decision trees、simulation、sensitivity analysis 和 value of information 建模不确定决策。",
+        teaches: ["subjective probabilities 与风险度量", "decision trees 与 sensitivity analysis", "simulation、risk attitudes 与 value of information", "多目标权衡及面向非技术受众的决策解释"],
+        matters: "适合补充数据驱动决策能力，但属于 Business School 选修，不计入 Statistics minor。选课前仍需核对 BSc 的 elective access。",
+        before: ["先修入口包括 BUSS1020、DATA1001、ECMT1010、ENVX1001/1002、STAT1021 等，完整规则见课程页", "禁止与 QBUS2320、ECMT2630、ENGG1850、CIVL3805 重复修读", "无 corequisite 或 assumed knowledge"],
+        mastery: ["能识别适合 decision analysis 的问题", "能建立概率与决策树模型", "能计算 expected value 和 value of information", "能解释敏感性、风险偏好与多属性权衡"],
+        how: ["先列 objectives、decisions、uncertainties 与 consequences", "对关键参数做 sensitivity analysis 而不是只给单点答案", "每个模型同时准备技术结果和管理者摘要"],
+        terms: ["decision analysis — 决策分析", "decision tree — 决策树", "expected value — 期望值", "value of information — 信息价值", "sensitivity analysis — 敏感性分析"],
+        readings: ["QBUS3330 unit outline — 2026 S2：核对案例、软件与考核。", "Making Hard Decisions — 暂无通行中文译名：决策分析方法参考。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/QBUS3330"]]
       },
       {
         code: "SCDL2991",
@@ -8429,7 +8517,7 @@
         later: "STEMM 团队协作、实践领导与职业发展",
         summary: "仅向 Dalyell stream 学生开放，结合领导理论、行业交流、实践与反思，培养 STEMM 领域的领导能力。",
         teaches: ["领导价值观、伦理与理论", "STEMM 领域的领导实践", "团队沟通与人际策略", "实际领导经历与反思"],
-        matters: "选课前必须已进入 Dalyell stream。课程页的先修栏虽然写 None，正文仍明确限定 Dalyell 学生；不能仅凭高成绩或普通奖学金认定具备资格。本规划将其列为额外选修，不自动抵扣 CS Major / Software Development minor 或 OLE。",
+        matters: "选课前必须已进入 Dalyell stream。课程页的先修栏虽然写 None，正文仍明确限定 Dalyell 学生；不能仅凭高成绩或普通奖学金认定具备资格。本规划将其列为额外选修，不自动抵扣 CS Major / Statistics minor 或 OLE。",
         before: ["需已正式注册 Dalyell stream / Dalyell Scholars program；资格以 Sydney Student 为准", "没有指定先修课程，但需要参与实际领导活动", "2026 S2 为线上授课，仍要求参与 seminar、讨论、实践和反思；压力为规划估计"],
         mastery: ["能解释领导决策中的价值观与伦理", "能将领导理论用于 STEMM 案例", "能根据团队情境调整沟通策略", "能用具体证据反思实际领导经验"],
         how: ["尽早确定可参与的团队或组织及实践任务", "持续记录行动、反馈和改进，避免期末补写反思", "把理论与实际案例对照，解释选择而不是只描述经历"],
@@ -8440,6 +8528,9 @@
     );
 
     const courseAvailability = {
+      MATH2069: "2026 S1",
+      QBUS3330: "2026 S2",
+      STAT3888: "2026 S2",
       DECO1016: "2026 S2",
       INFO3315: "2026 S2",
       SOFT2201: "2026 S2",
@@ -8475,12 +8566,13 @@
       MATH3061: "S1 需核对",
       DATA1001: "S1 / S2",
       DATA2001: "S1 需核对",
-      DATA2002: "S2 需核对",
+      DATA2002: "2026 S2",
       DATA3404: "S1",
       STAT2011: "2026 S1",
       STAT3021: "2026 S1",
       STAT3022: "2026 S1",
       STAT3023: "2026 S2",
+      WRIT1000: "2026 S1 / S2",
       WRIT1001: "2026 S1 / S2",
       HPSC1001: "2026 S2",
       EDGU1003: "2026 S1 / S2 / January-February intensive",
@@ -8509,11 +8601,12 @@
         ]
       },
       {
-        id: "sd", title: "Minor · Software Development", target: 36,
+        id: "stats", title: "Minor · Statistics", target: 36,
         slots: [
-          { label: "1000-level core", target: 12, kind: "core", codes: ["INFO1110", "INFO1113"], note: "INFO1110、INFO1113 均必修，与 CS Major 共用。" },
-          { label: "2000-level core", target: 18, kind: "core", codes: ["COMP2123", "SOFT2201", "SOFT2412"], note: "COMP2123、SOFT2201、SOFT2412 均必修；COMP2123 与 CS Major 共用。" },
-          { label: "3000-level selective", target: 6, codes: ["INFO3315", "SOFT3202"], note: "INFO3315 / SOFT3202 二选一；minor 无项目课要求。" }
+          { label: "1000-level core", target: 6, kind: "core", codes: ["MATH1061"], note: "MATH1061 为标准核心入口；官方 advanced / SSP 等价课需单独核对。" },
+          { label: "1000-level MATH / DATA", target: 6, kind: "core", codes: ["MATH1062", "DATA1001"], note: "MATH1062 或 DATA1001 任选 6cp；advanced / SSP 等价课也可按官方表核对。" },
+          { label: "2000-level core", target: 12, kind: "core", codes: ["DATA2002", "STAT2011"], note: "DATA2002 与 STAT2011 均须修读，共 12cp。" },
+          { label: "3000-level selective", target: 12, codes: ["STAT3021", "STAT3022", "STAT3023", "STAT3888"], note: "从 Statistics minor selective 中计入 12cp；本库同时保留其他官方 advanced selective 的扩展空间。" }
         ]
       }
     ];
@@ -8578,6 +8671,8 @@
     });
 
     const unitSourceAccessDates = {
+      WRIT1000: "2026-08-30",
+      MATH2069: "2026-08-29", QBUS3330: "2026-08-29", STAT3888: "2026-08-29",
       DECO1016: "2026-08-29",
       INFO3315: "2026-08-28", SOFT2201: "2026-08-28", SOFT3202: "2026-08-28", SOFT2412: "2026-08-28",
       MATH3076: "2026-08-28",
@@ -8609,11 +8704,11 @@
       },
       {
         type: "degree",
-        title: "Software Development minor",
-        accessDate: "2026-08-28",
-        citation: "University of Sydney. (2026). Software Development. Science Handbook.",
-        use: "用于核对 Software Development minor 36cp：1000-level core 12cp、2000-level core 18cp、3000-level selective 6cp。",
-        url: "https://www.sydney.edu.au/handbooks/science/table-a/subject-areas/software-development/unit-of-study-table.html"
+        title: "Statistics minor",
+        accessDate: "2026-08-29",
+        citation: "University of Sydney. (2026). Statistics. Science Handbook.",
+        use: "用于核对 Statistics minor 36cp：1000-level 12cp、2000-level core 12cp、3000-level selective 12cp。",
+        url: "https://www.sydney.edu.au/handbooks/science/table-a/subject-areas/statistics/unit-of-study-table.html"
       },
       {
         type: "degree",
@@ -9002,12 +9097,12 @@
           SOFT2201: {
             requires: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"],
             prohibitions: ["INFO3220 / COMP9201"],
-            note: "任选一个官方入口；这是 SD minor 核心课，也是 SOFT3202 的先修。"
+            note: "任选一个官方入口；在当前结构中作为软件方向选修，也是 SOFT3202 的先修。"
           },
           SOFT3202: {
             requires: ["SOFT2201"],
             prohibitions: ["INFO3220"],
-            note: "SD minor 高阶二选一；INFO3315 是专业结构上的另一选项，不是本课先修。"
+            note: "高级软件方向选修；INFO3315 是另一条 HCI 方向，不是本课先修。"
           },
           INFO3315: {
             requires: ["6cp from INFO1110 / INFO1910 / INFO1113 / ENGG1810", "12cp 2000-level units from BAdvComp Table A"],
@@ -9040,6 +9135,11 @@
             requires: ["无指定先修课程"],
             eligibility: "仅限 Dalyell stream",
             note: "必须已正式进入 Dalyell stream（Dalyell Scholar 身份）。课程页正文明确这一准入条件，不能仅依据 prerequisites 栏的 None 判断为向所有学生开放。",
+            graph: false
+          },
+          WRIT1000: {
+            requires: ["无指定先修课程"],
+            note: "Corequisite、prohibition 与 assumed knowledge 均为 None；课程假设具备基本英语能力，但不是语言习得课程。",
             graph: false
           },
 	      INFO1113: {
@@ -9099,8 +9199,10 @@
 	        note: "DATA1002 是可选入口之一；INFO1110 等编程课也可满足官方 prerequisite。"
 	      },
 	      DATA2002: {
-	        requires: ["DATA1001 / DATA1002 或等价 data / statistics / programming 背景"],
-	        note: "作为数据路线中级课，先按当年 Handbook 核对具体 prerequisite 与 availability。"
+	        requires: ["DATA1X01 / ENVX1002 / BUSS1020 / ECMT1010 / MATH1062 或官方等价入口"],
+	        prohibitions: ["STAT2012 / STAT2912 / DATA2902"],
+	        assumed: ["一阶或二阶 statistics / data science 与 substantial coding；建议提前熟悉 R"],
+	        note: "Statistics minor 的 2000-level 必修；2026 S2 开课。"
 	      },
 	      STAT2011: {
 	        requires: ["一阶数学入口 + 一阶 data/statistics 入口"],
@@ -9120,6 +9222,22 @@
 	        requires: ["STAT2X11"],
 	        assumed: ["DATA2X02 / STAT2X12"],
 	        note: "统计推断理论负担高；STAT2011 是自然入口，但还需补足数据/统计建模 assumed knowledge。"
+	      },
+	      STAT3888: {
+	        requires: ["STAT2X11 + (DATA2X02 / STAT2X12)"],
+	        assumed: ["STAT3012 / STAT3912 / STAT3022 / STAT3922"],
+	        prohibitions: ["STAT3914 / STAT3014"],
+	        note: "Statistics minor 的 3000-level selective；2026 S2 开课，建议先完成 STAT3022。"
+	      },
+	      MATH2069: {
+	        requires: ["6cp MATH1XXX，排除 MATH1XX5 / MATH1050 / MATH1111"],
+	        prohibitions: ["MATH2011 / MATH2009 / MATH2969"],
+	        note: "2026 S1 开课；属于其他数学选修，不计入 Statistics minor。"
+	      },
+	      QBUS3330: {
+	        requires: ["BUSS1020 / DATA1001 / ECMT1010 / ENVX1001 / ENVX1002 / STAT1021 或官方数学入口"],
+	        prohibitions: ["QBUS2320 / ECMT2630 / ENGG1850 / CIVL3805"],
+	        note: "2026 S2 开课；Business School 选修，不计入 Statistics minor。"
 	      },
 	      DATA3404: {
 	        requires: ["DATA2001 / DATA2901 / ISYS2120 / INFO2120 / INFO2820"],
@@ -9164,7 +9282,7 @@
 	      SOFT2412: {
 	        requires: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"],
             prohibitions: ["COMP9412"],
-	        note: "SD minor 的 2000-level 必修；训练团队开发流程，也为 CS 项目课做准备。"
+	        note: "软件方向选修；训练团队开发流程，也为 CS 项目课做准备。"
 	      },
 	      PHIL3610: {
 	        requires: ["PHIL1012"],
@@ -9238,14 +9356,17 @@
     }
 
     const readingTargets = [
-      { codes: ["SOFT2201", "SOFT2412"], tab: "core", group: "SOFT2201 · SOFT2412 — 软件构建与团队开发" },
+      { codes: ["SOFT2201", "SOFT2412"], tab: "elective", group: "SOFT2201 · SOFT2412 — 软件构建与团队开发" },
       { codes: ["SOFT3202"], tab: "elective", group: "SOFT3202 — 高级软件设计与验证" },
       { codes: ["INFO3315"], tab: "elective", group: "INFO3315 — 人机交互与用户研究" },
       { codes: ["MATH3076"], tab: "elective", group: "MATH3076 — 数学计算与数值分析" },
+      { codes: ["MATH2069"], tab: "elective", group: "MATH2069 — 离散数学与图论" },
       { codes: ["MATH2070"], tab: "elective", group: "MATH2070 — 优化与金融数学" },
+      { codes: ["QBUS3330"], tab: "elective", group: "QBUS3330 — 决策分析" },
       { codes: ["ECON1003"], tab: "elective", group: "ECON1003 — 经济数量方法" },
       { codes: ["JPNS1611"], tab: "elective", group: "JPNS1611 — 日语入门" },
       { codes: ["SCDL2991"], tab: "elective", group: "SCDL2991 — Dalyell 领导力" },
+      { codes: ["WRIT1000", "WRIT1001"], tab: "elective", group: "WRIT1000 · WRIT1001 — 学术写作与修辞" },
       { codes: ["INFO1110", "INFO1113"], tab: "core", group: "INFO1110 · INFO1113 — Python 与面向对象编程基础" },
       { codes: ["MATH1064"], tab: "elective", group: "MATH1064 — 离散数学" },
       { codes: ["COMP2123", "COMP3027"], tab: "core", group: "COMP2123 · COMP3027 — 数据结构与算法设计" },
@@ -9255,7 +9376,7 @@
       { codes: ["COMP3888 / COMP3988", "COMP3888", "COMP3988"], tab: "core", group: "COMP3888 · COMP3988 — 项目课与软件工程" },
       { codes: ["SCPU3001"], tab: "elective", group: "SCPU3001 — 跨学科科学项目" },
       { codes: ["DATA2001", "DATA2002", "DATA3404", "ISYS2120"], tab: "elective", group: "DATA2001 · DATA2002 · DATA3404 · ISYS2120 — 数据与数据库系统" },
-      { codes: ["STAT2011", "STAT3021", "STAT3022", "STAT3023"], tab: "elective", group: "STAT2011 · STAT3021 · STAT3022 · STAT3023 — 统计建模与推断" },
+      { codes: ["DATA2002", "STAT2011", "STAT3021", "STAT3022", "STAT3023", "STAT3888"], tab: "elective", group: "Statistics minor — 概率、建模、推断与统计学习" },
       { codes: ["COMP3221"], tab: "elective", group: "COMP3221 — 分布式系统" },
       { codes: ["COMP3520"], tab: "elective", group: "COMP3520 — 操作系统" },
       { codes: ["COMP3308"], tab: "elective", group: "COMP3308 — 人工智能 / 机器学习" },
@@ -9445,7 +9566,7 @@
                 ${st.wamBuffer  ? `<div><span class="k">是否适合做缓冲 / intensive</span>${st.wamBuffer}</div>` : ""}
                 ${st.career     ? `<div><span class="k">对项目 / 实习 / 作品集</span>${st.career}</div>` : ""}
                 ${st.major      ? `<div><span class="k">对计算机科学 Major</span>${st.major}</div>` : ""}
-                ${st.minor      ? `<div><span class="k">对 SD Minor</span>${st.minor}</div>` : ""}
+                ${st.minor      ? `<div><span class="k">对 Statistics Minor</span>${st.minor}</div>` : ""}
                 ${st.interest   ? `<div><span class="k">对兴趣路线</span>${st.interest}</div>` : ""}
               </div>
             </details>` : ""}
@@ -9679,8 +9800,8 @@
 
     applyAcceleratedRoutePressure();
 
-    // The two components share 18cp of core units; degree credits remain unique.
-    const progressTargets = { total: 144, major: 48, minor: 36, ole: 6, elective: 72 };
+    // Major and minor allocations remain distinct; degree credits are counted once.
+    const progressTargets = { total: 144, major: 48, minor: 36, ole: 6, elective: 54 };
     const progressStorageKey = "usyd-degree-roadmap-completed-stages";
 
     function readCompletedStages() {
@@ -9781,7 +9902,7 @@
         completed: totals.completed.minor,
         locked: totals.locked.minor,
         candidate: totals.candidate.minor
-      }, progressTargets.minor, `${totals.completed.minor} / 36cp`, "未计入 Software Development minor 学分");
+      }, progressTargets.minor, `${totals.completed.minor} / 36cp`, "未计入 Statistics minor 学分");
       setCreditProgressCard("ole", {
         completed: totals.completed.ole,
         locked: totals.locked.ole,
@@ -9807,7 +9928,7 @@
         return (entry.status === "locked" || entry.status === "candidate") && workloadScore(course.workload) >= 3;
       }).length;
       const completedCodes = new Set(completedCourses.map(course => course.code));
-      const bottleneckOpen = ["INFO1113", "COMP2123", "COMP2017", "COMP3027", "SOFT2201"].filter(code => !completedCodes.has(code)).length;
+      const bottleneckOpen = ["INFO1113", "COMP2123", "COMP2017", "COMP3027", "DATA2002", "STAT2011"].filter(code => !completedCodes.has(code)).length;
       let pressurePoints = 0;
       if (totals.completed.total < 36 && lockedOrCandidateCount >= 6) pressurePoints += 1;
       if (lockedOrCandidateCount >= 10) pressurePoints += 2;
@@ -9951,7 +10072,7 @@
         bucket.minor += minor;
         bucket.shared += Math.min(major, minor);
         bucket.ole += oleCp;
-        // Shared cores satisfy both components but consume degree credits once.
+        // A course can satisfy more than one structure rule but consumes degree credits once.
         bucket.elective += cp - Math.max(major, minor, oleCp);
       });
       return { groups, totals };
@@ -10586,9 +10707,17 @@
        ========================================================== */
 
 		    const bottleneckChains = [
-          { title: "SOFT2201 软件构建入口", before: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"], target: "SOFT2201", note: "SD minor 核心课。任选一个官方 OOP 入口，2026 S2 开课。" },
-          { title: "SOFT3202 软件设计进阶", before: ["SOFT2201"], target: "SOFT3202", note: "SD minor 高阶选修之一。先完成 SOFT2201；2026 S1 开课。" },
-          { title: "INFO3315 人机交互入口", before: ["6cp INFO1110 / INFO1910 / INFO1113 / ENGG1810", "12cp 2000-level BAdvComp Table A"], joiner: "+", target: "INFO3315", note: "两组条件均须满足，第二组不是任意 12cp 二阶课。2026 S2 开课；与 SOFT3202 二选一满足 minor 6cp。" },
+          { title: "DATA2002 统计数据分析入口", before: ["DATA1001 / MATH1062 / 官方等价入口"], target: "DATA2002", note: "Statistics minor 的 2000-level core；2026 S2 开课，建议提前熟悉 R。" },
+          { title: "STAT2011 概率统计入口", before: ["一阶数学入口", "一阶 DATA / STAT 入口"], joiner: "+", target: "STAT2011", note: "两类基础均须满足；本规划优先使用 MATH1061 与 DATA1001。2026 S1 开课。" },
+          { title: "STAT3021 随机过程入口", before: ["STAT2011 / STAT2X11"], target: "STAT3021", note: "Statistics minor 的 3000-level selective；2026 S1 开课，并假设具备基础概率与积分。" },
+          { title: "STAT3022 应用线性模型入口", before: ["STAT2011 / STAT2X11", "DATA2002 / DATA2X02 / STAT2X12"], joiner: "+", target: "STAT3022", note: "Statistics minor 的 3000-level selective；2026 S1 开课，并假设具备线性代数。" },
+          { title: "STAT3023 统计推断入口", before: ["STAT2011 / STAT2X11"], target: "STAT3023", note: "Statistics minor 的 3000-level selective；2026 S2 开课，DATA2002 / STAT2X12 属于 assumed knowledge。" },
+          { title: "STAT3888 统计机器学习入口", before: ["STAT2011 / STAT2X11", "DATA2002 / DATA2X02 / STAT2X12"], joiner: "+", target: "STAT3888", note: "Statistics minor 的 3000-level selective；2026 S2 开课，建议先完成 STAT3022。" },
+          { title: "MATH2069 离散数学入口", before: ["6cp MATH1XXX（部分课程除外）"], target: "MATH2069", note: "2026 S1 开课；完整 prohibition 与排除课程见课程详情。" },
+          { title: "QBUS3330 决策分析入口", before: ["DATA1001 / BUSS1020 / ECMT1010 / 官方等价入口"], target: "QBUS3330", note: "2026 S2 开课；属于 Business School 选修，不计入 Statistics minor。" },
+          { title: "SOFT2201 软件构建入口", before: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"], target: "SOFT2201", note: "软件方向选修。任选一个官方 OOP 入口，2026 S2 开课。" },
+          { title: "SOFT3202 软件设计进阶", before: ["SOFT2201"], target: "SOFT3202", note: "高级软件方向选修。先完成 SOFT2201；2026 S1 开课。" },
+          { title: "INFO3315 人机交互入口", before: ["6cp INFO1110 / INFO1910 / INFO1113 / ENGG1810", "12cp 2000-level BAdvComp Table A"], joiner: "+", target: "INFO3315", note: "两组条件均须满足，第二组不是任意 12cp 二阶课。2026 S2 开课。" },
 		      { title: "INFO1113 官方多入口", before: ["INFO1110 / INFO1910 / ENGG1810"], target: "INFO1113", note: "INFO1110 是本规划入口之一；官方也可能接受 INFO1910 / ENGG1810 等等价入口。" },
 		      { title: "COMP2123 官方多入口", before: ["INFO1110 / INFO1113 / DATA1002 / 等价入口"], target: "COMP2123", note: "官方也接受 INFO1910、DATA1902、ENGG1810。MATH1064 是 assumed knowledge，不是硬性先修。" },
 		      { title: "COMP3027 官方先修", before: ["COMP2123"], target: "COMP3027", note: "本规划走 COMP2123 → COMP3027；官方也接受 COMP2823。" },
@@ -10602,7 +10731,7 @@
 		      { title: "COMP3419 官方多入口", before: ["COMP2123 / INFO1105 / 等价入口"], target: "COMP3419", note: "Graphics and Multimedia 的 prerequisite 可由 COMP2123 / COMP2823 / INFO1105 / INFO1905 满足；programming skills 是 assumed knowledge。" },
 		      { title: "COMP3530 官方多入口", before: ["COMP2123 / COMP2007 / 等价入口"], target: "COMP3530", note: "Discrete Optimization 的官方入口包括 COMP2123 / COMP2823 / COMP2007 / COMP2907；但 unit page 显示该课当前不再开设。" },
 		      { title: "COMP3109 官方组合入口", before: ["COMP2017", "COMP2022"], joiner: "+", target: "COMP3109", note: "Programming Languages and Paradigms 需要 systems programming 与 models of computation 背景；unit page 显示该课当前不再开设。" },
-		      { title: "SOFT2412 敏捷开发入口", before: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"], target: "SOFT2412", note: "SD minor 的 2000-level 核心课，2026 S2 开课；与 SOFT2201 均须修读。" },
+		      { title: "SOFT2412 敏捷开发入口", before: ["INFO1113 / INFO1103 / INFO1105 / INFO1905"], target: "SOFT2412", note: "软件团队与工程实践方向选修，2026 S2 开课。" },
 		      { title: "MATH2022 官方多入口", before: ["MATH1061 / MATH1X02 / 等价一阶数学"], target: "MATH2022", note: "本规划用 MATH1061 作为一阶数学/线代入口；官方也可能接受其他 MATH1XXX 入口。" },
           { title: "MATH2070 官方先修组合", before: ["MATH1061 / 官方等价第一组", "MATH1062 / 官方等价第二组"], joiner: "+", target: "MATH2070", note: "两组都需满足。这里展示 MATH1061 + MATH1062 这一可用组合；完整等价入口见课程详情。MATH2970 为 prohibition。" },
           { title: "MATH3076 官方先修组合", before: ["12cp MATH2XXX", "6cp MATH2XXX + (6cp STAT2XXX 或 DATA2X02)"], joiner: "或", target: "MATH3076", note: "两种组合任选其一；第二种仍须包含 6cp 2000-level 数学。MATH3976 / MATH4076 为 prohibition。" },
@@ -10610,7 +10739,7 @@
 		      { title: "MATH2080 官方多入口", before: ["MATH1061 / MATH1064 / 等价一阶数学"], target: "MATH2080", note: "Abstract and Computational Algebra 可由 MATH1061 或 MATH1064 等入口进入；prohibition 为 MATH2980。" },
 		      { title: "MATH3066 官方先修类型", before: ["任意 6cp MATH2XXX"], target: "MATH3066", note: "MATH3066 官方要求 6cp 2000-level MATH；MATH2022 只是本规划里一条自然示例，不是唯一入口。" },
 		      { title: "MATH3061 官方先修类型", before: ["任意 12cp MATH2XXX"], target: "MATH3061", note: "MATH3061 官方要求 12cp 2000-level MATH；MATH2022 + MATH2088 只是本规划里一条可满足路径。" },
-		      { title: "SCPU3001 收尾项目入口", before: ["96cp + project corequisite"], target: "SCPU3001", note: "CS Major 的有条件项目选项；minor 无项目要求，需先确认双 major 准入限制及 project pairing。" },
+		      { title: "SCPU3001 收尾项目入口", before: ["96cp + project corequisite"], target: "SCPU3001", note: "CS Major 的有条件项目选项；Statistics minor 无项目要求，需先确认准入限制及 project pairing。" },
 		      { title: "PHIL3610 官方先修", before: ["PHIL1012"], target: "PHIL3610", note: "OLET2148 不是 PHIL3610 的先修，只能作为批判性思维训练。" },
 		      { title: "MUSC3603 官方先修", before: ["MUSC2653"], target: "MUSC3603", note: "本规划用 MUSC2653 作为音乐技术进阶入口；OLET1801 / OLET1803 不作为硬性先修。" },
 		      { title: "CMPN2632 官方先修", before: ["MUSC2653"], target: "CMPN2632", note: "MUSC2653 是 Computer Music Fundamentals 的官方入口之一。" },
@@ -10692,8 +10821,8 @@
 
     const riskBad = [
       { t: "COMP2017 + COMP2123 + 高负担选修", d: "系统编程与算法作业可能集中，需预留调试和证明练习时间。" },
-      { t: "COMP3027 + SOFT3202 + 高负担选修", d: "算法证明与软件设计作业并行，先核对截止日期与可投入时间。" },
-      { t: "SOFT2201 + SOFT2412 + INFO3315", d: "三门都有设计或协作任务；即使学分不高，也要检查团队项目高峰是否重叠。" },
+      { t: "COMP3027 + STAT3022 + STAT3023", d: "算法证明、回归建模与统计推断同时推进，理论和作业高峰都很密集。" },
+      { t: "COMP3888 + STAT3888", d: "两门都是团队项目型高阶课，不宜在同一学期承担主要交付。" },
       { t: "30cp 学期含两门以上 CS / 数学重课", d: "24cp 不一定安全，关键是课业压力的组合。" },
       { t: "intensive 紧贴重负担学期", d: "intensive 燃尽 + 下学期立刻高压 = WAM 双重打击。" },
       { t: "COMP2017 + COMP3027 同学期", d: "系统与算法两门高负担课并行，需预留额外练习时间。" },
@@ -10702,6 +10831,7 @@
     const riskSafe = [
       { t: "2 门核心 + 1 门中等 + 1 门轻量选修", d: "标准的稳健 24cp 配置，适合多数学期。" },
       { t: "1 门核心 + 2 门中等技术 + 1 门 OLE / 轻量选修", d: "课业压力平衡且对 WAM 友好。" },
+      { t: "STAT3022 与 STAT3888 分到连续两个学期", d: "先建立线性模型基础，再进入统计机器学习项目，先修和负担更顺。" },
       { t: "暑期 / 7 月 intensive 主要走 OLE 或轻量选修", d: "intensive 不应承担核心课。" },
       { t: "重 CS / 数学学期不要叠写作密集的设计课", d: "防止论文 + 作业高峰同时爆发。" }
     ];
@@ -10719,11 +10849,6 @@
 
     const readingQueue = {
       core: [
-        { group: "SOFT2201 · SOFT2412 — 软件构建与团队开发", books: [
-          { zh: "《程序员修炼之道：从小工到专家》", en: "The Pragmatic Programmer — Andrew Hunt, David Thomas", why: "从个人代码习惯到团队工程判断，适合作为软件项目课前的工程素养底座。" },
-          { zh: "《代码整洁之道》", en: "Clean Code — Robert C. Martin", why: "帮助把小作业式代码升级成可读、可维护、可协作的项目代码。" },
-          { zh: "Google Engineering Practices（暂无通行中文译名）", en: "Google Engineering Practices Documentation", why: "代码评审、测试和工程流程的轻量参考，适合团队项目直接套用。" }
-        ]},
         { group: "INFO1110 · INFO1113 — Python 与面向对象编程基础", books: [
           { zh: "《像计算机科学家一样思考 Python》", en: "Think Python — Allen B. Downey", why: "INFO1110 入门最友好的免费教材，强调过程式思维与 debug 习惯。" },
           { zh: "《Python 编程：从入门到实践》", en: "Python Crash Course — Eric Matthes", why: "练习项目密度高，适合配合 INFO1110 周作业反复巩固语法直觉。" },
@@ -10758,6 +10883,16 @@
       ],
 
       elective: [
+        { group: "WRIT1000 · WRIT1001 — 学术写作与修辞", books: [
+          { zh: "They Say / I Say（暂无通行中文译名）", en: "They Say / I Say — Gerald Graff, Cathy Birkenstein", why: "用模板理解学术对话、claim、evidence 和 counterpoint，适合短篇论证写作。" },
+          { zh: "《研究的艺术》", en: "The Craft of Research — Wayne C. Booth, Gregory G. Colomb, Joseph M. Williams", why: "把研究问题、资料、证据、论证和成稿连接起来，适合统计报告与项目文档。" },
+          { zh: "Academic Phrasebank（暂无通行中文译名）", en: "Manchester Academic Phrasebank", why: "按引言、比较、论证、限制和结论等功能查询学术表达。" }
+        ]},
+        { group: "SOFT2201 · SOFT2412 — 软件构建与团队开发", books: [
+          { zh: "《程序员修炼之道：从小工到专家》", en: "The Pragmatic Programmer — Andrew Hunt, David Thomas", why: "从个人代码习惯到团队工程判断，适合作为软件项目课前的工程素养底座。" },
+          { zh: "《代码整洁之道》", en: "Clean Code — Robert C. Martin", why: "帮助把小作业式代码升级成可读、可维护、可协作的项目代码。" },
+          { zh: "Google Engineering Practices（暂无通行中文译名）", en: "Google Engineering Practices Documentation", why: "代码评审、测试和工程流程的轻量参考，适合团队项目直接套用。" }
+        ]},
         { group: "MATH1064 — 离散数学", books: [
           { zh: "《离散数学及其应用》", en: "Discrete Mathematics and Its Applications — Kenneth H. Rosen", why: "MATH1064 教材级标准参考，覆盖逻辑、集合、归纳、关系、图论等全部主题。" },
           { zh: "《如何证明：一种结构化方法》", en: "How to Prove It: A Structured Approach — Daniel J. Velleman", why: "把“证明”拆成可练习的几何动作，是证明能力补强的首选。" },
@@ -10778,11 +10913,19 @@
           { zh: "《数据密集型应用系统设计》", en: "Designing Data-Intensive Applications — Martin Kleppmann", why: "工业级数据系统视角：复制、分区、一致性、流处理。DATA3404 与实习的桥梁。" },
           { zh: "《数据库系统全书》", en: "Database Systems: The Complete Book — Hector Garcia-Molina, Jeffrey D. Ullman, Jennifer Widom", why: "Stanford 经典厚书，作为查询优化、关系代数、存储引擎的深入参考。" }
         ]},
-        { group: "STAT2011 · STAT3021 · STAT3022 · STAT3023 — 统计建模与推断", books: [
+        { group: "Statistics minor — 概率、建模、推断与统计学习", books: [
           { zh: "All of Statistics（暂无通行中文译名）", en: "All of Statistics — Larry Wasserman", why: "从概率到推断、回归和统计学习的紧凑参考，适合 STAT2011 / STAT3023 快速查概念。" },
           { zh: "Statistical Inference（暂无通行中文译名）", en: "Statistical Inference — George Casella, Roger L. Berger", why: "数学统计推断经典，适合 STAT3023 的分布理论、MLE、testing 和 optimality。" },
           { zh: "Introduction to Probability Models（暂无通行中文译名）", en: "Introduction to Probability Models — Sheldon Ross", why: "随机过程应用视角清晰，适合 STAT3021 的 Markov chain、Poisson process 和 queueing。" },
-          { zh: "Linear Models with R（暂无通行中文译名）", en: "Linear Models with R — Julian J. Faraway", why: "应用线性模型和 R 实作结合，适合 STAT3022 的 regression、diagnostics、ANOVA。" }
+          { zh: "Linear Models with R（暂无通行中文译名）", en: "Linear Models with R — Julian J. Faraway", why: "应用线性模型和 R 实作结合，适合 STAT3022 的 regression、diagnostics、ANOVA。" },
+          { zh: "An Introduction to Statistical Learning（暂无通行中文译名）", en: "An Introduction to Statistical Learning — James et al.", why: "适合 DATA2002 与 STAT3888 的统计学习、模型评价和项目实践。" }
+        ]},
+        { group: "MATH2069 — 离散数学与图论", books: [
+          { zh: "Introduction to Graph Theory（暂无通行中文译名）", en: "Introduction to Graph Theory — Douglas B. West", why: "覆盖树、平面图、着色和 Hamiltonian / Eulerian 结构。" },
+          { zh: "《具体数学》", en: "Concrete Mathematics — Graham, Knuth, Patashnik", why: "递推、生成函数和组合计数的经典参考。" }
+        ]},
+        { group: "QBUS3330 — 决策分析", books: [
+          { zh: "Making Hard Decisions（暂无通行中文译名）", en: "Making Hard Decisions — Robert T. Clemen, Terence Reilly", why: "decision trees、risk、value of information 与 sensitivity analysis 的系统参考。" }
         ]},
         { group: "COMP3221 — 分布式系统", books: [
           { zh: "《分布式系统：原理与范型》", en: "Distributed Systems: Principles and Paradigms — Andrew S. Tanenbaum, Maarten Van Steen", why: "分布式系统教材标杆：通信、命名、同步、一致性、容错全覆盖。" }
