@@ -217,16 +217,18 @@ test('semester export includes actual positive statuses and separates missing pl
   assert.equal(report.semesters[0].courses[0].name, 'Introduction to Programming');
   assert.equal(JSON.stringify(entries), snapshot);
   const document = model.renderSemesterExport(report, '2026/10/20');
-  assert.equal((document.match(/<h1>/g) || []).length, 1, 'Multi-year exports have one document title');
+  assert.match(document, /<time>2026\/10\/20<\/time>/);
+  assert.doesNotMatch(document, /<h1>|Bachelor of Science|report-note|counter\(page/);
   assert.match(document, /未安排学期/);
-  assert.match(document, /待核对学分未计入合计/);
+  assert.match(document, /OLD9999/);
   assert.doesNotMatch(document, /DATA1001|mark|80/);
 });
 
 test('empty semester export does not convert recommendations into selections and escapes stored text', () => {
   const empty = model.buildSemesterExport({}, [{ id: '2028-s1', label: '2028 S1' }]);
   const document = model.renderSemesterExport(empty, '2026/10/20');
-  assert.match(document, /暂无已安排课程/);
+  assert.match(document, /2028 S1/);
+  assert.doesNotMatch(document, /<tbody>/);
   assert.doesNotMatch(document, /STAT3022|COMP3027/);
   const hostile = model.buildSemesterExport({ '<img src=x onerror=alert(1)>': { status: 'candidate' } }, []);
   const escaped = model.renderSemesterExport(hostile, '<script>alert(1)</script>');

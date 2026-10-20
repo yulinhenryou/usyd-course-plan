@@ -10613,27 +10613,22 @@
         if (!years.has(year)) years.set(year, []);
         years.get(year).push(stage);
       });
-      const header = `<header class="report-header"><div class="title-line"><h1>学期选课总览</h1><span class="date">${escapeHtml(dateLabel)}</span></div><p>Bachelor of Science · Computer Science Major · Statistics Minor</p></header>`;
-      const summary = `<div class="summary">${Object.entries(report.totals).map(([status, cp]) => `<div><span>${STATUS_LABEL[status]}</span><strong>${cp}cp</strong></div>`).join("")}<div><span>合计</span><strong>${Object.values(report.totals).reduce((sum, cp) => sum + cp, 0)}cp</strong></div></div>`;
+      const header = `<header class="report-header"><time>${escapeHtml(dateLabel)}</time></header>`;
       const content = Array.from(years, ([year, semesters]) => `<section class="year">
-        <div class="year-heading"><h2>${escapeHtml(year)} 年</h2><span>已排 ${cpTotal(semesters.flatMap(stage => stage.courses))}cp</span></div>
-        ${semesters.map(stage => `<section class="semester${stage.courses.length ? "" : " empty-term"}"><div class="semester-heading"><h3>${escapeHtml(stage.label)}</h3><span>${stage.courses.length ? `${cpTotal(stage.courses)}cp · ${stage.courses.length} 门` : "暂无已安排课程"}</span></div>${stage.courses.length ? table(stage.courses) : ""}</section>`).join("")}</section>`).join("");
-      const unassigned = report.unassigned.length ? `<section class="year"><div class="year-heading"><h2>未安排学期</h2><span>${cpTotal(report.unassigned)}cp · ${report.unassigned.length} 门</span></div>${table(report.unassigned)}</section>` : "";
-      const hasUnknownCredits = [...report.semesters.flatMap(stage => stage.courses), ...report.unassigned].some(row => row.cp === null);
+        <div class="year-heading"><h2>${escapeHtml(year)} 年</h2><span>${cpTotal(semesters.flatMap(stage => stage.courses))}cp</span></div>
+        ${semesters.map(stage => `<section class="semester${stage.courses.length ? "" : " empty-term"}"><div class="semester-heading"><h3>${escapeHtml(stage.label)}</h3><span>${stage.courses.length ? `${cpTotal(stage.courses)}cp` : "—"}</span></div>${stage.courses.length ? table(stage.courses) : ""}</section>`).join("")}</section>`).join("");
+      const unassigned = report.unassigned.length ? `<section class="year"><div class="year-heading"><h2>未安排学期</h2><span>${cpTotal(report.unassigned)}cp</span></div>${table(report.unassigned)}</section>` : "";
       return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="color-scheme" content="light"><title>USYD 学期选课总览</title><style>
-        @page { size: A4 portrait; margin: 14mm; @bottom-right { content: counter(page) " / " counter(pages); font-size: 8pt; color: #667085; } }
+        @page {
+          size: A4 portrait; margin: 14mm;
+          @top-left { content: ""; } @top-center { content: ""; } @top-right { content: ""; }
+          @bottom-left { content: ""; } @bottom-center { content: ""; } @bottom-right { content: ""; }
+        }
         * { box-sizing: border-box; }
         body { margin: 0; background: #fff; color: #171b22; font: 10pt/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; }
         .year { margin-top: 16px; }
-        .report-header { border-bottom: 2px solid #171b22; padding-bottom: 8px; margin-bottom: 8px; }
-        .title-line { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-        h1 { margin: 0 0 4px; font-size: 18pt; line-height: 1.2; }
-        .report-header > p { margin: 0; color: #475467; font-size: 8pt; }
-        .date { color: #667085; font-size: 8pt; }
-        .summary { display: flex; border-bottom: 1px solid #dce1e8; padding-bottom: 8px; gap: 28px; }
-        .summary > div { display: flex; align-items: baseline; gap: 7px; }
-        .summary span { font-size: 8pt; color: #667085; }
-        .summary strong { font-size: 12pt; }
+        .year:first-of-type { margin-top: 0; }
+        .report-header { margin-bottom: 8px; text-align: right; color: #667085; font-size: 8pt; }
         .year-heading, .semester-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; break-after: avoid; }
         .year-heading { margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #b8c2cf; }
         h2 { margin: 0; font-size: 13pt; }
@@ -10655,9 +10650,8 @@
         .numeric { text-align: right; white-space: nowrap; }
         .state { white-space: nowrap; font-weight: 600; }
         .completed { color: #277a52; } .locked { color: #171b22; } .candidate { color: #1769d2; }
-        .report-note { color: #667085; font-size: 8pt; margin-top: 12px; }
         @media print { * { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
-      </style></head><body>${header}${summary}${content}${unassigned}<p class="report-note">仅汇总已完成、锁定与候选课程；灰色推荐不计入。${hasUnknownCredits ? "待核对学分未计入合计。" : ""}</p></body></html>`;
+      </style></head><body>${header}${content}${unassigned}</body></html>`;
     }
 
     document.querySelector("#exportSemesterPdf")?.addEventListener("click", () => {
