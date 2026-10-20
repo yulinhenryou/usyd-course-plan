@@ -18,7 +18,11 @@ const model = new Function('localStorage', [
   section('    const courses =', '    const PLANNER_CONFIG'),
   section('    const progressTargets =', '    const progressStorageKey'),
   section('    function creditPoints(', '    function renderStructureSlot('),
-  'return { courses, majorStructureRequirements, progressTargets, calculateDegreeCredits, evaluateStructureSlot, courseLevelRank, courseImportanceRank };'
+  section('    const SEM_LABELS =', '    function creditPoints('),
+  section('    function stageIdFor(', '    function ensureTimelineTerms('),
+  section('    function escapeHtml(', '    function collectCourseUnitSources('),
+  section('    function buildSemesterExport(', '    document.querySelector("#exportSemesterPdf")'),
+  'return { courses, majorStructureRequirements, progressTargets, calculateDegreeCredits, evaluateStructureSlot, courseLevelRank, courseImportanceRank, buildSemesterExport, renderSemesterExport };'
 ].join('\n'))({ getItem: () => null });
 
 const { courses, majorStructureRequirements: requirements, calculateDegreeCredits: calculate } = model;
@@ -28,14 +32,14 @@ const statisticsCore = ['MATH1061', 'DATA1001', 'DATA2002', 'STAT2011'];
 
 test('all inline scripts compile and all course codes remain unique', () => {
   new Function(script);
-  assert.equal(courses.length, 76);
+  assert.equal(courses.length, 77);
   assert.equal(new Set(courses.map(course => course.code)).size, courses.length);
   assert.ok(byCode('MATH3076'), 'Preserve the previous local addition');
 });
 
 test('new maths, business and statistics courses have complete verified metadata', () => {
   const expected = [
-    ['MATH2069', 'S1'], ['QBUS3330', 'S2'], ['STAT2011', 'S1'], ['STAT3021', 'S1'],
+    ['BUSS1040', 'S1 / S2'], ['MATH2069', 'S1'], ['QBUS3330', 'S2'], ['STAT2011', 'S1'], ['STAT3021', 'S1'],
     ['STAT3022', 'S1'], ['STAT3023', 'S2'], ['STAT3888', 'S2']
   ];
   for (const [code, term] of expected) {
@@ -131,12 +135,12 @@ test('extra CS electives or projects cannot substitute missing core slots', () =
 });
 
 test('software and unrelated maths plans remain other degree credits', () => {
-  const codes = ['SOFT2201', 'SOFT2412', 'SOFT3202', 'INFO3315', 'MATH2069', 'MATH2070', 'MATH3076', 'QBUS3330'];
+  const codes = ['SOFT2201', 'SOFT2412', 'SOFT3202', 'INFO3315', 'MATH2069', 'MATH2070', 'MATH3076', 'QBUS3330', 'BUSS1040'];
   const entries = statuses(codes, 'locked');
   const snapshot = JSON.stringify(entries);
   const result = calculate(entries);
-  assert.equal(result.totals.locked.total, 48);
-  assert.equal(result.totals.locked.elective, 48);
+  assert.equal(result.totals.locked.total, 54);
+  assert.equal(result.totals.locked.elective, 54);
   assert.equal(result.totals.locked.major + result.totals.locked.minor, 0);
   assert.equal(JSON.stringify(entries), snapshot, 'Calculations must not migrate or delete records');
 });
@@ -190,4 +194,42 @@ test('new prerequisite targets exist and stale program structure references are 
   assert.doesNotMatch(html, /Minor · Software Development|SD minor|data-structure-tab="sd"/i);
   assert.match(html, /Minor · Statistics/);
   ['usyd-course-status-v1', 'usyd-theme-preference', 'usyd-current-stage-override'].forEach(key => assert.ok(html.includes(key)));
+});
+
+test('semester export includes actual positive statuses and separates missing placements without changing storage', () => {
+  const entries = {
+    INFO1110: { status: 'completed', year: '2026', semester: 's1', mark: 80 },
+    STAT3022: { status: 'locked', year: '2028', semester: 's1' },
+    STAT3888: { status: 'candidate', year: '2028', semester: 's2' },
+    WRIT1000: { status: 'candidate' },
+    MATH2069: { status: 'locked', year: '2027', semester: 'winter' },
+    DATA1001: { status: 'avoid', year: '2026', semester: 's1' },
+    OLD9999: { status: 'locked', year: '2029', semester: 's2' },
+    ECON1003: { status: 'candidate', year: '2027', semester: 'invalid' }
+  };
+  const snapshot = JSON.stringify(entries);
+  const report = model.buildSemesterExport(entries, [{ id: '2026-s1', label: '2026 S1' }, { id: '2026-s2', label: '2026 S2' }]);
+  assert.deepEqual(report.totals, { completed: 6, locked: 12, candidate: 18 });
+  assert.deepEqual(report.semesters.map(stage => stage.id), ['2026-s1', '2026-s2', '2027-july', '2028-s1', '2028-s2', '2029-s2']);
+  assert.equal(report.semesters[1].courses.length, 0);
+  assert.deepEqual(report.unassigned.map(row => row.code), ['ECON1003', 'WRIT1000']);
+  assert.equal(report.semesters.at(-1).courses[0].cp, null, 'Unknown records must not silently receive 6cp');
+  assert.equal(report.semesters[0].courses[0].name, 'Introduction to Programming');
+  assert.equal(JSON.stringify(entries), snapshot);
+  const document = model.renderSemesterExport(report, '2026/10/20');
+  assert.equal((document.match(/<h1>/g) || []).length, 1, 'Multi-year exports have one document title');
+  assert.match(document, /未安排学期/);
+  assert.match(document, /待核对学分未计入合计/);
+  assert.doesNotMatch(document, /DATA1001|mark|80/);
+});
+
+test('empty semester export does not convert recommendations into selections and escapes stored text', () => {
+  const empty = model.buildSemesterExport({}, [{ id: '2028-s1', label: '2028 S1' }]);
+  const document = model.renderSemesterExport(empty, '2026/10/20');
+  assert.match(document, /暂无已安排课程/);
+  assert.doesNotMatch(document, /STAT3022|COMP3027/);
+  const hostile = model.buildSemesterExport({ '<img src=x onerror=alert(1)>': { status: 'candidate' } }, []);
+  const escaped = model.renderSemesterExport(hostile, '<script>alert(1)</script>');
+  assert.doesNotMatch(escaped, /<img|<script>/);
+  assert.match(escaped, /&lt;img/);
 });

@@ -13,6 +13,7 @@ Main features:
 - Dashboard for degree credits, CS major, Statistics minor, OLE, WAM and workload estimates.
 - Expandable major/minor structure with separate completed, locked and candidate credits for each requirement.
 - Semester plan with locked, candidate and completed courses synced from the course library.
+- Semester PDF overview through the plan's Export PDF button: choose Save as PDF in the browser print dialog. Includes selected courses, per-semester credits and statuses, plus an unassigned section; grey recommendations are excluded.
 - Course library with search, prefix/type/workload/year filters and local course status marking.
 - Prerequisite map for CS, statistics, maths, data and other electives.
 - Reading preparation and academic reference section.

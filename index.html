@@ -5724,6 +5724,30 @@
       font-size: .98rem;
     }
 
+    #plans .plan-section-head {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    #exportSemesterPdf {
+      flex: 0 0 auto;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .semester-export-status {
+      color: var(--danger);
+      font-size: .85rem;
+    }
+
+    .semester-export-status:empty { display: none; }
+
+    @media print {
+      #exportSemesterPdf, .semester-export-status { display: none !important; }
+    }
+
     #guidelines .grid-3 {
       counter-reset: principle;
       gap: 8px;
@@ -6692,7 +6716,11 @@
       </section>
 
       <section id="plans" class="section-card">
-        <div class="section-head"><span class="section-kicker">学期计划</span><h2>学期计划</h2></div>
+        <div class="section-head plan-section-head">
+          <span class="section-kicker">学期计划</span><h2>学期计划</h2>
+          <button class="clear-filters" id="exportSemesterPdf" type="button" title="导出学期选课总览，通过打印窗口存为 PDF"><span aria-hidden="true">↓</span> 导出 PDF</button>
+        </div>
+        <p id="semesterExportStatus" class="semester-export-status" role="status"></p>
         <div class="roadmap-shell">
 
           <div class="roadmap-panel" data-roadmap-panel="timeline">
@@ -8442,6 +8470,27 @@
         links: [["Official Unit Page", "https://www.sydney.edu.au/units/INFO3315"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/INFO3315/2026-S2C-ND-CC"]]
       },
       {
+        code: "BUSS1040",
+        name: "Economics for Business Decision Making",
+        cp: "6cp",
+        category: ["business", "elective"],
+        level: "1000",
+        workload: "Medium",
+        skills: ["math", "finance", "critical thinking", "writing"],
+        functionTags: ["direction exploration"],
+        best: "2026 S1 / S2；想了解商业决策背后的微观与宏观经济学时",
+        later: "商业分析、定价、市场策略与经济学方向探索",
+        summary: "从消费者、企业与市场出发，用微观和宏观经济学分析定价、竞争、商业策略及政策环境。",
+        teaches: ["comparative advantage、production and costs", "demand and supply、elasticity、market equilibrium", "competition、market power、strategic interaction", "market failures、government intervention、GDP、inflation and stabilisation policy"],
+        matters: "补充技术与数据学习之外的商业判断，可用于分析产品定价、平台竞争与政策影响。在当前 BSc 规划中计入其他学分，不计入 CS Major 或 Statistics minor；压力等级为规划估计。",
+        before: ["无 prerequisite 或 corequisite", "Prohibition：ECON1001 / ECON1040", "Assumed knowledge：NSW HSC Advanced Mathematics band 4，或 Mathematics Extension 1/2 band E3，或 MATH1111", "2026 S2：期末 50%、期中 30%、线上测验合计 15%、tutorial 参与 5%；其他学期需重新核对"],
+        mastery: ["能用微观与宏观概念解释真实商业情境", "能用模型和图形分析企业决策及市场结果", "能评价竞争、市场失灵和政策干预的影响", "能清楚书面表达假设、推理与经济含义"],
+        how: ["每个模型按假设、图形、计算、商业解释整理", "将市场结构与现实产品的定价策略配对分析", "练习限时选择、简答和计算题，定期复习 tutorial 问题"],
+        terms: ["opportunity cost — 机会成本", "comparative advantage — 比较优势", "elasticity — 弹性", "market power — 市场势力", "market failure — 市场失灵", "inflation — 通货膨胀"],
+        readings: ["Essentials of Microeconomics — Bonnie Nguyen and Andrew Wait，第 2 版（2024）：2026 S2 outline 指定阅读。", "BUSS1040 Leganto reading list — 从 Canvas 查看当期阅读清单与章节。"],
+        links: [["Official Unit Page", "https://www.sydney.edu.au/units/BUSS1040"], ["2026 S2 Unit Outline", "https://www.sydney.edu.au/units/BUSS1040/2026-S2C-ND-CC"]]
+      },
+      {
         code: "ECON1003",
         name: "Quantitative Methods in Economics",
         cp: "6cp",
@@ -8528,6 +8577,7 @@
     );
 
     const courseAvailability = {
+      BUSS1040: "2026 S1 / S2",
       MATH2069: "2026 S1",
       QBUS3330: "2026 S2",
       STAT3888: "2026 S2",
@@ -8671,6 +8721,7 @@
     });
 
     const unitSourceAccessDates = {
+      BUSS1040: "2026-10-20",
       WRIT1000: "2026-08-30",
       MATH2069: "2026-08-29", QBUS3330: "2026-08-29", STAT3888: "2026-08-29",
       DECO1016: "2026-08-29",
@@ -9087,6 +9138,13 @@
     }
 
 	    const prerequisiteNotes = {
+          BUSS1040: {
+            requires: ["无指定先修课程"],
+            prohibitions: ["ECON1001 / ECON1040"],
+            assumed: ["HSC Advanced Mathematics band 4，或 Extension 1/2 band E3，或 MATH1111"],
+            note: "无 corequisite；数学要求属于 assumed knowledge，不画成硬性先修箭头。",
+            graph: false
+          },
           DECO1016: {
             eligibility: "Design Computing 限定",
             requires: ["无指定先修课程"],
@@ -9356,6 +9414,7 @@
     }
 
     const readingTargets = [
+      { codes: ["BUSS1040"], tab: "elective", group: "BUSS1040 — 商业决策经济学" },
       { codes: ["SOFT2201", "SOFT2412"], tab: "elective", group: "SOFT2201 · SOFT2412 — 软件构建与团队开发" },
       { codes: ["SOFT3202"], tab: "elective", group: "SOFT3202 — 高级软件设计与验证" },
       { codes: ["INFO3315"], tab: "elective", group: "INFO3315 — 人机交互与用户研究" },
@@ -10513,6 +10572,126 @@
       return { cp, score, locked, candidate, completed, pressure, statusText: statusParts.join(" / ") };
     }
 
+    function buildSemesterExport(statuses, stages) {
+      const groups = new Map(stages.map(stage => [stage.id, { ...stage, courses: [] }]));
+      const unassigned = [];
+      const totals = { completed: 0, locked: 0, candidate: 0 };
+      const termOrder = { s1: 0, july: 1, s2: 2, summer: 3 };
+      Object.entries(statuses).forEach(([code, entry]) => {
+        if (!entry || !Object.hasOwn(totals, entry.status)) return;
+        const course = courseByCode(code);
+        const row = { code, name: course?.name || "课程库中未找到，学分待核对", cp: course ? creditPoints(course) : null, status: entry.status };
+        totals[entry.status] += row.cp || 0;
+        const semester = entry.semester === "winter" ? "july" : entry.semester;
+        if (!/^\d{4}$/.test(String(entry.year || "")) || !Object.hasOwn(termOrder, semester)) {
+          unassigned.push(row);
+          return;
+        }
+        const id = stageIdFor(entry.year, semester);
+        if (!groups.has(id)) groups.set(id, { id, label: `${entry.year} ${SEM_LABELS[semester]}`, courses: [] });
+        groups.get(id).courses.push(row);
+      });
+      const semesters = Array.from(groups.values()).sort((a, b) => {
+        const [aYear, aTerm] = a.id.split("-");
+        const [bYear, bTerm] = b.id.split("-");
+        return Number(aYear) - Number(bYear) || termOrder[aTerm] - termOrder[bTerm];
+      });
+      const compare = (a, b) => a.code.localeCompare(b.code, "en");
+      semesters.forEach(stage => stage.courses.sort(compare));
+      unassigned.sort(compare);
+      return { semesters, unassigned, totals };
+    }
+
+    function renderSemesterExport(report, dateLabel) {
+      const cpTotal = rows => rows.reduce((sum, row) => sum + (row.cp || 0), 0);
+      const table = rows => `<table><colgroup><col class="code-col"><col><col class="cp-col"><col class="state-col"></colgroup>
+        <thead><tr><th>课号</th><th>课程名称</th><th class="numeric">学分</th><th>状态</th></tr></thead>
+        <tbody>${rows.map(row => `<tr><td class="unit-code">${escapeHtml(row.code)}</td><td>${escapeHtml(row.name)}</td><td class="numeric">${row.cp === null ? "待核对" : `${row.cp}cp`}</td><td><span class="state ${row.status}">${STATUS_LABEL[row.status]}</span></td></tr>`).join("")}</tbody></table>`;
+      const years = new Map();
+      report.semesters.forEach(stage => {
+        const year = stage.id.split("-")[0];
+        if (!years.has(year)) years.set(year, []);
+        years.get(year).push(stage);
+      });
+      const header = `<header class="report-header"><div class="title-line"><h1>学期选课总览</h1><span class="date">${escapeHtml(dateLabel)}</span></div><p>Bachelor of Science · Computer Science Major · Statistics Minor</p></header>`;
+      const summary = `<div class="summary">${Object.entries(report.totals).map(([status, cp]) => `<div><span>${STATUS_LABEL[status]}</span><strong>${cp}cp</strong></div>`).join("")}<div><span>合计</span><strong>${Object.values(report.totals).reduce((sum, cp) => sum + cp, 0)}cp</strong></div></div>`;
+      const content = Array.from(years, ([year, semesters]) => `<section class="year">
+        <div class="year-heading"><h2>${escapeHtml(year)} 年</h2><span>已排 ${cpTotal(semesters.flatMap(stage => stage.courses))}cp</span></div>
+        ${semesters.map(stage => `<section class="semester${stage.courses.length ? "" : " empty-term"}"><div class="semester-heading"><h3>${escapeHtml(stage.label)}</h3><span>${stage.courses.length ? `${cpTotal(stage.courses)}cp · ${stage.courses.length} 门` : "暂无已安排课程"}</span></div>${stage.courses.length ? table(stage.courses) : ""}</section>`).join("")}</section>`).join("");
+      const unassigned = report.unassigned.length ? `<section class="year"><div class="year-heading"><h2>未安排学期</h2><span>${cpTotal(report.unassigned)}cp · ${report.unassigned.length} 门</span></div>${table(report.unassigned)}</section>` : "";
+      const hasUnknownCredits = [...report.semesters.flatMap(stage => stage.courses), ...report.unassigned].some(row => row.cp === null);
+      return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="color-scheme" content="light"><title>USYD 学期选课总览</title><style>
+        @page { size: A4 portrait; margin: 14mm; @bottom-right { content: counter(page) " / " counter(pages); font-size: 8pt; color: #667085; } }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #fff; color: #171b22; font: 10pt/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", Arial, sans-serif; }
+        .year { margin-top: 16px; }
+        .report-header { border-bottom: 2px solid #171b22; padding-bottom: 8px; margin-bottom: 8px; }
+        .title-line { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+        h1 { margin: 0 0 4px; font-size: 18pt; line-height: 1.2; }
+        .report-header > p { margin: 0; color: #475467; font-size: 8pt; }
+        .date { color: #667085; font-size: 8pt; }
+        .summary { display: flex; border-bottom: 1px solid #dce1e8; padding-bottom: 8px; gap: 28px; }
+        .summary > div { display: flex; align-items: baseline; gap: 7px; }
+        .summary span { font-size: 8pt; color: #667085; }
+        .summary strong { font-size: 12pt; }
+        .year-heading, .semester-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; break-after: avoid; }
+        .year-heading { margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #b8c2cf; }
+        h2 { margin: 0; font-size: 13pt; }
+        h3 { margin: 0; font-size: 10pt; }
+        .year-heading > span, .semester-heading > span { color: #667085; font-size: 9pt; white-space: nowrap; }
+        .semester { margin-bottom: 10px; }
+        .semester-heading { margin-bottom: 5px; }
+        .empty-term { margin-bottom: 8px; }
+        .empty-term .semester-heading { margin-bottom: 0; }
+        .empty-term h3 { color: #667085; font-size: 9pt; font-weight: 500; }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        .code-col { width: 25%; } .cp-col { width: 11%; } .state-col { width: 13%; }
+        thead { display: table-header-group; }
+        tr { break-inside: avoid; }
+        th, td { padding: 5px 8px; border-bottom: 1px solid #e3e7ed; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+        th { background: #f1f4f7; color: #667085; font-size: 8pt; font-weight: 600; }
+        td { font-size: 9pt; }
+        .unit-code { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 600; }
+        .numeric { text-align: right; white-space: nowrap; }
+        .state { white-space: nowrap; font-weight: 600; }
+        .completed { color: #277a52; } .locked { color: #171b22; } .candidate { color: #1769d2; }
+        .report-note { color: #667085; font-size: 8pt; margin-top: 12px; }
+        @media print { * { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+      </style></head><body>${header}${summary}${content}${unassigned}<p class="report-note">仅汇总已完成、锁定与候选课程；灰色推荐不计入。${hasUnknownCredits ? "待核对学分未计入合计。" : ""}</p></body></html>`;
+    }
+
+    document.querySelector("#exportSemesterPdf")?.addEventListener("click", () => {
+      const button = document.querySelector("#exportSemesterPdf");
+      const message = document.querySelector("#semesterExportStatus");
+      const stages = Array.from(document.querySelectorAll(".road-semester"), stage => ({ id: stage.dataset.stageId, label: stage.dataset.stageName }));
+      const report = buildSemesterExport(readCourseStatuses(), stages);
+      const date = new Intl.DateTimeFormat("zh-CN", { timeZone: "Australia/Sydney", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+      document.querySelector("#semesterPdfFrame")?.remove();
+      const frame = document.createElement("iframe");
+      frame.id = "semesterPdfFrame";
+      frame.title = "学期选课 PDF";
+      frame.setAttribute("aria-hidden", "true");
+      frame.tabIndex = -1;
+      frame.style.cssText = "position:fixed;left:-10000px;top:0;width:794px;height:1123px;border:0;";
+      button.disabled = true;
+      message.textContent = "";
+      frame.onload = async () => {
+        try {
+          await frame.contentDocument.fonts.ready;
+          frame.contentWindow.addEventListener("afterprint", () => frame.remove(), { once: true });
+          frame.contentWindow.focus();
+          frame.contentWindow.print();
+        } catch {
+          message.textContent = "无法打开打印窗口，请重试。";
+          frame.remove();
+        } finally {
+          button.disabled = false;
+        }
+      };
+      frame.srcdoc = renderSemesterExport(report, date);
+      document.body.appendChild(frame);
+    });
+
     function updateTimelineHeaders(statuses) {
       document.querySelectorAll(".road-semester").forEach(stage => {
         const entries = entriesForStage(statuses, stage.dataset.stageId);
@@ -10883,6 +11062,10 @@
       ],
 
       elective: [
+        { group: "BUSS1040 — 商业决策经济学", books: [
+          { zh: "Essentials of Microeconomics（暂无通行中文译名）", en: "Essentials of Microeconomics — Bonnie Nguyen, Andrew Wait, 2nd edition (2024)", why: "2026 S2 outline 指定阅读，配合成本、供需、定价与竞争主题学习。" },
+          { zh: "BUSS1040 当期阅读清单", en: "BUSS1040 Leganto reading list via Canvas", why: "按当期清单核对章节与宏观经济学材料。" }
+        ]},
         { group: "WRIT1000 · WRIT1001 — 学术写作与修辞", books: [
           { zh: "They Say / I Say（暂无通行中文译名）", en: "They Say / I Say — Gerald Graff, Cathy Birkenstein", why: "用模板理解学术对话、claim、evidence 和 counterpoint，适合短篇论证写作。" },
           { zh: "《研究的艺术》", en: "The Craft of Research — Wayne C. Booth, Gregory G. Colomb, Joseph M. Williams", why: "把研究问题、资料、证据、论证和成稿连接起来，适合统计报告与项目文档。" },
