@@ -6777,7 +6777,7 @@
           <details class="filter-drawer">
             <summary>
               <span>筛选课程</span>
-              <small>课号前缀 · 类型 · 压力 · 年级 · 状态</small>
+              <small>课号前缀 · 类型 · 压力 · 年级 · 开课学期 · 状态</small>
             </summary>
             <div class="filter-drawer-body">
               <div class="filters" id="filters"></div>
@@ -8637,6 +8637,9 @@
 
     courses.forEach(course => {
       course.availability = courseAvailability[course.code] || "需按当年 Handbook / Sydney Student 核对";
+      const regularTerms = course.availability.split(/；|（| \/ January/, 1)[0];
+      const confirmed = !course.availability.includes("核对") && /^2026 (S[12])(?: \/ (S[12]))?$/.exec(regularTerms);
+      course.confirmedSemesters = confirmed ? confirmed.slice(1).filter(Boolean) : [];
     });
 
     const majorStructureRequirements = [
@@ -8974,7 +8977,8 @@
       { label: "课号前缀", key: "prefix", values: ["all", ...codePrefixes] },
       { label: "课程类型", key: "category", values: ["all", "core", "math", "statistics", "data", "systems", "ai", "project", "psychology", "business", "ole", "elective"] },
       { label: "压力", key: "workload", values: ["all", "Low", "Medium", "Medium-High", "High", "Very High"] },
-      { label: "年级", key: "level", values: ["all", "1000", "2000", "3000"] }
+      { label: "年级", key: "level", values: ["all", "1000", "2000", "3000"] },
+      { label: "预计开课学期", key: "confirmedSemesters", values: ["all", "S1", "S2"] }
     ];
 
     const filterValueLabels = {
@@ -9027,7 +9031,7 @@
       "graduation requirement": "毕业要求"
     };
 
-    const activeFilters = { prefix: "all", category: "all", workload: "all", level: "all" };
+    const activeFilters = { prefix: "all", category: "all", workload: "all", level: "all", confirmedSemesters: "all" };
     const filterRoot = document.querySelector("#filters");
     const courseList = document.querySelector("#courseList");
     const search = document.querySelector("#search");

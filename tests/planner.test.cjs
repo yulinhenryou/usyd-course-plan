@@ -22,7 +22,8 @@ const model = new Function('localStorage', [
   section('    function stageIdFor(', '    function ensureTimelineTerms('),
   section('    function escapeHtml(', '    function collectCourseUnitSources('),
   section('    function buildSemesterExport(', '    document.querySelector("#exportSemesterPdf")'),
-  'return { courses, majorStructureRequirements, progressTargets, calculateDegreeCredits, evaluateStructureSlot, courseLevelRank, courseImportanceRank, buildSemesterExport, renderSemesterExport };'
+  section('    function filterMatches(', '    function applyFilters('),
+  'return { courses, majorStructureRequirements, progressTargets, calculateDegreeCredits, evaluateStructureSlot, courseLevelRank, courseImportanceRank, buildSemesterExport, renderSemesterExport, filterMatches };'
 ].join('\n'))({ getItem: () => null });
 
 const { courses, majorStructureRequirements: requirements, calculateDegreeCredits: calculate } = model;
@@ -51,6 +52,21 @@ test('new maths, business and statistics courses have complete verified metadata
     assert.equal(course.cp, '6cp');
     assert.equal(course.availability, `2026 ${term}`);
     assert.ok(course.links.some(([, url]) => url === `https://www.sydney.edu.au/units/${code}`));
+  }
+});
+
+test('semester filters require a confirmed 2026 regular offering', () => {
+  const matches = (code, term) => model.filterMatches(byCode(code), 'confirmedSemesters', term);
+  assert.equal(matches('STAT3022', 'S1'), true);
+  assert.equal(matches('STAT3022', 'S2'), false);
+  assert.equal(matches('STAT3023', 'S1'), false);
+  assert.equal(matches('STAT3023', 'S2'), true);
+  for (const code of ['BUSS1040', 'JPNS1611', 'SCDL2991', 'EDGU1003']) {
+    for (const term of ['S1', 'S2']) assert.equal(matches(code, term), true, `${code} ${term}`);
+  }
+  for (const code of ['COMP2123', 'COMP3109', 'COMP2017', 'OLET1666']) {
+    for (const term of ['S1', 'S2']) assert.equal(matches(code, term), false, `${code} ${term}`);
+    assert.equal(matches(code, 'all'), true);
   }
 });
 
